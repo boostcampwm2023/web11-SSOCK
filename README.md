@@ -1,6 +1,6 @@
 # 🎄 web11-SSOCK
 
-<table>
+<table align="center">
   <th>J034</th>
   <th>J064</th>
   <th>J082</th>
