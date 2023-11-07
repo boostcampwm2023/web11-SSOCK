@@ -10,15 +10,22 @@ export class AuthController {
   @Get('google/redirect')
   @UseGuards(AuthGuard('google'))
   async googleLoginCallback(@Req() req, @Res() res): Promise<void> {
-    const jwt: string = req.user.jwt;
-    if (jwt) {
+    const profile: string = req.user.profile;
+    if (profile) {
       res.redirect('http://localhost:3000/');
     } else res.redirect('http://localhost:3000/failure');
   }
 
-  @Get('protected')
-  @UseGuards(AuthGuard('jwt'))
-  protectedResource() {
-    return 'JWT is working!';
+  @Get('naver')
+  @UseGuards(AuthGuard('naver'))
+  async snsLogin4Naver(): Promise<void> {}
+
+  @Get('naver/redirect')
+  @UseGuards(AuthGuard('naver'))
+  async snsLogin4NaverCallBack(@Req() req, @Res() res): Promise<void> {
+    const profile: string = req.user.profile;
+    if (profile) {
+      res.redirect('http://localhost:3000/');
+    } else res.redirect('http://localhost:3000/failure');
   }
 }

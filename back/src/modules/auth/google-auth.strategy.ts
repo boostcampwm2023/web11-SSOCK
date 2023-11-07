@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
-import { Strategy } from 'passport-google-oauth20';
+import { Profile, Strategy } from 'passport-google-oauth20';
 
 @Injectable()
-export class GoogleAuthService extends PassportStrategy(Strategy, 'google') {
+export class GoogleAuthStrategy extends PassportStrategy(Strategy, 'google') {
   constructor() {
     super({
       clientID: `${process.env.GOOGLE_CLIENT_ID}`,
@@ -23,15 +23,13 @@ export class GoogleAuthService extends PassportStrategy(Strategy, 'google') {
     request: any,
     accessToken: string,
     refreshToken: string,
-    profile,
+    profile: Profile,
     done: any
   ) {
     try {
       console.log(profile);
-
-      const jwt = 'placeholderJWT';
       const user = {
-        jwt
+        profile
       };
       done(null, user);
     } catch (err) {
