@@ -68,7 +68,7 @@ const Tree: React.FC = () => {
       <directionalLight position={[2, 5, 3]} intensity={1} />
 
       <MyModel
-        url={require('./assets/tree_2.glb')}
+        url={'./tree_2.glb'}
         scale={0.5}
         position={new THREE.Vector3(0, 10, 0)}
       />
