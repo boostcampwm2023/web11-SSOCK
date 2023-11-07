@@ -1,16 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
-import { Profile, Strategy } from 'passport-naver-v2';
+import { Profile, Strategy } from 'passport-kakao';
 
 @Injectable()
-export class NaverAuthStrategy extends PassportStrategy(Strategy, 'naver') {
+export class KakaoAuthStrategy extends PassportStrategy(Strategy, 'kakao') {
   constructor() {
     super({
-      clientID: `${process.env.NAVER_CLIENT_ID}`,
-      clientSecret: `${process.env.NAVER_SECRET}`,
-      callbackURL: 'http://localhost:3000/auth/naver/redirect', // redirect_uri
+      clientID: `${process.env.KAKAO_CLIENT_ID}`,
+      clientSecret: `${process.env.KAKAO_SECRET}`,
+      callbackURL: 'http://localhost:3000/auth/kakao/redirect', // redirect_uri
       passReqToCallback: true,
-      scope: ['profile']
+      scope: ['profile_nickname']
     });
   }
 

@@ -18,11 +18,24 @@ export class AuthController {
 
   @Get('naver')
   @UseGuards(AuthGuard('naver'))
-  async snsLogin4Naver(): Promise<void> {}
+  async naverLogin(): Promise<void> {}
 
   @Get('naver/redirect')
   @UseGuards(AuthGuard('naver'))
-  async snsLogin4NaverCallBack(@Req() req, @Res() res): Promise<void> {
+  async naverLoginCallBack(@Req() req, @Res() res): Promise<void> {
+    const profile: string = req.user.profile;
+    if (profile) {
+      res.redirect('http://localhost:3000/');
+    } else res.redirect('http://localhost:3000/failure');
+  }
+
+  @Get('kakao')
+  @UseGuards(AuthGuard('kakao'))
+  async kakaologin(): Promise<void> {}
+
+  @Get('kakao/redirect')
+  @UseGuards(AuthGuard('kakao'))
+  async kakaologinCallBack(@Req() req, @Res() res): Promise<void> {
     const profile: string = req.user.profile;
     if (profile) {
       res.redirect('http://localhost:3000/');
