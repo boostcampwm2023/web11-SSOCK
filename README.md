@@ -7,11 +7,11 @@
   <th>J074</th>
   <th>J160</th>
   <tr>
-    <td><img src="https://avatars.githubusercontent.com/u/98443541?v=5" width="180" height="180"/></td>
-    <td><img src="https://avatars.githubusercontent.com/u/96722691?v=5" width="180" height="180"/></td>
-    <td><img src="https://avatars.githubusercontent.com/u/62386148?v=5" width="180" height="180"/></td>
-    <td><img src="https://avatars.githubusercontent.com/u/83938394?v=5" width="180" height="180"/></td>
-    <td><img src="https://avatars.githubusercontent.com/u/33882299?v=5" width="180" height="180"/></td>
+    <td><img src="https://avatars.githubusercontent.com/u/98443541?v=5" width="140" height="140"/></td>
+    <td><img src="https://avatars.githubusercontent.com/u/96722691?v=5" width="140" height="140"/></td>
+    <td><img src="https://avatars.githubusercontent.com/u/62386148?v=5" width="140" height="140"/></td>
+    <td><img src="https://avatars.githubusercontent.com/u/83938394?v=5" width="140" height="140"/></td>
+    <td><img src="https://avatars.githubusercontent.com/u/33882299?v=5" width="140" height="140"/></td>
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/kcwww">김찬우</a>
@@ -33,14 +33,6 @@
   </tr>
 </table>
 
-## 협업 전략
+## [스프린트 계획회의](https://github.com/boostcampwm2023/web11-SSOCK/wiki)
 
-## 그라운드롤
-
-## [기획/디자인]()
-
-## [Commit Convention]()
-
-## [스프린트 계획회의](https://github.com/boostcampwm2023/web11-SSOCK/wiki/%F0%9F%92%A1-%EC%8A%A4%ED%94%84%EB%A6%B0%ED%8A%B8-%EA%B3%84%ED%9A%8D%ED%9A%8C%EC%9D%98-%E2%80%90-MON)
-
-## [데일리 스크럼](https://github.com/boostcampwm2023/web11-SSOCK/wiki/%F0%9F%97%A3%EF%B8%8F-%EB%8D%B0%EC%9D%BC%EB%A6%AC-%EC%8A%A4%ED%81%AC%EB%9F%BC)
+## [Notion](https://delicious-halloumi-7ae.notion.site/SSOCK-By-SSOCK-ada468a8b135435bb8acc1c50a2a9c0c?pvs=4)
