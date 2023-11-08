@@ -41,8 +41,12 @@ const App = () => {
         <Canvas>
           {/* <CustomCamera /> */}
           <OrbitControls />
-          <ambientLight intensity={0.3} />
-          <directionalLight position={[0, 1, 0]} intensity={3} />
+          <ambientLight intensity={0.3} color={'#cfcabb'} />
+          <directionalLight
+            position={[0, 1, 0]}
+            intensity={3}
+            color={'#e2bb83'}
+          />
 
           {/* <Glass />
           <Tree />

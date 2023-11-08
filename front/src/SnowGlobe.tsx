@@ -47,14 +47,14 @@ const SnowGlobe: React.FC = () => {
     './cubemap/sleepyhollow_lf.jpg'
   ]);
   const { scene } = useThree();
-  //scene.background = envMap;
+  scene.background = envMap;
   return (
     <>
       {/* Environment는 drie에서 제공하는 광원 ➡️ HDRIs파일 🟰 그림이 빛 역할 */}
       {/* <Environment background files={'./christmas_photo_studio_01_4k.hdr'} /> */}
 
       <MyModel
-        url={'./test6.glb'}
+        url={'./test7.glb'}
         scale={3}
         position={new THREE.Vector3(0, 0, 0)}
       />
