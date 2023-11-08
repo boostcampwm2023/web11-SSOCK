@@ -15,18 +15,18 @@ const fallingModel = (
   modelRef: THREE.Object3D | null,
   speedRef: React.MutableRefObject<THREE.Vector3>
 ) => {
-  const airResistance = 0.01;
+  const airResistance = 0.02;
   const gravity = 0.1 / 60;
   if (modelRef) {
     modelRef.position.add(speedRef.current);
     speedRef.current.y -= gravity;
     speedRef.current.y *= 1 - airResistance;
 
-    if (modelRef.position.y <= 1.1 && Math.abs(speedRef.current.y) <= 0.02) {
+    if (modelRef.position.y <= 0.1 && Math.abs(speedRef.current.y) <= 0.02) {
       speedRef.current = new THREE.Vector3(0, 0, 0);
     }
 
-    if (modelRef.position.y <= 1.0) {
+    if (modelRef.position.y <= 0) {
       speedRef.current.y *= -1;
     }
   }
