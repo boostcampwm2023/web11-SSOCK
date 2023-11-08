@@ -1,12 +1,17 @@
-import { ButtonColor, ButtonProps } from '../../utils/utils';
 import theme from '../../utils/theme';
 import styled from 'styled-components';
 
+interface ButtonColor {
+  color: string;
+}
+
+interface ButtonProps {
+  text: string;
+  color: string;
+}
+
 const StyledButton = styled.button<ButtonColor>`
-  background-color: ${props =>
-    props.color === 'red'
-      ? theme.colors.primaryRedPrimary
-      : theme.colors.primaryGreenPrimary};
+  background-color: ${props => props.color};
   font-family: 'YUniverse-B';
   font-size: 18px;
   line-height: 150%;
@@ -16,6 +21,7 @@ const StyledButton = styled.button<ButtonColor>`
   padding: 10px;
   margin: 4px;
   color: white;
+  border: 1px solid white;
 
   @media (min-width: ${theme.size.maxWidth}) {
     width: 600px;
