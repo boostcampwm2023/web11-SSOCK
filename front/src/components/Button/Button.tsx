@@ -12,9 +12,7 @@ interface ButtonProps {
 
 const StyledButton = styled.button<ButtonColor>`
   background-color: ${props => props.color};
-  font-family: 'YUniverse-B';
-  font-size: 18px;
-  line-height: 150%;
+  font: ${theme.font['--normal-button-font']};
   border-radius: 999px;
   width: 66.6667%;
   height: 48px;

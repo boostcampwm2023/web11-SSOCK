@@ -22,11 +22,11 @@ const fallingModel = (
     speedRef.current.y -= gravity;
     speedRef.current.y *= 1 - airResistance;
 
-    if (modelRef.position.y <= 0.1 && Math.abs(speedRef.current.y) <= 0.02) {
+    if (modelRef.position.y <= 1.1 && Math.abs(speedRef.current.y) <= 0.02) {
       speedRef.current = new THREE.Vector3(0, 0, 0);
     }
 
-    if (modelRef.position.y <= 0) {
+    if (modelRef.position.y <= 1.0) {
       speedRef.current.y *= -1;
     }
   }
@@ -41,7 +41,7 @@ const fallingModel = (
 const MyModel: React.FC<MyModelProps> = ({ url, scale, position }) => {
   const gltf = useGLTF(url);
   const modelRef = useRef<THREE.Object3D>(null); //이안에 위치 정보 들어있음
-  const speedRef = useRef(new THREE.Vector3(0, -0.01, 0)); //이건 속도 정보 r
+  const speedRef = useRef(new THREE.Vector3(0, -0.01, 0)); //이건 속도 정보
 
   //되게 저번에 어렵게 생각했었는데 사실 3차원 세상에서 필요한건 지금 내 위치랑 속도밖에 없음
   //하나의 모델있잖아 얘는 위치랑 속도만 가지고 있으면 되고
@@ -67,8 +67,8 @@ const Tree: React.FC = () => {
     './cubemap/flames_rt.jpg',
     './cubemap/flames_lf.jpg'
   ]);
-  const { scene } = useThree();
-  scene.background = envMap;
+  //const { scene } = useThree();
+  //scene.background = envMap;
   return (
     <>
       {/* Environment는 drie에서 제공하는 광원 ➡️ HDRIs파일 🟰 그림이 빛 역할 */}
@@ -76,7 +76,7 @@ const Tree: React.FC = () => {
 
       <MyModel
         url={'./tree_2.glb'}
-        scale={0.5}
+        scale={0.2}
         position={new THREE.Vector3(0, 10, 0)}
       />
     </>
