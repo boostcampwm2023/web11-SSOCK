@@ -10,15 +10,35 @@ export class AuthController {
   @Get('google/redirect')
   @UseGuards(AuthGuard('google'))
   async googleLoginCallback(@Req() req, @Res() res): Promise<void> {
-    const jwt: string = req.user.jwt;
-    if (jwt) {
+    const profile: string = req.user.profile;
+    if (profile) {
       res.redirect('http://localhost:3000/');
     } else res.redirect('http://localhost:3000/failure');
   }
 
-  @Get('protected')
-  @UseGuards(AuthGuard('jwt'))
-  protectedResource() {
-    return 'JWT is working!';
+  @Get('naver')
+  @UseGuards(AuthGuard('naver'))
+  async naverLogin(): Promise<void> {}
+
+  @Get('naver/redirect')
+  @UseGuards(AuthGuard('naver'))
+  async naverLoginCallBack(@Req() req, @Res() res): Promise<void> {
+    const profile: string = req.user.profile;
+    if (profile) {
+      res.redirect('http://localhost:3000/');
+    } else res.redirect('http://localhost:3000/failure');
+  }
+
+  @Get('kakao')
+  @UseGuards(AuthGuard('kakao'))
+  async kakaologin(): Promise<void> {}
+
+  @Get('kakao/redirect')
+  @UseGuards(AuthGuard('kakao'))
+  async kakaologinCallBack(@Req() req, @Res() res): Promise<void> {
+    const profile: string = req.user.profile;
+    if (profile) {
+      res.redirect('http://localhost:3000/');
+    } else res.redirect('http://localhost:3000/failure');
   }
 }
