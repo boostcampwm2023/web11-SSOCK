@@ -46,7 +46,7 @@ const MyModel: React.FC<MyModelProps> = ({ url, scale, position }) => {
   //되게 저번에 어렵게 생각했었는데 사실 3차원 세상에서 필요한건 지금 내 위치랑 속도밖에 없음
   //하나의 모델있잖아 얘는 위치랑 속도만 가지고 있으면 되고
   //이 모델들의 속도를 관리해주는 메소드들을 앞으로 만들게 될것
-  //useFrame에는 속도에 따라 위치를 바꿔주는 단 한개의 함수만 있으면 만사 오케이 ㅇㅈ? 당신 뭐야?
+  //useFrame에는 속도에 따라 위치를 바꿔주는 단 한개의 함수만 있으면 만사 오케이 ㅇㅈ? <- 당신 뭐야?
   // 해 줘 구조를 그릴까 좀?
   useFrame(() => {
     fallingModel(modelRef.current, speedRef);
@@ -60,7 +60,7 @@ const MyModel: React.FC<MyModelProps> = ({ url, scale, position }) => {
 const Tree: React.FC = () => {
   const cubeTextureLoader = new CubeTextureLoader();
   const envMap = cubeTextureLoader.load([
-    './cubemap/flames_ft.jpg', //셈 cubemap 사진으로
+    './cubemap/flames_ft.jpg', //해주셈 cubemap 사진으로
     './cubemap/flames_bk.jpg',
     './cubemap/flames_up.jpg',
     './cubemap/flames_dn.jpg',

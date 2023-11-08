@@ -1,6 +1,6 @@
 import { Canvas } from '@react-three/fiber';
 import Tree from './Tree';
-import Cube from './Cube';
+import Cylinder from './Cylinder';
 import Glass from './Glass';
 import { OrbitControls } from '@react-three/drei';
 // import CustomCamera from './CustomCamera';
@@ -20,6 +20,7 @@ const CanvasBox = styled.div`
 
 const App = () => {
   return (
+
     <>
       <GlobalStyles />
 
@@ -32,13 +33,14 @@ const App = () => {
 
           <Glass />
           <Tree />
-          <Cube />
+          <Cylinder />
         </Canvas>
       </CanvasBox>
 
       <Button text={'버튼 텍스트를 입력해주세요.'} color={'red'} />
       <Button text={'버튼 텍스트를 입력해주세요.'} color={'green'} />
     </>
+
   );
 };
 
