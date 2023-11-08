@@ -3,6 +3,7 @@ import Tree from './Tree';
 import Cylinder from './Cylinder';
 import Glass from './Glass';
 import { OrbitControls } from '@react-three/drei';
+import SnowGlobe from './SnowGlobe';
 // import CustomCamera from './CustomCamera';
 import { Button } from './components';
 import GlobalStyles from './GlobalStyles';
@@ -40,12 +41,13 @@ const App = () => {
         <Canvas>
           {/* <CustomCamera /> */}
           <OrbitControls />
-          <ambientLight intensity={1} />
-          <directionalLight position={[2, 1, 3]} intensity={1} />
+          <ambientLight intensity={0.3} />
+          <directionalLight position={[0, 1, 0]} intensity={3} />
 
-          <Glass />
+          {/* <Glass />
           <Tree />
-          <Cylinder />
+          <Cylinder /> */}
+          <SnowGlobe />
         </Canvas>
       </CanvasBox>
 

@@ -13,13 +13,18 @@ const colors = {
   '--yellow-primary-2': '#EEA630'
 };
 
+const font = {
+  '--normal-button-font': `normal normal 700 18px/150% 'YUniverse-B'`
+};
+
 const size = {
   maxWidth: '900px'
 };
 
 const theme = {
   colors,
-  size
+  size,
+  font
 };
 
 export default theme;
