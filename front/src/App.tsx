@@ -11,16 +11,28 @@ import theme from './utils/theme';
 
 const CanvasBox = styled.div`
   margin: auto;
-  width: 70vw;
-  height: 70vh;
+  width: 100vw;
+  height: 100vh;
   @media (min-width: ${theme.size.maxWidth}) {
     width: ${theme.size.maxWidth};
   }
 `;
 
+const ButtonBox = styled.div`
+  position: fixed;
+  width: 100%;
+  @media (min-width: ${theme.size.maxWidth}) {
+    width: ${theme.size.maxWidth};
+  }
+  bottom: 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+`;
+
 const App = () => {
   return (
-
     <>
       <GlobalStyles />
 
@@ -37,10 +49,17 @@ const App = () => {
         </Canvas>
       </CanvasBox>
 
-      <Button text={'버튼 텍스트를 입력해주세요.'} color={'red'} />
-      <Button text={'버튼 텍스트를 입력해주세요.'} color={'green'} />
+      <ButtonBox>
+        <Button
+          text={'버튼 텍스트를 입력해주세요.'}
+          color={theme.colors['--primary-red-primary']}
+        />
+        <Button
+          text={'버튼 텍스트를 입력해주세요.'}
+          color={theme.colors['--primary-green-primary']}
+        />
+      </ButtonBox>
     </>
-
   );
 };
 

@@ -32,7 +32,7 @@ const GlobalStyles = createGlobalStyle`
   #root {
     width: 100%;
     height: 100vh;
-    background-color: #14212B;
+    background-color: ${theme.colors['--black-primary']};
     margin: auto;
     @media (min-width: ${theme.size.maxWidth}) {
       width: ${theme.size.maxWidth};
