@@ -17,10 +17,6 @@ const font = {
   '--normal-button-font': `normal normal 700 18px/150% 'YUniverse-B'`
 };
 
-const font = {
-  '--normal-button-font': `normal normal 700 18px/150% 'YUniverse-B'`
-};
-
 const size = {
   '--desktop-min-width': '1024px',
   '--dexktop-width': '800px',
