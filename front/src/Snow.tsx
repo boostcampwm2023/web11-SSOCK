@@ -1,15 +1,40 @@
-import * as THREE from 'three';
+import { Vector3 } from '@react-three/fiber';
+import { useFrame } from '@react-three/fiber';
+import { useRef } from 'react';
+import { Mesh } from 'three';
 
-const Snow: React.FC = () => {
-  //큐브가 아니라 원기둥 있거든?? cylinder로 바꿔서
-  const geometry = new THREE.SphereGeometry(3, 5, 5);
-  const material = new THREE.MeshBasicMaterial({ color: 0xffffff });
-  const cube = new THREE.Mesh(geometry, material);
+interface SnowProps {
+  position: Vector3;
+  radius: number;
+}
 
-  cube.position.set(-0.1, -0.5, 0.4);
-  cube.receiveShadow = true;
-
-  return <primitive object={cube} />;
+const Snow = (props: SnowProps) => {
+  const snowRef = useRef<Mesh>(null);
+  const speed = 0.05;
+  useFrame(() => {
+    if (snowRef.current) {
+      if (snowRef.current.position.y <= 0) {
+        snowRef.current.position.y = 22;
+      }
+      snowRef.current.position.y -= speed;
+      if (
+        snowRef.current.position.x ** 2 +
+          (snowRef.current.position.y - 8) ** 2 +
+          snowRef.current.position.z ** 2 >
+        13 ** 2
+      ) {
+        snowRef.current.visible = false;
+      } else {
+        snowRef.current.visible = true;
+      }
+    }
+  });
+  return (
+    <mesh position={props.position} ref={snowRef}>
+      <sphereGeometry args={[props.radius, 32, 16]} />
+      <meshStandardMaterial />
+    </mesh>
+  );
 };
 
 export default Snow;
