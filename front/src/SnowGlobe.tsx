@@ -4,6 +4,7 @@ import * as THREE from 'three';
 import { CubeTextureLoader } from 'three';
 import Tree from './Tree';
 import { useThree } from '@react-three/fiber';
+import Snow from './Snow';
 
 interface MyModelProps {
   url: string;
@@ -57,16 +58,30 @@ const SnowGlobe: React.FC = () => {
   ]);
   const { scene } = useThree();
   scene.background = envMap;
+  const center = new THREE.Vector3(0, 8, 0);
+  const radius = 14;
+  const snows = Array.from({ length: 100 }, (_, i) => (
+    <Snow
+      key={i}
+      position={
+        new THREE.Vector3(
+          center.x - radius + Math.random() * 2 * radius,
+          center.y + radius,
+          center.z - radius + Math.random() * 2 * radius
+        )
+      }
+      radius={0.5 + Math.random() * 0.5}
+    />
+  ));
+
   return (
     <>
-      {/* Environment는 drie에서 제공하는 광원 ➡️ HDRIs파일 🟰 그림이 빛 역할 */}
-      {/* <Environment background files={'./christmas_photo_studio_01_4k.hdr'} /> */}
-
       <MyModel
         url={'./snowglobe.glb'}
         scale={3}
         position={new THREE.Vector3(0, 0, 0)}
       />
+      {snows}
       <Tree />
     </>
   );
