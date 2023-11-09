@@ -11,13 +11,15 @@ const colors = {
   '--warning': '#FF4E70',
   '--primary-blue-p-variant': '#607F8F',
   '--yellow-primary-2': '#EEA630'
-};
+}; //rem이 특정 폰트 기준으로 계산 되는걸로 아는데
 
 const font = {
   '--normal-button-font': `normal normal 700 18px/150% 'YUniverse-B'`
 };
 
 const size = {
+  '--desktop-min-width': '1024px',
+  '--dexktop-width': '800px',
   maxWidth: '900px'
 };
 

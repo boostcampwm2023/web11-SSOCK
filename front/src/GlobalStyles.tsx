@@ -35,9 +35,6 @@ const GlobalStyles = createGlobalStyle`
     height: 100vh;
     background-color: ${theme.colors['--black-primary']};
     margin: auto;
-    @media (min-width: ${theme.size.maxWidth}) {
-      width: ${theme.size.maxWidth};
-    }
   }
 
   button {

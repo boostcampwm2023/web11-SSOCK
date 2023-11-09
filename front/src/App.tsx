@@ -1,4 +1,5 @@
 import { Canvas } from '@react-three/fiber';
+import * as THREE from 'three';
 import Tree from './Tree';
 import Cylinder from './Cylinder';
 import Glass from './Glass';
@@ -14,20 +15,19 @@ const CanvasBox = styled.div`
   margin: auto;
   width: 100vw;
   height: 100vh;
-  @media (min-width: ${theme.size.maxWidth}) {
-    width: ${theme.size.maxWidth};
+  @media (min-width: ${theme.size['--desktop-min-width']}) {
+    width: ${theme.size['--dexktop-width']};
   }
 `;
 
 const ButtonBox = styled.div`
   position: fixed;
   width: 100%;
-  @media (min-width: ${theme.size.maxWidth}) {
-    width: ${theme.size.maxWidth};
-  }
   bottom: 0px;
   display: flex;
   flex-direction: column;
+  gap: 4px;
+  padding: 16px;
   align-items: center;
   margin: auto;
 `;
@@ -38,10 +38,10 @@ const App = () => {
       <GlobalStyles />
 
       <CanvasBox>
-        <Canvas>
+        <Canvas camera={{ position: [0, 10, -40] }}>
           {/* <CustomCamera /> */}
           <OrbitControls />
-          <ambientLight intensity={0.3} color={'#cfcabb'} />
+          <ambientLight intensity={0.5} color={'#cfcabb'} />
           <directionalLight
             position={[0, 1, 0]}
             intensity={3}
@@ -56,12 +56,9 @@ const App = () => {
       </CanvasBox>
 
       <ButtonBox>
+        <Button text={'소개'} color={theme.colors['--primary-red-primary']} />
         <Button
-          text={'버튼 텍스트를 입력해주세요.'}
-          color={theme.colors['--primary-red-primary']}
-        />
-        <Button
-          text={'버튼 텍스트를 입력해주세요.'}
+          text={'로그인'}
           color={theme.colors['--primary-green-primary']}
         />
       </ButtonBox>

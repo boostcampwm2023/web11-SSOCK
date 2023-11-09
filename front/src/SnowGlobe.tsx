@@ -38,13 +38,22 @@ const SnowGlobe: React.FC = () => {
   //     './cubemap/kenon_star_rt.jpg',
   //     './cubemap/kenon_star_lf.jpg'
   //   ]);
+  // const envMap = cubeTextureLoader.load([
+  //   './cubemap/sleepyhollow_ft.jpg', //해주셈 cubemap 사진으로
+  //   './cubemap/sleepyhollow_bk.jpg',
+  //   './cubemap/sleepyhollow_up.jpg',
+  //   './cubemap/sleepyhollow_dn.jpg',
+  //   './cubemap/sleepyhollow_rt.jpg',
+  //   './cubemap/sleepyhollow_lf.jpg'
+  // ]);
+
   const envMap = cubeTextureLoader.load([
-    './cubemap/sleepyhollow_ft.jpg', //해주셈 cubemap 사진으로
-    './cubemap/sleepyhollow_bk.jpg',
-    './cubemap/sleepyhollow_up.jpg',
-    './cubemap/sleepyhollow_dn.jpg',
-    './cubemap/sleepyhollow_rt.jpg',
-    './cubemap/sleepyhollow_lf.jpg'
+    './cubemap/test.png',
+    './cubemap/test.png',
+    './cubemap/test.png',
+    './cubemap/test.png',
+    './cubemap/test.png',
+    './cubemap/test.png'
   ]);
   const { scene } = useThree();
   scene.background = envMap;
@@ -54,7 +63,7 @@ const SnowGlobe: React.FC = () => {
       {/* <Environment background files={'./christmas_photo_studio_01_4k.hdr'} /> */}
 
       <MyModel
-        url={'./test7.glb'}
+        url={'./snowglobe.glb'}
         scale={3}
         position={new THREE.Vector3(0, 0, 0)}
       />
