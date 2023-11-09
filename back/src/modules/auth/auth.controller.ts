@@ -1,9 +1,16 @@
 import { Controller, Get, Req, Res, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { ApiTags, ApiOperation, ApiOAuth2 } from '@nestjs/swagger';
 
+@ApiTags('Oauth API')
 @Controller('auth')
 export class AuthController {
   @Get('google')
+  @ApiOperation({
+    summary: 'Google 로그인 요청 API',
+    description: 'Google Oauth api에 로그인 요청을 보낸다.'
+  })
+  @ApiOAuth2([])
   @UseGuards(AuthGuard('google'))
   async googleLogin(): Promise<void> {}
 
@@ -31,11 +38,11 @@ export class AuthController {
 
   @Get('kakao')
   @UseGuards(AuthGuard('kakao'))
-  async kakaologin(): Promise<void> {}
+  async kakaoLogin(): Promise<void> {}
 
   @Get('kakao/redirect')
   @UseGuards(AuthGuard('kakao'))
-  async kakaologinCallBack(@Req() req, @Res() res): Promise<void> {
+  async kakaoLoginCallBack(@Req() req, @Res() res): Promise<void> {
     const profile: string = req.user.profile;
     if (profile) {
       res.redirect('http://localhost:3000/');

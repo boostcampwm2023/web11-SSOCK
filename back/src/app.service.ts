@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
+import { CreateUserDTO } from './dtoTest';
 
 @Injectable()
 export class AppService {
-  getHello(): string {
-    return 'Hello World!';
+  register(userData: CreateUserDTO): CreateUserDTO {
+    return userData;
   }
 }
