@@ -43,7 +43,7 @@ const App = () => {
           <OrbitControls />
           <ambientLight intensity={0.5} color={'#cfcabb'} />
           <directionalLight
-            position={[0, 1, 0]}
+            position={[1, 1, 0]}
             intensity={3}
             color={'#e2bb83'}
           />

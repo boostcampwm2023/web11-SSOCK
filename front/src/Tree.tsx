@@ -22,11 +22,11 @@ const fallingModel = (
     speedRef.current.y -= gravity;
     speedRef.current.y *= 1 - airResistance;
 
-    if (modelRef.position.y <= 0.1 && Math.abs(speedRef.current.y) <= 0.02) {
+    if (modelRef.position.y <= 0.4 && Math.abs(speedRef.current.y) <= 0.02) {
       speedRef.current = new THREE.Vector3(0, 0, 0);
     }
 
-    if (modelRef.position.y <= 0) {
+    if (modelRef.position.y <= 0.3) {
       speedRef.current.y *= -1;
     }
   }

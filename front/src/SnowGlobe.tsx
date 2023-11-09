@@ -66,11 +66,11 @@ const SnowGlobe: React.FC = () => {
       position={
         new THREE.Vector3(
           center.x - radius + Math.random() * 2 * radius,
-          center.y + radius,
+          center.y + radius + Math.random() * radius * 2,
           center.z - radius + Math.random() * 2 * radius
         )
       }
-      radius={0.5 + Math.random() * 0.5}
+      radius={0.1 + Math.random() * 0.3}
     />
   ));
 
