@@ -10,7 +10,7 @@ export class GoogleAuthStrategy extends PassportStrategy(Strategy, 'google') {
       clientSecret: `${process.env.GOOGLE_SECRET}`,
       callbackURL: 'http://localhost:3000/auth/google/redirect', // redirect_uri
       passReqToCallback: true,
-      scope: ['profile'] // 가져올 정보들
+      scope: ['profile']
     });
   }
   authorizationParams(): { [key: string]: string } {
