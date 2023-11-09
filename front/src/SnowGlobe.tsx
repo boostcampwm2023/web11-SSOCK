@@ -4,6 +4,7 @@ import * as THREE from 'three';
 import { CubeTextureLoader } from 'three';
 import Tree from './Tree';
 import { useThree } from '@react-three/fiber';
+import Snow from './Snow';
 
 interface MyModelProps {
   url: string;
@@ -38,26 +39,49 @@ const SnowGlobe: React.FC = () => {
   //     './cubemap/kenon_star_rt.jpg',
   //     './cubemap/kenon_star_lf.jpg'
   //   ]);
+  // const envMap = cubeTextureLoader.load([
+  //   './cubemap/sleepyhollow_ft.jpg', //해주셈 cubemap 사진으로
+  //   './cubemap/sleepyhollow_bk.jpg',
+  //   './cubemap/sleepyhollow_up.jpg',
+  //   './cubemap/sleepyhollow_dn.jpg',
+  //   './cubemap/sleepyhollow_rt.jpg',
+  //   './cubemap/sleepyhollow_lf.jpg'
+  // ]);
+
   const envMap = cubeTextureLoader.load([
-    './cubemap/sleepyhollow_ft.jpg', //해주셈 cubemap 사진으로
-    './cubemap/sleepyhollow_bk.jpg',
-    './cubemap/sleepyhollow_up.jpg',
-    './cubemap/sleepyhollow_dn.jpg',
-    './cubemap/sleepyhollow_rt.jpg',
-    './cubemap/sleepyhollow_lf.jpg'
+    './cubemap/test.png',
+    './cubemap/test.png',
+    './cubemap/test.png',
+    './cubemap/test.png',
+    './cubemap/test.png',
+    './cubemap/test.png'
   ]);
   const { scene } = useThree();
   scene.background = envMap;
+  const center = new THREE.Vector3(0, 8, 0);
+  const radius = 14;
+  const snows = Array.from({ length: 100 }, (_, i) => (
+    <Snow
+      key={i}
+      position={
+        new THREE.Vector3(
+          center.x - radius + Math.random() * 2 * radius,
+          center.y + radius + Math.random() * radius * 2,
+          center.z - radius + Math.random() * 2 * radius
+        )
+      }
+      radius={0.1 + Math.random() * 0.3}
+    />
+  ));
+
   return (
     <>
-      {/* Environment는 drie에서 제공하는 광원 ➡️ HDRIs파일 🟰 그림이 빛 역할 */}
-      {/* <Environment background files={'./christmas_photo_studio_01_4k.hdr'} /> */}
-
       <MyModel
-        url={'./test7.glb'}
+        url={'./snowglobe.glb'}
         scale={3}
         position={new THREE.Vector3(0, 0, 0)}
       />
+      {snows}
       <Tree />
     </>
   );

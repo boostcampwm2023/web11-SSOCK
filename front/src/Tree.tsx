@@ -22,11 +22,11 @@ const fallingModel = (
     speedRef.current.y -= gravity;
     speedRef.current.y *= 1 - airResistance;
 
-    if (modelRef.position.y <= 0.1 && Math.abs(speedRef.current.y) <= 0.02) {
+    if (modelRef.position.y <= 0.4 && Math.abs(speedRef.current.y) <= 0.02) {
       speedRef.current = new THREE.Vector3(0, 0, 0);
     }
 
-    if (modelRef.position.y <= 0) {
+    if (modelRef.position.y <= 0.3) {
       speedRef.current.y *= -1;
     }
   }
@@ -58,17 +58,6 @@ const MyModel: React.FC<MyModelProps> = ({ url, scale, position }) => {
 };
 
 const Tree: React.FC = () => {
-  const cubeTextureLoader = new CubeTextureLoader();
-  const envMap = cubeTextureLoader.load([
-    './cubemap/flames_ft.jpg', //해주셈 cubemap 사진으로
-    './cubemap/flames_bk.jpg',
-    './cubemap/flames_up.jpg',
-    './cubemap/flames_dn.jpg',
-    './cubemap/flames_rt.jpg',
-    './cubemap/flames_lf.jpg'
-  ]);
-  //const { scene } = useThree();
-  //scene.background = envMap;
   return (
     <>
       {/* Environment는 drie에서 제공하는 광원 ➡️ HDRIs파일 🟰 그림이 빛 역할 */}
@@ -76,7 +65,7 @@ const Tree: React.FC = () => {
 
       <MyModel
         url={'./tree_2.glb'}
-        scale={0.2}
+        scale={1}
         position={new THREE.Vector3(0, 10, 0)}
       />
     </>
