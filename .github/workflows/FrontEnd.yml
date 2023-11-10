@@ -27,9 +27,11 @@ jobs:
         run: node -v
 
       - name: Install dependencies
+        working-directory: ./front
         run: npm install
 
       - name: Generate build
+        working-directory: ./front
         run: npm run build
 
       - name: Deploy
@@ -37,7 +39,7 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: |
-          aws s3 sync dist s3://snowball-ssock --region ap-northeast-2 --delete
+          aws s3 sync ./front/dist s3://snowball-ssock --region ap-northeast-2 --delete
 
      # 업로드한 s3 파일을 각 CDN 캐시 무효화하여 리프레시 하기
       - name: CloudFront Invalidation
