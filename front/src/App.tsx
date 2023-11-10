@@ -1,11 +1,6 @@
 import { Canvas } from '@react-three/fiber';
-import * as THREE from 'three';
-import Tree from './Tree';
-import Cylinder from './Cylinder';
-import Glass from './Glass';
 import { OrbitControls } from '@react-three/drei';
 import SnowGlobe from './SnowGlobe';
-// import CustomCamera from './CustomCamera';
 import { Button } from './components';
 import GlobalStyles from './GlobalStyles';
 import styled from 'styled-components';
