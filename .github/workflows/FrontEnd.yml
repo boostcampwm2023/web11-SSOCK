@@ -44,7 +44,7 @@ jobs:
      # 업로드한 s3 파일을 각 CDN 캐시 무효화하여 리프레시 하기
       - name: CloudFront Invalidation
         env:
-          CLOUD_FRONT_ID: ${{ secrets.AWS_CLOUDFRONT_ID}}
+          AWS_CLOUD_FRONT_ID: ${{ secrets.AWS_CLOUDFRONT_ID }}
         run: |
           aws cloudfront create-invalidation \
-            --distribution-id $CLOUD_FRONT_ID --paths '/*'
+            --distribution-id $AWS_CLOUD_FRONT_ID --paths '/*'
