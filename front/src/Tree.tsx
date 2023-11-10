@@ -1,9 +1,8 @@
 import React, { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { OrbitControls, useGLTF, Environment } from '@react-three/drei';
+import { useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
-import { CubeTextureLoader } from 'three';
-import { useThree } from '@react-three/fiber';
+
 
 interface MyModelProps {
   url: string;
