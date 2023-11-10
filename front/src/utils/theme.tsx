@@ -19,14 +19,14 @@ const font = {
 
 const size = {
   '--desktop-min-width': '1024px',
-  '--dexktop-width': '800px',
+  '--desktop-width': '800px',
   maxWidth: '900px'
 };
 
 const theme = {
   colors,
-  size,
-  font
+  font,
+  size
 };
 
 export default theme;
