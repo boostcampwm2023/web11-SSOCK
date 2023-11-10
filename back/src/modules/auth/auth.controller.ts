@@ -1,6 +1,11 @@
 import { Controller, Get, Req, Res, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { ApiTags, ApiOperation, ApiOAuth2 } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiExcludeEndpoint,
+  ApiResponse
+} from '@nestjs/swagger';
 
 @ApiTags('Oauth API')
 @Controller('auth')
@@ -8,13 +13,21 @@ export class AuthController {
   @Get('google')
   @ApiOperation({
     summary: 'Google 로그인 요청 API',
-    description: 'Google Oauth api에 로그인 요청을 보낸다.'
+    description: 'Google OAuth API에 로그인 요청을 보냅니다.'
   })
-  @ApiOAuth2([])
+  @ApiResponse({
+    status: 200,
+    description: `'http://localhost:3000/'으로 리다이렉트`
+  })
+  @ApiResponse({
+    status: 400,
+    description: `'http://localhost:3000/failure'으로 리다이렉트`
+  })
   @UseGuards(AuthGuard('google'))
   async googleLogin(): Promise<void> {}
 
   @Get('google/redirect')
+  @ApiExcludeEndpoint()
   @UseGuards(AuthGuard('google'))
   async googleLoginCallback(@Req() req, @Res() res): Promise<void> {
     const profile: string = req.user.profile;
@@ -24,10 +37,23 @@ export class AuthController {
   }
 
   @Get('naver')
+  @ApiOperation({
+    summary: 'Naver 로그인 요청 API',
+    description: 'Naver OAuth API에 로그인 요청을 보냅니다.'
+  })
+  @ApiResponse({
+    status: 200,
+    description: `'http://localhost:3000/'으로 리다이렉트`
+  })
+  @ApiResponse({
+    status: 400,
+    description: `'http://localhost:3000/failure'으로 리다이렉트`
+  })
   @UseGuards(AuthGuard('naver'))
   async naverLogin(): Promise<void> {}
 
   @Get('naver/redirect')
+  @ApiExcludeEndpoint()
   @UseGuards(AuthGuard('naver'))
   async naverLoginCallBack(@Req() req, @Res() res): Promise<void> {
     const profile: string = req.user.profile;
@@ -37,10 +63,23 @@ export class AuthController {
   }
 
   @Get('kakao')
+  @ApiOperation({
+    summary: 'Kakao 로그인 요청 API',
+    description: 'Kakao OAuth API에 로그인 요청을 보냅니다.'
+  })
+  @ApiResponse({
+    status: 200,
+    description: `'http://localhost:3000/'으로 리다이렉트`
+  })
+  @ApiResponse({
+    status: 400,
+    description: `'http://localhost:3000/failure'으로 리다이렉트`
+  })
   @UseGuards(AuthGuard('kakao'))
   async kakaoLogin(): Promise<void> {}
 
   @Get('kakao/redirect')
+  @ApiExcludeEndpoint()
   @UseGuards(AuthGuard('kakao'))
   async kakaoLoginCallBack(@Req() req, @Res() res): Promise<void> {
     const profile: string = req.user.profile;
