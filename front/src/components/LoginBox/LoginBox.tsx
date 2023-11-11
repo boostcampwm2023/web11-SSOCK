@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import theme from '../../utils/theme';
 import styled from 'styled-components';
 
@@ -20,22 +20,44 @@ const StyledBody = styled.div`
 
 const StyledLoginBox = styled.div`
   background-color: ${theme.colors['--primary-black']};
-  position: fixed;
+  position: absolute;
   bottom: 0;
   left: 50%;
-  transform: translate(-50%, 0);
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   width: 100%;
   height: 35%;
-  padding: 2%;
-  padding-bottom: 3%;
+  padding: 2% 5%;
+  padding-bottom: 5%;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
+  animation: fadeInUp 0.5s forwards;
 
   @media (min-width: ${theme.size['--desktop-min-width']}) {
     width: ${theme.size['--desktop-width']};
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translate3d(-50%, 100%, 0);
+    }
+    to {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+  }
+
+  @keyframes fadeOutDown {
+    from {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+    to {
+      opacity: 0;
+      transform: translate3d(-50%, 100%, 0);
+    }
   }
 `;
 
@@ -69,6 +91,28 @@ const StyledSocial = styled.span`
   margin-left: 5%;
 `;
 
+const closeLogin = (
+  props: LoginProps,
+  closeRef: React.RefObject<HTMLDivElement>,
+  setIsFocus: React.Dispatch<React.SetStateAction<boolean>>
+) => {
+  const onAnimationEnd = () => {
+    if (closeRef.current) {
+      setIsFocus(false);
+      props.view[1](!props.view[0]);
+      closeRef.current.removeEventListener('animationend', onAnimationEnd);
+    }
+  };
+
+  if (closeRef.current) {
+    closeRef.current.addEventListener('animationend', onAnimationEnd);
+    closeRef.current.style.setProperty(
+      'animation',
+      'fadeOutDown 0.5s forwards'
+    );
+  }
+};
+
 const validLogin = (
   event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   props: SocialLogin
@@ -97,16 +141,12 @@ const LoginUI = (props: SocialLogin) => {
 
 const LoginBox = (props: LoginProps) => {
   const [isFocus, setIsFocus] = useState(true);
+  const closeRef = useRef<HTMLDivElement>(null);
 
   return (
-    <StyledBody
-      onClick={() => {
-        setIsFocus(false);
-        props.view[1](!props.view[0]);
-      }}
-    >
+    <StyledBody onClick={() => closeLogin(props, closeRef, setIsFocus)}>
       {isFocus ? (
-        <StyledLoginBox>
+        <StyledLoginBox ref={closeRef}>
           <LoginUI social={'카카오'} />
           <LoginUI social={'네이버'} />
           <LoginUI social={'구글'} />
