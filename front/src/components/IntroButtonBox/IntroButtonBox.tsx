@@ -2,6 +2,8 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import theme from '../../utils/theme';
 import { Button } from '../Button';
+import { Introduce } from '../Introduce';
+import { LoginBox } from '../LoginBox';
 
 const ButtonBox = styled.div`
   position: fixed;
@@ -10,7 +12,7 @@ const ButtonBox = styled.div`
   display: flex;
   flex-direction: column;
   gap: 4px;
-  padding: 16px;
+  padding: 36px;
   align-items: center;
   margin: auto;
 `;
@@ -21,20 +23,26 @@ const IntroButtonBox = () => {
 
   return (
     <>
-      <ButtonBox>
-        <Button
-          text={'소개페이지'}
-          color={theme.colors['--primary-red-primary']}
-          view={[isIntroduce, setIsIntroduce]}
-        />
-        <Button
-          text={'로그인'}
-          color={theme.colors['--primary-green-primary']}
-          view={[isLogin, setIsLogin]}
-        />
-      </ButtonBox>
+      {!isIntroduce && !isLogin ? (
+        <ButtonBox>
+          <Button
+            text={'소개페이지'}
+            color={theme.colors['--primary-red-primary']}
+            view={[isIntroduce, setIsIntroduce]}
+          />
+          <Button
+            text={'로그인'}
+            color={theme.colors['--primary-green-primary']}
+            view={[isLogin, setIsLogin]}
+          />
+        </ButtonBox>
+      ) : null}
 
-      {isIntroduce ? <div>Introduce</div> : isLogin ? <div>Login</div> : null}
+      {isIntroduce ? (
+        <Introduce view={[isIntroduce, setIsIntroduce]} />
+      ) : isLogin ? (
+        <LoginBox view={[isLogin, setIsLogin]} />
+      ) : null}
     </>
   );
 };
