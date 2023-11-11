@@ -26,11 +26,11 @@ const StyledLoginBox = styled.div`
   transform: translate(-50%, 0);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
   width: 100%;
   height: 35%;
-  padding: 5%;
-  padding-bottom: 10%;
+  padding: 2%;
+  padding-bottom: 3%;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
 
@@ -39,15 +39,34 @@ const StyledLoginBox = styled.div`
   }
 `;
 
-const StyledLogin = styled.button`
-  position: relative;
+const StyledLogin = styled.button<SocialLogin>`
   height: 20%;
   margin: 1% 0;
   border-radius: 12px;
+  font: ${theme.font['--normal-login-font']};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background-color: ${props =>
+    props.social === '카카오'
+      ? '#FEE500'
+      : props.social === '네이버'
+      ? '#00C73C'
+      : 'white'};
 `;
 
 const StyledLogo = styled.img`
-  width: 100%;
+  position: absolute;
+  left: 0;
+  height: 100%;
+  width: auto;
+  margin-left: 2%;
+`;
+
+const StyledSocial = styled.span`
+  font-weight: 700;
+  margin-left: 5%;
 `;
 
 const validLogin = (
@@ -60,7 +79,10 @@ const validLogin = (
 
 const LoginUI = (props: SocialLogin) => {
   return (
-    <StyledLogin onClick={event => validLogin(event, props)}>
+    <StyledLogin
+      social={props.social}
+      onClick={event => validLogin(event, props)}
+    >
       {props.social === '카카오' ? (
         <StyledLogo src={'/socialLogin/kakao.svg'} />
       ) : props.social === '네이버' ? (
@@ -68,6 +90,7 @@ const LoginUI = (props: SocialLogin) => {
       ) : (
         <StyledLogo src={'/socialLogin/google.svg'} />
       )}
+      <StyledSocial>{props.social}</StyledSocial>로 시작하기
     </StyledLogin>
   );
 };

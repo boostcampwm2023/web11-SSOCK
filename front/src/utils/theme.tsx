@@ -18,6 +18,7 @@ const colors = {
 const font = {
   '--normal-title-font': 'normal normal 400 32px/normal "YUniverse-B"',
   '--normal-introduce-font': 'normal normal 400 18px/150% "YUniverse-B"',
+  '--normal-login-font': 'normal normal 400 16px/100% "Pretendard-Regular"',
   '--normal-button-font': 'normal normal 700 18px/150% "YUniverse-B"'
 };
 
