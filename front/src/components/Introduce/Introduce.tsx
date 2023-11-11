@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import theme from '../../utils/theme';
 import styled from 'styled-components';
 
@@ -34,6 +35,15 @@ const StyledIntroduce = styled.div`
       opacity: 1;
     }
   }
+
+  @keyframes fadeout {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
 `;
 
 const StyledText = styled.div`
@@ -56,15 +66,30 @@ const StyledClosed = styled.button`
   line-height: normal;
 `;
 
+const closeIntroduce = (
+  props: IntroduceProps,
+  closeRef: React.RefObject<HTMLDivElement>
+) => {
+  const onAnimationEnd = () => {
+    if (closeRef.current) {
+      props.view[1](!props.view[0]);
+      closeRef.current.removeEventListener('animationend', onAnimationEnd);
+    }
+  };
+
+  if (closeRef.current) {
+    closeRef.current.addEventListener('animationend', onAnimationEnd);
+    closeRef.current.style.setProperty('animation', 'fadeout 0.5s forwards');
+  }
+};
+
 const Introduce = (props: IntroduceProps) => {
+  const closeRef = useRef<HTMLDivElement>(null);
+
   return (
-    <StyledIntroduce>
+    <StyledIntroduce ref={closeRef}>
       <StyledText>소개글을 입력해주세요.</StyledText>
-      <StyledClosed
-        onClick={() => {
-          props.view[1](!props.view[0]);
-        }}
-      >
+      <StyledClosed onClick={() => closeIntroduce(props, closeRef)}>
         닫기
       </StyledClosed>
     </StyledIntroduce>
