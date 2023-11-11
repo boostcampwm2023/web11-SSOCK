@@ -62,10 +62,10 @@ const StyledLoginBox = styled.div`
 `;
 
 const StyledLogin = styled.button<SocialLogin>`
+  font: ${theme.font['--normal-login-font']};
   height: 20%;
   margin: 1% 0;
   border-radius: 12px;
-  font: ${theme.font['--normal-login-font']};
   display: flex;
   align-items: center;
   justify-content: center;
