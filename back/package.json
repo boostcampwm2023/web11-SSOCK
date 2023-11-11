@@ -28,6 +28,7 @@
     "class-validator": "^0.14.0",
     "dotenv": "^16.3.1",
     "mysql": "^2.18.1",
+    "mysql2": "^3.6.3",
     "passport": "^0.6.0",
     "passport-facebook": "^3.0.0",
     "passport-google-oauth20": "^2.0.0",

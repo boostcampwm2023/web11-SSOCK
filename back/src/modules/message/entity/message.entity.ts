@@ -3,6 +3,9 @@ import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 @Entity()
 export class MessageEntity {
   @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column()
   snowball_id: number;
 
   @Column()

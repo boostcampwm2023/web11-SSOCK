@@ -26,6 +26,6 @@ export class MessageController {
   })
   @ApiBody({ type: DeleteMessageDto })
   deleteMessage(@Body() deleteMessageDto: DeleteMessageDto) {
-    return this.messageService.deleteMessage(deleteMessageDto);
+    this.messageService.deleteMessage(deleteMessageDto);
   }
 }
