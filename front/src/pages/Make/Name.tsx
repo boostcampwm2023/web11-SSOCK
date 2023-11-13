@@ -76,7 +76,7 @@ const Name = (props: NameProps) => {
       <StyledNickName>닉네임</StyledNickName>
       <StyledInput
         ref={nicknameRef}
-        placeholder="라온이"
+        placeholder="ex) 라온이"
         onChange={() => validNickname(nicknameRef, setStartNickname)}
       />
 
