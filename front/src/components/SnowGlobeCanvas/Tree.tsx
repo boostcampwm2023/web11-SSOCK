@@ -15,6 +15,7 @@ const fallingModel = (
 ) => {
   const airResistance = 0.02;
   const gravity = 0.1 / 60;
+
   if (modelRef) {
     modelRef.position.add(speedRef.current);
     speedRef.current.y -= gravity;
@@ -32,14 +33,16 @@ const fallingModel = (
 
 const MyModel: React.FC<MyModelProps> = ({ url, scale, position }) => {
   const gltf = useGLTF(url);
-  const modelRef = useRef<THREE.Object3D>(null); //이안에 위치 정보 들어있음
-  const speedRef = useRef(new THREE.Vector3(0, -0.01, 0)); //이건 속도 정보
+  const modelRef = useRef<THREE.Object3D>(null); // 이안에 위치 정보 들어있음
+  const speedRef = useRef(new THREE.Vector3(0, -0.01, 0)); // 이건 속도 정보
+
   useFrame(() => {
     fallingModel(modelRef.current, speedRef);
-  }); //너무 구려
+  });
 
   gltf.scene.scale.set(scale, scale, scale);
   gltf.scene.position.set(position.x, position.y, position.z);
+
   return <primitive object={gltf.scene} ref={modelRef} />;
 };
 

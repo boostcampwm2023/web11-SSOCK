@@ -1,5 +1,5 @@
-import theme from '../../utils/theme';
 import styled from 'styled-components';
+import theme from '../../utils/theme';
 
 interface ButtonColor {
   color: string;

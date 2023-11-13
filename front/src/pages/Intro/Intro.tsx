@@ -1,6 +1,7 @@
-import { SnowGlobeCanvas, IntroButtonBox } from '../../../src/components';
 import styled from 'styled-components';
 import theme from '../../utils/theme';
+import { SnowGlobeCanvas } from '../../../src/components';
+import IntroButtonBox from './IntroButtonBox';
 
 const Title = styled.div`
   color: ${theme.colors['--primary-yellow']};
