@@ -16,10 +16,14 @@ const colors = {
 }; //rem이 특정 폰트 기준으로 계산 되는걸로 아는데
 
 const font = {
-  '--normal-title-font': 'normal normal 400 32px/normal "YUniverse-B"',
-  '--normal-introduce-font': 'normal normal 400 18px/150% "YUniverse-B"',
+  '--normal-title-font':
+    'normal normal 400 32px/normal "KingSejongInstitute-Regular"',
+  '--normal-introduce-font':
+    'normal normal 400 18px/150% "KingSejongInstitute-Regular"',
   '--normal-login-font': 'normal normal 400 16px/100% "Pretendard-Regular"',
-  '--normal-button-font': 'normal normal 700 18px/150% "YUniverse-B"'
+  '--normal-button-font': 'normal normal 700 18px/150% "YUniverse-B"',
+  '--normal-nickname-font':
+    'normal normal 400 28px/normal "KingSejongInstitute-Regular"'
 };
 
 const size = {
