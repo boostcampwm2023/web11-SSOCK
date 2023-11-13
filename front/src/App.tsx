@@ -1,30 +1,28 @@
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import SnowGlobe from './SnowGlobe';
-import { Button } from './components';
+import { IntroButtonBox } from './components';
 import GlobalStyles from './GlobalStyles';
 import styled from 'styled-components';
 import theme from './utils/theme';
+
+const Title = styled.div`
+  color: ${theme.colors['--primary-yellow']};
+  font: ${theme.font['--normal-title-font']};
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  white-space: nowrap;
+`;
 
 const CanvasBox = styled.div`
   margin: auto;
   width: 100vw;
   height: 100vh;
   @media (min-width: ${theme.size['--desktop-min-width']}) {
-    width: ${theme.size['--dexktop-width']};
+    width: ${theme.size['--desktop-width']};
   }
-`;
-
-const ButtonBox = styled.div`
-  position: fixed;
-  width: 100%;
-  bottom: 0px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  padding: 16px;
-  align-items: center;
-  margin: auto;
 `;
 
 const App = () => {
@@ -50,13 +48,8 @@ const App = () => {
         </Canvas>
       </CanvasBox>
 
-      <ButtonBox>
-        <Button text={'소개'} color={theme.colors['--primary-red-primary']} />
-        <Button
-          text={'로그인'}
-          color={theme.colors['--primary-green-primary']}
-        />
-      </ButtonBox>
+      <Title>스노우볼 속 내 마음</Title>
+      <IntroButtonBox />
     </>
   );
 };
