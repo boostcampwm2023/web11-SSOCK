@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import theme from '../../utils/theme';
-import { Button } from '../Button';
-import { Introduce } from '../Introduce';
-import { LoginBox } from '../LoginBox';
+import { Button } from '../../components';
+import Introduce from './Introduce';
+import LoginBox from './LoginBox';
 
 const ButtonBox = styled.div`
   position: fixed;

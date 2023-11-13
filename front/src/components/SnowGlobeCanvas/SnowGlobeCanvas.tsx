@@ -12,6 +12,7 @@ const CanvasBox = styled.div`
     width: ${theme.size['--desktop-width']};
   }
 `;
+
 const SnowGlobeCanvas = () => {
   return (
     <CanvasBox>

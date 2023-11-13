@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
-import theme from '../../utils/theme';
 import styled from 'styled-components';
+import theme from '../../utils/theme';
 
 interface LoginProps {
   view: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
