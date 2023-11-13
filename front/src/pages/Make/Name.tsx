@@ -1,3 +1,4 @@
+import { useState, useRef } from 'react';
 import styled from 'styled-components';
 import theme from '../../utils/theme';
 import { Button } from '../../components';
@@ -7,7 +8,9 @@ interface NameProps {
 }
 
 const StyledBody = styled.div`
-  margin: 5%;
+  width: 100vw;
+  height: 100vh;
+  padding: 5%;
 `;
 
 const StyledExplain = styled.div`
@@ -50,8 +53,18 @@ const StyledButtonBox = styled.div`
   margin-top: 25%;
 `;
 
+const validNickname = (
+  nicknameRef: React.RefObject<HTMLInputElement>,
+  setStartNickname: React.Dispatch<React.SetStateAction<boolean>>
+) => {
+  if (nicknameRef.current && nicknameRef.current.value.length >= 2)
+    setStartNickname(true);
+};
+
 const Name = (props: NameProps) => {
-  // 닉네임 사용유무 판단 필요!
+  const [startNickname, setStartNickname] = useState(false);
+  const nicknameRef = useRef<HTMLInputElement>(null);
+
   return (
     <StyledBody>
       <StyledExplain>
@@ -61,13 +74,18 @@ const Name = (props: NameProps) => {
       </StyledExplain>
 
       <StyledNickName>닉네임</StyledNickName>
-      <StyledInput placeholder="라온이" />
+      <StyledInput
+        ref={nicknameRef}
+        placeholder="라온이"
+        onChange={() => validNickname(nicknameRef, setStartNickname)}
+      />
 
       <StyledButtonBox>
         <Button
           text={'시작하기'}
           color={theme.colors['--primary-red-primary']}
           view={props.set}
+          disabled={startNickname ? false : true}
         />
       </StyledButtonBox>
     </StyledBody>
