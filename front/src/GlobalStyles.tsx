@@ -26,6 +26,13 @@ const GlobalStyles = createGlobalStyle`
     font-style: normal;
   }
 
+  @font-face {
+    font-family: 'KingSejongInstitute-Regular';
+    src: url('./fonts/KingSejongInstitute-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+  }
+
   * {
     box-sizing: border-box;
     font-family: 'YClover-Bold';
