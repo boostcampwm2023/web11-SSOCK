@@ -36,7 +36,7 @@ const StyledBottom = styled.div`
   transform: translate(-50%, 0);
   font: ${theme.font['--normal-introduce-font']};
   color: white;
-  text-shadow: -1px 0px black, 0px 1px yellblackow, 1px 0px black,
+  text-shadow: -1px 0px black, 0px 1px black, 1px 0px black,
     0px -1px black;
 `;
 
