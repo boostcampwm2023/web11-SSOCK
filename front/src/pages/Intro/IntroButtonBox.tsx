@@ -5,7 +5,7 @@ import { Button } from '../../components';
 import Introduce from './Introduce';
 import LoginBox from './LoginBox';
 
-const ButtonBox = styled.div`
+const StyledButtonBox = styled.div`
   position: fixed;
   width: 100%;
   bottom: 0px;
@@ -24,7 +24,7 @@ const IntroButtonBox = () => {
   return (
     <>
       {!isIntroduce && !isLogin ? (
-        <ButtonBox>
+        <StyledButtonBox>
           <Button
             text={'소개페이지'}
             color={theme.colors['--primary-red-primary']}
@@ -35,7 +35,7 @@ const IntroButtonBox = () => {
             color={theme.colors['--primary-green-primary']}
             view={[isLogin, setIsLogin]}
           />
-        </ButtonBox>
+        </StyledButtonBox>
       ) : null}
 
       {isIntroduce ? (

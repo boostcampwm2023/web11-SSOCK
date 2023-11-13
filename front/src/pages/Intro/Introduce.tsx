@@ -12,7 +12,6 @@ const StyledIntroduce = styled.div`
   left: 50%;
   transform: translate(-50%, 0);
   background-color: ${theme.colors['--primary-yellow']};
-  font: ${theme.font['--normal-button-font']};
   border-radius: 20px;
   width: 80%;
   height: 60%;
@@ -54,6 +53,7 @@ const StyledText = styled.div`
   align-items: center;
   overflow: auto;
   word-break: keep-all;
+  font: ${theme.font['--normal-introduce-font']};
 `;
 
 const StyledClosed = styled.button`
