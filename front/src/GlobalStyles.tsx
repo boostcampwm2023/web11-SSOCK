@@ -47,7 +47,7 @@ const GlobalStyles = createGlobalStyle`
   #root {
     width: 100%;
     height: 100vh;
-    background-color: ${theme.colors['--black-primary']};
+    background-color: ${theme.colors['--primary-black']};
     margin: auto;
   }
 

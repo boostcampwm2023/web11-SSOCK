@@ -9,6 +9,7 @@ interface ButtonProps {
   text: string;
   color: string;
   view: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
+  disabled?: boolean;
 }
 
 const StyledButton = styled.button<ButtonColor>`
@@ -31,9 +32,8 @@ const Button = (props: ButtonProps) => {
   return (
     <StyledButton
       color={props.color}
-      onClick={() => {
-        props.view[1](!props.view[0]);
-      }}
+      onClick={() => props.view[1](!props.view[0])}
+      disabled={props.disabled}
     >
       {props.text}
     </StyledButton>
