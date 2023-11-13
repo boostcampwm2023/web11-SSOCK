@@ -1,10 +1,10 @@
 import React, { useRef } from 'react';
 import { useGLTF } from '@react-three/drei';
+import { useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 import { CubeTextureLoader } from 'three';
-import Tree from './Tree';
-import { useThree } from '@react-three/fiber';
 import Snow from './Snow';
+import Tree from './Tree';
 
 interface MyModelProps {
   url: string;
@@ -31,8 +31,10 @@ const SnowGlobe: React.FC = () => {
     './cubemap/test.png',
     './cubemap/test.png'
   ]);
+
   const { scene } = useThree();
   scene.background = envMap;
+
   const center = new THREE.Vector3(0, 8, 0);
   const radius = 14;
   const snows = Array.from({ length: 100 }, (_, i) => (
@@ -56,6 +58,7 @@ const SnowGlobe: React.FC = () => {
         scale={3}
         position={new THREE.Vector3(0, 0, 0)}
       />
+
       {snows}
       <Tree />
     </>

@@ -49,6 +49,7 @@ const GlobalStyles = createGlobalStyle`
     background: none;
     padding: 0;
     cursor: pointer;
+    color: black;
   }
 `;
 
