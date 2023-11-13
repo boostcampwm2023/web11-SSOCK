@@ -23,31 +23,6 @@ const MyModel: React.FC<MyModelProps> = ({ url, scale, position }) => {
 
 const SnowGlobe: React.FC = () => {
   const cubeTextureLoader = new CubeTextureLoader();
-  //   const envMap = cubeTextureLoader.load([
-  //     './cubemap/flames_ft.jpg', //해주셈 cubemap 사진으로
-  //     './cubemap/flames_bk.jpg',
-  //     './cubemap/flames_up.jpg',
-  //     './cubemap/flames_dn.jpg',
-  //     './cubemap/flames_rt.jpg',
-  //     './cubemap/flames_lf.jpg'flames
-  //   ]);
-  //   const envMap = cubeTextureLoader.load([
-  //     './cubemap/kenon_star_ft.jpg', //해주셈 cubemap 사진으로
-  //     './cubemap/kenon_star_bk.jpg',
-  //     './cubemap/kenon_star_up.jpg',
-  //     './cubemap/kenon_star_dn.jpg',
-  //     './cubemap/kenon_star_rt.jpg',
-  //     './cubemap/kenon_star_lf.jpg'
-  //   ]);
-  // const envMap = cubeTextureLoader.load([
-  //   './cubemap/sleepyhollow_ft.jpg', //해주셈 cubemap 사진으로
-  //   './cubemap/sleepyhollow_bk.jpg',
-  //   './cubemap/sleepyhollow_up.jpg',
-  //   './cubemap/sleepyhollow_dn.jpg',
-  //   './cubemap/sleepyhollow_rt.jpg',
-  //   './cubemap/sleepyhollow_lf.jpg'
-  // ]);
-
   const envMap = cubeTextureLoader.load([
     './cubemap/test.png',
     './cubemap/test.png',
@@ -77,7 +52,7 @@ const SnowGlobe: React.FC = () => {
   return (
     <>
       <MyModel
-        url={'./snowglobe.glb'}
+        url={'./testModel/snowglobe.glb'}
         scale={3}
         position={new THREE.Vector3(0, 0, 0)}
       />

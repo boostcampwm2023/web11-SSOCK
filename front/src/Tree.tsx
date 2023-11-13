@@ -3,7 +3,6 @@ import { useFrame } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
 
-
 interface MyModelProps {
   url: string;
   scale: number;
@@ -31,22 +30,10 @@ const fallingModel = (
   }
 };
 
-// const rotateModel = (modelRef: THREE.Object3D | null) => {
-//   if (modelRef) {
-//     modelRef.rotation.y += 0.01;
-//   }
-// };
-
 const MyModel: React.FC<MyModelProps> = ({ url, scale, position }) => {
   const gltf = useGLTF(url);
   const modelRef = useRef<THREE.Object3D>(null); //이안에 위치 정보 들어있음
   const speedRef = useRef(new THREE.Vector3(0, -0.01, 0)); //이건 속도 정보
-
-  //되게 저번에 어렵게 생각했었는데 사실 3차원 세상에서 필요한건 지금 내 위치랑 속도밖에 없음
-  //하나의 모델있잖아 얘는 위치랑 속도만 가지고 있으면 되고
-  //이 모델들의 속도를 관리해주는 메소드들을 앞으로 만들게 될것
-  //useFrame에는 속도에 따라 위치를 바꿔주는 단 한개의 함수만 있으면 만사 오케이 ㅇㅈ? <- 당신 뭐야?
-  // 해 줘 구조를 그릴까 좀?
   useFrame(() => {
     fallingModel(modelRef.current, speedRef);
   }); //너무 구려
@@ -59,11 +46,8 @@ const MyModel: React.FC<MyModelProps> = ({ url, scale, position }) => {
 const Tree: React.FC = () => {
   return (
     <>
-      {/* Environment는 drie에서 제공하는 광원 ➡️ HDRIs파일 🟰 그림이 빛 역할 */}
-      {/* <Environment background files={'./christmas_photo_studio_01_4k.hdr'} /> */}
-
       <MyModel
-        url={'./tree_2.glb'}
+        url={'./testModel/tree_2.glb'}
         scale={1}
         position={new THREE.Vector3(0, 10, 0)}
       />
