@@ -27,7 +27,7 @@ const GlobalStyles = createGlobalStyle`
   }
 
   @font-face {
-    font-family: 'KingSejongInstitute-Regular';
+    font-family: 'KingSejongInstitute';
     src: url('./fonts/KingSejongInstitute-Regular.ttf') format('truetype');
     font-weight: 400;
     font-style: normal;
