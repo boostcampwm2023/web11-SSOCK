@@ -1,4 +1,5 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import theme from '../../utils/theme';
 
@@ -114,18 +115,26 @@ const closeLogin = (
 };
 
 const validLogin = (
-  event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-  props: SocialLogin
+  props: SocialLogin,
+  setValid: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
-  event.stopPropagation();
+  // valid 체크!
   console.log(props.social);
+  setValid(true);
 };
 
 const LoginUI = (props: SocialLogin) => {
+  const [valid, setValid] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    valid ? navigate('/make') : null;
+  }, [valid, navigate]);
+
   return (
     <StyledLogin
       social={props.social}
-      onClick={event => validLogin(event, props)}
+      onClick={() => validLogin(props, setValid)}
     >
       {props.social === '카카오' ? (
         <StyledLogo src={'/socialLogin/kakao.svg'} />
