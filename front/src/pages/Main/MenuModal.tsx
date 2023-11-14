@@ -42,6 +42,7 @@ const StyledClosed = styled(StyledSection)`
 
 const Logout = (navigate: NavigateFunction) => {
   // sessionStorage 등 정리, 로그아웃 절차 진행
+
   navigate('/');
 };
 
