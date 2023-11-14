@@ -5,6 +5,7 @@ import theme from '../../utils/theme';
 import SnowGlobe from './SnowGlobe';
 import Box from './Box';
 import * as THREE from 'three';
+import Ground from './Ground';
 
 const CanvasBox = styled.div`
   margin: auto;
@@ -27,32 +28,7 @@ const SnowGlobeCanvas = () => {
           intensity={3}
           color={'#e2bb83'}
         />
-        <Box
-          scale={1}
-          position={new THREE.Vector3(0, 0, 0)}
-          color={new THREE.Color('red')}
-        />
-        <Box
-          scale={1}
-          position={new THREE.Vector3(1, 0, 0)}
-          color={new THREE.Color('blue')}
-        />
-        <Box
-          scale={1}
-          position={new THREE.Vector3(-1, 0, 0)}
-          color={new THREE.Color('green')}
-        />
-        <Box
-          scale={1}
-          position={new THREE.Vector3(0, 0, -1)}
-          color={new THREE.Color('white')}
-        />
-
-        <Box
-          scale={1}
-          position={new THREE.Vector3(0, 0, 1)}
-          color={new THREE.Color('black')}
-        />
+        <Ground scale={1} position={new THREE.Vector3(0, 0, 0)} />
         {/* <SnowGlobe /> */}
       </Canvas>
     </CanvasBox>
