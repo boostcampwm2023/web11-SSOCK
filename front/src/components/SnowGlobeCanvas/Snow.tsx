@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { Vector3, useFrame } from '@react-three/fiber';
+import { useFrame } from '@react-three/fiber';
 
 import * as THREE from 'three';
 
