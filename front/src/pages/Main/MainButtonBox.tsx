@@ -1,16 +1,46 @@
 import { useState } from 'react';
 import styled from 'styled-components';
+import theme from '../../utils/theme';
 import MenuModal from './MenuModal';
 
 const StyledMenu = styled.img`
   position: absolute;
   top: 4%;
-  right: 2%;
-  transform: translate(-50%, 0);
+  right: 4%;
+
+  @media (min-width: ${theme.size['--desktop-min-width']}) {
+    left: 50%;
+    margin-left: 450px;
+  }
+`;
+
+const StyledZoom = styled.img`
+  position: absolute;
+  bottom: 5%;
+  margin-left: 4%;
+
+  @media (min-width: ${theme.size['--desktop-min-width']}) {
+    margin-left: 0;
+    right: 50%;
+    margin-right: 450px;
+  }
+`;
+
+const StyledShareLink = styled.img`
+  position: absolute;
+  bottom: 5%;
+  right: 4%;
+
+  @media (min-width: ${theme.size['--desktop-min-width']}) {
+    left: 50%;
+    margin-left: 450px;
+  }
 `;
 
 const MainButtonBox = () => {
   const [menuModal, setMenuModal] = useState(false);
+  const [zoom, setZoom] = useState(false);
+  const [shareLink, setShareLink] = useState(false);
 
   return (
     <>
@@ -19,6 +49,15 @@ const MainButtonBox = () => {
         onClick={() => setMenuModal(true)}
       />
       {menuModal ? <MenuModal set={setMenuModal} /> : null}
+
+      <StyledZoom src={'./buttons/zoom.svg'} onClick={() => setZoom(true)} />
+      {zoom ? <div>clear</div> : null}
+
+      <StyledShareLink
+        src={'./buttons/shareLink.svg'}
+        onClick={() => setShareLink(true)}
+      />
+      {shareLink ? <div>shareLink</div> : null}
     </>
   );
 };
