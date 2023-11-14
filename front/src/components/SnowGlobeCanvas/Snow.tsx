@@ -1,39 +1,46 @@
 import { useRef } from 'react';
 import { Vector3, useFrame } from '@react-three/fiber';
-import { Mesh } from 'three';
+
+import * as THREE from 'three';
 
 interface SnowProps {
-  position: Vector3;
   radius: number;
+  centerPosition: THREE.Vector3;
+  rangeRadius: number;
 }
 
-const Snow = (props: SnowProps) => {
-  const snowRef = useRef<Mesh>(null);
+const Snow: React.FC<SnowProps> = ({ radius, centerPosition, rangeRadius }) => {
+  const snowRef = useRef<THREE.Mesh>(null);
   const speed = 0.05;
-
+  const position = new THREE.Vector3(
+    centerPosition.x - rangeRadius + Math.random() * rangeRadius * 2,
+    centerPosition.y + rangeRadius + Math.random() * 2 * rangeRadius,
+    centerPosition.z - rangeRadius + Math.random() * rangeRadius * 2
+  );
   useFrame(() => {
-    if (snowRef.current) {
-      if (snowRef.current.position.y <= 0) {
-        snowRef.current.position.y = 22;
+    const snow = snowRef.current;
+    if (snow) {
+      if (snow.position.y <= 0) {
+        snow.position.y = centerPosition.y + rangeRadius;
       }
-      snowRef.current.position.y -= speed;
+      snow.position.y -= speed;
 
       if (
-        snowRef.current.position.x ** 2 +
-          (snowRef.current.position.y - 8) ** 2 +
-          snowRef.current.position.z ** 2 >
-        13 ** 2
+        (snow.position.x - centerPosition.x) ** 2 +
+          (snow.position.y - centerPosition.y) ** 2 +
+          (snow.position.z - centerPosition.z) ** 2 >
+        (rangeRadius - 0.5) ** 2
       ) {
-        snowRef.current.visible = false;
+        snow.visible = false;
       } else {
-        snowRef.current.visible = true;
+        snow.visible = true;
       }
     }
   });
 
   return (
-    <mesh position={props.position} ref={snowRef}>
-      <sphereGeometry args={[props.radius, 32, 16]} />
+    <mesh position={position} ref={snowRef}>
+      <sphereGeometry args={[radius, 32, 16]} />
       <meshStandardMaterial />
     </mesh>
   );

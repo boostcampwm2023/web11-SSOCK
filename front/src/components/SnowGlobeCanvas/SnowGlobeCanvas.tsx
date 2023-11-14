@@ -2,10 +2,10 @@ import { OrbitControls } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import styled from 'styled-components';
 import theme from '../../utils/theme';
-import SnowGlobe from './SnowGlobe';
-import Box from './Box';
+import Snow from './Snow';
 import * as THREE from 'three';
 import Ground from './Ground';
+import Glass from './Glass';
 
 const CanvasBox = styled.div`
   margin: auto;
@@ -15,21 +15,35 @@ const CanvasBox = styled.div`
     width: ${theme.size['--desktop-width']};
   }
 `;
-
 const SnowGlobeCanvas = () => {
+  const glassRadius = 7;
+  const glassPosition = new THREE.Vector3(0, glassRadius / 2, 0);
+  const snows = Array.from({ length: 100 }, (_, i) => (
+    <Snow
+      key={i}
+      centerPosition={glassPosition}
+      rangeRadius={glassRadius}
+      radius={0.05 + Math.random() * 0.15}
+    />
+  ));
   return (
     <CanvasBox>
       <Canvas camera={{ position: [0, 10, 10] }}>
         <OrbitControls />
-
-        <ambientLight intensity={0.5} color={'#cfcabb'} />
+        <ambientLight intensity={0.8} color={'#cfcabb'} />
         <directionalLight
           position={[1, 1, 0]}
-          intensity={3}
+          intensity={5}
           color={'#e2bb83'}
         />
         <Ground scale={1} position={new THREE.Vector3(0, 0, 0)} />
-        {/* <SnowGlobe /> */}
+        <Glass
+          position={new THREE.Vector3(0, glassRadius / 2, 0)}
+          color={new THREE.Color('skyblue')}
+          radius={glassRadius}
+          opacity={0.1}
+        />
+        {snows}
       </Canvas>
     </CanvasBox>
   );
