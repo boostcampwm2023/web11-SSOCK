@@ -85,7 +85,7 @@ const Name = (props: NameProps) => {
           text={'시작하기'}
           color={theme.colors['--primary-red-primary']}
           view={props.set}
-          disabled={startNickname ? false : true}
+          disabled={!startNickname}
         />
       </StyledButtonBox>
     </StyledBody>
