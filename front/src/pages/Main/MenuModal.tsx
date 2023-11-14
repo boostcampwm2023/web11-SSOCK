@@ -5,6 +5,7 @@ import mock from '../../mockdata.json'; // temporary
 
 interface ModalProps {
   set: React.Dispatch<React.SetStateAction<boolean>>;
+  list: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const StyledModal = styled.div`
@@ -52,9 +53,19 @@ const MenuModal = (props: ModalProps) => {
     <StyledModal>
       <StyledUser>{userName}님</StyledUser>
       <hr />
-      <StyledSection>편지 리스트로 보기</StyledSection>
+
+      <StyledSection
+        onClick={() => {
+          props.set(false);
+          props.list(true);
+        }}
+      >
+        편지 리스트로 보기
+      </StyledSection>
+
       <StyledLogout onClick={() => Logout(navigate)}>로그아웃</StyledLogout>
       <hr />
+
       <StyledClosed onClick={() => props.set(false)}>닫기</StyledClosed>
     </StyledModal>
   );
