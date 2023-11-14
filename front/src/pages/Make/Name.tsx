@@ -11,12 +11,17 @@ const StyledBody = styled.div`
   width: 100vw;
   height: 100vh;
   padding: 5%;
+  margin: auto;
+
+  @media (min-width: ${theme.size['--desktop-width']}) {
+    width: ${theme.size['--desktop-width']};
+  }
 `;
 
 const StyledExplain = styled.div`
   font: ${theme.font['--normal-nickname-font']};
   color: white;
-  padding-top: 45%;
+  padding-top: 40%;
 `;
 
 const StyledPink = styled.span`
