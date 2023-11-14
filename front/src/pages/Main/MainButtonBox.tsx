@@ -2,6 +2,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import theme from '../../utils/theme';
 import MenuModal from './MenuModal';
+import ListMsg from './ListMsg';
 
 const StyledMenu = styled.img`
   position: absolute;
@@ -39,6 +40,7 @@ const StyledShareLink = styled.img`
 
 const MainButtonBox = () => {
   const [menuModal, setMenuModal] = useState(false);
+  const [list, setList] = useState(false);
   const [zoom, setZoom] = useState(false);
   const [shareLink, setShareLink] = useState(false);
 
@@ -48,7 +50,7 @@ const MainButtonBox = () => {
         src={'./buttons/menu.svg'}
         onClick={() => setMenuModal(true)}
       />
-      {menuModal ? <MenuModal set={setMenuModal} /> : null}
+      {menuModal ? <MenuModal set={setMenuModal} list={setList} /> : null}
 
       <StyledZoom src={'./buttons/zoom.svg'} onClick={() => setZoom(true)} />
       {zoom ? <div>clear</div> : null}
@@ -58,6 +60,8 @@ const MainButtonBox = () => {
         onClick={() => setShareLink(true)}
       />
       {shareLink ? <div>shareLink</div> : null}
+
+      {list ? <ListMsg /> : null}
     </>
   );
 };
