@@ -40,7 +40,7 @@ const Snow: React.FC<SnowProps> = ({ radius, centerPosition, rangeRadius }) => {
 
   return (
     <mesh position={position} ref={snowRef}>
-      <sphereGeometry args={[radius, 32, 16]} />
+      <sphereGeometry args={[radius, 8, 4]} />
       <meshStandardMaterial />
     </mesh>
   );
