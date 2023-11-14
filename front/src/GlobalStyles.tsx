@@ -58,6 +58,14 @@ const GlobalStyles = createGlobalStyle`
     cursor: pointer;
     color: black;
   }
+
+  img {
+    cursor: pointer;
+  }
+
+  hr {
+    margin: 0;
+  }
 `;
 
 export default GlobalStyles;

@@ -26,7 +26,9 @@ const font = {
   '--normal-nickname-text-font':
     'normal normal 400 16px/20px "Pretendard-Regular"',
   '--normal-nickname-input-font':
-    'normal normal 400 24px/20px "Pretendard-Regular"'
+    'normal normal 400 24px/20px "Pretendard-Regular"',
+  '--normal-main-header-font':
+    'normal normal 400 16px/160% "KingSejongInstitute"'
 };
 
 const size = {
