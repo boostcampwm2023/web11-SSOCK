@@ -47,16 +47,16 @@ const MainButtonBox = () => {
   return (
     <>
       <StyledMenu
-        src={'./buttons/menu.svg'}
+        src={'/buttons/menu.svg'}
         onClick={() => setMenuModal(true)}
       />
       {menuModal ? <MenuModal set={setMenuModal} list={setList} /> : null}
 
-      <StyledZoom src={'./buttons/zoom.svg'} onClick={() => setZoom(true)} />
+      <StyledZoom src={'/buttons/zoom.svg'} onClick={() => setZoom(true)} />
       {zoom ? <div>clear</div> : null}
 
       <StyledShareLink
-        src={'./buttons/shareLink.svg'}
+        src={'/buttons/shareLink.svg'}
         onClick={() => setShareLink(true)}
       />
       {shareLink ? <div>shareLink</div> : null}
