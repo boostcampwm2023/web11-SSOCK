@@ -1,11 +1,8 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import theme from '../../utils/theme';
-import { Button } from '../../components';
-
-interface NameProps {
-  set: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
-}
+import theme from '../../../utils/theme';
+import { Button } from '../../../components';
 
 const StyledBody = styled.div`
   width: 100vw;
@@ -66,9 +63,16 @@ const validNickname = (
     setStartNickname(true);
 };
 
-const Name = (props: NameProps) => {
+const Nickname = () => {
+  const navigate = useNavigate();
+
+  const [nickname, setNickname] = useState(false); // 닉네임 설정유무 판단 필요(닉네임 설정하고 스노우볼은 설정 안했다던지 등등..)
   const [startNickname, setStartNickname] = useState(false);
   const nicknameRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    nickname ? navigate('/make/snowball') : null;
+  }, [nickname, navigate]);
 
   return (
     <StyledBody>
@@ -89,7 +93,7 @@ const Name = (props: NameProps) => {
         <Button
           text={'시작하기'}
           color={theme.colors['--primary-red-primary']}
-          view={props.set}
+          view={[nickname, setNickname]}
           disabled={!startNickname}
         />
       </StyledButtonBox>
@@ -97,4 +101,4 @@ const Name = (props: NameProps) => {
   );
 };
 
-export default Name;
+export default Nickname;
