@@ -70,16 +70,16 @@ const MsgBox = (props: MsgDetail) => {
 const ListMsg = () => {
   return (
     <StyledList>
-      {mock.message.map(elem => {
-        return (
+      {mock.snowball.map(snowball =>
+        snowball.message.map(elem => (
           <MsgBox
             key={elem.message_id}
             color={elem.deco_color}
             content={elem.content}
             sender={elem.sender}
           />
-        );
-      })}
+        ))
+      )}
     </StyledList>
   );
 };
