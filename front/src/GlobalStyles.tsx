@@ -66,6 +66,10 @@ const GlobalStyles = createGlobalStyle`
   hr {
     margin: 0;
   }
+
+  div, span{
+    user-select: none;
+  }
 `;
 
 export default GlobalStyles;
