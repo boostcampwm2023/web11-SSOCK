@@ -55,10 +55,10 @@ const StyledShareLink = styled.img`
   }
 `;
 
-const zoomTime = (setZoom: React.Dispatch<React.SetStateAction<boolean>>) => {
-  setZoom(true);
+const zoomTime = (setScreen: React.Dispatch<React.SetStateAction<boolean>>) => {
+  setScreen(true);
   setTimeout(() => {
-    setZoom(false);
+    setScreen(false);
   }, 5000);
 };
 
@@ -67,12 +67,12 @@ const MainButtonBox = () => {
 
   const [menuModal, setMenuModal] = useState(false);
   const [list, setList] = useState(false);
-  const [zoom, setZoom] = useState(false);
+  const [screen, setScreen] = useState(false);
   const [shareLink, setShareLink] = useState(false);
 
   return (
     <>
-      {!zoom ? (
+      {!screen ? (
         <>
           <StyledHeader>
             <StyledUser>{userName}</StyledUser>님의 스노우볼
@@ -85,8 +85,8 @@ const MainButtonBox = () => {
           {menuModal ? <MenuModal set={setMenuModal} list={setList} /> : null}
 
           <StyledZoom
-            src={'/buttons/zoom.svg'}
-            onClick={() => zoomTime(setZoom)}
+            src={'/buttons/screen.svg'}
+            onClick={() => zoomTime(setScreen)}
           />
 
           <StyledShareLink
