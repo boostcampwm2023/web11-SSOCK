@@ -7,6 +7,7 @@ import * as THREE from 'three';
 import Ground from './Ground';
 import Glass from './Glass';
 import GiftBox from './GiftBox';
+import Raycaster from './Raycaster';
 
 
 const CanvasBox = styled.div`
@@ -32,6 +33,7 @@ const SnowGlobeCanvas = () => {
     <CanvasBox>
       <Canvas camera={{ position: [0, 10, 10] }}>
         <OrbitControls />
+        <Raycaster />
         <ambientLight intensity={0.8} color={'#cfcabb'} />
         <directionalLight
           position={[1, 1, 0]}
