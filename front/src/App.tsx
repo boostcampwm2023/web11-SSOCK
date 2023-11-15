@@ -1,7 +1,7 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
 import GlobalStyles from './GlobalStyles';
-import { Intro, Make, Main, Visit, Wrong } from './pages';
-import { IsLogin, HasSnowGlobe } from './router';
+import { Intro, Nickname, Snowball, Main, Visit, Wrong } from './pages';
+import { IsLogin, HasSnowball } from './router';
 
 const App = () => {
   return (
@@ -17,12 +17,15 @@ const App = () => {
             path="/make"
             element={
               <IsLogin>
-                <HasSnowGlobe>
-                  <Make />
-                </HasSnowGlobe>
+                <HasSnowball>
+                  <Outlet />
+                </HasSnowball>
               </IsLogin>
             }
-          />
+          >
+            <Route path="" element={<Nickname />} />
+            <Route path="snowball" element={<Snowball />} />
+          </Route>
 
           <Route
             path="/main"

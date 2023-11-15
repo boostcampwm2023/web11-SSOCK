@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import theme from '../../utils/theme';
-import mock from '../../mockdata.json'; // temporary
-import { SnowGlobeCanvas, Button } from '../../components';
+import theme from '../../../utils/theme';
+import mock from '../../../mockdata.json'; // temporary
+import { SnowGlobeCanvas, Button } from '../../../components';
 
 const StyledHeader = styled.div`
   position: absolute;
@@ -36,8 +36,7 @@ const StyledBottom = styled.div`
   transform: translate(-50%, 0);
   font: ${theme.font['--normal-introduce-font']};
   color: white;
-  text-shadow: -1px 0px black, 0px 1px black, 1px 0px black,
-    0px -1px black;
+  text-shadow: -1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black;
 `;
 
 const StyledBall = styled.span`
@@ -51,7 +50,7 @@ const StyledButtonBox = styled.div`
   text-align: center;
 `;
 
-const MakeSnowball = () => {
+const Snowball = () => {
   const userName = mock.user_name;
   const [make, setMake] = useState(true);
 
@@ -82,4 +81,4 @@ const MakeSnowball = () => {
   );
 };
 
-export default MakeSnowball;
+export default Snowball;
