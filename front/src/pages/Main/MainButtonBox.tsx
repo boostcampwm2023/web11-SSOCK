@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import styled from 'styled-components';
 import theme from '../../utils/theme';
 import MenuModal from './MenuModal';
@@ -14,6 +14,17 @@ const StyledHeader = styled.div`
   white-space: nowrap;
   transform: translate(-50%, 0);
   color: white;
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+    to {
+      opacity: 0;
+      transform: translate3d(-50%, -100%, 0);
+    }
+  }
 `;
 
 const StyledUser = styled.span`
@@ -30,9 +41,20 @@ const StyledMenu = styled.img`
     left: 50%;
     margin-left: 450px;
   }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+    to {
+      opacity: 0;
+      transform: translate3d(-50%, -100%, 0);
+    }
+  }
 `;
 
-const StyledZoom = styled.img`
+const StyledScreen = styled.img`
   position: absolute;
   bottom: 5%;
   margin-left: 4%;
@@ -41,6 +63,17 @@ const StyledZoom = styled.img`
     margin-left: 0;
     right: 50%;
     margin-right: 450px;
+  }
+
+  @keyframes fadeInDown {
+    from {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+    to {
+      opacity: 0;
+      transform: translate3d(-50%, 100%, 0);
+    }
   }
 `;
 
@@ -53,17 +86,71 @@ const StyledShareLink = styled.img`
     left: 50%;
     margin-left: 450px;
   }
+
+  @keyframes fadeInDown {
+    from {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+    to {
+      opacity: 0;
+      transform: translate3d(-50%, 100%, 0);
+    }
+  }
 `;
 
-const zoomTime = (setScreen: React.Dispatch<React.SetStateAction<boolean>>) => {
-  setScreen(true);
+const screenTime = (
+  setScreen: React.Dispatch<React.SetStateAction<boolean>>,
+  headerRef: React.RefObject<HTMLDivElement>,
+  menuRef: React.RefObject<HTMLImageElement>,
+  screenRef: React.RefObject<HTMLImageElement>,
+  shareLinkRef: React.RefObject<HTMLImageElement>
+) => {
+  if (headerRef.current) {
+    headerRef.current.style.setProperty('animation', 'fadeInUp 1s forwards');
+  }
+  if (menuRef.current) {
+    menuRef.current.style.setProperty('animation', 'fadeInUp 1s forwards');
+  }
+  if (screenRef.current) {
+    screenRef.current.style.setProperty('animation', 'fadeInDown 1s forwards');
+  }
+  if (shareLinkRef.current) {
+    shareLinkRef.current.style.setProperty(
+      'animation',
+      'fadeInDown 1s forwards'
+    );
+  }
+
+  setTimeout(() => {
+    setScreen(true);
+  }, 1000);
+
   setTimeout(() => {
     setScreen(false);
+
+    if (headerRef.current) {
+      headerRef.current.style.setProperty('animation', 'none');
+    }
+    if (menuRef.current) {
+      menuRef.current.style.setProperty('animation', 'none');
+    }
+    if (screenRef.current) {
+      screenRef.current.style.setProperty('animation', 'none');
+    }
+    if (shareLinkRef.current) {
+      shareLinkRef.current.style.setProperty('animation', 'none');
+    }
   }, 5000);
 };
 
 const MainButtonBox = () => {
   const userName = mock.user_name;
+
+  const headerRef = useRef<HTMLDivElement>(null);
+  const menuRef = useRef<HTMLImageElement>(null);
+  const screenRef = useRef<HTMLImageElement>(null);
+  const shareLinkRef = useRef<HTMLImageElement>(null);
 
   const [menuModal, setMenuModal] = useState(false);
   const [list, setList] = useState(false);
@@ -74,22 +161,27 @@ const MainButtonBox = () => {
     <>
       {!screen ? (
         <>
-          <StyledHeader>
+          <StyledHeader ref={headerRef}>
             <StyledUser>{userName}</StyledUser>님의 스노우볼
           </StyledHeader>
 
           <StyledMenu
+            ref={menuRef}
             src={'/buttons/menu.svg'}
             onClick={() => setMenuModal(true)}
           />
           {menuModal ? <MenuModal set={setMenuModal} list={setList} /> : null}
 
-          <StyledZoom
+          <StyledScreen
+            ref={screenRef}
             src={'/buttons/screen.svg'}
-            onClick={() => zoomTime(setScreen)}
+            onClick={() =>
+              screenTime(setScreen, headerRef, menuRef, screenRef, shareLinkRef)
+            }
           />
 
           <StyledShareLink
+            ref={shareLinkRef}
             src={'/buttons/shareLink.svg'}
             onClick={() => setShareLink(true)}
           />
