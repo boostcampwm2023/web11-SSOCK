@@ -6,6 +6,8 @@ import Snow from './Snow';
 import * as THREE from 'three';
 import Ground from './Ground';
 import Glass from './Glass';
+import GiftBox from './GiftBox';
+
 
 const CanvasBox = styled.div`
   margin: auto;
@@ -44,6 +46,28 @@ const SnowGlobeCanvas = () => {
           opacity={0.1}
         />
         {snows}
+
+        <GiftBox
+          scale={1}
+          position={new THREE.Vector3(4, 0, 0)}
+          message={'test1'}
+          id={1} />
+        <GiftBox
+          scale={1}
+          position={new THREE.Vector3(0, 0, 4)}
+          message={'test2'}
+          id={2} />
+        <GiftBox
+          scale={1}
+          position={new THREE.Vector3(0, 0, -4)}
+          message={'test3'}
+          id={3} />
+        <GiftBox
+          scale={1}
+          position={new THREE.Vector3(-4, 0, 0)}
+          message={'test4'}
+          id={4} />
+
       </Canvas>
     </CanvasBox>
   );
