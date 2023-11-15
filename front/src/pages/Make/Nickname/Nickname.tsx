@@ -32,13 +32,13 @@ const StyledNickName = styled.div`
 `;
 
 const StyledInput = styled.input`
+  font: ${theme.font['--normal-nickname-input-font']};
   margin-top: 5%;
   width: 100%;
   background-color: transparent;
   border: none;
   border-bottom: 1px solid white;
   color: white;
-  font: ${theme.font['--normal-nickname-input-font']};
 
   &::placeholder {
     color: ${theme.colors['--sub-text']};
