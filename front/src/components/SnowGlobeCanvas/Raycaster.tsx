@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react';
 import { useThree } from '@react-three/fiber';
-import * as THREE from 'three';
 
 const Raycaster: React.FC = () => {
   const { camera, pointer, raycaster, scene, gl } = useThree();
 
   useEffect(() => {
-    const onClickHandler = (event: MouseEvent) => {
+    const onClickHandler = () => {
       // 포인터 위치를 기준으로 레이캐스터 설정
       raycaster.setFromCamera(pointer, camera);
 
