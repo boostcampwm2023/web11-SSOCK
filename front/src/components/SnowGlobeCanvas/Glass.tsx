@@ -10,7 +10,7 @@ interface GlassProps {
 
 const Glass: React.FC<GlassProps> = ({ position, radius, color, opacity }) => {
   return (
-    <mesh position={position}>
+    <mesh position={position} name={"glass"}>
       <sphereGeometry args={[radius, 36, 32]} />
       <meshStandardMaterial
         transparent={true}
