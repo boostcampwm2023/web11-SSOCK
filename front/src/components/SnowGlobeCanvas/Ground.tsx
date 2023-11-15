@@ -8,7 +8,7 @@ interface GroundProps {
 }
 
 const Ground: React.FC<GroundProps> = ({ scale, position }) => {
-  const { scene } = useGLTF('./models/ground.glb');
+  const { scene } = useGLTF('/models/ground.glb');
 
   const ground = scene.getObjectByName('Ground') as THREE.Mesh;
 
