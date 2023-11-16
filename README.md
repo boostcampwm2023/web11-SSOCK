@@ -1,5 +1,11 @@
 # 🎄 web11-SSOCK
 
+## 메인 아이디어
+- 부스트캠프가 끝나는 시기에 크리스마스 감성이 가득한 사이트를 만들어보고 싶었습니다
+- 크리스마스에 사람들끼리 속마음을 주고받으면 어떨까 생각해 보았습니다
+- 롤링페이퍼 처럼 여러사람이 한 곳에 메시지를 작성 하는 아이디어를 채택했습니다.
+
+## SSOCK 팀
 <table align="center">
   <th>J034</th>
   <th>J064</th>
@@ -30,6 +36,13 @@
     <td align="center">Front-End</td>
     <td align="center">Back-End</td>
     <td align="center">Back-End</td>
+  </tr>
+  <tr>
+    <td align="center">Front-End</td>
+    <td align="center">Front-End</td>
+    <td align="center">Front-End</td>
+    <td align="center">Back-End</td>
+    <td align="center">백린이 최진수입니다</td>
   </tr>
 </table>
 
