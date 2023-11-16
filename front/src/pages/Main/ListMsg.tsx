@@ -1,43 +1,21 @@
 import styled from 'styled-components';
-import theme from '../../utils/theme';
 import mock from '../../mockdata.json'; // temporary
+import { Msg } from '../../components';
 
-interface MsgProps {
-  elems: Array<string>;
+interface Snowball {
+  title: string;
+  private: boolean;
+  main_deco_id: string;
+  created_at: string;
+  message: {
+    message_id: number;
+    deco_id: number;
+    deco_color: string;
+    content: string;
+    sender: string;
+    created_at: string;
+  }[];
 }
-
-interface MsgColor {
-  color: string;
-}
-
-const StyledLetterBox = styled.div<MsgColor>`
-  font: ${theme.font['--normal-introduce-font']};
-  border-radius: 16px;
-  padding: 16px;
-  background-color: ${props => props.color + '4D'};
-  margin: 10px;
-`;
-
-const StyledLetterPerson = styled.div`
-  color: white;
-`;
-
-const StyledTo = styled.span`
-  color: ${theme.colors['--nick-name']};
-`;
-
-const StyledLetterContent = styled.div`
-  color: white;
-  margin: 30px 0;
-`;
-
-const StyledFromBox = styled(StyledLetterPerson)`
-  text-align: right;
-`;
-
-const StyledFrom = styled.span`
-  color: ${theme.colors['--primary-redp-variant']};
-`;
 
 const StyledList = styled.div`
   position: absolute;
@@ -47,32 +25,14 @@ const StyledList = styled.div`
   overflow: scroll;
 `;
 
-const MsgBox = (props: MsgProps) => {
-  const userName = mock.user_name;
-
-  return (
-    <StyledLetterBox color={props.elems[0]}>
-      <StyledLetterPerson>
-        To. <StyledTo>{userName}</StyledTo>
-      </StyledLetterPerson>
-
-      <StyledLetterContent>{props.elems[1]}</StyledLetterContent>
-
-      <StyledFromBox>
-        From. <StyledFrom>{props.elems[2]}</StyledFrom>
-      </StyledFromBox>
-    </StyledLetterBox>
-  );
-};
-
 const ListMsg = () => {
   return (
     <StyledList>
-      {mock.snowball.map(snowball =>
+      {mock.snowball.map((snowball: Snowball) =>
         snowball.message.map(elem => (
-          <MsgBox
+          <Msg
             key={elem.message_id}
-            elems={[elem.deco_color, elem.content, elem.sender]}
+            elems={[elem.deco_color, 'Not', elem.content, elem.sender]}
           />
         ))
       )}
