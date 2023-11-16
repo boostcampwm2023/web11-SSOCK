@@ -1,7 +1,15 @@
+// import styled from 'styled-components';
+// import theme from '../../../utils/theme';
+import { SnowGlobeCanvas, HeaderText, Prev } from '../../../components';
+import Steps from './Steps';
+
 const Deco = () => {
   return (
     <>
-      <div>deco</div>
+      <SnowGlobeCanvas />
+      <Prev />
+      <HeaderText Ref={null} />
+      <Steps />
     </>
   );
 };
