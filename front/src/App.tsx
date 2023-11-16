@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
 import GlobalStyles from './GlobalStyles';
-import { Intro, Nickname, Snowball, Main, Visit, Wrong } from './pages';
+import { Intro, Nickname, Snowball, Main, Visit, Deco, Wrong } from './pages';
 import { IsLogin, HasSnowball } from './router';
 
 const App = () => {
@@ -11,7 +11,11 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Intro />} />
-          <Route path="/visit/:userId" element={<Visit />} />
+
+          <Route path="/visit/:user" element={<Outlet />}>
+            <Route path="" element={<Visit />} />
+            <Route path="deco" element={<Deco />} />
+          </Route>
 
           <Route
             path="/make"
