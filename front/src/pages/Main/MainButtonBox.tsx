@@ -15,14 +15,14 @@ const StyledHeader = styled.div`
   transform: translate(-50%, 0);
   color: white;
 
-  @keyframes fadeInUp {
+  @keyframes fadeInUp1 {
     from {
       opacity: 1;
       transform: translate(-50%, 0);
     }
     to {
       opacity: 0;
-      transform: translate3d(-50%, -100%, 0);
+      transform: translate(-50%, -100%);
     }
   }
 `;
@@ -42,14 +42,14 @@ const StyledMenu = styled.img`
     margin-left: 450px;
   }
 
-  @keyframes fadeInUp {
+  @keyframes fadeInUp2 {
     from {
       opacity: 1;
-      transform: translate(-50%, 0);
+      transform: translate(0, 0);
     }
     to {
       opacity: 0;
-      transform: translate3d(-50%, -100%, 0);
+      transform: translate(0, -60%);
     }
   }
 `;
@@ -68,11 +68,11 @@ const StyledScreen = styled.img`
   @keyframes fadeInDown {
     from {
       opacity: 1;
-      transform: translate(-50%, 0);
+      transform: translate(0, 0);
     }
     to {
       opacity: 0;
-      transform: translate3d(-50%, 100%, 0);
+      transform: translate(0, 5%);
     }
   }
 `;
@@ -90,37 +90,29 @@ const StyledShareLink = styled.img`
   @keyframes fadeInDown {
     from {
       opacity: 1;
-      transform: translate(-50%, 0);
+      transform: translate(0, 0);
     }
     to {
       opacity: 0;
-      transform: translate3d(-50%, 100%, 0);
+      transform: translate(0, 5%);
     }
   }
 `;
 
 const screenTime = (
   setScreen: React.Dispatch<React.SetStateAction<boolean>>,
-  headerRef: React.RefObject<HTMLDivElement>,
-  menuRef: React.RefObject<HTMLImageElement>,
-  screenRef: React.RefObject<HTMLImageElement>,
-  shareLinkRef: React.RefObject<HTMLImageElement>
+  refs: Array<React.RefObject<HTMLDivElement>>
 ) => {
-  if (headerRef.current) {
-    headerRef.current.style.setProperty('animation', 'fadeInUp 1s forwards');
-  }
-  if (menuRef.current) {
-    menuRef.current.style.setProperty('animation', 'fadeInUp 1s forwards');
-  }
-  if (screenRef.current) {
-    screenRef.current.style.setProperty('animation', 'fadeInDown 1s forwards');
-  }
-  if (shareLinkRef.current) {
-    shareLinkRef.current.style.setProperty(
-      'animation',
-      'fadeInDown 1s forwards'
-    );
-  }
+  refs.forEach((ref, idx) => {
+    if (ref.current) {
+      ref.current.style.setProperty(
+        'animation',
+        `${
+          idx >= 2 ? 'fadeInDown' : idx === 0 ? 'fadeInUp1' : 'fadeInUp2'
+        } 1s forwards`
+      );
+    }
+  });
 
   setTimeout(() => {
     setScreen(true);
@@ -129,18 +121,11 @@ const screenTime = (
   setTimeout(() => {
     setScreen(false);
 
-    if (headerRef.current) {
-      headerRef.current.style.setProperty('animation', 'none');
-    }
-    if (menuRef.current) {
-      menuRef.current.style.setProperty('animation', 'none');
-    }
-    if (screenRef.current) {
-      screenRef.current.style.setProperty('animation', 'none');
-    }
-    if (shareLinkRef.current) {
-      shareLinkRef.current.style.setProperty('animation', 'none');
-    }
+    refs.forEach(ref => {
+      if (ref.current) {
+        ref.current.style.setProperty('animation', 'none');
+      }
+    });
   }, 5000);
 };
 
@@ -176,7 +161,12 @@ const MainButtonBox = () => {
             ref={screenRef}
             src={'/buttons/screen.svg'}
             onClick={() =>
-              screenTime(setScreen, headerRef, menuRef, screenRef, shareLinkRef)
+              screenTime(setScreen, [
+                headerRef,
+                menuRef,
+                screenRef,
+                shareLinkRef
+              ])
             }
           />
 
