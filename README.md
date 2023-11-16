@@ -1,9 +1,9 @@
 # 🎄 web11-SSOCK
 
 ## 메인 아이디어
-- 부스트캠프가 끝나는 시기에 크리스마스 감성이 가득한 사이트를 만들어보고 싶었습니다
-- 크리스마스에 사람들끼리 속마음을 주고받으면 어떨까 생각해 보았습니다
-- 롤링페이퍼 처럼 여러사람이 한 곳에 메시지를 작성 하는 아이디어를 채택했습니다.
+- 부스트캠프가 끝나는 시기에 크리스마스 감성이 가득한 사이트 제작🎅
+- 크리스마스에 사람들끼리 속마음을 주고받으면 어떨까❓
+- 롤링페이퍼처럼 여러사람이 한 곳에 메시지를 작성 하는 아이디어📄
 
 ## SSOCK 팀
 <table align="center">
@@ -39,13 +39,13 @@
   </tr>
   <tr>
     <td align="center">Front-End</td>
-    <td align="center">Front-End</td>
+    <td align="center">나도 3D사이트,,<br/>할 수 있다,,🔥</td>
     <td align="center">Front-End</td>
     <td align="center">Back-End</td>
-    <td align="center">백린이 최진수입니다</td>
+    <td align="center">백린이<br/>최진수입니다</td>
   </tr>
 </table>
 
-## [스프린트 계획회의](https://github.com/boostcampwm2023/web11-SSOCK/wiki)
+## [Wiki](https://github.com/boostcampwm2023/web11-SSOCK/wiki)
 
 ## [Notion](https://delicious-halloumi-7ae.notion.site/SSOCK-By-SSOCK-ada468a8b135435bb8acc1c50a2a9c0c?pvs=4)
