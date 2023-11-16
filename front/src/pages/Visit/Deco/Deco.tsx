@@ -10,6 +10,7 @@ const Deco = () => {
       <Prev />
       <HeaderText Ref={null} />
       <Steps />
+      {/* steps 추후 구현 */}
     </>
   );
 };
