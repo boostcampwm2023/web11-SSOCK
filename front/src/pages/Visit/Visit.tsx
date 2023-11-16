@@ -1,6 +1,6 @@
 import { SnowGlobeCanvas } from '../../components';
-import VisitHeader from './VisitHeader';
 import VisitButton from './VisitButton';
+import VisitHeader from './VisitHeader';
 
 const Visit = () => {
   return (

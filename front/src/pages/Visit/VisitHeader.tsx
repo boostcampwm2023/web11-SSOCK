@@ -1,40 +1,18 @@
 import styled from 'styled-components';
 import theme from '../../utils/theme';
-import mock from '../../mockdata.json'; // temporary
+import { HeaderText } from '../../components';
 
-const StyledHeader = styled.div`
+const StyledLetter = styled.div`
   font: ${theme.font['--normal-main-header-font']};
-  text-shadow: -1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black;
+  font-size: 20px;
   position: absolute;
-  top: 5%;
+  top: 10%;
   left: 50%;
   white-space: nowrap;
   transform: translate(-50%, 0);
-  color: white;
-
-  @keyframes fadeInUp1 {
-    from {
-      opacity: 1;
-      transform: translate(-50%, 0);
-    }
-    to {
-      opacity: 0;
-      transform: translate(-50%, -100%);
-    }
-  }
-`;
-
-const StyledUser = styled.span`
-  color: ${theme.colors['--nick-name']};
-  font-size: 20px;
-`;
-
-const StyledLetter = styled.div`
-  font-size: 20px;
-  text-align: center;
-  margin-top: 24px;
   display: flex;
   align-items: center;
+  color: white;
 `;
 
 const StyledLetterImg = styled.img`
@@ -42,17 +20,16 @@ const StyledLetterImg = styled.img`
 `;
 
 const VisitHeader = () => {
-  const userName = mock.user_name;
   const letterNum = 30;
 
   return (
-    <StyledHeader>
-      <StyledUser>{userName}</StyledUser>님의 스노우볼
+    <>
+      <HeaderText Ref={null} />
       <StyledLetter>
         <StyledLetterImg src={'/icons/letter.svg'} />
         {letterNum}개의 편지
       </StyledLetter>
-    </StyledHeader>
+    </>
   );
 };
 
