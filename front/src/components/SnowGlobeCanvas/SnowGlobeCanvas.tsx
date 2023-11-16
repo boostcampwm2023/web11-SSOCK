@@ -9,7 +9,6 @@ import Glass from './Glass';
 import GiftBox from './GiftBox';
 import Raycaster from './Raycaster';
 
-
 const CanvasBox = styled.div`
   margin: auto;
   width: 100vw;
@@ -53,23 +52,26 @@ const SnowGlobeCanvas = () => {
           scale={1}
           position={new THREE.Vector3(4, 0, 0)}
           message={'test1'}
-          id={1} />
+          id={1}
+        />
         <GiftBox
           scale={1}
           position={new THREE.Vector3(0, 0, 4)}
           message={'test2'}
-          id={2} />
+          id={2}
+        />
         <GiftBox
           scale={1}
           position={new THREE.Vector3(0, 0, -4)}
           message={'test3'}
-          id={3} />
+          id={3}
+        />
         <GiftBox
           scale={1}
           position={new THREE.Vector3(-4, 0, 0)}
           message={'test4'}
-          id={4} />
-
+          id={4}
+        />
       </Canvas>
     </CanvasBox>
   );

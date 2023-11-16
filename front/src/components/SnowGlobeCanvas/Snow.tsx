@@ -11,26 +11,21 @@ interface SnowProps {
 
 const Snow: React.FC<SnowProps> = ({ radius, centerPosition, rangeRadius }) => {
   const snowRef = useRef<THREE.Mesh>(null);
-  const speed = 0.05;
   const position = new THREE.Vector3(
     centerPosition.x - rangeRadius + Math.random() * rangeRadius * 2,
     centerPosition.y + rangeRadius + Math.random() * 2 * rangeRadius,
     centerPosition.z - rangeRadius + Math.random() * rangeRadius * 2
   );
-  useFrame(() => {
+  useFrame((_, delta) => {
     const snow = snowRef.current;
+    const speed = 1 * delta;
     if (snow) {
       if (snow.position.y <= 0) {
         snow.position.y = centerPosition.y + rangeRadius;
       }
       snow.position.y -= speed;
 
-      if (
-        (snow.position.x - centerPosition.x) ** 2 +
-          (snow.position.y - centerPosition.y) ** 2 +
-          (snow.position.z - centerPosition.z) ** 2 >
-        (rangeRadius - 0.5) ** 2
-      ) {
+      if (snow.position.distanceTo(centerPosition) > rangeRadius - 0.5) {
         snow.visible = false;
       } else {
         snow.visible = true;
@@ -40,7 +35,7 @@ const Snow: React.FC<SnowProps> = ({ radius, centerPosition, rangeRadius }) => {
 
   return (
     <mesh position={position} ref={snowRef}>
-      <sphereGeometry args={[radius, 8, 4]} />
+      <sphereGeometry args={[radius, 8, 6]} />
       <meshStandardMaterial />
     </mesh>
   );
