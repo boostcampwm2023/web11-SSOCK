@@ -26,6 +26,7 @@ const Snow: React.FC<SnowProps> = ({ radius, centerPosition, rangeRadius }) => {
       snow.position.y -= speed;
 
       if (snow.position.distanceTo(centerPosition) > rangeRadius - 0.5) {
+
         snow.visible = false;
       } else {
         snow.visible = true;
@@ -33,9 +34,11 @@ const Snow: React.FC<SnowProps> = ({ radius, centerPosition, rangeRadius }) => {
     }
   });
 
+
   return (
     <mesh position={position} ref={snowRef}>
       <sphereGeometry args={[radius, 8, 6]} />
+
       <meshStandardMaterial />
     </mesh>
   );

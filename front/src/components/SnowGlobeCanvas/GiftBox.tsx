@@ -32,8 +32,11 @@ const GiftBox: React.FC<giftBoxProps> = ({ scale, position, message, id }) => {
 
   scene.scale.set(scale, scale, scale);
   scene.position.set(position.x, position.y, position.z);
-  scene.userData.message = message;
-  return <primitive object={scene.clone()} ref={modelRef} />;
+  const cloneObject = scene.clone();
+  cloneObject.children.forEach(child => {
+    child.userData = { message };
+  });
+  return <primitive object={cloneObject} ref={modelRef} />;
 };
 
 export default GiftBox;
