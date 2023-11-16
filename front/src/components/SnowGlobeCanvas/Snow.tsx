@@ -29,7 +29,7 @@ const Snow: React.FC<SnowProps> = ({ radius, centerPosition, rangeRadius }) => {
         (snow.position.x - centerPosition.x) ** 2 +
           (snow.position.y - centerPosition.y) ** 2 +
           (snow.position.z - centerPosition.z) ** 2 >
-        (rangeRadius - 0.5) ** 2
+        (rangeRadius - 1) ** 2
       ) {
         snow.visible = false;
       } else {
@@ -38,8 +38,9 @@ const Snow: React.FC<SnowProps> = ({ radius, centerPosition, rangeRadius }) => {
     }
   });
 
+
   return (
-    <mesh position={position} ref={snowRef}>
+    <mesh position={position} ref={snowRef} name={"snow"}>
       <sphereGeometry args={[radius, 8, 4]} />
       <meshStandardMaterial />
     </mesh>
