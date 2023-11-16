@@ -14,8 +14,14 @@ export class MessageService {
   async createMessage(
     createMessageDto: CreateMessageDto
   ): Promise<MessageEntity> {
-    const message = this.messageRepository.create(createMessageDto);
-    return await this.messageRepository.save(message);
+    const messageEntity = this.messageRepository.create({
+      snowball_id: createMessageDto.snowball_id,
+      deco_id: createMessageDto.deco_id,
+      content: createMessageDto.content,
+      sender: createMessageDto.sender
+      // opened와 created_at은 자동으로 설정됩니다.
+    });
+    return await this.messageRepository.save(messageEntity);
   }
   async deleteMessage(deleteMessageDto: DeleteMessageDto): Promise<void> {
     await this.messageRepository.delete(deleteMessageDto.message_id);

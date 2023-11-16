@@ -1,12 +1,17 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn
+} from 'typeorm';
 
-@Entity()
+@Entity({ name: 'message' })
 export class MessageEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  snowball_id: number;
+  snowball_id: string;
 
   @Column()
   deco_id: number;
@@ -17,12 +22,9 @@ export class MessageEntity {
   @Column()
   sender: string;
 
-  @Column({ nullable: true })
-  private: string | null;
-
-  @Column({ nullable: true })
+  @Column({ nullable: true, default: null })
   opened: string | null;
 
-  @Column()
-  created_at: string;
+  @CreateDateColumn()
+  created_at: Date;
 }
