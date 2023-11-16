@@ -40,7 +40,7 @@
   <tr>
     <td align="center">Front-End</td>
     <td align="center">나도 3D사이트,,<br/>할 수 있다,,🔥</td>
-    <td align="center">Front-End</td>
+    <td align="center">안녕하세요<br/>저는 오승엽입니다<br/>누군가는 해야하잖아🤯</td>
     <td align="center">Back-End</td>
     <td align="center">백린이<br/>최진수입니다</td>
   </tr>
