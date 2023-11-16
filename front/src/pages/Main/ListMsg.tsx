@@ -2,10 +2,8 @@ import styled from 'styled-components';
 import theme from '../../utils/theme';
 import mock from '../../mockdata.json'; // temporary
 
-interface MsgDetail {
-  color: string;
-  content: string;
-  sender: string;
+interface MsgProps {
+  elems: Array<string>;
 }
 
 interface MsgColor {
@@ -49,19 +47,19 @@ const StyledList = styled.div`
   overflow: scroll;
 `;
 
-const MsgBox = (props: MsgDetail) => {
+const MsgBox = (props: MsgProps) => {
   const userName = mock.user_name;
 
   return (
-    <StyledLetterBox color={props.color}>
+    <StyledLetterBox color={props.elems[0]}>
       <StyledLetterPerson>
         To. <StyledTo>{userName}</StyledTo>
       </StyledLetterPerson>
 
-      <StyledLetterContent>{props.content}</StyledLetterContent>
+      <StyledLetterContent>{props.elems[1]}</StyledLetterContent>
 
       <StyledFromBox>
-        From. <StyledFrom>{props.sender}</StyledFrom>
+        From. <StyledFrom>{props.elems[2]}</StyledFrom>
       </StyledFromBox>
     </StyledLetterBox>
   );
@@ -74,9 +72,7 @@ const ListMsg = () => {
         snowball.message.map(elem => (
           <MsgBox
             key={elem.message_id}
-            color={elem.deco_color}
-            content={elem.content}
-            sender={elem.sender}
+            elems={[elem.deco_color, elem.content, elem.sender]}
           />
         ))
       )}
