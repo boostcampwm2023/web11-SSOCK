@@ -2,8 +2,11 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
-  CreateDateColumn
+  CreateDateColumn,
+  ManyToOne,
+  JoinColumn
 } from 'typeorm';
+import { SnowballEntity } from 'src/modules/snowball/entity/snowball.entity';
 
 @Entity({ name: 'message' })
 export class MessageEntity {
@@ -14,7 +17,7 @@ export class MessageEntity {
   snowball_id: string;
 
   @Column()
-  deco_id: number;
+  decoration_id: number;
 
   @Column()
   content: string;
@@ -22,9 +25,13 @@ export class MessageEntity {
   @Column()
   sender: string;
 
-  @Column({ nullable: true, default: null })
-  opened: string | null;
+  @CreateDateColumn({ nullable: true, default: null })
+  opened: Date | null;
 
   @CreateDateColumn()
   created_at: Date;
+
+  @ManyToOne(() => SnowballEntity, message => message.message_snowballs)
+  @JoinColumn({ name: 'snowball_id' })
+  message_snowballs: SnowballEntity;
 }

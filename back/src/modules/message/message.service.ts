@@ -16,7 +16,7 @@ export class MessageService {
   ): Promise<MessageEntity> {
     const messageEntity = this.messageRepository.create({
       snowball_id: createMessageDto.snowball_id,
-      deco_id: createMessageDto.deco_id,
+      decoration_id: createMessageDto.decoration_id,
       content: createMessageDto.content,
       sender: createMessageDto.sender
       // opened와 created_at은 자동으로 설정됩니다.
