@@ -22,7 +22,7 @@ const SnowGlobeCanvas = () => {
   //boolean useRef
   const isClicked = useRef<boolean>(false);
   // camera controls ref
-  const cameraControls = useRef<CameraControls | null>(null);
+
 
   const glassRadius = 7;
   const glassPosition = new THREE.Vector3(0, glassRadius / 2, 0);
