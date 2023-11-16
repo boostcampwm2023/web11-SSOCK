@@ -20,5 +20,5 @@ export class CreateMessageDto {
   @IsNumber()
   @IsNotEmpty()
   @ApiProperty({ type: Number, description: '데코오브젝트 id' })
-  readonly deco_id: number;
+  readonly decoration_id: number;
 }

@@ -16,7 +16,7 @@ export class SnowballController {
   })
   @ApiBody({ type: CreateSnowballDto })
   createSnowball(@Body() createSnowballDto: CreateSnowballDto) {
-    return this.snowballService.createSnowball(createSnowballDto);
+    return createSnowballDto;
   }
 
   @Put()
@@ -26,6 +26,6 @@ export class SnowballController {
   })
   @ApiBody({ type: UpdateSnowballDto })
   updateSnowball(@Body() updateSnowballDto: UpdateSnowballDto) {
-    this.snowballService.updateSnowball(updateSnowballDto);
+    updateSnowballDto;
   }
 }
