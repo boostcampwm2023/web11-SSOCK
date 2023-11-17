@@ -19,6 +19,11 @@ export class CreateMessageDto {
 
   @IsNumber()
   @IsNotEmpty()
-  @ApiProperty({ type: Number, description: '데코오브젝트 id' })
+  @ApiProperty({ type: Number, description: '장식 종류' })
   readonly decoration_id: number;
+
+  @IsString()
+  @IsNotEmpty()
+  @ApiProperty({ type: String, description: '장식 색상', example: '#FFFFFF' })
+  readonly decoration_color: string;
 }
