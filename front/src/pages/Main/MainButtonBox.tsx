@@ -76,12 +76,19 @@ const screenTime = (
   setScreen: React.Dispatch<React.SetStateAction<boolean>>,
   refs: Array<React.RefObject<HTMLDivElement>>
 ) => {
+  const bottoms = 2;
+  const topFirst = 0;
+
   refs.forEach((ref, idx) => {
     if (ref.current) {
       ref.current.style.setProperty(
         'animation',
         `${
-          idx >= 2 ? 'fadeInDown' : idx === 0 ? 'fadeInUp1' : 'fadeInUp2'
+          idx >= bottoms
+            ? 'fadeInDown'
+            : idx === topFirst
+            ? 'fadeInUp1'
+            : 'fadeInUp2'
         } 1s forwards`
       );
     }
