@@ -16,8 +16,7 @@ const Raycaster: React.FC<RaycasterProps> = ({ isClickedRef }) => {
     const isClicked = isClickedRef.current;
     if (isAnimating.current) {
       if (isClicked) {
-        if (camera.position.distanceTo(new THREE.Vector3(0, 0, 0)) > 3) {
-
+        if (camera.position.distanceTo(new THREE.Vector3(0, 0, 0)) > 7) {
           camera.position.x = (camera.position.x - 0) * 0.9;
           camera.position.y = (camera.position.y - 0) * 0.9;
           camera.position.z = (camera.position.z - 0) * 0.9;
