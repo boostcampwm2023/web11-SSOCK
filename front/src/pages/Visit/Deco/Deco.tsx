@@ -7,7 +7,7 @@ const Deco = () => {
   return (
     <>
       <SnowGlobeCanvas />
-      <Prev />
+      <Prev set={null} />
       <HeaderText Ref={null} />
       <Steps />
       {/* steps 추후 구현 */}

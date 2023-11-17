@@ -2,6 +2,10 @@ import styled from 'styled-components';
 import theme from '../../utils/theme';
 import { useNavigate } from 'react-router-dom';
 
+interface PrevProps {
+  set: React.Dispatch<React.SetStateAction<boolean>> | null;
+}
+
 const StyledPrev = styled.img`
   position: absolute;
   top: 4%;
@@ -12,10 +16,17 @@ const StyledPrev = styled.img`
   }
 `;
 
-const Prev = () => {
+const Prev = (props: PrevProps) => {
   const navigate = useNavigate();
 
-  return <StyledPrev src={'/icons/prev.svg'} onClick={() => navigate(-1)} />;
+  return (
+    <StyledPrev
+      src={'/icons/prev.svg'}
+      onClick={() => {
+        props.set ? props.set(false) : navigate(-1);
+      }}
+    />
+  );
 };
 
 export default Prev;

@@ -3,6 +3,10 @@ import mock from '../../mockdata.json'; // temporary
 import { Msg, Prev } from '../../components';
 import Snowball from './../Make/Snowball/Snowball';
 
+interface ListMsgProps {
+  set: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
 interface Snowball {
   title: string;
   private: boolean;
@@ -30,14 +34,15 @@ const StyledList = styled.div`
   width: 100%;
   top: 10%;
   height: 85vh;
-  overflow: scroll;
+  overflow-y: scroll;
+  scrollbar-width: none;
 `;
 
-const ListMsg = () => {
+const ListMsg = (props: ListMsgProps) => {
   return (
     <>
-      <Prev />
-      {/* prev router 분리..? navigate(-1) 구현,, */}
+      <Prev set={props.set} />
+
       <StyledList>
         {mock.snowball.map((snowball: Snowball) =>
           snowball.message.map(
