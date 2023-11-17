@@ -1,11 +1,16 @@
-import { IsNumber, IsNotEmpty } from '@nestjs/class-validator';
+import { IsNumber, IsNotEmpty, IsString } from '@nestjs/class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class DecorationSnowballDto {
   @IsNumber()
   @IsNotEmpty()
-  @ApiProperty({ type: Number, description: '데코레이션 id' })
+  @ApiProperty({ type: Number, description: '장식 종류' })
   readonly deco_id: number;
+
+  @IsString()
+  @IsNotEmpty()
+  @ApiProperty({ type: String, description: '장식 색상', example: '#FFFFFF' })
+  readonly decoration_color: string;
 
   @IsNumber()
   @IsNotEmpty()

@@ -17,11 +17,11 @@ export class AuthController {
   })
   @ApiResponse({
     status: 200,
-    description: `'http://localhost:3000/'으로 리다이렉트`
+    description: `'https://mysnowball.kr'로 리다이렉트`
   })
   @ApiResponse({
     status: 400,
-    description: `'http://localhost:3000/failure'으로 리다이렉트`
+    description: `'https://mysnowball.kr/failure'으로 리다이렉트`
   })
   @UseGuards(AuthGuard('google'))
   async googleLogin(): Promise<void> {}
@@ -43,11 +43,11 @@ export class AuthController {
   })
   @ApiResponse({
     status: 200,
-    description: `'http://localhost:3000/'으로 리다이렉트`
+    description: `'https://mysnowball.kr'으로 리다이렉트`
   })
   @ApiResponse({
     status: 400,
-    description: `'http://localhost:3000/failure'으로 리다이렉트`
+    description: `'https://mysnowball.kr/failure'으로 리다이렉트`
   })
   @UseGuards(AuthGuard('naver'))
   async naverLogin(): Promise<void> {}
@@ -69,11 +69,11 @@ export class AuthController {
   })
   @ApiResponse({
     status: 200,
-    description: `'http://localhost:3000/'으로 리다이렉트`
+    description: `'https://mysnowball.kr'으로 리다이렉트`
   })
   @ApiResponse({
     status: 400,
-    description: `'http://localhost:3000/failure'으로 리다이렉트`
+    description: `'https://mysnowball.kr/failure'으로 리다이렉트`
   })
   @UseGuards(AuthGuard('kakao'))
   async kakaoLogin(): Promise<void> {}
