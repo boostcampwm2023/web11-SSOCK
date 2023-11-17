@@ -153,7 +153,7 @@ const MainButtonBox = () => {
           />
           {shareLink ? <div>shareLink</div> : null}
 
-          {list ? <ListMsg /> : null}
+          {list ? <ListMsg set={setList} /> : null}
         </>
       ) : null}
     </>
