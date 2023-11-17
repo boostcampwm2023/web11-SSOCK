@@ -3,7 +3,10 @@ import theme from '../../utils/theme';
 import mock from '../../mockdata.json'; // temporary
 
 interface MsgProps {
-  elems: [string, 'Empty' | 'Not', string, string];
+  color: string;
+  isInput: boolean;
+  content: string;
+  sender: string;
 }
 
 interface MsgColor {
@@ -42,19 +45,19 @@ const StyledFrom = styled.span`
 const Msg = (props: MsgProps) => {
   const userName = mock.user_name;
   return (
-    <StyledLetterBox color={props.elems[0]}>
+    <StyledLetterBox color={props.color}>
       <StyledLetterPerson>
         To. <StyledTo>{userName}</StyledTo>
       </StyledLetterPerson>
 
-      {props.elems[1] === 'Empty' ? (
+      {props.isInput ? (
         <div>텍스트 입력창</div>
       ) : (
-        <StyledLetterContent>{props.elems[2]}</StyledLetterContent>
+        <StyledLetterContent>{props.content}</StyledLetterContent>
       )}
 
       <StyledFromBox>
-        From. <StyledFrom>{props.elems[3]}</StyledFrom>
+        From. <StyledFrom>{props.sender}</StyledFrom>
       </StyledFromBox>
     </StyledLetterBox>
   );
