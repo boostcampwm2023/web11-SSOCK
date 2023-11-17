@@ -23,7 +23,6 @@ const SnowGlobeCanvas = () => {
   const isClicked = useRef<boolean>(false);
   // camera controls ref
 
-
   const glassRadius = 7;
   const glassPosition = new THREE.Vector3(0, glassRadius / 2, 0);
   const snows = Array.from({ length: 100 }, (_, i) => (
@@ -36,8 +35,8 @@ const SnowGlobeCanvas = () => {
   ));
   return (
     <CanvasBox>
-      <Canvas camera={{ position: [0, 10, 10] }}>
-        <OrbitControls enablePan={false} enableZoom={false}/>
+      <Canvas camera={{ position: [0, 10, 15] }}>
+        <OrbitControls enablePan={false} enableZoom={false} />
         <Raycaster isClickedRef={isClicked} />
         <ambientLight intensity={0.8} color={'#cfcabb'} />
         <directionalLight
