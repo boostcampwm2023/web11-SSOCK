@@ -8,7 +8,7 @@ import {
 } from 'typeorm';
 import { SnowballEntity } from 'src/modules/snowball/entity/snowball.entity';
 
-@Entity({ name: 'message' })
+@Entity({ synchronize: true ,name: 'message' })
 export class MessageEntity {
   @PrimaryGeneratedColumn()
   id: number;
@@ -19,10 +19,13 @@ export class MessageEntity {
   @Column()
   decoration_id: number;
 
-  @Column()
+  @Column({ length: 7})
+  decoration_color: string;
+
+  @Column({ type: 'text' })
   content: string;
 
-  @Column()
+  @Column({ length: 16})
   sender: string;
 
   @CreateDateColumn({ nullable: true, default: null })
