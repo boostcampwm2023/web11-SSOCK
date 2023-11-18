@@ -1,12 +1,14 @@
 import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
 import GlobalStyles from './GlobalStyles';
-import { Intro, Nickname, Snowball, Main, Visit, Deco, Wrong } from './pages';
 import { IsLogin, HasSnowball } from './router';
+import { Intro, Nickname, Snowball, Main, Visit, Deco, Wrong } from './pages';
+import { Song } from './components';
 
 const App = () => {
   return (
     <>
       <GlobalStyles />
+      <Song />
 
       <BrowserRouter>
         <Routes>
