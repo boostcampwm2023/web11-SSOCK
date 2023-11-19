@@ -7,10 +7,10 @@ import {
   ApiCreatedResponse,
   ApiResponse
 } from '@nestjs/swagger';
-import { CreateSnowballDto } from './dto/req-create-snowball.dto';
-import { UpdateSnowballDto } from './dto/req-update-snowball.dto';
-import { ResCreateSnowballDto } from './dto/res-create-snowball.dto';
-import { ResUpdateSnowballDto } from './dto/res-update-snowball.dto';
+import { ReqCreateSnowballDto } from './dto/request/req-create-snowball.dto';
+import { ReqUpdateSnowballDto } from './dto/request/req-update-snowball.dto';
+import { ResCreateSnowballDto } from './dto/response/res-create-snowball.dto';
+import { ResUpdateSnowballDto } from './dto/response/res-update-snowball.dto';
 
 @ApiTags('Snowball API')
 @Controller('snowball')
@@ -26,8 +26,8 @@ export class SnowballController {
     description: '스노우볼 생성 성공',
     type: ResCreateSnowballDto
   })
-  @ApiBody({ type: CreateSnowballDto })
-  createSnowball(@Body() createSnowballDto: CreateSnowballDto) {
+  @ApiBody({ type: ReqCreateSnowballDto })
+  createSnowball(@Body() createSnowballDto: ReqCreateSnowballDto) {
     return createSnowballDto;
   }
 
@@ -41,8 +41,8 @@ export class SnowballController {
     summary: '스노우볼 설정 업데이트 API',
     description: '스노우볼에의 정보를 업데이트 해줍니다.'
   })
-  @ApiBody({ type: UpdateSnowballDto })
-  updateSnowball(@Body() updateSnowballDto: UpdateSnowballDto) {
+  @ApiBody({ type: ReqUpdateSnowballDto })
+  updateSnowball(@Body() updateSnowballDto: ReqUpdateSnowballDto) {
     updateSnowballDto;
   }
 }
