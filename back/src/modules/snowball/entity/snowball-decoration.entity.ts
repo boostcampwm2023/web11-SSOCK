@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 import { SnowballEntity } from './snowball.entity';
 
-@Entity({ synchronize: true ,name: 'snowball_decoration' })
+@Entity({ name: 'snowball_decoration' })
 export class SnowballDecorationEntity {
   @PrimaryGeneratedColumn()
   id: number;
@@ -18,7 +18,7 @@ export class SnowballDecorationEntity {
   @Column()
   decoration_id: number;
 
-  @Column({ length: 7})
+  @Column({ length: 7 })
   decoration_color: string;
 
   @Column()
