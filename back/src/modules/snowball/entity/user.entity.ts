@@ -7,6 +7,7 @@ import {
 } from 'typeorm';
 import { SnowballEntity } from './snowball.entity';
 
+
 @Entity({synchronize: true , name: 'user' })
 export class UserEntity {
   @PrimaryGeneratedColumn()
