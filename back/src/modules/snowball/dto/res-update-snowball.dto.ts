@@ -11,7 +11,7 @@ export class ResUpdateSnowballDto {
   readonly snowball_id: number;
 
   @IsString()
-  @ApiProperty({ type: String, description: '스노우볼 제목' })
+  @ApiProperty({ type: String, description: '변경된 스노우볼 제목' })
   readonly title: string;
 
   @IsBoolean()
