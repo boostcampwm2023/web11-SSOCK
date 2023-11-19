@@ -10,6 +10,7 @@ import {
 import { CreateSnowballDto } from './dto/req-create-snowball.dto';
 import { UpdateSnowballDto } from './dto/req-update-snowball.dto';
 import { ResCreateSnowballDto } from './dto/res-create-snowball.dto';
+import { ResUpdateSnowballDto } from './dto/res-update-snowball.dto';
 
 @ApiTags('Snowball API')
 @Controller('snowball')
@@ -33,7 +34,8 @@ export class SnowballController {
   @Put()
   @ApiResponse({
     status: 200,
-    description: '스노우볼 업데이트 성공'
+    description: '스노우볼 업데이트 성공',
+    type: ResUpdateSnowballDto
   })
   @ApiOperation({
     summary: '스노우볼 설정 업데이트 API',
