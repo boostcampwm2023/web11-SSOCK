@@ -1,7 +1,7 @@
 import { Controller, Post, Delete, Body, Param } from '@nestjs/common';
 import { MessageService } from './message.service';
-import { CreateMessageDto } from './dto/create-message.dto';
-import { DeleteMessageDto } from './dto/delete-message.dto';
+import { CreateMessageDto } from './dto/req-create-message.dto';
+import { DeleteMessageDto } from './dto/req-delete-message.dto';
 import { ApiBody, ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 
 @ApiTags('Message API')
