@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { SnowballEntity } from './entity/snowball.entity';
-import { CreateSnowballDto } from './dto/req-create-snowball.dto';
-import { UpdateSnowballDto } from './dto/req-update-snowball.dto';
+import { ReqCreateSnowballDto } from './dto/request/req-create-snowball.dto';
+import { ReqUpdateSnowballDto } from './dto/request/req-update-snowball.dto';
 
 @Injectable()
 export class SnowballService {
@@ -12,12 +12,12 @@ export class SnowballService {
     private readonly snowballRepository: Repository<SnowballEntity>
   ) {}
   async createSnowball(
-    createSnowballDto: CreateSnowballDto
+    createSnowballDto: ReqCreateSnowballDto
   ): Promise<SnowballEntity> {
     const snowball = this.snowballRepository.create(createSnowballDto);
     return await this.snowballRepository.save(snowball);
   }
-  async updateSnowball(updateSnowballDto: UpdateSnowballDto): Promise<void> {
+  async updateSnowball(updateSnowballDto: ReqUpdateSnowballDto): Promise<void> {
     await this.snowballRepository.delete(updateSnowballDto.snowball_uuid);
   }
 }
