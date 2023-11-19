@@ -3,17 +3,21 @@ import {
   IsNumber,
   IsNotEmpty,
   IsBoolean,
+  IsArray,
   ValidateNested
 } from '@nestjs/class-validator';
+import { Type } from '@nestjs/class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 import { DecorationSnowballDto } from './decoration-snowball.dto';
 
 export class CreateSnowballDto {
   @IsNotEmpty()
+  @IsArray()
   @ValidateNested({ each: true })
+  @Type(() => DecorationSnowballDto)
   @ApiProperty({
     type: [DecorationSnowballDto],
-    description: '데코오브젝트들이 들어있는 리스트'
+    description: '데코오브젝트들이 들어있는 배열'
   })
   readonly deco_list: DecorationSnowballDto[];
 
@@ -39,7 +43,7 @@ export class CreateSnowballDto {
   @IsNotEmpty()
   @ApiProperty({
     type: Boolean,
-    description: '스노우볼 속 메시지 갯수의 비공개 여부'
+    description: '스노우볼 속 메시지 갯수 비공개 여부'
   })
   readonly message_count_private: boolean;
 }

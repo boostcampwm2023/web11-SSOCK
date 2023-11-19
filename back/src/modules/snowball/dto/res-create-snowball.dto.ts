@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString, IsDate, IsUUID } from 'class-validator';
 export class ResCreateSnowballDto {
-  @ApiProperty({ format: 'uuid', description: '스노우볼 UUID' })
+  @ApiProperty({ format: 'uuid', description: '변경된 스노우볼 UUID' })
   @IsUUID('4')
   snowball_uuid: string;
 
