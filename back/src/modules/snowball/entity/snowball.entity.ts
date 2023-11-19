@@ -13,7 +13,7 @@ import { UserEntity } from './user.entity';
 import { SnowballDecorationEntity } from './snowball-decoration.entity';
 import { MessageEntity } from '../../message/entity/message.entity';
 
-@Entity({ synchronize: true ,name: 'snowball' })
+@Entity({ synchronize: true, name: 'snowball' })
 export class SnowballEntity {
   @PrimaryGeneratedColumn()
   id: number;

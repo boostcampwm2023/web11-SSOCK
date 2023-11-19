@@ -6,7 +6,7 @@ import {
   ValidateNested
 } from '@nestjs/class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { DecorationSnowballDto } from './decoration-snowball';
+import { DecorationSnowballDto } from './decoration-snowball.dto';
 
 export class CreateSnowballDto {
   @IsNotEmpty()
