@@ -1,7 +1,11 @@
 import { IsString, IsUUID, IsBoolean } from '@nestjs/class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
+<<<<<<< HEAD
 export class ResUpdateSnowballDto {
+=======
+export class UpdateSnowballDto {
+>>>>>>> a3e84de (feat: response dto 생성)
   @IsUUID()
   @ApiProperty({
     type: String,
