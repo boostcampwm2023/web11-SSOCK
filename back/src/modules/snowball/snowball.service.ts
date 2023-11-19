@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { SnowballEntity } from './entity/snowball.entity';
-import { CreateSnowballDto } from './dto/create-snowball.dto';
-import { UpdateSnowballDto } from './dto/update-snowball.dto';
+import { CreateSnowballDto } from './dto/req-create-snowball.dto';
+import { UpdateSnowballDto } from './dto/req-update-snowball.dto';
 
 @Injectable()
 export class SnowballService {
