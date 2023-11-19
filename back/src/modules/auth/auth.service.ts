@@ -23,6 +23,7 @@ export class AuthService {
       };
       const mainSnowballDto: SnowballDto = {
         title: '나만의 스노우볼1',
+        id: 1,
         uuid: '32413434-32a2-2342-3242-3g23-413oye3',
         message_private: null,
         message_count_private: null,

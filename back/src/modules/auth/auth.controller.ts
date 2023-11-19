@@ -1,4 +1,4 @@
-import { Controller, Get, Req, Res, UseGuards } from '@nestjs/common';
+import { Controller, Get, Req, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { ResInfoDto } from './dto/response/res-info.dto';
@@ -31,14 +31,15 @@ export class AuthController {
     description: 'Google 로그인 성공 및 Info 반환',
     type: ResInfoDto
   })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
   @ApiResponse({
     status: 500,
     description: 'Internal Server Error'
   })
-  async googleLoginCallback(@Req() req, @Res() res): Promise<void> {
+  async googleLoginCallback(@Req() req): Promise<ResInfoDto> {
     const profile: string = req.user.profile;
     const result = this.authService.createInfo(profile);
-    res.status(200).json(result);
+    return result;
   }
 
   @Get('naver')
@@ -64,14 +65,15 @@ export class AuthController {
     description: 'Naver 로그인 성공 및 Info 반환',
     type: ResInfoDto
   })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
   @ApiResponse({
     status: 500,
     description: 'Internal Server Error'
   })
-  async naverLoginCallBack(@Req() req, @Res() res): Promise<void> {
+  async naverLoginCallBack(@Req() req): Promise<ResInfoDto> {
     const profile: string = req.user.profile;
     const result = this.authService.createInfo(profile);
-    res.status(200).json(result);
+    return result;
   }
 
   @Get('kakao')
@@ -97,13 +99,14 @@ export class AuthController {
     description: 'Kakao 로그인 성공 및 Info 반환',
     type: ResInfoDto
   })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
   @ApiResponse({
     status: 500,
     description: 'Internal Server Error'
   })
-  async kakaoLoginCallBack(@Req() req, @Res() res): Promise<void> {
+  async kakaoLoginCallBack(@Req() req): Promise<ResInfoDto> {
     const profile: string = req.user.profile;
     const result = this.authService.createInfo(profile);
-    res.status(200).json(result);
+    return result;
   }
 }
