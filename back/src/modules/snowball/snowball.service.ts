@@ -33,7 +33,7 @@ export class SnowballService {
     });
     const savedSnowball = await this.snowballRepository.save(snowball);
 
-    // To Do: bulk insert로 변경 & 반환값으로 Dto 생성하기
+    // To Do: bulk insert로 변경 & 반환값으로 Dto
     const decoList = createSnowballDto.deco_list;
     for (const deco of decoList) {
       await this.createDecoration(savedSnowball.id, deco);
@@ -94,27 +94,28 @@ export class SnowballService {
   ): Promise<ResUpdateSnowballDto> {
     const { snowball_id, title, message_private } = updateSnowballDto;
 
-    // Update snowball if it exists
-    const snowball = await this.snowballRepository.findOne({
-      where: { id: snowball_id }
-    });
-
-    if (snowball) {
-      snowball.title = title;
-      snowball.message_private = message_private ? new Date() : null;
-      await this.snowballRepository.save(snowball);
-    } else {
+    const updateResult = await this.snowballRepository
+      .createQueryBuilder()
+      .update(SnowballEntity)
+      .set({
+        title,
+        message_private: message_private ? new Date() : null
+      })
+      .where('id = :id', { id: snowball_id })
+      .execute();
+    console.log(updateResult);
+    if (!updateResult.affected) {
       throw new NotFoundException('업데이트할 스노우볼이 존재하지 않습니다.');
     }
 
     // Return the updated snowball
-    const resSnowball: ResUpdateSnowballDto = {
+    const resUpdateSnowballDto: ResUpdateSnowballDto = {
       snowball_id,
       title,
       message_private
     };
 
-    return resSnowball;
+    return resUpdateSnowballDto;
   }
 
   async getMessages(snowball_id: number): Promise<SnowballDto> {
