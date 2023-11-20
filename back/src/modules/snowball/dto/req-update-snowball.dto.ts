@@ -1,15 +1,16 @@
 import {
   IsString,
-  IsUUID,
+  IsNumber,
   IsNotEmpty,
   IsBoolean
 } from '@nestjs/class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class UpdateSnowballDto {
-  @ApiProperty({ format: 'uuid', description: '스노우볼 UUID' })
-  @IsUUID('4')
-  snowball_uuid: string;
+  @IsNumber()
+  @IsNotEmpty()
+  @ApiProperty({ type: Number, description: '유저의 id' })
+  readonly user_id: number;
 
   @IsString()
   @IsNotEmpty()
@@ -20,7 +21,7 @@ export class UpdateSnowballDto {
   @IsNotEmpty()
   @ApiProperty({
     type: Boolean,
-    description: '스노우볼 속 메시지들 비공개 여부'
+    description: '스노우볼 속 메시지들 비공개 여부를 가리키는 불리언'
   })
   readonly message_private: boolean;
 
@@ -28,7 +29,7 @@ export class UpdateSnowballDto {
   @IsNotEmpty()
   @ApiProperty({
     type: Boolean,
-    description: '스노우볼 속 메시지 갯수 비공개 여부'
+    description: '스노우볼 속 메시지 갯수의 비공개 여부를 가리키는 불리언'
   })
   readonly message_count_private: boolean;
 }

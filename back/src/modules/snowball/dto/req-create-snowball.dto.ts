@@ -31,7 +31,7 @@ export class CreateSnowballDto {
   @IsNotEmpty()
   @ApiProperty({
     type: Boolean,
-    description: '스노우볼 속 메시지들 비공개 여부'
+    description: '스노우볼 속 메시지들 비공개 여부를 가리키는 불리언'
   })
   readonly message_private: boolean;
 
@@ -39,7 +39,7 @@ export class CreateSnowballDto {
   @IsNotEmpty()
   @ApiProperty({
     type: Boolean,
-    description: '스노우볼 속 메시지 갯수의 비공개 여부'
+    description: '스노우볼 속 메시지 갯수의 비공개 여부를 가리키는 불리언'
   })
   readonly message_count_private: boolean;
 }
