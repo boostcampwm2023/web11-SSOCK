@@ -9,6 +9,11 @@ import Glass from './Glass';
 import GiftBox from './GiftBox';
 import Raycaster from './Raycaster';
 import { useRef } from 'react';
+import mock from '../../mockdata.json';
+
+interface userData {
+  created_at: Date;
+}
 
 const CanvasBox = styled.div`
   margin: auto;
@@ -19,12 +24,10 @@ const CanvasBox = styled.div`
   }
 `;
 const SnowGlobeCanvas = () => {
-  //boolean useRef
   const isClicked = useRef<boolean>(false);
-  // camera controls ref
-
   const glassRadius = 7;
   const glassPosition = new THREE.Vector3(0, glassRadius / 2, 0);
+
   const snows = Array.from({ length: 100 }, (_, i) => (
     <Snow
       key={i}
@@ -33,6 +36,7 @@ const SnowGlobeCanvas = () => {
       radius={0.05 + Math.random() * 0.15}
     />
   ));
+
   return (
     <CanvasBox>
       <Canvas camera={{ position: [0, 10, 15] }}>
@@ -53,30 +57,12 @@ const SnowGlobeCanvas = () => {
         />
         {snows}
 
-        <GiftBox
+        {/* <GiftBox
           scale={1}
           position={new THREE.Vector3(4, 0, 0)}
           message={'test1'}
           id={1}
-        />
-        <GiftBox
-          scale={1}
-          position={new THREE.Vector3(0, 0, 4)}
-          message={'test2'}
-          id={2}
-        />
-        <GiftBox
-          scale={1}
-          position={new THREE.Vector3(0, 0, -4)}
-          message={'test3'}
-          id={3}
-        />
-        <GiftBox
-          scale={1}
-          position={new THREE.Vector3(-4, 0, 0)}
-          message={'test4'}
-          id={4}
-        />
+        /> */}
       </Canvas>
     </CanvasBox>
   );
