@@ -106,13 +106,17 @@ export class SnowballService {
   }
 
   async getMessages(snowball_id: number): Promise<SnowballDto> {
-    const snowball = await this.snowballRepository.findOne({
+    const snowballs = await this.snowballRepository.find({
       where: { id: snowball_id },
       relations: {
         message_snowballs: true,
         deco_snowballs: true
       }
     });
+    if (!snowballs) {
+      throw new NotFoundException('스노우볼이 존재하지 않습니다.');
+    }
+    const snowball = snowballs[0];
     console.log(snowball.message_snowballs);
 
     const resSnowball: SnowballDto = {

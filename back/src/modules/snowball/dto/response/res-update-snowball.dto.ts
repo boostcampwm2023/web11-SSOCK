@@ -1,13 +1,9 @@
-import { IsString, IsUUID, IsBoolean } from '@nestjs/class-validator';
+import { IsString, IsBoolean, IsNumber } from '@nestjs/class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class ResUpdateSnowballDto {
-  @IsUUID()
-  @ApiProperty({
-    type: String,
-    description: '변경된 스노우볼의 uuid',
-    format: 'uuid'
-  })
+  @IsNumber()
+  @ApiProperty({ type: Number, description: '스노우볼 id' })
   readonly snowball_id: number;
 
   @IsString()
