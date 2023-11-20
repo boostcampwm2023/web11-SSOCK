@@ -12,8 +12,8 @@ interface DecoProps {
 
 const Deco = ({ scale, position, message, id, color }: DecoProps) => {
   const deco = useGLTF(DECO[id].fileName).scene.clone();
-  //   const modelRef = useRef<THREE.Object3D>(null);
-  const test = Math.atan2(position.z, position.x - 5);
+  const target = { x: 8, z: 0 };
+  const test = Math.atan2(position.z - target.z, position.x - target.x);
 
   deco.scale.set(scale, scale, scale);
   deco.position.set(position.x, position.y, position.z);

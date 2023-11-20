@@ -28,7 +28,7 @@
         },
         {
           "message_id": 3,
-          "deco_id": 0,
+          "deco_id": 2,
           "deco_color": "#0000ff",
           "content": "오늘도 힘들었겠지만, 내일은 더 나아질 거야!",
           "sender": "박지훈",
@@ -52,7 +52,7 @@
         },
         {
           "message_id": 6,
-          "deco_id": 1,
+          "deco_id": 2,
           "deco_color": "#ff0000",
           "content": "오늘 하루도 수고했어!",
           "sender": "김다현",
@@ -76,7 +76,7 @@
         },
         {
           "message_id": 9,
-          "deco_id": 0,
+          "deco_id": 2,
           "deco_color": "#ff9900",
           "content": "좋은 일만 가득하길 바라!",
           "sender": "손지우",
@@ -100,7 +100,7 @@
         },
         {
           "message_id": 12,
-          "deco_id": 1,
+          "deco_id": 2,
           "deco_color": "#00ff00",
           "content": "무엇이든 해낼 수 있어. 자신을 믿어봐!",
           "sender": "이훈",
@@ -124,7 +124,7 @@
         },
         {
           "message_id": 15,
-          "deco_id": 0,
+          "deco_id": 2,
           "deco_color": "#993399",
           "content": "다음 만남을 기대할게. 안녕!",
           "sender": "dsefdwdf",
@@ -148,7 +148,7 @@
         },
         {
           "message_id": 18,
-          "deco_id": 1,
+          "deco_id": 2,
           "deco_color": "#0000ff",
           "content": "일 년 중 가장 밝은 기억으로 남길 순간이길!",
           "sender": "이진영",
@@ -172,7 +172,7 @@
         },
         {
           "message_id": 21,
-          "deco_id": 0,
+          "deco_id": 2,
           "deco_color": "#ff0000",
           "content": "매일이 즐겁길!",
           "sender": "김수빈",
@@ -196,7 +196,7 @@
         },
         {
           "message_id": 24,
-          "deco_id": 1,
+          "deco_id": 2,
           "deco_color": "#ff9900",
           "content": "행복을 따뜻하게 느껴보길!",
           "sender": "신지우",
@@ -220,7 +220,7 @@
         },
         {
           "message_id": 27,
-          "deco_id": 0,
+          "deco_id": 2,
           "deco_color": "#00ff00",
           "content": "언제나 응원하고 있어!",
           "sender": "이준호",
@@ -244,7 +244,7 @@
         },
         {
           "message_id": 30,
-          "deco_id": 0,
+          "deco_id": 2,
           "deco_color": "#ff0000",
           "content": "미래의 성공을 위해 지금 노력해봐!❤️",
           "sender": "이다솜",
