@@ -113,6 +113,7 @@ export class SnowballService {
         deco_snowballs: true
       }
     });
+    console.log(snowball.message_snowballs);
 
     const resSnowball: SnowballDto = {
       id: snowball.id,

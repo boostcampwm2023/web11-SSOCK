@@ -34,7 +34,7 @@ export class SnowballController {
     return snowball;
   }
 
-  @Put()
+  @Put('/decoration')
   @ApiResponse({
     status: 200,
     description: '스노우볼 데코레이션 업데이트 성공',
