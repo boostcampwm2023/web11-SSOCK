@@ -17,14 +17,14 @@ export class ResUpdateSnowballDto {
   @IsBoolean()
   @ApiProperty({
     type: Boolean,
-    description: '변경된 스노우볼 속 메시지들 비공개 여부'
+    description: '메시지들의 공개 여부 (True이면 비공개)'
   })
   readonly message_private: boolean;
 
   @IsBoolean()
   @ApiProperty({
     type: Boolean,
-    description: '변경된 스노우볼 속 메시지 갯수 비공개 여부'
+    description: '받은 메시지 수 공개 여부 (True이면 비공개)'
   })
   readonly message_count_private: boolean;
 }
