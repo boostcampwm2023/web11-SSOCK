@@ -6,6 +6,10 @@ export class MessageDto {
   @ApiProperty({ type: Number, description: '메시지 ID' })
   readonly id: number;
 
+  @IsString()
+  @ApiProperty({ type: String, description: '스노우볼 ID' })
+  readonly snowball_id: string;
+
   @IsNumber()
   @ApiProperty({ type: Number, description: '데코레이션 ID' })
   readonly decoration_id: number;
@@ -28,5 +32,5 @@ export class MessageDto {
 
   @IsDate()
   @ApiProperty({ type: Date, description: '생성 날짜' })
-  readonly created: Date;
+  readonly created_at: Date;
 }

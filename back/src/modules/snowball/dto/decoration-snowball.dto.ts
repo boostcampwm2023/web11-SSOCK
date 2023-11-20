@@ -5,7 +5,7 @@ export class DecorationSnowballDto {
   @IsNumber()
   @IsNotEmpty()
   @ApiProperty({ type: Number, description: '장식 종류' })
-  readonly decoration_id: number;
+  readonly deco_id: number;
 
   @IsString()
   @IsNotEmpty()
