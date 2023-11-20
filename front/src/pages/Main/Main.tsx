@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
+import theme from '../../utils/theme';
 import { SnowGlobeCanvas } from '../../components';
 import MainButtonBox from './MainButtonBox';
 
@@ -8,10 +9,21 @@ const StyledLeft = styled.img`
   position: absolute;
   top: 50%;
   height: 10%;
+
+  @media (min-width: ${theme.size['--desktop-min-width']}) {
+    margin-left: 0;
+    right: 50%;
+    margin-right: 450px;
+  }
 `;
 
 const StyledRight = styled(StyledLeft)`
-  right: 0%;
+  right: 0;
+
+  @media (min-width: ${theme.size['--desktop-min-width']}) {
+    left: 50%;
+    margin-left: 450px;
+  }
 `;
 
 const Main = () => {
