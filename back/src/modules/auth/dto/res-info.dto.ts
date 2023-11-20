@@ -1,10 +1,15 @@
-import { IsString, IsNotEmpty, ValidateNested } from '@nestjs/class-validator';
+import {
+  IsString,
+  IsNotEmpty,
+  ValidateNested,
+  IsArray
+} from '@nestjs/class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { UserDto } from '../user.dto';
-import { SnowballDto } from '../../../snowball/dto/snowball.dto';
+import { UserDto } from './user.dto';
+import { MainSnowballDto } from './main-snowball.dto';
 import { Type } from '@nestjs/class-transformer';
 
-export class ResInfoDto {
+export class InfoDto {
   @IsNotEmpty()
   @IsString()
   @ApiProperty({
@@ -15,6 +20,7 @@ export class ResInfoDto {
   readonly access_token: string;
 
   @IsNotEmpty()
+  @IsArray()
   @ValidateNested({ each: true })
   @Type(() => UserDto)
   @ApiProperty({
@@ -24,11 +30,12 @@ export class ResInfoDto {
   readonly user: UserDto[];
 
   @IsNotEmpty()
+  @IsArray()
   @ValidateNested({ each: true })
-  @Type(() => SnowballDto)
+  @Type(() => MainSnowballDto)
   @ApiProperty({
-    type: SnowballDto,
+    type: MainSnowballDto,
     description: '메인 스노우볼 정보 배열'
   })
-  readonly main_snowball: SnowballDto[];
+  readonly main_snowball: MainSnowballDto[];
 }

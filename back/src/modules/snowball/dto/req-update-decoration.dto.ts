@@ -1,14 +1,20 @@
-import { IsUUID, IsNotEmpty, ValidateNested } from '@nestjs/class-validator';
+import {
+  IsUUID,
+  IsNotEmpty,
+  ValidateNested,
+  IsArray
+} from '@nestjs/class-validator';
 import { Type } from '@nestjs/class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 import { DecorationSnowballDto } from './decoration-snowball.dto';
 
-export class ReqUpdateSnowballDecoDto {
+export class UpdateSnowballDto {
   @ApiProperty({ format: 'uuid', description: '스노우볼 UUID' })
   @IsUUID('4')
   snowball_uuid: string;
 
   @IsNotEmpty()
+  @IsArray()
   @ValidateNested({ each: true })
   @Type(() => DecorationSnowballDto)
   @ApiProperty({

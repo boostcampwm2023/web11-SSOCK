@@ -1,7 +1,7 @@
 import { IsString, IsNotEmpty } from '@nestjs/class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class ResCreateMessageDto {
+export class CreateMessageDto {
   @IsString()
   @IsNotEmpty()
   @ApiProperty({
