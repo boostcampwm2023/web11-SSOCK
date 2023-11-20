@@ -81,7 +81,7 @@ export class SnowballController {
     return snowball;
   }
 
-  @Get('/:snowball_id/info')
+  @Get('/info/:snowball_id')
   @HttpCode(200)
   @ApiResponse({
     status: 200,
