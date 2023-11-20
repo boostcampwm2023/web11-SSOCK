@@ -1,7 +1,7 @@
 const DECO = [
   {
     name: '선물상자',
-    fileName: 'models/giftbox.glb'
+    fileName: 'models/ribonBox.glb'
   },
   {
     name: '붕어빵',

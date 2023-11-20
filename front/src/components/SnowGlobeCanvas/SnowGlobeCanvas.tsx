@@ -39,6 +39,7 @@ const SnowGlobeCanvas = () => {
     console.log(deco);
     return (
       <Deco
+        key={index}
         id={deco.deco_id}
         scale={1}
         position={getDecoPoisition(index)}
