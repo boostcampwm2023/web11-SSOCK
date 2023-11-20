@@ -1,7 +1,7 @@
 import { IsUUID, IsNotEmpty, ValidateNested } from '@nestjs/class-validator';
 import { Type } from '@nestjs/class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
-import { DecorationSnowballDto } from '../decoration-snowball.dto';
+import { DecorationSnowballDto } from './decoration-snowball.dto';
 
 export class ReqUpdateSnowballDecoDto {
   @ApiProperty({ format: 'uuid', description: '스노우볼 UUID' })
