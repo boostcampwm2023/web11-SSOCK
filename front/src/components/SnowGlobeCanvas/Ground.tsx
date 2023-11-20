@@ -14,6 +14,7 @@ const Ground: React.FC<GroundProps> = ({ scale, position }) => {
 
   ground.scale.set(scale, scale, scale);
   ground.position.set(position.x, position.y, position.z);
+  ground.receiveShadow = true;
   return <primitive object={scene.clone()} />;
 };
 

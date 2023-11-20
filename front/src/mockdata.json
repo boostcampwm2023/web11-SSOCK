@@ -7,7 +7,7 @@
     {
       "title": "내 첫번째 스노우볼",
       "private": false,
-      "main_deco_id": "1",
+      "main_deco_id": 0,
       "created_at": "2023-11-10",
       "message": [
         {
@@ -255,7 +255,7 @@
     {
       "title": "내 두번째 스노우볼",
       "private": false,
-      "main_deco_id": "0",
+      "main_deco_id": 0,
       "created_at": "2023-11-11",
       "message": [
         {

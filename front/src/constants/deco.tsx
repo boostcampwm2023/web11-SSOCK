@@ -12,5 +12,14 @@ const DECO = [
     fileName: 'models/gingerBread.glb'
   }
 ];
-
-export { DECO };
+const MAIN = [
+  {
+    name: '턱스',
+    fileName: 'models/tux.glb'
+  },
+  {
+    name: '트리',
+    fileName: 'models/tree.glb'
+  }
+];
+export { DECO, MAIN };

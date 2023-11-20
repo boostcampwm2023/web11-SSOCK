@@ -11,8 +11,9 @@ import { useRef } from 'react';
 import mock from '../../mockdata.json';
 import Deco from './Deco';
 import { getDecoPoisition } from '../../utils/position';
-import Tree from './Tree';
+import Tree from './MainDeco';
 import Bottom from './Bottom';
+import MainDeco from './MainDeco';
 
 const CanvasBox = styled.div`
   margin: auto;
@@ -67,7 +68,11 @@ const SnowGlobeCanvas = () => {
           radius={glassRadius}
           opacity={0.1}
         />
-        <Tree />
+        <MainDeco
+          id={mock.snowball[0].main_deco_id}
+          scale={1}
+          position={new THREE.Vector3(0, 10, 0)}
+        />
         {snows}
         {decos}
         <Bottom scale={1} position={new THREE.Vector3(0, 0, 0)} />
