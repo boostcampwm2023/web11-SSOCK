@@ -7,7 +7,8 @@ import {
   CreateDateColumn,
   ManyToOne,
   OneToMany,
-  JoinColumn
+  JoinColumn,
+  BeforeInsert
 } from 'typeorm';
 import { UserEntity } from './user.entity';
 import { SnowballDecorationEntity } from './snowball-decoration.entity';
@@ -34,9 +35,6 @@ export class SnowballEntity {
   @CreateDateColumn({ nullable: true, default: null })
   message_private: Date | null;
 
-  @CreateDateColumn({ nullable: true, default: null })
-  message_count_private: Date | null;
-
   @ManyToOne(() => UserEntity, user => user.snowballs)
   @JoinColumn({ name: 'user_id' })
   user: UserEntity;
@@ -50,7 +48,8 @@ export class SnowballEntity {
   )
   deco_snowballs: SnowballDecorationEntity[];
 
-  beforeInsert() {
+  @BeforeInsert()
+  generateSnowballUUID() {
     this.snowball_uuid = uuidv4();
   }
 }
