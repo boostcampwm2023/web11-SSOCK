@@ -24,7 +24,7 @@ export class SnowballDecorationEntity {
   @Column()
   location: number;
 
-  @ManyToOne(() => SnowballEntity, deco => deco.deco_snowballs)
+  @ManyToOne(() => SnowballEntity, snowball => snowball.deco_snowballs)
   @JoinColumn({ name: 'snowball_id' })
-  deco_snowballs: SnowballEntity;
+  snowball: SnowballEntity;
 }

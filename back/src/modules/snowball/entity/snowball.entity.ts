@@ -39,12 +39,12 @@ export class SnowballEntity {
   @JoinColumn({ name: 'user_id' })
   user: UserEntity;
 
-  @OneToMany(() => MessageEntity, message => message.snowball_id)
+  @OneToMany(() => MessageEntity, message => message.snowball)
   message_snowballs: MessageEntity[];
 
   @OneToMany(
     () => SnowballDecorationEntity,
-    snowball_deco => snowball_deco.snowball_id
+    snowball_deco => snowball_deco.snowball
   )
   deco_snowballs: SnowballDecorationEntity[];
 

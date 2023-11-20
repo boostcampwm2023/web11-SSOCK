@@ -34,7 +34,7 @@ export class MessageEntity {
   @CreateDateColumn()
   created_at: Date;
 
-  @ManyToOne(() => SnowballEntity, message => message.message_snowballs)
+  @ManyToOne(() => SnowballEntity, snowball => snowball.message_snowballs)
   @JoinColumn({ name: 'snowball_id' })
-  message_snowballs: SnowballEntity;
+  snowball: SnowballEntity;
 }
