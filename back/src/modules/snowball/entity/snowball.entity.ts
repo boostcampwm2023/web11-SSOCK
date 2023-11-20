@@ -40,13 +40,10 @@ export class SnowballEntity {
   user: UserEntity;
 
   @OneToMany(() => MessageEntity, message => message.snowball)
-  message_snowballs: MessageEntity[];
+  messages: MessageEntity[];
 
-  @OneToMany(
-    () => SnowballDecorationEntity,
-    snowball_deco => snowball_deco.snowball
-  )
-  deco_snowballs: SnowballDecorationEntity[];
+  @OneToMany(() => SnowballDecorationEntity, decoration => decoration.snowball)
+  decorations: SnowballDecorationEntity[];
 
   @BeforeInsert()
   generateSnowballUUID() {

@@ -24,6 +24,6 @@ export class UserEntity {
   @CreateDateColumn()
   created_at: Date;
 
-  @OneToMany(() => SnowballEntity, snowball => snowball.user_id)
+  @OneToMany(() => SnowballEntity, snowball => snowball.user)
   snowballs: SnowballEntity[];
 }

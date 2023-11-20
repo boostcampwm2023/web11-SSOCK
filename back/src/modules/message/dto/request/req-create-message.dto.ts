@@ -26,4 +26,9 @@ export class ReqCreateMessageDto {
   @IsNotEmpty()
   @ApiProperty({ type: String, description: '장식 색상', example: '#FFFFFF' })
   readonly decoration_color: string;
+
+  @IsNumber()
+  @IsNotEmpty()
+  @ApiProperty({ type: Number, description: '편지지 종류' })
+  readonly letter_id: number;
 }

@@ -118,35 +118,35 @@ export class SnowballService {
     return resUpdateSnowballDto;
   }
 
-  async getMessages(snowball_id: number): Promise<SnowballDto> {
+  async getSnowball(snowball_id: number): Promise<SnowballDto> {
     const snowballs = await this.snowballRepository.find({
       where: { id: snowball_id },
       relations: {
-        message_snowballs: true,
-        deco_snowballs: true
+        messages: true,
+        decorations: true
       }
     });
     if (!snowballs) {
       throw new NotFoundException('스노우볼이 존재하지 않습니다.');
     }
     const snowball = snowballs[0];
-    console.log(snowball.message_snowballs);
+    console.log(snowball);
 
     const resSnowball: SnowballDto = {
       id: snowball.id,
       uuid: snowball.snowball_uuid,
       title: snowball.title,
       message_private: snowball.message_private ? true : false,
-      deco_list: snowball.deco_snowballs,
-      message_list: snowball.message_snowballs.map(message => ({
+      deco_list: snowball.decorations,
+      message_list: snowball.messages.map(message => ({
         id: message.id,
         decoration_id: message.decoration_id,
         decoration_color: message.decoration_color,
         content: message.content,
         sender: message.sender,
         opened: message.opened,
-        created: message.created_at
-        // letter_id: message.letter_id
+        created: message.created_at,
+        letter_id: message.letter_id
       }))
     };
 

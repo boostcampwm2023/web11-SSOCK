@@ -20,7 +20,8 @@ export class MessageService {
       sender: createMessageDto.sender,
       content: createMessageDto.content,
       decoration_id: createMessageDto.decoration_id,
-      decoration_color: createMessageDto.decoration_color
+      decoration_color: createMessageDto.decoration_color,
+      letter_id: createMessageDto.letter_id
       // opened와 created_at은 자동으로 설정
     });
     const savedMessage = await this.messageRepository.save(messageEntity);
