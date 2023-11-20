@@ -10,7 +10,7 @@ interface ListMsgProps {
 interface Snowball {
   title: string;
   private: boolean;
-  main_deco_id: string;
+  main_deco_id: number;
   created_at: string;
   message: {
     message_id: number;

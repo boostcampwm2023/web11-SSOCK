@@ -2,18 +2,11 @@ import { OrbitControls } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import styled from 'styled-components';
 import theme from '../../utils/theme';
-import Snow from './Snow';
 import * as THREE from 'three';
-import Ground from './Ground';
-import Glass from './Glass';
-import Raycaster from './Raycaster';
 import { useRef } from 'react';
-import mock from '../../mockdata.json';
-import Deco from './Deco';
 import { getDecoPoisition } from '../../utils/position';
-import Tree from './MainDeco';
-import Bottom from './Bottom';
-import MainDeco from './MainDeco';
+import mock from '../../mockdata.json';
+import * as Object from './objects/index';
 
 const CanvasBox = styled.div`
   margin: auto;
@@ -29,7 +22,7 @@ const SnowGlobeCanvas = () => {
   const glassPosition = new THREE.Vector3(0, glassRadius / 2, 0);
 
   const snows = Array.from({ length: 100 }, (_, i) => (
-    <Snow
+    <Object.Snow
       key={i}
       centerPosition={glassPosition}
       rangeRadius={glassRadius}
@@ -39,7 +32,7 @@ const SnowGlobeCanvas = () => {
   const decos = mock.snowball[0].message.map((deco, index) => {
     // console.log(deco);
     return (
-      <Deco
+      <Object.Deco
         key={index}
         id={deco.deco_id}
         scale={1}
@@ -54,7 +47,6 @@ const SnowGlobeCanvas = () => {
     <CanvasBox>
       <Canvas camera={{ position: [15, 10, 0] }} shadows={true}>
         <OrbitControls enablePan={false} enableZoom={false} />
-        <Raycaster isClickedRef={isClicked} />
         <ambientLight intensity={0.8} color={'#cfcabb'} />
         <directionalLight
           position={[5, 7, 3]}
@@ -62,21 +54,23 @@ const SnowGlobeCanvas = () => {
           color={'#e2bb83'}
           castShadow
         />
-        <Ground scale={1} position={new THREE.Vector3(0, 0, 0)} />
-        <Glass
+
+        <Object.Raycaster isClickedRef={isClicked} />
+        <Object.Ground scale={1} position={new THREE.Vector3(0, 0, 0)} />
+        <Object.Glass
           position={new THREE.Vector3(0, glassRadius / 2, 0)}
           color={new THREE.Color('skyblue')}
           radius={glassRadius}
           opacity={0.1}
         />
-        <MainDeco
+        <Object.MainDeco
           id={mock.snowball[0].main_deco_id}
           scale={1}
           position={new THREE.Vector3(0, 10, 0)}
         />
+        <Object.Bottom scale={1} position={new THREE.Vector3(0, 0, 0)} />
         {snows}
         {decos}
-        <Bottom scale={1} position={new THREE.Vector3(0, 0, 0)} />
       </Canvas>
     </CanvasBox>
   );
