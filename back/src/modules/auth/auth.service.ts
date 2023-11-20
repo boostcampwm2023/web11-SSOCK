@@ -26,7 +26,7 @@ export class AuthService {
         id: 1,
         uuid: '32413434-32a2-2342-3242-3g23-413oye3',
         message_private: null,
-        message_count_private: null,
+        // message_count_private: null,
         deco_list: [
           {
             decoration_id: 15,

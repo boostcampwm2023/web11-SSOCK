@@ -1,12 +1,13 @@
-import { IsUUID, IsNotEmpty, ValidateNested } from '@nestjs/class-validator';
+import { IsNotEmpty, IsNumber, ValidateNested } from '@nestjs/class-validator';
 import { Type } from '@nestjs/class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 import { DecorationSnowballDto } from '../decoration-snowball.dto';
 
 export class ResUpdateSnowballDecoDto {
-  @ApiProperty({ format: 'uuid', description: '변경된 스노우볼 UUID' })
-  @IsUUID('4')
-  snowball_uuid: string;
+  @IsNotEmpty()
+  @IsNumber()
+  @ApiProperty({ type: Number, description: '스노우볼 id' })
+  readonly snowball_id: number;
 
   @IsNotEmpty()
   @ValidateNested({ each: true })

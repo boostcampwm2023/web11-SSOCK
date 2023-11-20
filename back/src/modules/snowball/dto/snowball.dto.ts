@@ -35,14 +35,6 @@ export class SnowballDto {
   })
   readonly message_private: boolean;
 
-  @IsBoolean()
-  @IsNotEmpty()
-  @ApiProperty({
-    type: Boolean,
-    description: '스노우볼 속 메시지 갯수 비공개 여부'
-  })
-  readonly message_count_private: boolean;
-
   @IsNotEmpty()
   @ValidateNested({ each: true })
   @Type(() => DecorationSnowballDto)

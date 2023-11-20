@@ -34,9 +34,6 @@ export class SnowballEntity {
   @CreateDateColumn({ nullable: true, default: null })
   message_private: Date | null;
 
-  @CreateDateColumn({ nullable: true, default: null })
-  message_count_private: Date | null;
-
   @ManyToOne(() => UserEntity, user => user.snowballs)
   @JoinColumn({ name: 'user_id' })
   user: UserEntity;
