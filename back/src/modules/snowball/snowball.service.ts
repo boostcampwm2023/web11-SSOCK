@@ -25,7 +25,7 @@ export class SnowballService {
 
   async createSnowball(
     createSnowballDto: ReqCreateSnowballDto
-  ): Promise<SnowballEntity> {
+  ): Promise<SnowballDto> {
     const snowball = this.snowballRepository.create({
       user_id: createSnowballDto.user_id,
       title: createSnowballDto.title,
@@ -33,25 +33,37 @@ export class SnowballService {
     });
     const savedSnowball = await this.snowballRepository.save(snowball);
 
-    // Create and save decorations
+    // To Do: bulk insert로 변경 & 반환값으로 Dto 생성하기
     const decoList = createSnowballDto.deco_list;
     for (const deco of decoList) {
       await this.createDecoration(savedSnowball.id, deco);
     }
-
-    return savedSnowball;
+    const combinedSnowballDto: SnowballDto = {
+      id: savedSnowball.id,
+      uuid: savedSnowball.snowball_uuid,
+      title: savedSnowball.title,
+      message_private: savedSnowball.message_private === null ? false : true,
+      deco_list: decoList,
+      message_list: []
+    };
+    return combinedSnowballDto;
   }
 
   async createDecoration(
     snowball_id: number,
     deco: DecorationSnowballDto
-  ): Promise<SnowballDecorationEntity> {
+  ): Promise<DecorationSnowballDto> {
     const decoration = this.decorationRepository.create({
       ...deco,
       snowball_id
     });
     const savedDecoration = await this.decorationRepository.save(decoration);
-    return savedDecoration;
+    const decorationDto: DecorationSnowballDto = {
+      decoration_id: savedDecoration.decoration_id,
+      decoration_color: savedDecoration.decoration_color,
+      location: savedDecoration.location
+    };
+    return decorationDto;
   }
 
   async updateSnowballDeco(

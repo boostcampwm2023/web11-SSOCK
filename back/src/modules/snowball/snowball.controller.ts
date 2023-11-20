@@ -29,7 +29,9 @@ export class SnowballController {
     type: SnowballDto
   })
   @ApiBody({ type: ReqCreateSnowballDto })
-  createSnowball(@Body() createSnowballDto: ReqCreateSnowballDto) {
+  createSnowball(
+    @Body() createSnowballDto: ReqCreateSnowballDto
+  ): Promise<SnowballDto> {
     const snowball = this.snowballService.createSnowball(createSnowballDto);
     return snowball;
   }
