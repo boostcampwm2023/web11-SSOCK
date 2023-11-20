@@ -1,6 +1,0 @@
-# compiled output
-back/dist
-/node_modules
-back/node_modules
-back/.env
-back/test

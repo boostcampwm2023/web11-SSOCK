@@ -1,5 +1,0 @@
-{
-  "dependencies": {
-    "@nestjs/class-validator": "^0.13.4"
-  }
-}
