@@ -43,7 +43,7 @@ const SnowGlobeCanvas = () => {
         id={deco.deco_id}
         scale={1}
         position={getDecoPoisition(index)}
-        message={`message ${index}`}
+        message={deco.content}
         color={deco.deco_color}
       />
     );
