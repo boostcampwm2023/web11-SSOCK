@@ -31,14 +31,7 @@ const Deco = ({ scale, position, message, id, color }: DecoProps) => {
       }
     }
   });
-  // deco.traverse(child => {
-  //   console.log('hello');
-  //   console.log(child, '!!!');
-  //   child.userData.message = message;
-  // });
-  // deco.userData.message = message;
   deco.rotateY(Math.PI - test);
-  // console.log(deco);
   return <primitive object={deco} />;
 };
 
