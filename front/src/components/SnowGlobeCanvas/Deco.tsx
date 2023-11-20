@@ -21,6 +21,7 @@ const Deco = ({ scale, position, message, id, color }: DecoProps) => {
   deco.children.forEach(child => {
     if (child instanceof THREE.Mesh) {
       child.userData.message = message;
+      child.castShadow = true;
       if (child.name === 'Sub') {
         return;
       }

@@ -2,9 +2,10 @@ import React, { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
+import { MAIN } from '../../constants/deco';
 
 interface MyModelProps {
-  url: string;
+  id: number;
   scale: number;
   position: THREE.Vector3;
 }
@@ -31,31 +32,19 @@ const fallingModel = (
   }
 };
 
-const MyModel: React.FC<MyModelProps> = ({ url, scale, position }) => {
-  const gltf = useGLTF(url);
-  const modelRef = useRef<THREE.Object3D>(null); // 이안에 위치 정보 들어있음
-  const speedRef = useRef(new THREE.Vector3(0, -0.01, 0)); // 이건 속도 정보
+const MainDeco = ({ id, scale, position }: MyModelProps) => {
+  const deco = useGLTF(MAIN[id].fileName).scene.clone();
+  const speedRef = useRef(new THREE.Vector3(0, -0.01, 0));
+
+  deco.name = MAIN[id].name;
+  deco.scale.set(scale, scale, scale);
+  deco.position.set(position.x, position.y, position.z);
 
   useFrame(() => {
-    fallingModel(modelRef.current, speedRef);
+    fallingModel(deco, speedRef);
   });
 
-  gltf.scene.scale.set(scale, scale, scale);
-  gltf.scene.position.set(position.x, position.y, position.z);
-
-  return <primitive object={gltf.scene} ref={modelRef} />;
+  return <primitive object={deco} />;
 };
 
-const Tree: React.FC = () => {
-  return (
-    <>
-      <MyModel
-        url={'./models/tux.glb'}
-        scale={1}
-        position={new THREE.Vector3(0, 10, 0)}
-      />
-    </>
-  );
-};
-
-export default Tree;
+export default MainDeco;
