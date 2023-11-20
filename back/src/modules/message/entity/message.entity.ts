@@ -22,6 +22,9 @@ export class MessageEntity {
   @Column({ length: 7 })
   decoration_color: string;
 
+  @Column()
+  letter_id: number;
+
   @Column({ type: 'text' })
   content: string;
 
@@ -34,7 +37,7 @@ export class MessageEntity {
   @CreateDateColumn()
   created_at: Date;
 
-  @ManyToOne(() => SnowballEntity, snowball => snowball.message_snowballs)
+  @ManyToOne(() => SnowballEntity, snowball => snowball.messages)
   @JoinColumn({ name: 'snowball_id' })
   snowball: SnowballEntity;
 }

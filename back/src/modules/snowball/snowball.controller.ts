@@ -70,18 +70,18 @@ export class SnowballController {
     return snowball;
   }
 
-  @Get('/:snowball_id/messages')
+  @Get('/:snowball_id/info')
   @ApiResponse({
     status: 200,
-    description: '스노우볼 메시지들 조회 성공',
+    description: '스노우볼 조회 성공',
     type: SnowballDto
   })
   @ApiOperation({
-    summary: '스노우볼 메시지들 조회 API',
-    description: '스노우볼에 속한 메시지들을 조회합니다.'
+    summary: '스노우볼 조회 API',
+    description: '스노우볼의 정보를 조회합니다.'
   })
   async getMessages(@Param('snowball_id') snowball_id: number) {
-    const messages = await this.snowballService.getMessages(snowball_id);
+    const messages = await this.snowballService.getSnowball(snowball_id);
     return messages;
   }
 }
