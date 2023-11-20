@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
-import { MAIN } from '../../constants/deco';
+import { MAIN } from '../../../constants/deco';
 
 interface MyModelProps {
   id: number;

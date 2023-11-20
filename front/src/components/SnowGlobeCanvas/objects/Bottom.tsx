@@ -1,7 +1,6 @@
 import React from 'react';
 import { useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
-import { useThree } from '@react-three/fiber';
 
 interface BottomProps {
   scale: number;
@@ -10,8 +9,6 @@ interface BottomProps {
 
 const Bottom: React.FC<BottomProps> = ({ scale, position }) => {
   const bottom = useGLTF('/models/bottom.glb').scene.clone();
-  const { scene } = useThree();
-  console.log(scene);
 
   bottom.scale.set(scale, scale, scale);
   bottom.position.set(position.x, position.y, position.z);
