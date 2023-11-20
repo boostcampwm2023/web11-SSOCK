@@ -15,11 +15,27 @@ const Deco = ({ scale, position, message, id, color }: DecoProps) => {
   const target = { x: 8, z: 0 };
   const test = Math.atan2(position.z - target.z, position.x - target.x);
 
+  deco.name = DECO[id].name;
   deco.scale.set(scale, scale, scale);
   deco.position.set(position.x, position.y, position.z);
-  deco.traverse(mesh => {
-    mesh.userData.message = message;
+  deco.children.forEach(child => {
+    if (child instanceof THREE.Mesh) {
+      child.userData.message = message;
+      if (child.name === 'Sub') {
+        return;
+      }
+      if (child.name === 'Main') {
+        const newMaterial = child.material.clone();
+        newMaterial.color = new THREE.Color(color);
+        child.material = newMaterial;
+      }
+    }
   });
+  // deco.traverse(child => {
+  //   console.log('hello');
+  //   console.log(child, '!!!');
+  //   child.userData.message = message;
+  // });
   // deco.userData.message = message;
   deco.rotateY(Math.PI - test);
   // console.log(deco);
