@@ -58,7 +58,7 @@ export class MessageController {
     await this.messageService.deleteMessage(deleteMessageDto);
   }
 
-  @Get()
+  @Get('/:user_id')
   @HttpCode(200)
   @ApiOperation({
     summary: '메세지 조회 API',
