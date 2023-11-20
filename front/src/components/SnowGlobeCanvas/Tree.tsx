@@ -21,11 +21,11 @@ const fallingModel = (
     speedRef.current.y -= gravity;
     speedRef.current.y *= 1 - airResistance;
 
-    if (modelRef.position.y <= 0.4 && Math.abs(speedRef.current.y) <= 0.02) {
+    if (modelRef.position.y <= 0.1 && Math.abs(speedRef.current.y) <= 0.02) {
       speedRef.current = new THREE.Vector3(0, 0, 0);
     }
 
-    if (modelRef.position.y <= 0.3) {
+    if (modelRef.position.y <= 0) {
       speedRef.current.y *= -1;
     }
   }
@@ -50,7 +50,7 @@ const Tree: React.FC = () => {
   return (
     <>
       <MyModel
-        url={'./testModel/tree_2.glb'}
+        url={'./models/tux.glb'}
         scale={1}
         position={new THREE.Vector3(0, 10, 0)}
       />

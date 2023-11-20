@@ -6,9 +6,13 @@ import Snow from './Snow';
 import * as THREE from 'three';
 import Ground from './Ground';
 import Glass from './Glass';
-import GiftBox from './GiftBox';
 import Raycaster from './Raycaster';
 import { useRef } from 'react';
+import mock from '../../mockdata.json';
+import Deco from './Deco';
+import { getDecoPoisition } from '../../utils/position';
+import Tree from './Tree';
+import Bottom from './Bottom';
 
 const CanvasBox = styled.div`
   margin: auto;
@@ -19,13 +23,10 @@ const CanvasBox = styled.div`
   }
 `;
 const SnowGlobeCanvas = () => {
-  //boolean useRef
   const isClicked = useRef<boolean>(false);
-  // camera controls ref
-
-
   const glassRadius = 7;
   const glassPosition = new THREE.Vector3(0, glassRadius / 2, 0);
+
   const snows = Array.from({ length: 100 }, (_, i) => (
     <Snow
       key={i}
@@ -34,10 +35,24 @@ const SnowGlobeCanvas = () => {
       radius={0.05 + Math.random() * 0.15}
     />
   ));
+  const decos = mock.snowball[0].message.map((deco, index) => {
+    console.log(deco);
+    return (
+      <Deco
+        key={index}
+        id={deco.deco_id}
+        scale={1}
+        position={getDecoPoisition(index)}
+        message={`message ${index}`}
+        color="#ff0000"
+      />
+    );
+  });
+
   return (
     <CanvasBox>
-      <Canvas camera={{ position: [0, 10, 10] }}>
-        <OrbitControls enablePan={false} enableZoom={false}/>
+      <Canvas camera={{ position: [15, 10, 0] }}>
+        <OrbitControls enablePan={false} enableZoom={false} />
         <Raycaster isClickedRef={isClicked} />
         <ambientLight intensity={0.8} color={'#cfcabb'} />
         <directionalLight
@@ -52,32 +67,10 @@ const SnowGlobeCanvas = () => {
           radius={glassRadius}
           opacity={0.1}
         />
+        <Tree />
         {snows}
-
-        <GiftBox
-          scale={1}
-          position={new THREE.Vector3(4, 0, 0)}
-          message={'test1'}
-          id={1}
-        />
-        <GiftBox
-          scale={1}
-          position={new THREE.Vector3(0, 0, 4)}
-          message={'test2'}
-          id={2}
-        />
-        <GiftBox
-          scale={1}
-          position={new THREE.Vector3(0, 0, -4)}
-          message={'test3'}
-          id={3}
-        />
-        <GiftBox
-          scale={1}
-          position={new THREE.Vector3(-4, 0, 0)}
-          message={'test4'}
-          id={4}
-        />
+        {decos}
+        <Bottom scale={1} position={new THREE.Vector3(0, 0, 0)} />
       </Canvas>
     </CanvasBox>
   );
