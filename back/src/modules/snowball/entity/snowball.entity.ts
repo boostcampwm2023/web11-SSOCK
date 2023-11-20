@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import {
   Entity,
   Column,
+  Index,
   PrimaryGeneratedColumn,
   CreateDateColumn,
   ManyToOne,
@@ -15,6 +16,7 @@ import { SnowballDecorationEntity } from './snowball-decoration.entity';
 import { MessageEntity } from '../../message/entity/message.entity';
 
 @Entity({ name: 'snowball' })
+@Index('idx_snowball', ['snowball_uuid'], { unique: true })
 export class SnowballEntity {
   @PrimaryGeneratedColumn()
   id: number;

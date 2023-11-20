@@ -5,7 +5,6 @@ import { ReqCreateMessageDto } from './dto/request/req-create-message.dto';
 import { ReqDeleteMessageDto } from './dto/request/req-delete-message.dto';
 import { MessageEntity } from './entity/message.entity';
 import { UserEntity } from '../snowball/entity/user.entity';
-import { SnowballEntity } from '../snowball/entity/snowball.entity';
 import { ResCreateMessageDto } from './dto/response/res-create-message.dto';
 import { MessageDto } from './dto/message.dto';
 
@@ -14,8 +13,6 @@ export class MessageService {
   constructor(
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
-    @InjectRepository(SnowballEntity)
-    private readonly snowballRepository: Repository<SnowballEntity>,
     @InjectRepository(MessageEntity)
     private readonly messageRepository: Repository<MessageEntity>
   ) {}
@@ -46,6 +43,7 @@ export class MessageService {
   }
 
   async getAllMessages(user_id: number): Promise<MessageDto[]> {
+    //To Do: query builder로 개선하기
     const user = await this.userRepository.findOne({
       where: { id: user_id },
       relations: {
