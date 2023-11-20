@@ -17,9 +17,12 @@ const Deco = ({ scale, position, message, id, color }: DecoProps) => {
 
   deco.scale.set(scale, scale, scale);
   deco.position.set(position.x, position.y, position.z);
-  deco.userData.message = message;
+  deco.traverse(mesh => {
+    mesh.userData.message = message;
+  });
+  // deco.userData.message = message;
   deco.rotateY(Math.PI - test);
-  console.log(deco);
+  // console.log(deco);
   return <primitive object={deco} />;
 };
 

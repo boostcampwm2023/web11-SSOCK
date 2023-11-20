@@ -36,7 +36,7 @@ const SnowGlobeCanvas = () => {
     />
   ));
   const decos = mock.snowball[0].message.map((deco, index) => {
-    console.log(deco);
+    // console.log(deco);
     return (
       <Deco
         key={index}
