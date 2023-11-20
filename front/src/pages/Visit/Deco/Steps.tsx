@@ -3,22 +3,40 @@ import { StepButton } from '../../../components';
 import theme from '../../../utils/theme';
 import styled from 'styled-components';
 
-const StyledButtonBox = styled.div`
+const StyledButtonWrap = styled.div`
   position: absolute;
-  width: 100%;
   bottom: 300px;
   display: flex;
   gap: 4px;
+  width: 100%;
   padding: 36px;
   align-items: center;
   margin: auto;
+  justify-content: space-between;
 `;
 
-const Prev = styled(StyledButtonBox)`
-  left: 0%;
+// 한번 더 감싸자
+const StyledButtonBox = styled.div``;
+
+const SelectDecoBox = styled.div`
+  position: absolute;
+  bottom: 0px;
+  display: flex;
+  width: 100%;
+  height: 200px;
+  background-color: rgba(236, 236, 236, 0.5);
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+
 `;
 
-const Next = styled(StyledButtonBox)`
+const DecoBox = styled.div`
+  border-radius: 50%;
+  border: 3px solid white;
+  background-color: ${theme.colors['--black-primary']};
+  width: 100px;
+  height: 100px;
 
 `;
 
@@ -30,7 +48,8 @@ const Steps = () => {
 
   return (
     <>
-    <Prev>
+      <StyledButtonWrap>
+        <StyledButtonBox>
       { step <= 0 ? null : <StepButton
         text="< 이전"
         step="decrease"
@@ -38,8 +57,9 @@ const Steps = () => {
         view={[step, setStep]}
         disabled={false}
       />}
-      </Prev>
-      <Next>
+      </StyledButtonBox>
+      
+      <StyledButtonBox>
       <StepButton
         text="다음 >"
         step="increase"
@@ -47,7 +67,21 @@ const Steps = () => {
         view={[step, setStep]}
         disabled={false}
       />
-      </Next>
+      </StyledButtonBox>
+      </StyledButtonWrap>
+      
+
+      <SelectDecoBox>
+        <DecoBox></DecoBox>
+        <DecoBox></DecoBox>
+        <DecoBox></DecoBox>
+        <DecoBox></DecoBox>
+        <DecoBox></DecoBox>
+        <DecoBox></DecoBox>
+        <DecoBox></DecoBox>
+        <DecoBox></DecoBox>
+        <DecoBox></DecoBox>
+      </SelectDecoBox>
 
 
 
