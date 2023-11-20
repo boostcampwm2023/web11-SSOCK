@@ -39,7 +39,7 @@ const MainDeco = ({ id, scale, position }: MyModelProps) => {
   deco.name = MAIN[id].name;
   deco.scale.set(scale, scale, scale);
   deco.position.set(position.x, position.y, position.z);
-
+  deco.children.forEach(e => (e.castShadow = true));
   useFrame(() => {
     fallingModel(deco, speedRef);
   });

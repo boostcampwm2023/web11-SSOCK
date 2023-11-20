@@ -52,14 +52,15 @@ const SnowGlobeCanvas = () => {
 
   return (
     <CanvasBox>
-      <Canvas camera={{ position: [15, 10, 0] }}>
+      <Canvas camera={{ position: [15, 10, 0] }} shadows={true}>
         <OrbitControls enablePan={false} enableZoom={false} />
         <Raycaster isClickedRef={isClicked} />
         <ambientLight intensity={0.8} color={'#cfcabb'} />
         <directionalLight
-          position={[1, 1, 0]}
+          position={[5, 7, 3]}
           intensity={5}
           color={'#e2bb83'}
+          castShadow
         />
         <Ground scale={1} position={new THREE.Vector3(0, 0, 0)} />
         <Glass
