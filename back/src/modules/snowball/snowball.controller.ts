@@ -1,4 +1,12 @@
-import { Controller, Post, Put, Body, Param, Get } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Put,
+  Body,
+  Param,
+  Get,
+  HttpCode
+} from '@nestjs/common';
 import { SnowballService } from './snowball.service';
 import {
   ApiBody,
@@ -20,6 +28,7 @@ export class SnowballController {
   constructor(private readonly snowballService: SnowballService) {}
 
   @Post()
+  @HttpCode(201)
   @ApiOperation({
     summary: '스노우볼 생성 API',
     description: '스노우볼을 생성합니다.'
@@ -37,6 +46,7 @@ export class SnowballController {
   }
 
   @Put('/decoration')
+  @HttpCode(200)
   @ApiResponse({
     status: 200,
     description: '스노우볼 데코레이션 업데이트 성공',
@@ -55,6 +65,7 @@ export class SnowballController {
   }
 
   @Put()
+  @HttpCode(200)
   @ApiResponse({
     status: 200,
     description: '스노우볼 업데이트 성공',
@@ -71,6 +82,7 @@ export class SnowballController {
   }
 
   @Get('/:snowball_id/info')
+  @HttpCode(200)
   @ApiResponse({
     status: 200,
     description: '스노우볼 조회 성공',
@@ -80,8 +92,8 @@ export class SnowballController {
     summary: '스노우볼 조회 API',
     description: '스노우볼의 정보를 조회합니다.'
   })
-  async getMessages(@Param('snowball_id') snowball_id: number) {
-    const messages = await this.snowballService.getSnowball(snowball_id);
-    return messages;
+  async getSnowball(@Param('snowball_id') snowball_id: number) {
+    const snowball = await this.snowballService.getSnowball(snowball_id);
+    return snowball;
   }
 }
