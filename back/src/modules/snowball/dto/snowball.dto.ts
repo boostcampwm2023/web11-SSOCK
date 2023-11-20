@@ -2,6 +2,7 @@ import {
   IsString,
   IsUUID,
   IsBoolean,
+  IsNumber,
   IsNotEmpty,
   ValidateNested
 } from '@nestjs/class-validator';
@@ -15,6 +16,11 @@ export class SnowballDto {
   @IsNotEmpty()
   @ApiProperty({ type: String, description: '스노우볼 제목' })
   readonly title: string;
+
+  @IsNotEmpty()
+  @IsNumber()
+  @ApiProperty({ type: Number, description: '스노우볼 id' })
+  readonly id: number;
 
   @IsUUID('4')
   @IsNotEmpty()

@@ -1,4 +1,11 @@
-import { Controller, Post, Delete, Body, Param } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Delete,
+  Body,
+  Param,
+  HttpCode
+} from '@nestjs/common';
 import { MessageService } from './message.service';
 import { ReqCreateMessageDto } from './dto/request/req-create-message.dto';
 import { ReqDeleteMessageDto } from './dto/request/req-delete-message.dto';
@@ -11,6 +18,7 @@ export class MessageController {
   constructor(private readonly messageService: MessageService) {}
 
   @Post()
+  @HttpCode(201)
   @ApiOperation({
     summary: '메세지 생성 API',
     description: '스노우볼에 메세지를 생성합니다.'
@@ -21,17 +29,30 @@ export class MessageController {
     description: 'Created',
     type: ResCreateMessageDto
   })
-  createMessage(@Body() createMessageDto: ReqCreateMessageDto) {
-    return this.messageService.createMessage(createMessageDto);
+  @ApiResponse({
+    status: 500,
+    description: 'Insert Fail'
+  })
+  async createMessage(
+    @Body() createMessageDto: ReqCreateMessageDto
+  ): Promise<ResCreateMessageDto> {
+    const resCreateMessage =
+      await this.messageService.createMessage(createMessageDto);
+    return resCreateMessage;
   }
 
   @Delete(':message_id')
+  @HttpCode(204)
   @ApiOperation({
     summary: '메세지 삭제 API',
     description: '스노우볼에서 특정 메세지를 삭제합니다.'
   })
   @ApiResponse({ status: 204, description: 'No Content' })
-  deleteMessage(@Param() deleteMessageDto: ReqDeleteMessageDto) {
-    this.messageService.deleteMessage(deleteMessageDto);
+  @ApiResponse({
+    status: 500,
+    description: 'Delete Fail'
+  })
+  async deleteMessage(@Param() deleteMessageDto: ReqDeleteMessageDto) {
+    await this.messageService.deleteMessage(deleteMessageDto);
   }
 }

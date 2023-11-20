@@ -18,6 +18,6 @@ export class SnowballService {
     return await this.snowballRepository.save(snowball);
   }
   async updateSnowball(updateSnowballDto: ReqUpdateSnowballDto): Promise<void> {
-    await this.snowballRepository.delete(updateSnowballDto.snowball_uuid);
+    await this.snowballRepository.delete(updateSnowballDto.snowball_id);
   }
 }

@@ -14,7 +14,7 @@ export class MessageEntity {
   id: number;
 
   @Column()
-  snowball_id: string;
+  snowball_id: number;
 
   @Column()
   decoration_id: number;
