@@ -17,7 +17,6 @@ const StyledButton = styled.button<ButtonColor>`
   background-color: ${props => props.color};
   font: ${theme.font['--normal-button-font']};
   border-radius: 50px;
-  width: 16%;
   height: 48px;
   padding: 10px;
   margin: 4px;
@@ -27,7 +26,6 @@ const StyledButton = styled.button<ButtonColor>`
   @media (max-width: 600px) {
     font-size: 10px;
     line-height: 10px;
-    width: 16%;
   }
 `;
 
