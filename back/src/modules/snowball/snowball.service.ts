@@ -4,7 +4,6 @@ import { Repository } from 'typeorm';
 import { SnowballEntity } from './entity/snowball.entity';
 import { ReqCreateSnowballDto } from './dto/request/req-create-snowball.dto';
 import { ReqUpdateSnowballDto } from './dto/request/req-update-snowball.dto';
-import { MessageEntity } from '../message/entity/message.entity';
 import { SnowballDto } from './dto/snowball.dto';
 import { SnowballDecorationEntity } from './entity/snowball-decoration.entity';
 import { DecorationSnowballDto } from './dto/decoration-snowball.dto';
@@ -17,8 +16,6 @@ export class SnowballService {
   constructor(
     @InjectRepository(SnowballEntity)
     private readonly snowballRepository: Repository<SnowballEntity>,
-    @InjectRepository(MessageEntity)
-    private readonly messageRepository: Repository<MessageEntity>,
     @InjectRepository(SnowballDecorationEntity)
     private readonly decorationRepository: Repository<SnowballDecorationEntity>
   ) {}
@@ -119,18 +116,16 @@ export class SnowballService {
   }
 
   async getSnowball(snowball_id: number): Promise<SnowballDto> {
-    const snowballs = await this.snowballRepository.find({
+    const snowball = await this.snowballRepository.findOne({
       where: { id: snowball_id },
       relations: {
         messages: true,
         decorations: true
       }
     });
-    if (!snowballs) {
+    if (!snowball) {
       throw new NotFoundException('스노우볼이 존재하지 않습니다.');
     }
-    const snowball = snowballs[0];
-    console.log(snowball);
 
     const resSnowball: SnowballDto = {
       id: snowball.id,
@@ -145,7 +140,7 @@ export class SnowballService {
         content: message.content,
         sender: message.sender,
         opened: message.opened,
-        created: message.created_at,
+        created: message.created,
         letter_id: message.letter_id
       }))
     };

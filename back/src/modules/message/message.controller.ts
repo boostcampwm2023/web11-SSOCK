@@ -1,6 +1,7 @@
 import {
   Controller,
   Post,
+  Get,
   Delete,
   Body,
   Param,
@@ -11,6 +12,7 @@ import { ReqCreateMessageDto } from './dto/request/req-create-message.dto';
 import { ReqDeleteMessageDto } from './dto/request/req-delete-message.dto';
 import { ApiBody, ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { ResCreateMessageDto } from './dto/response/res-create-message.dto';
+import { MessageDto } from './dto/message.dto';
 
 @ApiTags('Message API')
 @Controller('message')
@@ -54,5 +56,26 @@ export class MessageController {
   })
   async deleteMessage(@Param() deleteMessageDto: ReqDeleteMessageDto) {
     await this.messageService.deleteMessage(deleteMessageDto);
+  }
+
+  @Get()
+  @HttpCode(200)
+  @ApiOperation({
+    summary: '메세지 조회 API',
+    description: '모든 메세지를 조회합니다'
+  })
+  @ApiResponse({
+    status: 200,
+    type: MessageDto
+  })
+  @ApiResponse({
+    status: 500,
+    description: 'Find Fail'
+  })
+  async getAllMessages(
+    @Param('user_id') user_id: number
+  ): Promise<MessageDto[]> {
+    const messages = await this.messageService.getAllMessages(user_id);
+    return messages;
   }
 }

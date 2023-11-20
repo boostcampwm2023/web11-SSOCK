@@ -14,6 +14,10 @@ export class MessageDto {
   @ApiProperty({ type: String, description: '데코레이션 색상' })
   readonly decoration_color: string;
 
+  @IsNumber()
+  @ApiProperty({ type: Number, description: '편지지 종류' })
+  readonly letter_id: number;
+
   @IsString()
   @ApiProperty({ type: String, description: '메시지 내용' })
   readonly content: string;

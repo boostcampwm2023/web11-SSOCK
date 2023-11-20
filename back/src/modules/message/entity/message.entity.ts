@@ -35,7 +35,7 @@ export class MessageEntity {
   opened: Date | null;
 
   @CreateDateColumn()
-  created_at: Date;
+  created: Date;
 
   @ManyToOne(() => SnowballEntity, snowball => snowball.messages)
   @JoinColumn({ name: 'snowball_id' })

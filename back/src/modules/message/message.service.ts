@@ -1,14 +1,21 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ReqCreateMessageDto } from './dto/request/req-create-message.dto';
 import { ReqDeleteMessageDto } from './dto/request/req-delete-message.dto';
 import { MessageEntity } from './entity/message.entity';
+import { UserEntity } from '../snowball/entity/user.entity';
+import { SnowballEntity } from '../snowball/entity/snowball.entity';
 import { ResCreateMessageDto } from './dto/response/res-create-message.dto';
+import { MessageDto } from './dto/message.dto';
 
 @Injectable()
 export class MessageService {
   constructor(
+    @InjectRepository(UserEntity)
+    private readonly userRepository: Repository<UserEntity>,
+    @InjectRepository(SnowballEntity)
+    private readonly snowballRepository: Repository<SnowballEntity>,
     @InjectRepository(MessageEntity)
     private readonly messageRepository: Repository<MessageEntity>
   ) {}
@@ -22,7 +29,7 @@ export class MessageService {
       decoration_id: createMessageDto.decoration_id,
       decoration_color: createMessageDto.decoration_color,
       letter_id: createMessageDto.letter_id
-      // opened와 created_at은 자동으로 설정
+      // opened와 created는 자동으로 설정
     });
     const savedMessage = await this.messageRepository.save(messageEntity);
 
@@ -38,7 +45,44 @@ export class MessageService {
     await this.messageRepository.delete(deleteMessageDto.message_id);
   }
 
-  async findAllMessage(): Promise<MessageEntity[]> {
-    return await this.messageRepository.find();
+  async getAllMessages(user_id: number): Promise<MessageDto[]> {
+    const user = await this.userRepository.findOne({
+      where: { id: user_id },
+      relations: {
+        snowballs: {
+          messages: true
+        }
+      }
+    });
+
+    if (!user) {
+      throw new NotFoundException(`User with id ${user_id} not found`);
+    }
+    const messages: MessageEntity[] = user.snowballs.flatMap(
+      snowball => snowball.messages
+    );
+    const messagesDto: MessageDto[] = messages.map(message => {
+      const {
+        id,
+        decoration_id,
+        decoration_color,
+        letter_id,
+        content,
+        sender,
+        opened,
+        created
+      } = message;
+      return {
+        id,
+        decoration_id,
+        decoration_color,
+        letter_id,
+        content,
+        sender,
+        opened,
+        created
+      };
+    });
+    return messagesDto;
   }
 }
