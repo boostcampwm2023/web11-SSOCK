@@ -22,7 +22,7 @@ const VisitButton = () => {
   const [write, setWrite] = useState(false);
 
   useEffect(() => {
-    write ? navigate(`/visit/${user}/deco`) : null;
+    write ? navigate(`/visit/write`) : null;
   }, [write, user, navigate]);
 
   return (

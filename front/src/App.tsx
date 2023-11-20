@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
 import GlobalStyles from './GlobalStyles';
 import { IsLogin, HasSnowball } from './router';
-import { Intro, Nickname, Snowball, Main, Visit, Deco, Wrong } from './pages';
+import { Intro, Nickname, Snowball, Main, Visit, Deco, Wrong, VisitWrite } from './pages';
 import { Song } from './components';
 
 const App = () => {
@@ -14,8 +14,9 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Intro />} />
 
-          <Route path="/visit/:user" element={<Outlet />}>
+          <Route path="/visit/" element={<Outlet />}>
             <Route path="" element={<Visit />} />
+            <Route path="write" element={<VisitWrite />} />
             <Route path="deco" element={<Deco />} />
           </Route>
 
