@@ -52,7 +52,6 @@ export class SnowballDto {
   })
   readonly deco_list: DecorationSnowballDto[];
 
-  @IsNotEmpty()
   @ValidateNested({ each: true })
   @Type(() => MessageDto)
   @ApiProperty({

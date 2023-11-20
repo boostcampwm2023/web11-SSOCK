@@ -9,7 +9,7 @@ import {
 } from '@nestjs/swagger';
 import { ReqCreateSnowballDto } from './dto/request/req-create-snowball.dto';
 import { ReqUpdateSnowballDto } from './dto/request/req-update-snowball.dto';
-import { ResCreateSnowballDto } from './dto/response/res-create-snowball.dto';
+import { SnowballDto } from './dto/snowball.dto';
 import { ResUpdateSnowballDto } from './dto/response/res-update-snowball.dto';
 
 @ApiTags('Snowball API')
@@ -24,7 +24,7 @@ export class SnowballController {
   })
   @ApiCreatedResponse({
     description: '스노우볼 생성 성공',
-    type: ResCreateSnowballDto
+    type: SnowballDto
   })
   @ApiBody({ type: ReqCreateSnowballDto })
   createSnowball(@Body() createSnowballDto: ReqCreateSnowballDto) {
