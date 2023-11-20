@@ -44,7 +44,7 @@ const SnowGlobeCanvas = () => {
         scale={1}
         position={getDecoPoisition(index)}
         message={`message ${index}`}
-        color="#ff0000"
+        color={deco.deco_color}
       />
     );
   });

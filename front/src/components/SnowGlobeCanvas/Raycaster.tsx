@@ -41,8 +41,12 @@ const Raycaster: React.FC<RaycasterProps> = ({ isClickedRef }) => {
         return;
       } else {
         // 씬의 모든 객체들과 교차점 계산
+
         const intersects = raycaster.intersectObjects(scene.children, true);
 
+        if (intersects.length < 1) {
+          return;
+        }
         if (intersects[0].object.name === 'glass') {
           isAnimating.current = true;
           isClickedRef.current = true;
@@ -52,7 +56,7 @@ const Raycaster: React.FC<RaycasterProps> = ({ isClickedRef }) => {
           intersect => intersect.object.userData.message
         );
         if (selectedDeco) {
-          const message = selectedDeco?.object.userData.message;
+          const message = selectedDeco.object.userData.message;
           console.log(message);
         }
       }
