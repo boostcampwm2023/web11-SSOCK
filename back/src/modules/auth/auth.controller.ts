@@ -28,7 +28,7 @@ export class AuthController {
   @UseGuards(AuthGuard('google'))
   @ApiResponse({
     status: 200,
-    description: 'Google 로그인 성공 및 Info 반환',
+    description: 'Google 로그인 성공',
     type: ResInfoDto
   })
   @ApiResponse({
@@ -61,7 +61,7 @@ export class AuthController {
   @UseGuards(AuthGuard('naver'))
   @ApiResponse({
     status: 200,
-    description: 'Naver 로그인 성공 및 Info 반환',
+    description: 'Naver 로그인 성공',
     type: ResInfoDto
   })
   @ApiResponse({
@@ -94,7 +94,7 @@ export class AuthController {
   @UseGuards(AuthGuard('kakao'))
   @ApiResponse({
     status: 200,
-    description: 'Kakao 로그인 성공 및 Info 반환',
+    description: 'Kakao 로그인 성공',
     type: ResInfoDto
   })
   @ApiResponse({
