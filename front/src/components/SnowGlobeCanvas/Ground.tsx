@@ -8,14 +8,12 @@ interface GroundProps {
 }
 
 const Ground: React.FC<GroundProps> = ({ scale, position }) => {
-  const { scene } = useGLTF('/models/ground.glb');
-
-  const ground = scene.getObjectByName('Ground') as THREE.Mesh;
+  const ground = useGLTF('/models/ground.glb').scene.clone();
 
   ground.scale.set(scale, scale, scale);
   ground.position.set(position.x, position.y, position.z);
-  ground.receiveShadow = true;
-  return <primitive object={scene.clone()} />;
+  ground.children.forEach(e => (e.receiveShadow = true));
+  return <primitive object={ground} />;
 };
 
 export default Ground;
