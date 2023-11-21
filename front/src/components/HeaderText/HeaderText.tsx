@@ -38,7 +38,7 @@ const HeaderText = (props: HeaderProps) => {
 
   return (
     <StyledHeader ref={props ? props.Ref : null}>
-      <StyledUser>{userName}</StyledUser>님의 스노우볼
+      <StyledUser>{userName}</StyledUser> 님의 스노우볼
     </StyledHeader>
   );
 };

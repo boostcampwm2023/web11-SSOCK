@@ -25,7 +25,7 @@ const VisitButton = () => {
   const { message, sender, color } = useContext(MessageContext); // message가 '' 비어있지 않을때
 
   useEffect(() => {
-    write ? navigate(`/visit/${user}/deco`) : null;
+    write ? navigate(`./deco`) : null;
   }, [write, user, navigate]);
 
   return (

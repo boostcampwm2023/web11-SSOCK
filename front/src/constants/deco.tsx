@@ -1,4 +1,4 @@
-const DECO = [
+export const DECO = [
   {
     name: '선물상자',
     fileName: '/models/ribonBox.glb'
@@ -12,7 +12,8 @@ const DECO = [
     fileName: '/models/gingerBread.glb'
   }
 ];
-const MAIN = [
+
+export const MAIN = [
   {
     name: '턱스',
     fileName: '/models/tux.glb'
@@ -22,6 +23,7 @@ const MAIN = [
     fileName: '/models/tree.glb'
   }
 ];
+
 const MSG_COLOR = [
   {
     color: '#FF0000'

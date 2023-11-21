@@ -42,6 +42,12 @@ const StyledFrom = styled.span`
   color: ${theme.colors['--primary-redp-variant']};
 `;
 
+const StyledInputBox = styled.div`
+  display: flex;
+  width: 100%;
+`;
+
+
 const Msg = (props: MsgProps) => {
   const userName = mock.user_name;
   return (
@@ -51,13 +57,15 @@ const Msg = (props: MsgProps) => {
       </StyledLetterPerson>
 
       {props.isInput ? (
-        <div>텍스트 입력창</div>
+        <StyledInputBox>
+          <input type="text" />
+        </StyledInputBox>
       ) : (
         <StyledLetterContent>{props.content}</StyledLetterContent>
       )}
 
       <StyledFromBox>
-        From. <StyledFrom>{props.sender}</StyledFrom>
+        From. <StyledFrom>{props.sender === "" ? <input type="text" /> : props.sender}</StyledFrom>
       </StyledFromBox>
     </StyledLetterBox>
   );
