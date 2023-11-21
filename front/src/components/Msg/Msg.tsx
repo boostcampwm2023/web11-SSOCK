@@ -47,7 +47,6 @@ const StyledInputBox = styled.div`
   width: 100%;
 `;
 
-
 const Msg = (props: MsgProps) => {
   const userName = mock.user_name;
   return (
@@ -65,7 +64,10 @@ const Msg = (props: MsgProps) => {
       )}
 
       <StyledFromBox>
-        From. <StyledFrom>{props.sender === "" ? <input type="text" /> : props.sender}</StyledFrom>
+        From.&nbsp;
+        <StyledFrom>
+          {props.sender === '' ? <input type="text" /> : props.sender}
+        </StyledFrom>
       </StyledFromBox>
     </StyledLetterBox>
   );
