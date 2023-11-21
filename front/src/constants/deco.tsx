@@ -24,3 +24,15 @@ export const MAIN = [
   }
 ];
 
+const MSG_COLOR = [
+  {
+    color: '#FF0000'
+  },
+  {
+    color: '#00FF00'
+  },
+  {
+    color: '#ffe600'
+  }
+];
+export { DECO, MAIN, MSG_COLOR };

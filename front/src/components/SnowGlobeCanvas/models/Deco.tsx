@@ -8,9 +8,10 @@ interface DecoProps {
   position: THREE.Vector3;
   message: string;
   color: string;
+  sender: string;
 }
 
-const Deco = ({ scale, position, message, id, color }: DecoProps) => {
+const Deco = ({ scale, position, message, id, color, sender }: DecoProps) => {
   const deco = useGLTF(DECO[id].fileName).scene.clone();
   const target = { x: 8, z: 0 };
   const test = Math.atan2(position.z - target.z, position.x - target.x);
@@ -21,6 +22,9 @@ const Deco = ({ scale, position, message, id, color }: DecoProps) => {
   deco.children.forEach(child => {
     if (child instanceof THREE.Mesh) {
       child.userData.message = message;
+      child.userData.sender = sender;
+      child.userData.color = color;
+
       child.castShadow = true;
       if (child.name === 'Sub') {
         return;

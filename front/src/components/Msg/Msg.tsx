@@ -17,7 +17,7 @@ const StyledLetterBox = styled.div<MsgColor>`
   font: ${theme.font['--normal-introduce-font']};
   border-radius: 16px;
   padding: 16px;
-  background-color: ${props => props.color + '4D'};
+  background-color: ${props => props.color + 'd0'};
   margin: 10px;
 `;
 
