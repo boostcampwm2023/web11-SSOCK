@@ -10,6 +10,7 @@ interface ButtonProps {
   color: string;
   step: string;
   view: [number, React.Dispatch<React.SetStateAction<number>>];
+  visible: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
   disabled?: boolean;
 }
 
@@ -33,13 +34,14 @@ const StyledButton = styled.button<ButtonColor>`
 
 
 const StepButton = (props: ButtonProps) => {
-
+  console.log(props);
   const ClickStep = () => {
     if (props.step === 'increase') {
       props.view[1](props.view[0] + 1);
     } else if (props.step === 'decrease') {
       props.view[1](props.view[0] - 1);
     }
+
   };
 
   return (
