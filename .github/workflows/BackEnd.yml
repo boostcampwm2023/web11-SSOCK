@@ -80,8 +80,9 @@ jobs:
           proxy_username: root
           proxy_key: ${{ secrets.SSH_WAS_KEY }}
           script: |
+            echo "${{ secrets.ENV_FILE }}" > .env
             echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io -u yunuo46 --password-stdin
             docker pull ghcr.io/yunuo46/was_test:latest
             docker stop was_test || true
             docker rm was_test || true
-            docker run -d --name was_test -p 3000:3000 ghcr.io/yunuo46/was_test:latest
+            docker run -d --name was_test -p 3000:3000 --env-file .env ghcr.io/yunuo46/was_test:latest
