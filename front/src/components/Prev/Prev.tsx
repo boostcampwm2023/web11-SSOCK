@@ -18,6 +18,7 @@ const StyledPrev = styled.img`
 
 const Prev = (props: PrevProps) => {
   const navigate = useNavigate();
+  
 
   return (
     <StyledPrev
