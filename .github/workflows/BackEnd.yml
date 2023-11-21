@@ -77,8 +77,8 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           proxy_host: 10.0.2.6
-          proxy_username: ${{ secrets.SERVER_USERNAME }}
-          proxy_key_path: ~/.ssh
+          proxy_username: root
+          proxy_key: ${{ secrets.SSH_WAS_KEY }}
           script: |
             echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io -u yunuo46 --password-stdin
             docker pull ghcr.io/yunuo46/was_test:latest
