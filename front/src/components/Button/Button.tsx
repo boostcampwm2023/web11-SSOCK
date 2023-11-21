@@ -8,7 +8,7 @@ interface ButtonColor {
 interface ButtonProps {
   text: string;
   color: string;
-  view: [boolean | null, React.Dispatch<React.SetStateAction<boolean>> | null];
+  view: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
   disabled?: boolean;
 }
 

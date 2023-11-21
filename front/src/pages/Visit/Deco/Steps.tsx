@@ -92,11 +92,12 @@ const ButtonBox = styled.div`
 
 const Steps = () => {
   const [step, setStep] = useState(0);
-  const [prevStep, setPrevStep] = useState(false);
+  const [prevStep, setPrevStep] = useState(false); // 이거 나중에 바꿔야할듯
   const [nextStep, setNextStep] = useState(false);
+  const [lastBox, setLastBox] = useState(false);
 
   const decoColor = useRef<string | null>(null);
-  const decoId = useRef<string | null>(null);
+  //const decoId = useRef<string | null>(null);
 
   const renderStateBoxes = () => {
     const boxes = [];
@@ -205,7 +206,7 @@ const Steps = () => {
       <Button
       text="선물하기"
       color={theme.colors['--primary-red-primary']}
-      view={[null, null]}
+      view={[lastBox, setLastBox]}
       />
       </ButtonBox>
        : null}
