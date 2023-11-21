@@ -14,7 +14,6 @@ const PrevProvider: React.FC<{ children: React.ReactNode }> = ({
   children
 }) => {
   const [view, setView] = useState(false);
-  console.log(view,'prevprovider')
 
   return (
     <PrevContext.Provider value={{ view, setView }}>

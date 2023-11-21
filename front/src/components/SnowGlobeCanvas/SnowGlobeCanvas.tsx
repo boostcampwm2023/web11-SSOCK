@@ -1,4 +1,4 @@
-import { useRef, useContext, useEffect } from 'react';
+import { useRef } from 'react';
 import { OrbitControls } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import * as THREE from 'three';
@@ -8,7 +8,7 @@ import { getDecoPoisition } from '../../utils/position';
 import mock from '../../mockdata.json';
 import * as Models from './models/index';
 import { Prev } from '../Prev';
-import { PrevContext, PrevProvider } from './PrevProvider';
+import { PrevProvider } from './PrevProvider';
 
 const CanvasBox = styled.div`
   margin: auto;
@@ -24,11 +24,6 @@ const SnowGlobeCanvas = () => {
   const isClicked = useRef<boolean>(false);
   const glassRadius = 7;
   const glassPosition = new THREE.Vector3(0, glassRadius / 2, 0);
-  const { view } = useContext(PrevContext);
-
-  useEffect(() => {
-    console.log(view, 'snowglobecanvas');
-  }, [view]);
 
   const snows = Array.from({ length: 100 }, (_, i) => (
     <Models.Snow
@@ -89,7 +84,8 @@ const SnowGlobeCanvas = () => {
           {decos}
         </Canvas>
       </CanvasBox>
-      {view ? <Prev set={null} /> : null}
+
+      <Prev set={'Canvas'} />
     </PrevProvider>
   );
 };
