@@ -1,6 +1,6 @@
 import { useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
-import { DECO, MSG_COLOR } from '../../../constants/deco';
+import { DECO } from '../../../constants/deco';
 
 interface DecoProps {
   id: number;
