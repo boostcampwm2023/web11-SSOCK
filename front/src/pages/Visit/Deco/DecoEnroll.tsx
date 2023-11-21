@@ -8,9 +8,7 @@ interface LoginProps {
   view: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
 }
 
-interface SocialLogin {
-  social: '카카오' | '네이버' | '구글';
-}
+
 
 const StyledBody = styled.div`
   position: fixed;
@@ -63,42 +61,13 @@ const StyledLoginBox = styled.div`
   }
 `;
 
-const StyledLogin = styled.button<SocialLogin>`
-  font: ${theme.font['--normal-login-font']};
-  height: 20%;
-  margin: 1% 0;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  background-color: ${props =>
-    props.social === '카카오'
-      ? '#FEE500'
-      : props.social === '네이버'
-      ? '#00C73C'
-      : 'white'};
-`;
-
-const StyledLogo = styled.img`
-  position: absolute;
-  left: 0;
-  height: 100%;
-  width: auto;
-  margin-left: 2%;
-`;
-
-const StyledSocial = styled.span`
-  font-weight: 700;
-  margin-left: 5%;
-`;
 
 const CloseLogin = (
   props: LoginProps,
   closeRef: React.RefObject<HTMLDivElement>,
   setIsFocus: React.Dispatch<React.SetStateAction<boolean>>,
   navigate: NavigateFunction,
-  user : string
+  user : string | undefined,
 ) => {
   
 
@@ -121,39 +90,6 @@ const CloseLogin = (
   }
 };
 
-// const validLogin = (
-//   props: SocialLogin,
-//   setValid: React.Dispatch<React.SetStateAction<boolean>>
-// ) => {
-//   // valid 체크!
-//   console.log(props.social);
-//   setValid(true);
-// };
-
-// const LoginUI = (props: SocialLogin) => {
-//   const [valid, setValid] = useState(false);
-//   const navigate = useNavigate();
-
-//   useEffect(() => {
-//     valid ? navigate('/make') : null;
-//   }, [valid, navigate]);
-
-//   return (
-//     <StyledLogin
-//       social={props.social}
-//       onClick={() => validLogin(props, setValid)}
-//     >
-//       {props.social === '카카오' ? (
-//         <StyledLogo src={'/socialLogin/kakao.svg'} />
-//       ) : props.social === '네이버' ? (
-//         <StyledLogo src={'/socialLogin/naver.svg'} />
-//       ) : (
-//         <StyledLogo src={'/socialLogin/google.svg'} />
-//       )}
-//       <StyledSocial>{props.social}</StyledSocial>로 시작하기
-//     </StyledLogin>
-//   );
-// };
 
 const DecoEnroll = (props: LoginProps) => {
   const [isFocus, setIsFocus] = useState(true);
