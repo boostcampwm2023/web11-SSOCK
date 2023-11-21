@@ -50,7 +50,7 @@ jobs:
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
-          username: ${{ github.actor }}
+          username: yunuo46
           password: ${{ secrets.GHCR_TOKEN }}
       - name: Build and push
         uses: docker/build-push-action@v5
@@ -77,8 +77,8 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           script: |
-            ssh -i ~/.ssh/id_rsa root@10.0.2.6 << 'EOF'
-            echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+            ssh -i ~/.ssh/id_rsa ${{ secrets.SERVER_USERNAME }}@10.0.2.6 << 'EOF'
+            echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io -u yunuo46 --password-stdin
             docker pull ghcr.io/yunuo46/was_test:latest
             docker stop was_test || true
             docker rm was_test || true
