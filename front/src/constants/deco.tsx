@@ -1,25 +1,36 @@
 const DECO = [
   {
     name: '선물상자',
-    fileName: 'models/ribonBox.glb'
+    fileName: '/models/ribonBox.glb'
   },
   {
     name: '붕어빵',
-    fileName: 'models/fishBread.glb'
+    fileName: '/models/fishBread.glb'
   },
   {
     name: '진저브레드',
-    fileName: 'models/gingerBread.glb'
+    fileName: '/models/gingerBread.glb'
   }
 ];
 const MAIN = [
   {
     name: '턱스',
-    fileName: 'models/tux.glb'
+    fileName: '/models/tux.glb'
   },
   {
     name: '트리',
-    fileName: 'models/tree.glb'
+    fileName: '/models/tree.glb'
   }
 ];
-export { DECO, MAIN };
+const MSG_COLOR = [
+  {
+    color: '#FF0000'
+  },
+  {
+    color: '#00FF00'
+  },
+  {
+    color: '#ffe600'
+  }
+];
+export { DECO, MAIN, MSG_COLOR };

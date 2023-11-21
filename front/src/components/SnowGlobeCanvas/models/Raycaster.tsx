@@ -1,14 +1,17 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useContext } from 'react';
 import { useThree } from '@react-three/fiber';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
+import { MessageContext } from '../../../pages/Visit/MessageProvider';
 
 interface RaycasterProps {
   isClickedRef: React.MutableRefObject<boolean>; // mutable
 }
 
 const Raycaster: React.FC<RaycasterProps> = ({ isClickedRef }) => {
+  console.log(useThree());
   const { camera, pointer, raycaster, scene, gl } = useThree();
+  const { setMessage, setSender, setColor } = useContext(MessageContext);
   const isAnimating = useRef(false); // 유리 클릭한 시점 , 뒤로가기 버튼 누른 시점 === true // 카메라 업 다운 차이 기록
   const lastPosition = useRef<number>(0);
 
@@ -41,7 +44,7 @@ const Raycaster: React.FC<RaycasterProps> = ({ isClickedRef }) => {
         return;
       } else {
         // 씬의 모든 객체들과 교차점 계산
-
+        setMessage('');
         const intersects = raycaster.intersectObjects(scene.children, true);
 
         if (intersects.length < 1) {
@@ -56,8 +59,10 @@ const Raycaster: React.FC<RaycasterProps> = ({ isClickedRef }) => {
           intersect => intersect.object.userData.message
         );
         if (selectedDeco) {
-          const message = selectedDeco.object.userData.message;
-          console.log(message);
+          const { message, color, sender } = selectedDeco.object.userData;
+          setMessage(message);
+          setSender(sender);
+          setColor(color);
         }
       }
     };

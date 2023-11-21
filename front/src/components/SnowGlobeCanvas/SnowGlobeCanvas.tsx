@@ -38,6 +38,7 @@ const SnowGlobeCanvas = () => {
         position={getDecoPoisition(index)}
         message={deco.content}
         color={deco.deco_color}
+        sender={deco.sender}
       />
     );
   });
@@ -45,7 +46,12 @@ const SnowGlobeCanvas = () => {
   return (
     <CanvasBox>
       <Canvas camera={{ position: [15, 10, 0] }} shadows={true}>
-        <OrbitControls enablePan={false} enableZoom={false} />
+        <OrbitControls
+          enablePan={false}
+          enableZoom={false}
+          maxPolarAngle={Math.PI / 2}
+          minPolarAngle={0}
+        />
         <ambientLight intensity={0.8} color={'#cfcabb'} />
         <directionalLight
           position={[5, 7, 3]}
