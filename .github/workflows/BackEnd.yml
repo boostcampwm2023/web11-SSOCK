@@ -22,15 +22,15 @@ jobs:
 
   #     - name: Install package
   #       run: npm install
-  #       working-directory: ./was
+  #       working-directory: ./back
 
   #     - name: npm build
   #       run: npm run build --if-present
-  #       working-directory: ./was
+  #       working-directory: ./back
 
   #     - name: npm test
   #       run: npm test
-  #       working-directory: ./was
+  #       working-directory: ./back
   build_docker:
     # needs: test
     runs-on: ubuntu-latest
@@ -43,7 +43,7 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
         with:
-          context: ./was
+          context: ./back
           push: true
           tags: ghcr.io/yunuo46/was_test:latest
       - name: Login to GitHub Container Registry
@@ -55,7 +55,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
-          context: ./was
+          context: ./back
           push: true
           tags: ghcr.io/yunuo46/was_test:latest
   deploy_docker:
