@@ -2,6 +2,9 @@ import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
+//도커문제해결하기위한줄
+console.log(process.env.DATABASE_HOST);
+
 const typeOrmConfig: TypeOrmModuleOptions = {
   type: 'mysql',
   host: process.env.DATABASE_HOST,
