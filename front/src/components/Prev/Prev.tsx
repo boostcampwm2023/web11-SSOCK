@@ -20,18 +20,18 @@ const StyledPrev = styled.img`
 
 const Prev = (props: PrevProps) => {
   const navigate = useNavigate();
-  const { view } = useContext(PrevContext);
+  const { view, setView } = useContext(PrevContext);
 
   return (props.set === 'Canvas' && view) || props.set !== 'Canvas' ? (
     <StyledPrev
       src={'/icons/prev.svg'}
-      onClick={() => {
+      onClick={() =>
         props.set
           ? props.set === 'Canvas'
-            ? console.log('canvas back button')
+            ? setView(false)
             : props.set(false)
-          : navigate(-1);
-      }}
+          : navigate(-1)
+      }
     />
   ) : null;
 };

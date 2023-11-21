@@ -11,7 +11,7 @@ interface RaycasterProps {
 const Raycaster: React.FC<RaycasterProps> = ({ isClickedRef }) => {
   const { camera, pointer, raycaster, scene, gl } = useThree();
   const { setMessage, setSender, setColor } = useContext(MessageContext);
-  const { setView } = useContext(PrevContext);
+  const { view, setView, isZoom, setIsZoom } = useContext(PrevContext);
   const isAnimating = useRef(false); // 유리 클릭한 시점 , 뒤로가기 버튼 누른 시점 === true // 카메라 업 다운 차이 기록
   const lastPosition = useRef<number>(0);
 
@@ -32,6 +32,13 @@ const Raycaster: React.FC<RaycasterProps> = ({ isClickedRef }) => {
       } else {
         camera.position.set(10, 10, 10);
         isAnimating.current = false;
+      }
+    } else {
+      if (view) {
+        setIsZoom(true);
+      } else if (isZoom && !view) {
+        camera.position.set(15, 10, 0);
+        // animation 구현 필요
       }
     }
   });
