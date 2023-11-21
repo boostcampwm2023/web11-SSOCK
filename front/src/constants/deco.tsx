@@ -1,7 +1,7 @@
 export const DECO = [
   {
     name: '선물상자',
-    fileName: '/models/ribonBox.glb'
+    fileName: '/models/ribbonBox.glb'
   },
   {
     name: '붕어빵',
@@ -24,7 +24,7 @@ export const MAIN = [
   }
 ];
 
-const MSG_COLOR = [
+export const MSG_COLOR = [
   {
     color: '#FF0000'
   },
@@ -35,4 +35,3 @@ const MSG_COLOR = [
     color: '#ffe600'
   }
 ];
-export { DECO, MAIN, MSG_COLOR };

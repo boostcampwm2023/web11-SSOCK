@@ -35,7 +35,7 @@ const GlobalStyles = createGlobalStyle`
 
   * {
     box-sizing: border-box;
-    font-family: 'YClover-Bold';
+    font-family: 'KingSejongInstitute';
   }
 
   body {
