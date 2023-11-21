@@ -76,8 +76,10 @@ jobs:
           username: ${{ secrets.SERVER_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
+          proxy_host: 10.0.2.6
+          proxy_username: ${{ secrets.SERVER_USERNAME }}
+          proxy_key_path: ~/.ssh
           script: |
-            ssh -i ~/.ssh/id_rsa ${{ secrets.SERVER_USERNAME }}@10.0.2.6 << 'EOF'
             echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io -u yunuo46 --password-stdin
             docker pull ghcr.io/yunuo46/was_test:latest
             docker stop was_test || true
