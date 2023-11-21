@@ -1,9 +1,9 @@
+import { useRef } from 'react';
 import { OrbitControls } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
+import * as THREE from 'three';
 import styled from 'styled-components';
 import theme from '../../utils/theme';
-import * as THREE from 'three';
-import { useRef } from 'react';
 import { getDecoPoisition } from '../../utils/position';
 import mock from '../../mockdata.json';
 import * as Models from './models/index';
@@ -12,14 +12,17 @@ const CanvasBox = styled.div`
   margin: auto;
   width: 100vw;
   height: 100vh;
+
   @media (min-width: ${theme.size['--desktop-min-width']}) {
     width: ${theme.size['--desktop-width']};
   }
 `;
+
 const SnowGlobeCanvas = () => {
   const isClicked = useRef<boolean>(false);
   const glassRadius = 7;
   const glassPosition = new THREE.Vector3(0, glassRadius / 2, 0);
+
   const snows = Array.from({ length: 100 }, (_, i) => (
     <Models.Snow
       key={i}
@@ -28,6 +31,7 @@ const SnowGlobeCanvas = () => {
       radius={0.05 + Math.random() * 0.15}
     />
   ));
+
   const decos = mock.snowball[0].message.map((deco, index) => {
     // console.log(deco);
     return (

@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useContext } from 'react';
-import { useThree } from '@react-three/fiber';
-import { useFrame } from '@react-three/fiber';
+import { useThree, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { MessageContext } from '../../../pages/Visit/MessageProvider';
 
