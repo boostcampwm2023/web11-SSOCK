@@ -1,8 +1,9 @@
 import { useState, useRef } from 'react';
-import { Button, StepButton } from '../../../components';
+import { StepButton, PostButton } from '../../../components';
 import theme from '../../../utils/theme';
 import styled from 'styled-components';
 import { Msg } from '../../../components';
+import DecoEnroll from './DecoEnroll';
 
 const StateBar = styled.div`
   position: absolute;
@@ -42,7 +43,7 @@ const StyledButtonBox = styled.div`
 
 `;
 
-const SelectDecoBox = styled.div<{ prevstep?: string; nextstep?: string}>`
+const SelectDecoBox = styled.div`
   position: absolute;
   bottom: 0px;
   display: flex;
@@ -53,10 +54,6 @@ const SelectDecoBox = styled.div<{ prevstep?: string; nextstep?: string}>`
   justify-content: center;
   gap: 18px;
 
-  left: ${( props ) => (props.prevstep === "false" ? '0' : '-100%')};
-  right: ${( props ) => (props.nextstep === "false" ? '0' : '-100%')};
-  transition: left 1s ease;
-  transition: right 1s ease;
 `;
 
 const DecoBox = styled.div`
@@ -92,8 +89,6 @@ const ButtonBox = styled.div`
 
 const Steps = () => {
   const [step, setStep] = useState(0);
-  const [prevStep, setPrevStep] = useState(false); // 이거 나중에 바꿔야할듯
-  const [nextStep, setNextStep] = useState(false);
   const [lastBox, setLastBox] = useState(false);
 
   const decoColor = useRef<string | null>(null);
@@ -124,7 +119,7 @@ const Steps = () => {
 
   return (
     <>
-    { step === 3 ? null :
+    { step === 3 || step === -1 ? null :
       <StateBar>
         {renderStateBoxes()}
       </StateBar>
@@ -137,46 +132,44 @@ const Steps = () => {
         step="decrease"
         color={theme.colors['--primary-red-primary']}
         view={[step, setStep]}
-        visible={[prevStep, setPrevStep]}
         disabled={false}
       />}
       </StyledButtonBox>
       
       <StyledButtonBox>
-        { step >= 3 ? null :
+        { step >= 3 || step === -1 ? null :
       <StepButton
         text="다음 >"
         step="increase"
         color={theme.colors['--primary-red-primary']}
         view={[step, setStep]}
-        visible={[nextStep, setNextStep]}
         disabled={false}
       /> }
       </StyledButtonBox>
       </StyledButtonWrap>
       
       { step === 0 ? 
-      <SelectDecoBox prevstep={prevStep.toString()} nextstep={nextStep.toString()}>
-        <DecoBox></DecoBox>
-        <DecoBox></DecoBox>
-        <DecoBox></DecoBox>
-        <DecoBox></DecoBox>
-        <DecoBox></DecoBox>
-        <DecoBox></DecoBox>
-        <DecoBox></DecoBox>
-        <DecoBox></DecoBox>
-        <DecoBox></DecoBox>
+      <SelectDecoBox>
+        <DecoBox />
+        <DecoBox />
+        <DecoBox />
+        <DecoBox />
+        <DecoBox />
+        <DecoBox />
+        <DecoBox />
+        <DecoBox />
+        <DecoBox />
       </SelectDecoBox>
       : null }
 
       { step === 1 ?
-      <SelectDecoBox prevstep={prevStep.toString()} nextstep={nextStep.toString()}>
+      <SelectDecoBox >
         <input type="color" onChange={(e) => {decoColor.current = e.target.value}}/>
         </SelectDecoBox>
         : null }
       
       { step === 2 ? 
-      <SelectDecoBox prevstep={prevStep.toString()} nextstep={nextStep.toString()}>
+      <SelectDecoBox >
         <DecoBox></DecoBox>
         <DecoBox></DecoBox>
         <DecoBox></DecoBox>
@@ -203,13 +196,20 @@ const Steps = () => {
 
       { step === 3 ?
       <ButtonBox>
-      <Button
+      <PostButton
       text="선물하기"
       color={theme.colors['--primary-red-primary']}
       view={[lastBox, setLastBox]}
+      visible={[step, setStep]}
       />
       </ButtonBox>
        : null}
+
+       {
+        step === -1 && lastBox === true ?
+        <DecoEnroll visible={[step, setStep]} view={[lastBox, setLastBox]}></DecoEnroll>
+        : null
+       }
     </>
   );
 };
