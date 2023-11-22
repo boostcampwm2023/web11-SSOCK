@@ -26,7 +26,7 @@ export class SnowballService {
     const snowball = this.snowballRepository.create({
       user_id: createSnowballDto.user_id,
       title: createSnowballDto.title,
-      message_private: createSnowballDto.message_private ? new Date() : null
+      message_private: createSnowballDto.is_message_private ? new Date() : null
     });
     const savedSnowball = await this.snowballRepository.save(snowball);
 
@@ -39,7 +39,7 @@ export class SnowballService {
       id: savedSnowball.id,
       uuid: savedSnowball.snowball_uuid,
       title: savedSnowball.title,
-      message_private: savedSnowball.message_private === null ? false : true,
+      is_message_private: savedSnowball.message_private === null ? false : true,
       deco_list: decoList,
       message_list: []
     };
@@ -91,14 +91,14 @@ export class SnowballService {
     updateSnowballDto: ReqUpdateSnowballDto,
     snowball_id: number
   ): Promise<ResUpdateSnowballDto> {
-    const { title, message_private } = updateSnowballDto;
+    const { title, is_message_private } = updateSnowballDto;
 
     const updateResult = await this.snowballRepository
       .createQueryBuilder()
       .update(SnowballEntity)
       .set({
         title,
-        message_private: message_private ? new Date() : null
+        message_private: is_message_private ? new Date() : null
       })
       .where('id = :id', { id: snowball_id })
       .execute();
@@ -111,7 +111,7 @@ export class SnowballService {
     const resUpdateSnowballDto: ResUpdateSnowballDto = {
       snowball_id,
       title,
-      message_private
+      is_message_private
     };
 
     return resUpdateSnowballDto;
@@ -133,7 +133,7 @@ export class SnowballService {
       id: snowball.id,
       uuid: snowball.snowball_uuid,
       title: snowball.title,
-      message_private: snowball.message_private ? true : false,
+      is_message_private: snowball.message_private ? true : false,
       deco_list: snowball.decorations,
       message_list: snowball.messages.map(message => ({
         id: message.id,
