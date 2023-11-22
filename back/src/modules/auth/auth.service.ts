@@ -11,8 +11,9 @@ export class AuthService {
       // Example data, replace with actual data from your logic
       const access_token = 'your-access-token';
       const userDto: UserDto = {
+        id: 1,
         name: '김찬우',
-        id: 'Oauth에서 주는 값',
+        uuid: 'Oauth에서 주는 값',
         snowball_count: 3,
         snowball_list: [
           '32413434-32a2-2342-3242-3g23-413oye3',
