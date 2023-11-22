@@ -57,10 +57,12 @@ const GlobalStyles = createGlobalStyle`
     padding: 0;
     cursor: pointer;
     color: black;
+    pointer-events: all;
   }
 
   img {
     cursor: pointer;
+    pointer-events: all;
   }
 
   hr {
