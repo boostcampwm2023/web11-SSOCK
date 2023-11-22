@@ -1,7 +1,6 @@
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import theme from '../../utils/theme';
 import { PrevContext } from '../SnowGlobeCanvas/PrevProvider';
 
 interface PrevProps {
@@ -9,13 +8,8 @@ interface PrevProps {
 }
 
 const StyledPrev = styled.img`
-  position: absolute;
-  top: 4%;
-
-  @media (min-width: ${theme.size['--desktop-min-width']}) {
-    right: 50%;
-    margin-right: 450px;
-  }
+  position: fixed;
+  top: 3.5rem;
 `;
 
 const Prev = (props: PrevProps) => {

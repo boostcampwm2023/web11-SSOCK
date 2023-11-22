@@ -1,20 +1,14 @@
 import { useState, useEffect, MouseEventHandler } from 'react';
 import styled from 'styled-components';
-import theme from '../../utils/theme';
 
 const StyledMusic = styled.img`
-  position: absolute;
-  top: 10%;
-  height: 4%;
-  margin-left: 2%;
+  position: fixed;
+  top: 7rem;
+  height: 1.6rem;
+  margin-left: 0.8rem;
   filter: invert(100%) sepia(82%) saturate(2%) hue-rotate(196deg)
     brightness(108%) contrast(101%);
   z-index: 100;
-
-  @media (min-width: ${theme.size['--desktop-min-width']}) {
-    right: 50%;
-    margin-right: 450px;
-  }
 `;
 
 const useAudio = (url: string) => {
