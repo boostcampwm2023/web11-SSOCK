@@ -5,7 +5,8 @@ import {
   Delete,
   Body,
   Param,
-  HttpCode
+  HttpCode,
+  UseGuards
 } from '@nestjs/common';
 import { MessageService } from './message.service';
 import { ReqCreateMessageDto } from './dto/request/req-create-message.dto';
@@ -19,6 +20,7 @@ import {
 } from '@nestjs/swagger';
 import { ResCreateMessageDto } from './dto/response/res-create-message.dto';
 import { MessageDto } from './dto/message.dto';
+import { JWTGuard } from '../auth/auth.guard';
 
 @ApiTags('Message API')
 @Controller('message')
@@ -52,6 +54,7 @@ export class MessageController {
     return resCreateMessage;
   }
 
+  @UseGuards(JWTGuard)
   @ApiBearerAuth('jwt-token')
   @Delete(':message_id')
   @HttpCode(204)
@@ -68,6 +71,7 @@ export class MessageController {
     await this.messageService.deleteMessage(deleteMessageDto);
   }
 
+  @UseGuards(JWTGuard)
   @ApiBearerAuth('jwt-token')
   @Get('/:user_id')
   @HttpCode(200)
