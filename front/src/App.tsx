@@ -14,6 +14,11 @@ const Outer = styled.div`
 
   width: 100vw;
   height: 100vh;
+  overflow-y: hidden;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
 
   overflow: hidden;
 
@@ -28,7 +33,6 @@ const App = () => {
       <GlobalStyles />
       <Outer>
         <Song />
-
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Intro />} />

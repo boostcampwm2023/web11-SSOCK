@@ -4,6 +4,7 @@ import DecoModel from './DecoModel';
 import { OrbitControls } from '@react-three/drei';
 
 const CanvasContainer = styled.div`
+  position: absolute;
   width: 100%;
   height: 100%;
 `;

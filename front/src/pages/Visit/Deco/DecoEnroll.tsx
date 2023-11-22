@@ -14,6 +14,7 @@ const StyledBody = styled.div`
   width: 100vw;
   height: 100vh;
   background-color: rgba(217, 217, 217, 0.2);
+  pointer-events: all;
 `;
 
 const StyledLoginBox = styled.div`
