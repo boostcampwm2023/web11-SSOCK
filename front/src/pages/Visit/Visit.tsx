@@ -1,14 +1,19 @@
 import { SnowGlobeCanvas } from '../../components';
-import VisitButton from './VisitButton';
+import VisitBottom from './VisitBottom';
 import VisitHeader from './VisitHeader';
+import VisitBody from './VisitBody';
 import { MessageProvider } from './MessageProvider';
+import { UIContainer } from '../../components/UIContainer';
 
 const Visit = () => {
   return (
     <MessageProvider>
       <SnowGlobeCanvas />
-      <VisitHeader />
-      <VisitButton />
+      <UIContainer>
+        <VisitHeader />
+        <VisitBody />
+        <VisitBottom />
+      </UIContainer>
     </MessageProvider>
   );
 };
