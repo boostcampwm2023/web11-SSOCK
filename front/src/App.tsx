@@ -15,6 +15,8 @@ const Outer = styled.div`
   width: 100vw;
   height: 100vh;
 
+  overflow: hidden;
+
   @media (min-width: ${theme.size['--desktop-min-width']}) {
     width: ${theme.size['--desktop-width']};
   }

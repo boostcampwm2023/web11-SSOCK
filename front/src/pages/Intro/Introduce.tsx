@@ -7,15 +7,14 @@ interface IntroduceProps {
 }
 
 const StyledIntroduce = styled.div`
-  position: absolute;
-  top: 25%;
+  position: fixed;
+  top: 50%;
   left: 50%;
-  transform: translate(-50%, 0);
+  transform: translate(-50%, -50%);
   background-color: ${theme.colors['--primary-yellow']};
-  border-radius: 20px;
+  border-radius: 1.5rem;
   width: 80%;
   height: 60%;
-  padding: 10px;
   text-align: center;
   color: ${theme.colors['--black-primary']};
   display: flex;
@@ -88,7 +87,11 @@ const Introduce = (props: IntroduceProps) => {
 
   return (
     <StyledIntroduce ref={closeRef}>
-      <StyledText>소개글을 입력해주세요.</StyledText>
+      <StyledText>
+        안녕하세요 저희는 쏙입니다. <br /> <br />
+        국민은행 <br /> 942902-00-180129
+        <br /> 계좌주 : 오승엽 <br /> 후원시 찬우 제로투 or 슬릭백 10초
+      </StyledText>
       <StyledClosed onClick={() => closeIntroduce(props, closeRef)}>
         닫기
       </StyledClosed>
