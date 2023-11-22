@@ -8,7 +8,7 @@ import { UIContainer } from '../../components/UIContainer';
 const StyledLeft = styled.img`
   position: fixed;
   top: 50%;
-  height: 6rem;
+  height: 4rem;
 `;
 
 const StyledRight = styled(StyledLeft)`

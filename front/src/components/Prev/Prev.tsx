@@ -10,6 +10,7 @@ interface PrevProps {
 const StyledPrev = styled.img`
   position: fixed;
   top: 3.5rem;
+  z-index: 100;
 `;
 
 const Prev = (props: PrevProps) => {

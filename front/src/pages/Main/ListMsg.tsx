@@ -30,12 +30,14 @@ interface SnowballProps {
 }
 
 const StyledList = styled.div`
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
   position: absolute;
   width: 100%;
   top: 10%;
   height: 85vh;
   overflow-y: scroll;
-  scrollbar-width: none;
 `;
 
 const ListMsg = (props: ListMsgProps) => {
