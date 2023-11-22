@@ -41,4 +41,3 @@ export class UserDto {
   @ApiProperty({ type: Number, description: '메시지 갯수' })
   readonly message_count: number;
 }
-
