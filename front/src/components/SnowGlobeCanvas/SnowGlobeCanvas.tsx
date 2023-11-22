@@ -11,13 +11,10 @@ import { Prev } from '../Prev';
 import { PrevProvider } from './PrevProvider';
 
 const CanvasBox = styled.div`
-  margin: auto;
-  width: 100vw;
-  height: 100vh;
+  position: absolute;
 
-  @media (min-width: ${theme.size['--desktop-min-width']}) {
-    width: ${theme.size['--desktop-width']};
-  }
+  width: 100%;
+  height: 100%;
 `;
 
 const SnowGlobeCanvas = () => {
