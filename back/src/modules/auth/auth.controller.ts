@@ -37,8 +37,8 @@ export class AuthController {
     description: 'Internal Server Error'
   })
   async googleLoginCallback(@Req() req): Promise<ResInfoDto> {
-    const profile: string = req.user.profile;
-    const result = this.authService.createInfo(profile);
+    const userInfo = req.user;
+    const result = this.authService.createInfo(userInfo);
     return result;
   }
 
@@ -71,8 +71,8 @@ export class AuthController {
     description: 'Internal Server Error'
   })
   async naverLoginCallBack(@Req() req): Promise<ResInfoDto> {
-    const profile: string = req.user.profile;
-    const result = this.authService.createInfo(profile);
+    const userInfo = req.user;
+    const result = this.authService.createInfo(userInfo);
     return result;
   }
 

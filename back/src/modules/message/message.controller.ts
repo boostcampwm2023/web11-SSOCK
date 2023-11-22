@@ -10,7 +10,13 @@ import {
 import { MessageService } from './message.service';
 import { ReqCreateMessageDto } from './dto/request/req-create-message.dto';
 import { ReqDeleteMessageDto } from './dto/request/req-delete-message.dto';
-import { ApiBody, ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import {
+  ApiBody,
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+  ApiBearerAuth
+} from '@nestjs/swagger';
 import { ResCreateMessageDto } from './dto/response/res-create-message.dto';
 import { MessageDto } from './dto/message.dto';
 
@@ -46,6 +52,7 @@ export class MessageController {
     return resCreateMessage;
   }
 
+  @ApiBearerAuth('jwt-token')
   @Delete(':message_id')
   @HttpCode(204)
   @ApiOperation({
@@ -61,6 +68,7 @@ export class MessageController {
     await this.messageService.deleteMessage(deleteMessageDto);
   }
 
+  @ApiBearerAuth('jwt-token')
   @Get('/:user_id')
   @HttpCode(200)
   @ApiOperation({

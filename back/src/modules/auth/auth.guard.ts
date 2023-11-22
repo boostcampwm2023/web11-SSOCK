@@ -32,6 +32,6 @@ export class JWTGuard implements CanActivate {
 
   private extractTokenFromHeader(@Req() req: Request): string | undefined {
     const [type, token] = req.headers.authorization?.split(' ') ?? [];
-    return type === 'Bearer' ? token : null;
+    return type === 'Bearer' ? token : undefined;
   }
 }
