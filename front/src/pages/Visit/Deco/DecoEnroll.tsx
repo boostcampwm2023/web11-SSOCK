@@ -4,11 +4,9 @@ import styled from 'styled-components';
 import theme from '../../../utils/theme';
 
 interface LoginProps {
-  visible : [number, React.Dispatch<React.SetStateAction<number>>]
+  visible: [number, React.Dispatch<React.SetStateAction<number>>];
   view: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
 }
-
-
 
 const StyledBody = styled.div`
   position: fixed;
@@ -61,16 +59,13 @@ const StyledLoginBox = styled.div`
   }
 `;
 
-
 const CloseLogin = (
   props: LoginProps,
   closeRef: React.RefObject<HTMLDivElement>,
   setIsFocus: React.Dispatch<React.SetStateAction<boolean>>,
   navigate: NavigateFunction,
-  user : string | undefined,
+  user: string | undefined
 ) => {
-  
-
   const onAnimationEnd = () => {
     if (closeRef.current) {
       setIsFocus(false);
@@ -81,7 +76,6 @@ const CloseLogin = (
   };
 
   if (closeRef.current) {
-
     closeRef.current.addEventListener('animationend', onAnimationEnd);
     closeRef.current.style.setProperty(
       'animation',
@@ -90,19 +84,16 @@ const CloseLogin = (
   }
 };
 
-
 const DecoEnroll = (props: LoginProps) => {
   const [isFocus, setIsFocus] = useState(true);
   const closeRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
   const { user } = useParams();
   return (
-    <StyledBody onClick={() => CloseLogin(props, closeRef, setIsFocus, navigate, user)}>
-      {isFocus ? (
-        <StyledLoginBox ref={closeRef}>
-
-        </StyledLoginBox>
-      ) : null}
+    <StyledBody
+      onClick={() => CloseLogin(props, closeRef, setIsFocus, navigate, user)}
+    >
+      {isFocus ? <StyledLoginBox ref={closeRef}></StyledLoginBox> : null}
     </StyledBody>
   );
 };

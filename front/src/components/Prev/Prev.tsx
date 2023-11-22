@@ -1,9 +1,11 @@
+import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import theme from '../../utils/theme';
-import { useNavigate } from 'react-router-dom';
+import { PrevContext } from '../SnowGlobeCanvas/PrevProvider';
 
 interface PrevProps {
-  set: React.Dispatch<React.SetStateAction<boolean>> | null;
+  set: React.Dispatch<React.SetStateAction<boolean>> | 'Canvas' | null;
 }
 
 const StyledPrev = styled.img`
@@ -18,15 +20,20 @@ const StyledPrev = styled.img`
 
 const Prev = (props: PrevProps) => {
   const navigate = useNavigate();
+  const { view, setView } = useContext(PrevContext);
 
-  return (
+  return (props.set === 'Canvas' && view) || props.set !== 'Canvas' ? (
     <StyledPrev
       src={'/icons/prev.svg'}
-      onClick={() => {
-        props.set ? props.set(false) : navigate(-1);
-      }}
+      onClick={() =>
+        props.set
+          ? props.set === 'Canvas'
+            ? setView(false)
+            : props.set(false)
+          : navigate(-1)
+      }
     />
-  );
+  ) : null;
 };
 
 export default Prev;

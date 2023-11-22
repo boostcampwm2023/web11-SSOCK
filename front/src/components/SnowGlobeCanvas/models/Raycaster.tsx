@@ -1,17 +1,17 @@
 import React, { useEffect, useRef, useContext } from 'react';
-import { useThree } from '@react-three/fiber';
-import { useFrame } from '@react-three/fiber';
+import { useThree, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { MessageContext } from '../../../pages/Visit/MessageProvider';
+import { PrevContext } from '../PrevProvider';
 
 interface RaycasterProps {
   isClickedRef: React.MutableRefObject<boolean>; // mutable
 }
 
 const Raycaster: React.FC<RaycasterProps> = ({ isClickedRef }) => {
-  console.log(useThree());
   const { camera, pointer, raycaster, scene, gl } = useThree();
   const { setMessage, setSender, setColor } = useContext(MessageContext);
+  const { view, setView, isZoom, setIsZoom } = useContext(PrevContext);
   const isAnimating = useRef(false); // 유리 클릭한 시점 , 뒤로가기 버튼 누른 시점 === true // 카메라 업 다운 차이 기록
   const lastPosition = useRef<number>(0);
 
@@ -20,6 +20,8 @@ const Raycaster: React.FC<RaycasterProps> = ({ isClickedRef }) => {
 
     if (isAnimating.current) {
       if (isClicked) {
+        setView(true);
+
         if (camera.position.distanceTo(new THREE.Vector3(0, 0, 0)) > 7) {
           camera.position.x = (camera.position.x - 0) * 0.9;
           camera.position.y = (camera.position.y - 0) * 0.9;
@@ -30,6 +32,13 @@ const Raycaster: React.FC<RaycasterProps> = ({ isClickedRef }) => {
       } else {
         camera.position.set(10, 10, 10);
         isAnimating.current = false;
+      }
+    } else {
+      if (view) {
+        setIsZoom(true);
+      } else if (isZoom && !view) {
+        camera.position.set(15, 10, 0);
+        // animation 구현 필요
       }
     }
   });

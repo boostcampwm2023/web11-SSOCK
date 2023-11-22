@@ -30,7 +30,6 @@ const StyledButton = styled.button<ButtonColor>`
 `;
 
 const PostButton = (props: ButtonProps) => {
-
   const ClickedPost = () => {
     props.view[1](!props.view[0]);
     props.visible[1](-1);

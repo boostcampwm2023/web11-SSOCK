@@ -29,9 +29,6 @@ const StyledButton = styled.button<ButtonColor>`
   }
 `;
 
-
-
-
 const StepButton = (props: ButtonProps) => {
   const ClickStep = () => {
     if (props.step === 'increase') {
@@ -39,7 +36,6 @@ const StepButton = (props: ButtonProps) => {
     } else if (props.step === 'decrease') {
       props.view[1](props.view[0] - 1);
     }
-
   };
 
   return (
