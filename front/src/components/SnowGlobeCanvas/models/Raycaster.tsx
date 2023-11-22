@@ -3,6 +3,7 @@ import { useThree, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { MessageContext } from '../../../pages/Visit/MessageProvider';
 import { PrevContext } from '../PrevProvider';
+import { is } from '@react-three/fiber/dist/declarations/src/core/utils';
 
 interface RaycasterProps {
   isClickedRef: React.MutableRefObject<boolean>; // mutable
@@ -23,9 +24,9 @@ const Raycaster: React.FC<RaycasterProps> = ({ isClickedRef }) => {
         setView(true);
 
         if (camera.position.distanceTo(new THREE.Vector3(0, 0, 0)) > 7) {
-          camera.position.x = (camera.position.x - 0) * 0.9;
-          camera.position.y = (camera.position.y - 0) * 0.9;
-          camera.position.z = (camera.position.z - 0) * 0.9;
+          camera.position.x = (camera.position.x - 0) * 0.99;
+          camera.position.y = (camera.position.y - 0) * 0.99;
+          camera.position.z = (camera.position.z - 0) * 0.99;
         } else {
           isAnimating.current = false;
         }
@@ -37,8 +38,14 @@ const Raycaster: React.FC<RaycasterProps> = ({ isClickedRef }) => {
       if (view) {
         setIsZoom(true);
       } else if (isZoom && !view) {
-        camera.position.set(15, 10, 0);
-        // animation 구현 필요
+        if (camera.position.distanceTo(new THREE.Vector3(0, 0, 0)) < 15) {
+          camera.position.x = (camera.position.x + 0) * 1.01;
+          camera.position.y = (camera.position.y + 0) * 1.01;
+          camera.position.z = (camera.position.z + 0) * 1.01;
+        } else {
+        setIsZoom(false);
+        isAnimating.current = false;
+        }
       }
     }
   });
