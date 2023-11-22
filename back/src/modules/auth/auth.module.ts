@@ -6,9 +6,19 @@ import { AuthController } from './auth.controller';
 import { PassportModule } from '@nestjs/passport';
 import { AuthService } from './auth.service';
 import { JwtModule } from '@nestjs/jwt';
+import { SnowballService } from '../snowball/snowball.service';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { SnowballEntity } from '../snowball/entity/snowball.entity';
+import { UserEntity } from './entity/user.entity';
+import { SnowballDecorationEntity } from '../snowball/entity/snowball-decoration.entity';
 
 @Module({
   imports: [
+    TypeOrmModule.forFeature([
+      SnowballEntity,
+      UserEntity,
+      SnowballDecorationEntity
+    ]),
     PassportModule,
     JwtModule.register({
       secret: 'SECRET',
@@ -19,7 +29,8 @@ import { JwtModule } from '@nestjs/jwt';
     GoogleAuthStrategy,
     NaverAuthStrategy,
     KakaoAuthStrategy,
-    AuthService
+    AuthService,
+    SnowballService
   ],
   controllers: [AuthController]
 })
