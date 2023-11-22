@@ -17,10 +17,11 @@ export class MessageService {
     private readonly messageRepository: Repository<MessageEntity>
   ) {}
   async createMessage(
-    createMessageDto: ReqCreateMessageDto
+    createMessageDto: ReqCreateMessageDto,
+    snowball_id: number
   ): Promise<ResCreateMessageDto> {
     const messageEntity = this.messageRepository.create({
-      snowball_id: createMessageDto.snowball_id,
+      snowball_id: snowball_id,
       sender: createMessageDto.sender,
       content: createMessageDto.content,
       decoration_id: createMessageDto.decoration_id,

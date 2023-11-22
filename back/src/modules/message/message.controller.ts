@@ -19,7 +19,7 @@ import { MessageDto } from './dto/message.dto';
 export class MessageController {
   constructor(private readonly messageService: MessageService) {}
 
-  @Post()
+  @Post('/:snowball_id')
   @HttpCode(201)
   @ApiOperation({
     summary: '메세지 생성 API',
@@ -36,10 +36,13 @@ export class MessageController {
     description: 'Insert Fail'
   })
   async createMessage(
+    @Param('snowball_id') snowball_id: number,
     @Body() createMessageDto: ReqCreateMessageDto
   ): Promise<ResCreateMessageDto> {
-    const resCreateMessage =
-      await this.messageService.createMessage(createMessageDto);
+    const resCreateMessage = await this.messageService.createMessage(
+      createMessageDto,
+      snowball_id
+    );
     return resCreateMessage;
   }
 
@@ -58,7 +61,7 @@ export class MessageController {
     await this.messageService.deleteMessage(deleteMessageDto);
   }
 
-  @Get('all/:user_id/')
+  @Get('/:user_id')
   @HttpCode(200)
   @ApiOperation({
     summary: '메세지 조회 API',

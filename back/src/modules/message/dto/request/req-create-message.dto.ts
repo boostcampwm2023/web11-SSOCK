@@ -2,11 +2,6 @@ import { IsString, IsNotEmpty, IsNumber } from '@nestjs/class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class ReqCreateMessageDto {
-  @IsNotEmpty()
-  @IsNumber()
-  @ApiProperty({ type: Number, description: '스노우볼 id' })
-  readonly snowball_id: number;
-
   @IsString()
   @IsNotEmpty()
   @ApiProperty({ type: String, description: '익명 사용자 닉네임(From)' })

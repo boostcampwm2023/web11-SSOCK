@@ -1,17 +1,7 @@
-import {
-  IsString,
-  IsNumber,
-  IsNotEmpty,
-  IsBoolean
-} from '@nestjs/class-validator';
+import { IsString, IsNotEmpty, IsBoolean } from '@nestjs/class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class ReqUpdateSnowballDto {
-  @IsNotEmpty()
-  @IsNumber()
-  @ApiProperty({ type: Number, description: '스노우볼 id' })
-  readonly snowball_id: number;
-
   @IsString()
   @IsNotEmpty()
   @ApiProperty({ type: String, description: '스노우볼 제목' })
