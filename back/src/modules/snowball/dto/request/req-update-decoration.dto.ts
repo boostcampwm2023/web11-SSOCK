@@ -4,11 +4,6 @@ import { ApiProperty } from '@nestjs/swagger';
 import { DecorationSnowballDto } from '../decoration-snowball.dto';
 
 export class ReqUpdateSnowballDecoDto {
-  // @IsNotEmpty()
-  // @IsNumber()
-  // @ApiProperty({ type: Number, description: '스노우볼 id' })
-  // readonly snowball_id: number;
-
   @IsNotEmpty()
   @ValidateNested({ each: true })
   @Type(() => DecorationSnowballDto)
