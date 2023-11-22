@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { StepButton, PostButton } from '../../../components';
 import theme from '../../../utils/theme';
 import styled from 'styled-components';
@@ -42,12 +42,18 @@ const StyledButtonWrap = styled.div`
 const StyledButtonBox = styled.div``;
 
 const SelectDecoBox = styled.div`
-  position: absolute;
-  bottom: 0px;
-  display: flex;
-  width: 100%;
-  height: 200px;
+  position: relative;
+  top: 85vh;
+  overflow: hidden;
+  height: 15vh;
   background-color: rgba(236, 236, 236, 0.5);
+`;
+
+const SelectDeco = styled.div`
+  position: absolute;
+  bottom: 0;
+  height: inherit;
+  display: flex;
   align-items: center;
   justify-content: center;
   gap: 18px;
@@ -57,8 +63,8 @@ const DecoBox = styled.div`
   border-radius: 50%;
   border: 3px solid white;
   background-color: ${theme.colors['--black-primary']};
-  width: 100px;
-  height: 100px;
+  width: 10vh;
+  height: 10vh;
   cursor: pointer;
 `;
 
@@ -88,6 +94,68 @@ const Steps = () => {
 
   const decoColor = useRef<string | null>(null);
   //const decoId = useRef<string | null>(null);
+  const decoBox = useRef<HTMLDivElement>(null);
+
+  const [isDecoBoxClicked, setIsDecoBoxClicked] = useState(false);
+  const [startClickedX, setStartClickedX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
+
+  const mouseDown = (event: MouseEvent) => {
+    setIsDecoBoxClicked(true);
+    setStartClickedX(event.pageX - decoBox.current!.offsetLeft);
+    setScrollLeft(decoBox.current!.scrollLeft);
+  };
+
+  const touchDown = (event: TouchEvent) => {
+    setIsDecoBoxClicked(true);
+    setStartClickedX(event.touches[0].pageX - decoBox.current!.offsetLeft);
+    setScrollLeft(decoBox.current!.scrollLeft);
+  };
+
+  const leave = () => setIsDecoBoxClicked(false);
+  const up = () => setIsDecoBoxClicked(false);
+
+  const mouseMove = (event: MouseEvent) => {
+    if (!isDecoBoxClicked) return;
+    event.preventDefault();
+    const nowX = event.pageX - decoBox.current!.offsetLeft;
+    const move = nowX - startClickedX;
+    decoBox.current!.scrollLeft = scrollLeft - move;
+  };
+
+  const touchMove = (event: TouchEvent) => {
+    if (!isDecoBoxClicked) return;
+    event.preventDefault();
+    const nowX = event.touches[0].pageX - decoBox.current!.offsetLeft;
+    const move = nowX - startClickedX;
+    decoBox.current!.scrollLeft = scrollLeft - move;
+  };
+
+  useEffect(() => {
+    if (decoBox.current) {
+      const decoBoxRef = decoBox.current;
+
+      decoBoxRef.addEventListener('mousedown', mouseDown);
+      decoBoxRef.addEventListener('mouseleave', leave);
+      decoBoxRef.addEventListener('mouseup', up);
+      decoBoxRef.addEventListener('mousemove', mouseMove);
+
+      decoBoxRef.addEventListener('touchstart', touchDown);
+      decoBoxRef.addEventListener('touchend', up);
+      decoBoxRef.addEventListener('touchmove', touchMove);
+    }
+
+    return () => {
+      decoBox.current!.removeEventListener('mousedown', mouseDown);
+      decoBox.current!.removeEventListener('mouseleave', leave);
+      decoBox.current!.removeEventListener('mouseup', up);
+      decoBox.current!.removeEventListener('mousemove', mouseMove);
+
+      decoBox.current!.removeEventListener('touchstart', touchDown);
+      decoBox.current!.removeEventListener('touchend', up);
+      decoBox.current!.removeEventListener('touchmove', touchMove);
+    };
+  }, [isDecoBoxClicked]);
 
   const renderStateBoxes = () => {
     const boxes = [];
@@ -134,42 +202,42 @@ const Steps = () => {
         </StyledButtonBox>
       </StyledButtonWrap>
 
-      {step === 0 ? (
-        <SelectDecoBox>
-          <DecoBox />
-          <DecoBox />
-          <DecoBox />
-          <DecoBox />
-          <DecoBox />
-          <DecoBox />
-          <DecoBox />
-          <DecoBox />
-          <DecoBox />
-        </SelectDecoBox>
-      ) : null}
-
-      {step === 1 ? (
-        <SelectDecoBox>
-          <input
-            type="color"
-            onChange={e => {
-              decoColor.current = e.target.value;
-            }}
-          />
-        </SelectDecoBox>
-      ) : null}
-
-      {step === 2 ? (
-        <SelectDecoBox>
-          <DecoBox />
-          <DecoBox />
-          <DecoBox />
-          <DecoBox />
-          <DecoBox />
-          <DecoBox />
-          <DecoBox />
-          <DecoBox />
-          <DecoBox />
+      {step === 0 || step === 1 || step === 2 ? (
+        <SelectDecoBox ref={decoBox}>
+          <SelectDeco>
+            {step === 0 ? (
+              <>
+                <DecoBox />
+                <DecoBox />
+                <DecoBox />
+                <DecoBox />
+                <DecoBox />
+                <DecoBox />
+                <DecoBox />
+                <DecoBox />
+                <DecoBox />
+              </>
+            ) : step === 1 ? (
+              <input
+                type="color"
+                onChange={e => {
+                  decoColor.current = e.target.value;
+                }}
+              />
+            ) : (
+              <>
+                <DecoBox />
+                <DecoBox />
+                <DecoBox />
+                <DecoBox />
+                <DecoBox />
+                <DecoBox />
+                <DecoBox />
+                <DecoBox />
+                <DecoBox />
+              </>
+            )}
+          </SelectDeco>
         </SelectDecoBox>
       ) : null}
 
