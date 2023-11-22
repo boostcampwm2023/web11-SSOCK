@@ -10,9 +10,6 @@ const UIBoxDiv = styled.div`
   justify-content: space-between;
 
   pointer-events: none;
-  * {
-    pointer-events: all;
-  }
 `;
 
 const UIContainer: React.FC<{ children: React.ReactNode }> = ({ children }) => {
