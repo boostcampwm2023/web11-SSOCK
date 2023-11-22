@@ -21,7 +21,7 @@ import { SnowballDecorationEntity } from '../snowball/entity/snowball-decoration
     ]),
     PassportModule,
     JwtModule.register({
-      secret: 'SECRET',
+      secret: process.env.JWT_SECRET,
       signOptions: { expiresIn: '300s' }
     })
   ],
