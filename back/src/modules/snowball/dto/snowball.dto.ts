@@ -33,7 +33,7 @@ export class SnowballDto {
     type: Boolean,
     description: '스노우볼 속 메시지들 비공개 여부'
   })
-  readonly message_private: boolean;
+  readonly is_message_private: boolean;
 
   @IsNotEmpty()
   @ValidateNested({ each: true })
