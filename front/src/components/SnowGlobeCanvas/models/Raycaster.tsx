@@ -3,7 +3,6 @@ import { useThree, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { MessageContext } from '../../../pages/Visit/MessageProvider';
 import { PrevContext } from '../PrevProvider';
-import { is } from '@react-three/fiber/dist/declarations/src/core/utils';
 
 interface RaycasterProps {
   isClickedRef: React.MutableRefObject<boolean>; // mutable
