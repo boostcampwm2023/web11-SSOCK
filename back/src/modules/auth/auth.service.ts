@@ -9,7 +9,7 @@ export class AuthService {
   async createInfo(profile: any): Promise<ResInfoDto> {
     if (profile) {
       // Example data, replace with actual data from your logic
-      const access_token = 'your-access-token';
+      const jwt_token = 'your-jwt-token';
       const userDto: UserDto = {
         id: 1,
         name: '김찬우',
@@ -65,9 +65,9 @@ export class AuthService {
       };
 
       const resInfoDto: ResInfoDto = {
-        access_token,
-        user: [userDto],
-        main_snowball: [mainSnowballDto]
+        jwt_token,
+        user: userDto,
+        main_snowball: mainSnowballDto
       };
 
       return resInfoDto;

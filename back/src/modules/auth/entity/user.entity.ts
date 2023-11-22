@@ -5,7 +5,7 @@ import {
   OneToMany,
   CreateDateColumn
 } from 'typeorm';
-import { SnowballEntity } from './snowball.entity';
+import { SnowballEntity } from '../../snowball/entity/snowball.entity';
 
 @Entity({ name: 'user' })
 export class UserEntity {
