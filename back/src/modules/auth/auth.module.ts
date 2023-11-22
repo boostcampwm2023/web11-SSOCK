@@ -23,7 +23,6 @@ import { ConfigModule } from '@nestjs/config';
       SnowballDecorationEntity
     ]),
     PassportModule,
-    ConfigModule.forRoot({ isGlobal: true }),
     JwtModule.registerAsync({
       inject: [ConfigService],
       useFactory: (config: ConfigService) => ({
