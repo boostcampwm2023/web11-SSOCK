@@ -64,9 +64,10 @@ export class SnowballService {
   }
 
   async updateSnowballDeco(
-    updateSnowballDecoDto: ReqUpdateSnowballDecoDto
+    updateSnowballDecoDto: ReqUpdateSnowballDecoDto,
+    snowball_id: number
   ): Promise<ResUpdateSnowballDecoDto> {
-    const { snowball_id, deco_list } = updateSnowballDecoDto;
+    const { deco_list } = updateSnowballDecoDto;
 
     // Delete all decorations
     await this.decorationRepository.delete({
@@ -87,9 +88,10 @@ export class SnowballService {
   }
 
   async updateSnowball(
-    updateSnowballDto: ReqUpdateSnowballDto
+    updateSnowballDto: ReqUpdateSnowballDto,
+    snowball_id: number
   ): Promise<ResUpdateSnowballDto> {
-    const { snowball_id, title, message_private } = updateSnowballDto;
+    const { title, message_private } = updateSnowballDto;
 
     const updateResult = await this.snowballRepository
       .createQueryBuilder()

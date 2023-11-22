@@ -45,7 +45,7 @@ export class SnowballController {
     return snowball;
   }
 
-  @Put('/decoration')
+  @Put('/:snowball_id/decoration')
   @HttpCode(200)
   @ApiResponse({
     status: 200,
@@ -57,14 +57,18 @@ export class SnowballController {
     description: '스노우볼의 데코레이션들을 업데이트 해줍니다.'
   })
   @ApiBody({ type: ReqUpdateSnowballDecoDto })
-  updateSnowballDecor(@Body() updateSnowballDecoDto: ReqUpdateSnowballDecoDto) {
+  updateSnowballDecor(
+    @Param('snowball_id') snowball_id: number,
+    @Body() updateSnowballDecoDto: ReqUpdateSnowballDecoDto
+  ) {
     const snowballDecoration = this.snowballService.updateSnowballDeco(
-      updateSnowballDecoDto
+      updateSnowballDecoDto,
+      snowball_id
     );
     return snowballDecoration;
   }
 
-  @Put()
+  @Put('/:snowball_id')
   @HttpCode(200)
   @ApiResponse({
     status: 200,
@@ -76,12 +80,18 @@ export class SnowballController {
     description: '스노우볼에의 정보를 업데이트 해줍니다.'
   })
   @ApiBody({ type: ReqUpdateSnowballDto })
-  updateSnowball(@Body() updateSnowballDto: ReqUpdateSnowballDto) {
-    const snowball = this.snowballService.updateSnowball(updateSnowballDto);
+  updateSnowball(
+    @Param('snowball_id') snowball_id: number,
+    @Body() updateSnowballDto: ReqUpdateSnowballDto
+  ) {
+    const snowball = this.snowballService.updateSnowball(
+      updateSnowballDto,
+      snowball_id
+    );
     return snowball;
   }
 
-  @Get('/info/:snowball_id')
+  @Get('/:snowball_id')
   @HttpCode(200)
   @ApiResponse({
     status: 200,
