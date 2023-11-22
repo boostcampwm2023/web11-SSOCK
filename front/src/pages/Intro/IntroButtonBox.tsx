@@ -6,15 +6,13 @@ import Introduce from './Introduce';
 import LoginBox from './LoginBox';
 
 const StyledButtonBox = styled.div`
-  position: fixed;
-  width: 100%;
-  bottom: 0px;
   display: flex;
+  height: 15rem;
+  width: 100%;
   flex-direction: column;
-  gap: 4px;
-  padding: 36px;
+  gap: 1rem;
   align-items: center;
-  margin: auto;
+  justify-content: center;
 `;
 
 const IntroButtonBox = () => {
