@@ -1,21 +1,21 @@
-import {
-  IsString,
-  IsNumber,
-  IsUUID,
-  IsNotEmpty
-} from '@nestjs/class-validator';
+import { IsString, IsNumber, IsNotEmpty } from '@nestjs/class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class UserDto {
+  @IsNumber()
+  @IsNotEmpty()
+  @ApiProperty({ type: Number, description: '유저 pk id' })
+  readonly id: number;
+
   @IsString()
   @IsNotEmpty()
   @ApiProperty({ type: String, description: '사용자 이름' })
   readonly name: string;
 
-  @IsUUID('4')
+  @IsString()
   @IsNotEmpty()
-  @ApiProperty({ format: 'uuid', description: 'Oauth에서 주는 값' })
-  readonly id: string;
+  @ApiProperty({ type: String, description: 'Oauth에서 주는 값' })
+  readonly uuid: string;
 
   @IsNumber()
   @IsNotEmpty()
@@ -35,3 +35,4 @@ export class UserDto {
   @ApiProperty({ type: Number, description: '메시지 갯수' })
   readonly message_count: number;
 }
+
