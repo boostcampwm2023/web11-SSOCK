@@ -105,8 +105,8 @@ export class AuthController {
     description: 'Internal Server Error'
   })
   async kakaoLoginCallBack(@Req() req): Promise<ResInfoDto> {
-    const profile: string = req.user.profile;
-    const result = this.authService.createInfo(profile);
+    const userInfo = req.user;
+    const result = this.authService.createInfo(userInfo);
     return result;
   }
 }

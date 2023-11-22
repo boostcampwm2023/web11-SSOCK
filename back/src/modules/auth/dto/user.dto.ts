@@ -15,7 +15,7 @@ export class UserDto {
   @IsString()
   @IsNotEmpty()
   @ApiProperty({ type: String, description: 'Oauth에서 주는 값' })
-  readonly uuid: string;
+  readonly auth_id: string;
 
   @IsNumber()
   @IsNotEmpty()
@@ -24,11 +24,17 @@ export class UserDto {
 
   @IsNotEmpty()
   @ApiProperty({
-    type: [String],
-    format: 'uuid',
-    description: '스노우볼 UUID 리스트'
+    type: 'array',
+    items: {
+      type: 'object',
+      properties: {
+        id: { type: 'number' },
+        uuid: { type: 'string' }
+      }
+    },
+    description: '스노우볼 key-value 리스트'
   })
-  readonly snowball_list: string[];
+  readonly snowball_list: { id: number; uuid: string }[];
 
   @IsNumber()
   @IsNotEmpty()
