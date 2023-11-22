@@ -22,9 +22,10 @@ export class KakaoAuthStrategy extends PassportStrategy(Strategy, 'kakao') {
     done: any
   ) {
     try {
-      console.log(profile);
       const user = {
-        profile
+        profile,
+        accessToken,
+        refreshToken
       };
       done(null, user);
     } catch (err) {

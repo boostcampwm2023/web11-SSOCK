@@ -9,10 +9,11 @@ export class AuthService {
   async createInfo(profile: any): Promise<ResInfoDto> {
     if (profile) {
       // Example data, replace with actual data from your logic
-      const access_token = 'your-access-token';
+      const jwt_token = 'your-jwt-token';
       const userDto: UserDto = {
+        id: 1,
         name: '김찬우',
-        id: 'Oauth에서 주는 값',
+        uuid: 'Oauth에서 주는 값',
         snowball_count: 3,
         snowball_list: [
           '32413434-32a2-2342-3242-3g23-413oye3',
@@ -64,9 +65,9 @@ export class AuthService {
       };
 
       const resInfoDto: ResInfoDto = {
-        access_token,
-        user: [userDto],
-        main_snowball: [mainSnowballDto]
+        jwt_token,
+        user: userDto,
+        main_snowball: mainSnowballDto
       };
 
       return resInfoDto;
