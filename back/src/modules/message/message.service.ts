@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 import { ReqCreateMessageDto } from './dto/request/req-create-message.dto';
 import { ReqDeleteMessageDto } from './dto/request/req-delete-message.dto';
 import { MessageEntity } from './entity/message.entity';
-import { UserEntity } from '../snowball/entity/user.entity';
+import { UserEntity } from '../auth/entity/user.entity';
 import { ResCreateMessageDto } from './dto/response/res-create-message.dto';
 import { MessageDto } from './dto/message.dto';
 

@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "@nestjs/class-validator": "^0.13.4"
+    "@nestjs/class-validator": "^0.13.4",
+    "express-basic-auth": "^1.2.1"
   }
 }
