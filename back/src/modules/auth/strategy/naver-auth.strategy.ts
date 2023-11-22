@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
-import { Profile, Strategy } from 'passport-naver-v2';
+import { Profile as NaverProfile, Strategy } from 'passport-naver-v2';
 
 @Injectable()
 export class NaverAuthStrategy extends PassportStrategy(Strategy, 'naver') {
@@ -9,22 +9,25 @@ export class NaverAuthStrategy extends PassportStrategy(Strategy, 'naver') {
       clientID: `${process.env.NAVER_CLIENT_ID}`,
       clientSecret: `${process.env.NAVER_SECRET}`,
       callbackURL: 'http://localhost:3000/auth/naver/redirect', // redirect_uri
-      passReqToCallback: true,
+      passReqToCallback: false,
       scope: ['profile']
     });
   }
 
   async validate(
-    request: any,
     accessToken: string,
     refreshToken: string,
-    profile: Profile,
+    profile: NaverProfile,
     done: any
   ) {
     try {
       console.log(profile);
       const user = {
-        profile
+        id: profile.id,
+        name: profile.name,
+        provider: profile.provider,
+        accessToken,
+        refreshToken
       };
       done(null, user);
     } catch (err) {

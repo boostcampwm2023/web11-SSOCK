@@ -9,21 +9,23 @@ export class KakaoAuthStrategy extends PassportStrategy(Strategy, 'kakao') {
       clientID: `${process.env.KAKAO_CLIENT_ID}`,
       clientSecret: `${process.env.KAKAO_SECRET}`,
       callbackURL: 'http://localhost:3000/auth/kakao/redirect', // redirect_uri
-      passReqToCallback: true,
+      passReqToCallback: false,
       scope: ['profile_nickname']
     });
   }
 
   async validate(
-    request: any,
     accessToken: string,
     refreshToken: string,
     profile: Profile,
     done: any
   ) {
     try {
+      console.log(profile);
       const user = {
-        profile,
+        id: profile.id,
+        name: profile.displayName,
+        provider: profile.provider,
         accessToken,
         refreshToken
       };
