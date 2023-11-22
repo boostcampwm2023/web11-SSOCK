@@ -41,7 +41,7 @@ const GlobalStyles = createGlobalStyle`
   body {
     margin: 0;
     padding: 0;
-    font-size: 16px;
+    font-size: 1rem;
   }
 
   #root {
