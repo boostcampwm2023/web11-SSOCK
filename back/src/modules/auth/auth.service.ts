@@ -3,9 +3,13 @@ import { ResInfoDto } from './dto/response/res-info.dto';
 import { UserDto } from './dto/user.dto';
 import { SnowballDto } from '../snowball/dto/snowball.dto';
 import { JwtService } from '@nestjs/jwt';
+import { SnowballService } from '../snowball/snowball.service';
 @Injectable()
 export class AuthService {
-  constructor(private readonly jwtService: JwtService) {}
+  constructor(
+    private readonly jwtService: JwtService,
+    private readonly snowballService: SnowballService
+  ) {}
 
   async createInfo(user: any): Promise<ResInfoDto> {
     const jwt_token = this.generateJwtToken(user);
@@ -21,46 +25,8 @@ export class AuthService {
       ],
       message_count: 123
     };
-    const mainSnowballDto: SnowballDto = {
-      title: '나만의 스노우볼1',
-      id: 1,
-      uuid: '32413434-32a2-2342-3242-3g23-413oye3',
-      message_private: null,
-      deco_list: [
-        {
-          decoration_id: 15,
-          decoration_color: '#FFFFFF',
-          location: 13
-        },
-        {
-          decoration_id: 12,
-          decoration_color: '#FFFFFF',
-          location: 14
-        }
-      ],
-      message_list: [
-        {
-          id: 1,
-          decoration_id: 15,
-          decoration_color: '#FFFFFF',
-          letter_id: 1,
-          content: '편지 내용',
-          sender: '널 좋아하는 사람',
-          opened: null,
-          created: new Date('2023-12-30T17:35:31Z')
-        },
-        {
-          id: 2,
-          decoration_id: 15,
-          decoration_color: '#FFFFFF',
-          letter_id: 1,
-          content: '편지 내용',
-          sender: '찬우를 사랑하는 사람',
-          opened: null,
-          created: new Date('2023-12-30T17:35:31Z')
-        }
-      ]
-    };
+    const mainSnowballDto: SnowballDto =
+      await this.snowballService.getSnowball(1);
 
     const resInfoDto: ResInfoDto = {
       jwt_token,
