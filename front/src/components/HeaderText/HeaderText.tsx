@@ -9,11 +9,6 @@ interface HeaderProps {
 const StyledHeader = styled.div`
   font: ${theme.font['--normal-main-header-font']};
   text-shadow: -1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black;
-  position: absolute;
-  top: 5%;
-  left: 50%;
-  white-space: nowrap;
-  transform: translate(-50%, 0);
   color: white;
 
   @keyframes fadeInUp1 {

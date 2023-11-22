@@ -14,14 +14,20 @@ interface MsgColor {
 }
 
 const StyledLetterBox = styled.div<MsgColor>`
+  width: 80%;
+  display: flex;
+  align-self: center;
   font: ${theme.font['--normal-introduce-font']};
-  border-radius: 16px;
-  padding: 16px;
-  background-color: ${props => props.color + 'd0'};
-  margin: 10px;
+  flex-direction: column;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  gap: 1rem;
+  background-color: ${props => props.color + '80'};
+  margin: 1rem;
 `;
 
 const StyledLetterPerson = styled.div`
+  text-align: left;
   color: white;
 `;
 
@@ -30,8 +36,8 @@ const StyledTo = styled.span`
 `;
 
 const StyledLetterContent = styled.div`
+  text-align: center;
   color: white;
-  margin: 30px 0;
 `;
 
 const StyledFromBox = styled(StyledLetterPerson)`
