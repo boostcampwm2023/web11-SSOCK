@@ -5,7 +5,8 @@ import {
   Body,
   Param,
   Get,
-  HttpCode
+  HttpCode,
+  UseGuards
 } from '@nestjs/common';
 import { SnowballService } from './snowball.service';
 import {
@@ -13,7 +14,8 @@ import {
   ApiTags,
   ApiOperation,
   ApiCreatedResponse,
-  ApiResponse
+  ApiResponse,
+  ApiBearerAuth
 } from '@nestjs/swagger';
 import { ReqCreateSnowballDto } from './dto/request/req-create-snowball.dto';
 import { ReqUpdateSnowballDto } from './dto/request/req-update-snowball.dto';
@@ -21,8 +23,11 @@ import { SnowballDto } from './dto/snowball.dto';
 import { ResUpdateSnowballDto } from './dto/response/res-update-snowball.dto';
 import { ReqUpdateSnowballDecoDto } from './dto/request/req-update-decoration.dto';
 import { ResUpdateSnowballDecoDto } from './dto/response/res-update-decoration.dto';
+import { JWTGuard } from '../auth/auth.guard';
 
 @ApiTags('Snowball API')
+@UseGuards(JWTGuard)
+@ApiBearerAuth('jwt-token')
 @Controller('snowball')
 export class SnowballController {
   constructor(private readonly snowballService: SnowballService) {}

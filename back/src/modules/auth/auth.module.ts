@@ -11,6 +11,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { SnowballEntity } from '../snowball/entity/snowball.entity';
 import { UserEntity } from './entity/user.entity';
 import { SnowballDecorationEntity } from '../snowball/entity/snowball-decoration.entity';
+import { JWTGuard } from './auth.guard';
+import { ConfigService } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -20,9 +23,13 @@ import { SnowballDecorationEntity } from '../snowball/entity/snowball-decoration
       SnowballDecorationEntity
     ]),
     PassportModule,
-    JwtModule.register({
-      secret: process.env.JWT_SECRET,
-      signOptions: { expiresIn: '300s' }
+    ConfigModule.forRoot({ isGlobal: true }),
+    JwtModule.registerAsync({
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => ({
+        secret: config.get<string>('JWT_SECRET'),
+        signOptions: { expiresIn: '300s' }
+      })
     })
   ],
   providers: [
@@ -30,8 +37,10 @@ import { SnowballDecorationEntity } from '../snowball/entity/snowball-decoration
     NaverAuthStrategy,
     KakaoAuthStrategy,
     AuthService,
-    SnowballService
+    SnowballService,
+    JWTGuard
   ],
-  controllers: [AuthController]
+  controllers: [AuthController],
+  exports: [JWTGuard]
 })
 export class AuthModule {}

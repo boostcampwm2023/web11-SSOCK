@@ -17,6 +17,17 @@ export function setupSwagger(app: INestApplication): void {
     .setDescription('The SSOCK API description')
     .setVersion('1.0')
     .addTag('ssock')
+    .addOAuth2({
+      type: 'oauth2',
+      flows: {
+        authorizationCode: {
+          authorizationUrl: 'http://www.mysnowball.kr/auth/google',
+          scopes: {
+            profile: 'profile'
+          }
+        }
+      }
+    })
     .addBearerAuth(
       {
         type: 'http',
@@ -25,7 +36,7 @@ export function setupSwagger(app: INestApplication): void {
         name: 'JWT',
         in: 'header'
       },
-      'token'
+      'jwt-token'
     )
     .build();
   const document = SwaggerModule.createDocument(app, config);
