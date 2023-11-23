@@ -21,10 +21,11 @@ export class SnowballService {
   ) {}
 
   async createSnowball(
+    userid: number,
     createSnowballDto: ReqCreateSnowballDto
   ): Promise<SnowballDto> {
     const snowball = this.snowballRepository.create({
-      user_id: createSnowballDto.user_id,
+      user_id: userid,
       title: createSnowballDto.title,
       message_private: createSnowballDto.is_message_private ? new Date() : null
     });

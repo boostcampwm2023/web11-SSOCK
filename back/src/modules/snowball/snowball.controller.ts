@@ -6,7 +6,8 @@ import {
   Param,
   Get,
   HttpCode,
-  UseGuards
+  UseGuards,
+  Req
 } from '@nestjs/common';
 import { SnowballService } from './snowball.service';
 import {
@@ -44,9 +45,13 @@ export class SnowballController {
   })
   @ApiBody({ type: ReqCreateSnowballDto })
   createSnowball(
+    @Req() req: any,
     @Body() createSnowballDto: ReqCreateSnowballDto
   ): Promise<SnowballDto> {
-    const snowball = this.snowballService.createSnowball(createSnowballDto);
+    const snowball = this.snowballService.createSnowball(
+      req.user,
+      createSnowballDto
+    );
     return snowball;
   }
 

@@ -7,7 +7,8 @@ import {
   Param,
   HttpCode,
   UseGuards,
-  Put
+  Put,
+  Req
 } from '@nestjs/common';
 import { MessageService } from './message.service';
 import { ReqCreateMessageDto } from './dto/request/req-create-message.dto';
@@ -78,24 +79,23 @@ export class MessageController {
 
   @UseGuards(JWTGuard)
   @ApiBearerAuth('jwt-token')
-  @Get('/:user_id')
+  @Get('/')
   @HttpCode(200)
   @ApiOperation({
     summary: '메세지 조회 API',
-    description: '모든 메세지를 조회합니다'
+    description:
+      '모든 메세지를 조회합니다. JWT 토큰안에 user_id를 이용해 조회합니다.'
   })
   @ApiResponse({
     status: 200,
-    type: MessageDto
+    type: [MessageDto]
   })
   @ApiResponse({
     status: 500,
     description: 'Find Fail'
   })
-  async getAllMessages(
-    @Param('user_id') user_id: number
-  ): Promise<MessageDto[]> {
-    const messages = await this.messageService.getAllMessages(user_id);
+  async getAllMessages(@Req() req: any): Promise<MessageDto[]> {
+    const messages = await this.messageService.getAllMessages(req.user);
     return messages;
   }
 
