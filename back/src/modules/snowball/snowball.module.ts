@@ -7,7 +7,6 @@ import { SnowballEntity } from './entity/snowball.entity';
 import { MessageEntity } from '../message/entity/message.entity';
 import { SnowballDecorationEntity } from './entity/snowball-decoration.entity';
 import { AuthModule } from '../auth/auth.module';
-import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -16,10 +15,6 @@ import { JwtModule } from '@nestjs/jwt';
       MessageEntity,
       SnowballDecorationEntity
     ]),
-    JwtModule.register({
-      secret: process.env.JWT_SECRET,
-      signOptions: { expiresIn: '300s' }
-    }),
     MessageModule,
     AuthModule
   ],
