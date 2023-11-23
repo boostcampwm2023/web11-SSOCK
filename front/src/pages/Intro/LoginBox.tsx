@@ -33,7 +33,6 @@ const StyledLoginBox = styled.div`
   pointer-events: all;
   z-index: 1;
 
-
   @keyframes fadeInUp {
     from {
       opacity: 0;

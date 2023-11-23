@@ -95,15 +95,13 @@ const screenTime = (
 interface MainButtonBoxProps {
   leftArrow: React.RefObject<HTMLImageElement>;
   rightArrow: React.RefObject<HTMLImageElement>;
-};
+}
 
-const MainButtonBox = (props :MainButtonBoxProps) => {
+const MainButtonBox = (props: MainButtonBoxProps) => {
   const headerRef = useRef<HTMLDivElement>(null);
   const menuRef = useRef<HTMLImageElement>(null);
   const screenRef = useRef<HTMLImageElement>(null);
   const shareLinkRef = useRef<HTMLImageElement>(null);
-
-
 
   const [menuModal, setMenuModal] = useState(false);
   const [list, setList] = useState(false);
@@ -133,7 +131,7 @@ const MainButtonBox = (props :MainButtonBoxProps) => {
                 screenRef,
                 shareLinkRef,
                 props.leftArrow,
-                props.rightArrow,
+                props.rightArrow
               ])
             }
           />
