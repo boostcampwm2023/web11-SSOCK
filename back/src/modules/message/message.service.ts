@@ -24,10 +24,12 @@ export class MessageService {
   ) {}
   async createMessage(
     createMessageDto: ReqCreateMessageDto,
+    user_id: number,
     snowball_id: number
   ): Promise<ResCreateMessageDto> {
     const messageEntity = this.messageRepository.create({
       snowball_id: snowball_id,
+      user_id: user_id,
       sender: createMessageDto.sender,
       content: createMessageDto.content,
       decoration_id: createMessageDto.decoration_id,
