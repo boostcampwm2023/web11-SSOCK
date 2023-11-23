@@ -49,7 +49,7 @@ export class SnowballController {
     @Body() createSnowballDto: ReqCreateSnowballDto
   ): Promise<SnowballDto> {
     const snowball = this.snowballService.createSnowball(
-      req.user,
+      req.id,
       createSnowballDto
     );
     return snowball;

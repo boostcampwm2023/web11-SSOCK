@@ -83,7 +83,7 @@ export class MessageController {
     @Req() req: any,
     @Param('message_id') message_id: number
   ) {
-    await this.messageService.deleteMessage(req.user, message_id);
+    await this.messageService.deleteMessage(req.id, message_id);
   }
 
   @UseGuards(JWTGuard)
@@ -104,7 +104,7 @@ export class MessageController {
     description: 'Find Fail'
   })
   async getAllMessages(@Req() req: any): Promise<MessageDto[]> {
-    const messages = await this.messageService.getAllMessages(req.user);
+    const messages = await this.messageService.getAllMessages(req.id);
     return messages;
   }
 

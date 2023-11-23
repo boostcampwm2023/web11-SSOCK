@@ -16,7 +16,7 @@ import { SnowballDecorationEntity } from './snowball-decoration.entity';
 import { MessageEntity } from '../../message/entity/message.entity';
 
 @Entity({ name: 'snowball' })
-@Index('idx_snowball', ['snowball_uuid'], { unique: true })
+@Index(['snowball_uuid'], { unique: true })
 export class SnowballEntity {
   @PrimaryGeneratedColumn()
   id: number;

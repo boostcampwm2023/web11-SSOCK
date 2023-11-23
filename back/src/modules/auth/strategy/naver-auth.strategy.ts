@@ -8,8 +8,7 @@ export class NaverAuthStrategy extends PassportStrategy(Strategy, 'naver') {
     super({
       clientID: `${process.env.NAVER_CLIENT_ID}`,
       clientSecret: `${process.env.NAVER_SECRET}`,
-      callbackURL: 'http://www.mysnowball.kr/api/auth/naver/redirect',
-      //callbackURL: 'http://localhost:3000/api/auth/naver/redirect',
+      callbackURL: `${process.env.NAVER_CALLBACK_URL}`,
       passReqToCallback: false,
       scope: ['profile']
     });
