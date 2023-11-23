@@ -6,17 +6,24 @@ import {
   Body,
   Param,
   HttpCode,
-  UseGuards
+  UseGuards,
+  Put,
+  Req
 } from '@nestjs/common';
 import { MessageService } from './message.service';
 import { ReqCreateMessageDto } from './dto/request/req-create-message.dto';
-import { ReqDeleteMessageDto } from './dto/request/req-delete-message.dto';
 import {
   ApiBody,
   ApiTags,
   ApiOperation,
   ApiResponse,
-  ApiBearerAuth
+  ApiBearerAuth,
+  ApiNotFoundResponse,
+  ApiConflictResponse,
+  ApiBadRequestResponse,
+  ApiInternalServerErrorResponse,
+  ApiGoneResponse,
+  ApiUnauthorizedResponse
 } from '@nestjs/swagger';
 import { ResCreateMessageDto } from './dto/response/res-create-message.dto';
 import { MessageDto } from './dto/message.dto';
@@ -62,35 +69,72 @@ export class MessageController {
     summary: '메세지 삭제 API',
     description: '스노우볼에서 특정 메세지를 삭제합니다.'
   })
-  @ApiResponse({ status: 204, description: 'No Content' })
   @ApiResponse({
-    status: 500,
-    description: 'Delete Fail'
+    status: 204,
+    description: '해당 메시지가 성공적으로 지워졌음'
   })
-  async deleteMessage(@Param() deleteMessageDto: ReqDeleteMessageDto) {
-    await this.messageService.deleteMessage(deleteMessageDto);
+  @ApiGoneResponse({
+    description: '이미 삭제된 메시지입니다.'
+  })
+  @ApiUnauthorizedResponse({
+    description: '로그인이 필요합니다.'
+  })
+  async deleteMessage(
+    @Req() req: any,
+    @Param('message_id') message_id: number
+  ) {
+    await this.messageService.deleteMessage(req.user, message_id);
   }
 
   @UseGuards(JWTGuard)
   @ApiBearerAuth('jwt-token')
-  @Get('/:user_id')
+  @Get('/')
   @HttpCode(200)
   @ApiOperation({
     summary: '메세지 조회 API',
-    description: '모든 메세지를 조회합니다'
+    description:
+      '모든 메세지를 조회합니다. JWT 토큰안에 user_id를 이용해 조회합니다.'
   })
   @ApiResponse({
     status: 200,
-    type: MessageDto
+    type: [MessageDto]
   })
   @ApiResponse({
     status: 500,
     description: 'Find Fail'
   })
-  async getAllMessages(
-    @Param('user_id') user_id: number
-  ): Promise<MessageDto[]> {
-    const messages = await this.messageService.getAllMessages(user_id);
+  async getAllMessages(@Req() req: any): Promise<MessageDto[]> {
+    const messages = await this.messageService.getAllMessages(req.user);
     return messages;
+  }
+
+  @UseGuards(JWTGuard)
+  @ApiBearerAuth('jwt-token')
+  @Put('/:message_id/open')
+  @HttpCode(200)
+  @ApiOperation({
+    summary: '메세지 오픈 처리',
+    description: '메시지를 오픈 처리합니다.'
+  })
+  @ApiResponse({
+    status: 200,
+    type: MessageDto
+  })
+  @ApiBadRequestResponse({
+    description: '잘못된 요청입니다.'
+  })
+  @ApiNotFoundResponse({
+    description: '해당 메시지가 존재하지 않습니다.'
+  })
+  @ApiConflictResponse({
+    description: '이미 오픈된 메시지입니다.'
+  })
+  @ApiInternalServerErrorResponse({
+    description: '서버측 오류'
+  })
+  async openMessage(
+    @Param('message_id') message_id: number
+  ): Promise<MessageDto> {
+    return await this.messageService.openMessage(message_id);
   }
 }

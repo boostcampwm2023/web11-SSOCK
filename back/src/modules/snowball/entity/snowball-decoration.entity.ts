@@ -6,6 +6,7 @@ import {
   JoinColumn
 } from 'typeorm';
 import { SnowballEntity } from './snowball.entity';
+import { DecorationPrefixEntity } from './decoration-prefix.entity';
 
 @Entity({ name: 'snowball_decoration' })
 export class SnowballDecorationEntity {
@@ -27,4 +28,11 @@ export class SnowballDecorationEntity {
   @ManyToOne(() => SnowballEntity, snowball => snowball.decorations)
   @JoinColumn({ name: 'snowball_id' })
   snowball: SnowballEntity;
+
+  @ManyToOne(
+    () => DecorationPrefixEntity,
+    decorationPrefix => decorationPrefix.decorations
+  )
+  @JoinColumn({ name: 'decoration_id' })
+  decorationPrefix: DecorationPrefixEntity;
 }

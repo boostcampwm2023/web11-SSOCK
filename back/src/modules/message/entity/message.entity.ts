@@ -7,11 +7,16 @@ import {
   JoinColumn
 } from 'typeorm';
 import { SnowballEntity } from 'src/modules/snowball/entity/snowball.entity';
+import { UserEntity } from 'src/modules/auth/entity/user.entity';
+import { LetterEntity } from './letter.entity';
 
 @Entity({ synchronize: true, name: 'message' })
 export class MessageEntity {
   @PrimaryGeneratedColumn()
   id: number;
+
+  @Column()
+  user_id: number;
 
   @Column()
   snowball_id: number;
@@ -31,6 +36,9 @@ export class MessageEntity {
   @Column({ length: 16 })
   sender: string;
 
+  @Column({ type: 'boolean', default: false })
+  is_deleted: boolean;
+
   @CreateDateColumn({ nullable: true, default: null })
   opened: Date | null;
 
@@ -40,4 +48,13 @@ export class MessageEntity {
   @ManyToOne(() => SnowballEntity, snowball => snowball.messages)
   @JoinColumn({ name: 'snowball_id' })
   snowball: SnowballEntity;
+
+  @ManyToOne(() => UserEntity, user => user.messages)
+  @JoinColumn({ name: 'user_id' })
+  user: UserEntity;
+
+  //many to one relation letter_id with id in LetterEntity in letter.entity.ts
+  @ManyToOne(() => LetterEntity, letter => letter.messages)
+  @JoinColumn({ name: 'letter_id' })
+  letter: LetterEntity;
 }

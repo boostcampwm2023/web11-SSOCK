@@ -6,6 +6,7 @@ import {
   CreateDateColumn
 } from 'typeorm';
 import { SnowballEntity } from '../../snowball/entity/snowball.entity';
+import { MessageEntity } from 'src/modules/message/entity/message.entity';
 
 @Entity({ name: 'user' })
 export class UserEntity {
@@ -26,4 +27,7 @@ export class UserEntity {
 
   @OneToMany(() => SnowballEntity, snowball => snowball.user)
   snowballs: SnowballEntity[];
+
+  @OneToMany(() => MessageEntity, message => message.user)
+  messages: MessageEntity[];
 }
