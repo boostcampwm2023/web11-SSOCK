@@ -36,5 +36,6 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
+            echo "KexAlgorithms diffie-hellman-group-exchange-sha256,diffie-hellman-group14-sha1" >> ~/.ssh/config
             echo ${{ secrets.SERVER_PASSWORD }} | sudo -S rm -rf /usr/share/nginx/html && sudo cp -r ./front/dist /usr/share/nginx/html
-            
+
