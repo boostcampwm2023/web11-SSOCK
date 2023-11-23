@@ -110,7 +110,7 @@ export class MessageController {
 
   @UseGuards(JWTGuard)
   @ApiBearerAuth('jwt-token')
-  @Put('/open/:message_id')
+  @Put('/:message_id/open')
   @HttpCode(200)
   @ApiOperation({
     summary: '메세지 오픈 처리',
