@@ -7,11 +7,15 @@ import {
   JoinColumn
 } from 'typeorm';
 import { SnowballEntity } from 'src/modules/snowball/entity/snowball.entity';
+import { UserEntity } from 'src/modules/auth/entity/user.entity';
 
 @Entity({ synchronize: true, name: 'message' })
 export class MessageEntity {
   @PrimaryGeneratedColumn()
   id: number;
+
+  @Column()
+  user_id: number;
 
   @Column()
   snowball_id: number;
@@ -40,4 +44,8 @@ export class MessageEntity {
   @ManyToOne(() => SnowballEntity, snowball => snowball.messages)
   @JoinColumn({ name: 'snowball_id' })
   snowball: SnowballEntity;
+
+  @ManyToOne(() => UserEntity, user => user.messages)
+  @JoinColumn({ name: 'user_id' })
+  user: UserEntity;
 }
