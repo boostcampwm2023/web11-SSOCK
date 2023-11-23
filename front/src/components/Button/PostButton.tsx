@@ -47,7 +47,8 @@ const PostButton = (props: ButtonProps) => {
       deco_color: color,
       content: content,
       sender: sender,
-      created_at: '2023-11-11'
+      created_at: '2023-11-11',
+      letter_id: letterID
     });
     setData(newData);
   };

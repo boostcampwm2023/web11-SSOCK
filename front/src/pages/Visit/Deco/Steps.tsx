@@ -68,8 +68,10 @@ const ButtonBox = styled.div`
 
 const StyledTopWrap = styled.div`
   display: flex;
-  padding: 2rem;
-  gap: 3rem;
+  height: 10rem;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
   flex-direction: column;
 `;
 const StyledBody = styled.div`

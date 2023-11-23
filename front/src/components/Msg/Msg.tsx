@@ -156,6 +156,10 @@ const Msg = (props: MsgProps) => {
           From.
           {props.isInput ? (
             <StyledFromInput
+              defaultValue={'김부캠'}
+              onFocus={e => {
+                e.target.value = '';
+              }}
               onChange={e => {
                 setSender(e.target.value);
               }}
