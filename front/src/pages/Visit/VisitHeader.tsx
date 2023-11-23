@@ -19,6 +19,7 @@ const StyledLetter = styled.div`
   display: flex;
   align-items: center;
   color: white;
+  white-space: nowrap;
 `;
 
 const StyledLetterImg = styled.img`

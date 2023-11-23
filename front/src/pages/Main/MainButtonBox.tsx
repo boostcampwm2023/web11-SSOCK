@@ -9,14 +9,14 @@ const StyledMenu = styled.img`
   top: 3.5rem;
   right: 0.8rem;
 
-  @keyframes fadeInUp2 {
+  @keyframes fadeInUp1 {
     from {
       opacity: 1;
       transform: translate(0, 0);
     }
     to {
       opacity: 0;
-      transform: translate(0, -60%);
+      transform: translate(0, -100%);
     }
   }
 `;
@@ -71,7 +71,7 @@ const screenTime = (
             ? 'fadeInDown'
             : idx === topFirst
             ? 'fadeInUp1'
-            : 'fadeInUp2'
+            : 'fadeInUp1'
         } 1s forwards`
       );
     }
@@ -92,11 +92,18 @@ const screenTime = (
   }, 5000);
 };
 
-const MainButtonBox = () => {
+interface MainButtonBoxProps {
+  leftArrow: React.RefObject<HTMLImageElement>;
+  rightArrow: React.RefObject<HTMLImageElement>;
+};
+
+const MainButtonBox = (props :MainButtonBoxProps) => {
   const headerRef = useRef<HTMLDivElement>(null);
   const menuRef = useRef<HTMLImageElement>(null);
   const screenRef = useRef<HTMLImageElement>(null);
   const shareLinkRef = useRef<HTMLImageElement>(null);
+
+
 
   const [menuModal, setMenuModal] = useState(false);
   const [list, setList] = useState(false);
@@ -124,7 +131,9 @@ const MainButtonBox = () => {
                 headerRef,
                 menuRef,
                 screenRef,
-                shareLinkRef
+                shareLinkRef,
+                props.leftArrow,
+                props.rightArrow,
               ])
             }
           />
