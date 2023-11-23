@@ -30,7 +30,7 @@ const StyledColorBox = styled(StyledBox)`
 `;
 
 const DecoImgs = (folder: string) => {
-  const { setDecoID } = useContext(DecoContext);
+  const { setDecoID, setLetterID } = useContext(DecoContext);
 
   return folder === 'Deco'
     ? DECO.map(({ img }, index) => (
@@ -42,11 +42,11 @@ const DecoImgs = (folder: string) => {
           ></StyledImg>
         </StyledBox>
       ))
-    : MSG_COLOR.map(({ color }) => (
+    : MSG_COLOR.map(({ color }, index) => (
         <StyledColorBox
           key={color}
           color={color}
-          onClick={() => console.log('msg color change')}
+          onClick={() => setLetterID(index)}
         ></StyledColorBox>
       ));
 };

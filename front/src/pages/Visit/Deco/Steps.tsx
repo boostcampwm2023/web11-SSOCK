@@ -5,6 +5,8 @@ import { HeaderText, StepButton, PostButton, Msg } from '../../../components';
 import DecoEnroll from './DecoEnroll';
 import DecoBox from './DecoBox';
 import { DecoContext } from './DecoProvider';
+import { DECO } from '../../../constants/deco';
+import MsgBox from './MsgBox';
 
 const StateBar = styled.div`
   display: flex;
@@ -49,15 +51,6 @@ const SelectDeco = styled.div`
   gap: 1rem;
 `;
 
-const MsgBox = styled.div`
-  display: flex;
-  flex-direction: column-reverse;
-  width: 100%;
-  height: 100%;
-  pointer-events: all;
-  overflow: scroll;
-`;
-
 const ColorInput = styled.input.attrs({
   type: 'color'
 })`
@@ -93,7 +86,7 @@ const StyledBottomWrap = styled.div`
 const Steps = () => {
   const [step, setStep] = useState(0);
   const [lastBox, setLastBox] = useState(false);
-  const { setColor } = useContext(DecoContext);
+  const { setColor, setLetterID } = useContext(DecoContext);
   const decoColor = useRef<string | null>(null);
 
   const doneStep = -1;
@@ -191,17 +184,8 @@ const Steps = () => {
         )}
       </StyledTopWrap>
       <StyledBody>
-        {step === writeMsg ? (
-          <MsgBox>
-            <Msg
-              key={1}
-              color={decoColor.current!}
-              isInput={true}
-              content={''}
-              sender={''}
-            />
-          </MsgBox>
-        ) : null}
+        {step === writeMsg ? <MsgBox isInput={true} /> : null}
+        {step === selectMsgColor ? <MsgBox isInput={false} /> : null}
       </StyledBody>
       <StyledBottomWrap>
         <StyledButtonWrap>
@@ -235,8 +219,11 @@ const Steps = () => {
             {step === selectDeco ? <DecoBox deco={'Deco'} /> : null}
             {step === selectColor ? (
               <>
-                <ColorInput onChange={e => setColor(e.target.value)} />
-                <p>장식 생상을 선택해주세요</p>
+                <ColorInput
+                  value={'#ff0000'}
+                  onChange={e => setColor(e.target.value)}
+                />
+                <p>장식 색상을 선택해주세요</p>
               </>
             ) : null}{' '}
             {step === writeMsg ? (
