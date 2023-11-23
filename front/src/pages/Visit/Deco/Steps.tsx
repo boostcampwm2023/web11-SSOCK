@@ -1,10 +1,9 @@
 import { useState, useRef, useEffect } from 'react';
-import { StepButton, PostButton } from '../../../components';
-import theme from '../../../utils/theme';
 import styled from 'styled-components';
-import { Msg } from '../../../components';
+import theme from '../../../utils/theme';
+import { HeaderText, StepButton, PostButton, Msg } from '../../../components';
 import DecoEnroll from './DecoEnroll';
-import { HeaderText } from '../../../components';
+import DecoBox from './DecoBox';
 
 const StateBar = styled.div`
   margin-top: 10%;
@@ -56,16 +55,6 @@ const SelectDeco = styled.div`
   gap: 18px;
 `;
 
-const DecoBox = styled.div`
-  border-radius: 50%;
-  border: 3px solid white;
-  background-color: ${theme.colors['--black-primary']};
-  width: 10vh;
-  height: 10vh;
-  cursor: pointer;
-  pointer-events: stroke;
-`;
-
 const MsgBox = styled.div`
   position: absolute;
   bottom: 30%;
@@ -101,7 +90,7 @@ const Steps = () => {
   const writeMsg = 3;
 
   //const decoId = useRef<string | null>(null);
-  const decoBox = useRef<HTMLDivElement>(null);
+  const selectDecoBox = useRef<HTMLDivElement>(null);
 
   const [isDecoBoxClicked, setIsDecoBoxClicked] = useState(false);
   const [startClickedX, setStartClickedX] = useState(0);
@@ -109,14 +98,16 @@ const Steps = () => {
 
   const mouseDown = (event: MouseEvent) => {
     setIsDecoBoxClicked(true);
-    setStartClickedX(event.pageX - decoBox.current!.offsetLeft);
-    setScrollLeft(decoBox.current!.scrollLeft);
+    setStartClickedX(event.pageX - selectDecoBox.current!.offsetLeft);
+    setScrollLeft(selectDecoBox.current!.scrollLeft);
   };
 
   const touchDown = (event: TouchEvent) => {
     setIsDecoBoxClicked(true);
-    setStartClickedX(event.touches[0].pageX - decoBox.current!.offsetLeft);
-    setScrollLeft(decoBox.current!.scrollLeft);
+    setStartClickedX(
+      event.touches[0].pageX - selectDecoBox.current!.offsetLeft
+    );
+    setScrollLeft(selectDecoBox.current!.scrollLeft);
   };
 
   const leave = () => setIsDecoBoxClicked(false);
@@ -125,22 +116,22 @@ const Steps = () => {
   const mouseMove = (event: MouseEvent) => {
     if (!isDecoBoxClicked) return;
     event.preventDefault();
-    const nowX = event.pageX - decoBox.current!.offsetLeft;
+    const nowX = event.pageX - selectDecoBox.current!.offsetLeft;
     const move = nowX - startClickedX;
-    decoBox.current!.scrollLeft = scrollLeft - move;
+    selectDecoBox.current!.scrollLeft = scrollLeft - move;
   };
 
   const touchMove = (event: TouchEvent) => {
     if (!isDecoBoxClicked) return;
     event.preventDefault();
-    const nowX = event.touches[0].pageX - decoBox.current!.offsetLeft;
+    const nowX = event.touches[0].pageX - selectDecoBox.current!.offsetLeft;
     const move = nowX - startClickedX;
-    decoBox.current!.scrollLeft = scrollLeft - move;
+    selectDecoBox.current!.scrollLeft = scrollLeft - move;
   };
 
   useEffect(() => {
-    if (decoBox.current) {
-      const decoBoxRef = decoBox.current;
+    if (selectDecoBox.current) {
+      const decoBoxRef = selectDecoBox.current;
 
       decoBoxRef.addEventListener('mousedown', mouseDown);
       decoBoxRef.addEventListener('mouseleave', leave);
@@ -153,14 +144,14 @@ const Steps = () => {
     }
 
     return () => {
-      decoBox.current!.removeEventListener('mousedown', mouseDown);
-      decoBox.current!.removeEventListener('mouseleave', leave);
-      decoBox.current!.removeEventListener('mouseup', up);
-      decoBox.current!.removeEventListener('mousemove', mouseMove);
+      selectDecoBox.current?.removeEventListener('mousedown', mouseDown);
+      selectDecoBox.current?.removeEventListener('mouseleave', leave);
+      selectDecoBox.current?.removeEventListener('mouseup', up);
+      selectDecoBox.current?.removeEventListener('mousemove', mouseMove);
 
-      decoBox.current!.removeEventListener('touchstart', touchDown);
-      decoBox.current!.removeEventListener('touchend', up);
-      decoBox.current!.removeEventListener('touchmove', touchMove);
+      selectDecoBox.current?.removeEventListener('touchstart', touchDown);
+      selectDecoBox.current?.removeEventListener('touchend', up);
+      selectDecoBox.current?.removeEventListener('touchmove', touchMove);
     };
   }, [isDecoBoxClicked]);
 
@@ -237,36 +228,20 @@ const Steps = () => {
           </ButtonBox>
         ) : null}
 
-        {step === selectDeco || step === selectColor || step === selectMsgColor ? (
-          <SelectDecoBox ref={decoBox}>
+        {step === selectDeco ||
+        step === selectColor ||
+        step === selectMsgColor ? (
+          <SelectDecoBox ref={selectDecoBox}>
             <SelectDeco>
               {step === selectDeco ? (
-                <>
-                  <DecoBox />
-                  <DecoBox />
-                  <DecoBox />
-                  <DecoBox />
-                  <DecoBox />
-                  <DecoBox />
-                  <DecoBox />
-                  <DecoBox />
-                </>
+                <DecoBox deco={'Deco'} />
               ) : step === selectColor ? (
                 <input
                   type="color"
                   onChange={e => (decoColor.current = e.target.value)}
                 />
               ) : (
-                <>
-                  <DecoBox />
-                  <DecoBox />
-                  <DecoBox />
-                  <DecoBox />
-                  <DecoBox />
-                  <DecoBox />
-                  <DecoBox />
-                  <DecoBox />
-                </>
+                <DecoBox deco={'Main'} />
               )}
             </SelectDeco>
           </SelectDecoBox>
