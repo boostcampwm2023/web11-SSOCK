@@ -28,7 +28,7 @@ jobs:
         working-directory: ./front
         run: npm run build
 
-      - name: Debug: List contents of ./front/dist
+      - name: List contents of ./front/dist
         run: ls -la ./front/dist
 
       - name: Create tarball
