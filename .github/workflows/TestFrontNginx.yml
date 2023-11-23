@@ -39,9 +39,8 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           script: |
-            cd ./front   # Change to the "front" directory
             echo ${{ secrets.SERVER_PASSWORD }} | sudo -S rm -rf /usr/share/nginx/html
-            echo ${{ secrets.SERVER_PASSWORD }} | sudo -S cp -r ./dist /usr/share/nginx/html
+            echo ${{ secrets.SERVER_PASSWORD }} | sudo -S cp -r ./front /usr/share/nginx/html
       # - name: Move build folder to server
       #   uses: appleboy/scp-action@v0.1.4
       #   with:
