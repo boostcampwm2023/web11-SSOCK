@@ -103,7 +103,6 @@ export class SnowballService {
       })
       .where('id = :id', { id: snowball_id })
       .execute();
-    console.log(updateResult);
     if (!updateResult.affected) {
       throw new NotFoundException('업데이트할 스노우볼이 존재하지 않습니다.');
     }
