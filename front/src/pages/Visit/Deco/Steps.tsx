@@ -91,8 +91,7 @@ const StyledBottomWrap = styled.div`
 const Steps = () => {
   const [step, setStep] = useState(0);
   const [lastBox, setLastBox] = useState(false);
-  const { setColor, setLetterID } = useContext(DecoContext);
-  const decoColor = useRef<string | null>(null);
+  const { setColor } = useContext(DecoContext);
 
   const doneStep = -1;
   const selectDeco = 0;

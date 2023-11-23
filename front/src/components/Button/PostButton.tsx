@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import theme from '../../utils/theme';
 import { useContext } from 'react';
 import { DecoContext } from '../../pages/Visit/Deco/DecoProvider';
-import { MessageContext } from '../../pages/Visit/MessageProvider';
 import { SnowBallContext } from '../../pages/Visit/SnowBallProvider';
 
 interface ButtonColor {
