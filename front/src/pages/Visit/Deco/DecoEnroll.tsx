@@ -21,7 +21,6 @@ const StyledNaviBox = styled.div`
   background-color: ${theme.colors['--primary-black']};
   position: absolute;
   bottom: 0;
-  left: 50%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -43,22 +42,22 @@ const StyledNaviBox = styled.div`
   @keyframes fadeInUp {
     from {
       opacity: 0;
-      transform: translate3d(-50%, 100%, 0);
+      transform: translate(0, 100%);
     }
     to {
       opacity: 1;
-      transform: translate(-50%, 0);
+      transform: translate(0, 0);
     }
   }
 
   @keyframes fadeOutDown {
     from {
       opacity: 1;
-      transform: translate(-50%, 0);
+      transform: translate(0, 0);
     }
     to {
       opacity: 0;
-      transform: translate3d(-50%, 100%, 0);
+      transform: translate(0, 100%);
     }
   }
 `;
