@@ -51,13 +51,11 @@ export class MessageController {
     description: 'Insert Fail'
   })
   async createMessage(
-    @Param('user_id') user_id: number,
     @Param('snowball_id') snowball_id: number,
     @Body() createMessageDto: ReqCreateMessageDto
   ): Promise<ResCreateMessageDto> {
     const resCreateMessage = await this.messageService.createMessage(
       createMessageDto,
-      user_id,
       snowball_id
     );
     return resCreateMessage;
