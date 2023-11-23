@@ -1,3 +1,4 @@
+import { useContext } from 'react';
 import styled from 'styled-components';
 import theme from '../../../utils/theme';
 import { DECO, MSG_COLOR } from '../../../constants/deco';
@@ -28,24 +29,30 @@ const StyledColorBox = styled(StyledBox)`
   background-color: ${props => props.color};
 `;
 
-const decoImgs = (folder: string) => {
+const DecoImgs = (folder: string) => {
+  const { setDecoID } = useContext(DecoContext);
+
   return folder === 'Deco'
-    ? DECO.map(({ fileName, img }) => (
+    ? DECO.map(({ img }, index) => (
         <StyledBox key={img}>
           <StyledImg
             src={`/modelsPng/${folder}/${img}`}
             alt="deco"
-            onClick={() => console.log(`img click, ${fileName}`)}
+            onClick={() => setDecoID(index)}
           ></StyledImg>
         </StyledBox>
       ))
     : MSG_COLOR.map(({ color }) => (
-        <StyledColorBox key={color} color={color}></StyledColorBox>
+        <StyledColorBox
+          key={color}
+          color={color}
+          onClick={() => console.log('msg color change')}
+        ></StyledColorBox>
       ));
 };
 
 const DecoBox = (props: DecoProps) => {
-  return <>{decoImgs(props.deco)}</>;
+  return <>{DecoImgs(props.deco)}</>;
 };
 
 export default DecoBox;
