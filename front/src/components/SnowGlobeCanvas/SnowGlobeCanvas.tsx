@@ -1,13 +1,13 @@
-import { useRef } from 'react';
+import { useContext, useRef } from 'react';
 import { OrbitControls } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import * as THREE from 'three';
 import styled from 'styled-components';
 import { getDecoPoisition } from '../../utils/position';
-import mock from '../../mockdata.json';
 import * as Models from './models/index';
 import { Prev } from '../Prev';
 import { PrevProvider } from './PrevProvider';
+import { SnowBallContext } from '../../pages/Visit/SnowBallProvider';
 
 const CanvasBox = styled.div`
   position: absolute;
@@ -20,6 +20,7 @@ const SnowGlobeCanvas = () => {
   const isClicked = useRef<boolean>(false);
   const glassRadius = 7;
   const glassPosition = new THREE.Vector3(0, glassRadius / 2, 0);
+  const { data } = useContext(SnowBallContext);
 
   const snows = Array.from({ length: 100 }, (_, i) => (
     <Models.Snow
@@ -30,7 +31,7 @@ const SnowGlobeCanvas = () => {
     />
   ));
 
-  const decos = mock.snowball[0].message.map((deco, index) => {
+  const decos = data.snowball[0].message.map((deco, index) => {
     return (
       <Models.Deco
         key={index}
@@ -40,6 +41,7 @@ const SnowGlobeCanvas = () => {
         message={deco.content}
         color={deco.deco_color}
         sender={deco.sender}
+        letterID={deco.letter_id}
       />
     );
   });
@@ -71,7 +73,7 @@ const SnowGlobeCanvas = () => {
             opacity={0.1}
           />
           <Models.MainDeco
-            id={mock.snowball[0].main_deco_id}
+            id={0}
             scale={1}
             position={new THREE.Vector3(0, 10, 0)}
           />

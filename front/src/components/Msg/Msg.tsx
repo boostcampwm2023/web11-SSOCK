@@ -43,17 +43,18 @@ const StyledLetterContent = styled.div`
 `;
 
 const StyledFromBox = styled(StyledLetterPerson)`
-  text-align: right;
+  flex-direction: row-reverse;
   display: flex;
   justify-content: space-between;
 `;
 
 const StyledFrom = styled.span`
+  text-align: right;
   color: ${theme.colors['--primary-redp-variant']};
 `;
 
 const StyledInputBox = styled.div`
-  display: flex;
+  text-align: right;
   width: 100%;
 `;
 
@@ -125,7 +126,6 @@ const Msg = (props: MsgProps) => {
     const text = e.target;
     text.style.height = '1px';
     text.style.height = text.scrollHeight + 'px';
-    console.log(text.scrollHeight);
     if (text.value.length > maxWordCount) {
       text.value = text.value.substring(0, maxWordCount);
     }
@@ -152,15 +152,20 @@ const Msg = (props: MsgProps) => {
       )}
 
       <StyledFromBox>
-        {props.sender === '' ? `${wordCount} / 500` : null}
         <StyledFrom>
           From.
-          <StyledFromInput
-            onChange={e => {
-              setSender(e.target.value);
-            }}
-          />
+          {props.isInput ? (
+            <StyledFromInput
+              onChange={e => {
+                setSender(e.target.value);
+              }}
+            />
+          ) : (
+            <StyledFromInput value={props.sender} disabled />
+          )}
         </StyledFrom>
+
+        {props.sender === '' ? `${wordCount} / 500` : null}
       </StyledFromBox>
     </StyledLetterBox>
   );

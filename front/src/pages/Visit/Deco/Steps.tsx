@@ -76,6 +76,10 @@ const StyledBody = styled.div`
   flex: 1 1 auto;
   display: flex;
   overflow-y: hidden;
+  pointer-events: none;
+  * {
+    pointer-events: all;
+  }
 `;
 const StyledBottomWrap = styled.div`
   display: flex;

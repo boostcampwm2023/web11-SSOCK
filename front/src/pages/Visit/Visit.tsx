@@ -4,16 +4,19 @@ import VisitHeader from './VisitHeader';
 import VisitBody from './VisitBody';
 import { MessageProvider } from './MessageProvider';
 import { UIContainer } from '../../components/UIContainer';
+import { SnowBallProvider } from './SnowBallProvider';
 
 const Visit = () => {
   return (
     <MessageProvider>
-      <SnowGlobeCanvas />
-      <UIContainer>
-        <VisitHeader />
-        <VisitBody />
-        <VisitBottom />
-      </UIContainer>
+      <SnowBallProvider>
+        <SnowGlobeCanvas />
+        <UIContainer>
+          <VisitHeader />
+          <VisitBody />
+          <VisitBottom />
+        </UIContainer>
+      </SnowBallProvider>
     </MessageProvider>
   );
 };

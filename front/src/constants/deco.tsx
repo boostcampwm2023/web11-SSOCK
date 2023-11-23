@@ -34,9 +34,9 @@ export const MSG_COLOR = [
     color: '#FF0000'
   },
   {
-    color: '#00FF00'
+    color: '#1f831f'
   },
   {
-    color: '#ffe600'
+    color: '#ffae00'
   }
 ];

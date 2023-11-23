@@ -1,4 +1,5 @@
 import React, { useState, createContext } from 'react';
+import mockData from '../../mockdata.json';
 
 interface MyContextType {
   message: string;
@@ -26,7 +27,14 @@ const MessageProvider: React.FC<{ children: React.ReactNode }> = ({
   const [sender, setSender] = useState<string>('');
   return (
     <MessageContext.Provider
-      value={{ message, setMessage, color, setColor, sender, setSender }}
+      value={{
+        message,
+        setMessage,
+        color,
+        setColor,
+        sender,
+        setSender
+      }}
     >
       {children}
     </MessageContext.Provider>

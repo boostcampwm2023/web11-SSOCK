@@ -11,254 +11,7 @@
       "created_at": "2023-11-10",
       "message": [
         {
-          "message_id": 1,
-          "deco_id": 0,
-          "deco_color": "#ff0000",
-          "content": "안녕 반가워 나는 찬우야 내년에도 행복하렴🤶",
-          "sender": "김찬우",
-          "created_at": "2023-11-13"
-        },
-        {
-          "message_id": 2,
-          "deco_id": 1,
-          "deco_color": "#ff1919",
-          "content": "잘 지냈어? 나도 너를 생각하고 있어.",
-          "sender": "이재원",
-          "created_at": "2023-11-12"
-        },
-        {
-          "message_id": 3,
-          "deco_id": 2,
-          "deco_color": "#ff3232",
-          "content": "오늘도 힘들었겠지만, 내일은 더 나아질 거야!",
-          "sender": "박지훈",
-          "created_at": "2023-11-11"
-        },
-        {
-          "message_id": 4,
-          "deco_id": 1,
-          "deco_color": "#ff4c4c",
-          "content": "기운 내! 넌 할 수 있어!",
-          "sender": "신민아",
-          "created_at": "2023-11-10"
-        },
-        {
-          "message_id": 5,
-          "deco_id": 0,
-          "deco_color": "#ff6666",
-          "content": "다음에 또 얘기하자. 안녕!",
-          "sender": "오지현",
-          "created_at": "2023-11-10"
-        },
-        {
-          "message_id": 6,
-          "deco_id": 2,
-          "deco_color": "#ff7f7f",
-          "content": "오늘 하루도 수고했어!",
-          "sender": "김다현",
-          "created_at": "2023-11-10"
-        },
-        {
-          "message_id": 7,
-          "deco_id": 0,
-          "deco_color": "#ff9999",
-          "content": "힘들면 나에게 말해줘. 같이 해결해보자.",
-          "sender": "박지은",
-          "created_at": "2023-11-10"
-        },
-        {
-          "message_id": 8,
-          "deco_id": 1,
-          "deco_color": "#ffb2b2",
-          "content": "뭐든지 할 수 있어. 믿어봐!",
-          "sender": "이승훈",
-          "created_at": "2023-11-10"
-        },
-        {
-          "message_id": 9,
-          "deco_id": 2,
-          "deco_color": "#ffcccc",
-          "content": "좋은 일만 가득하길 바라!",
-          "sender": "손지우",
-          "created_at": "2023-11-10"
-        },
-        {
-          "message_id": 10,
-          "deco_id": 1,
-          "deco_color": "#ffe5e5",
-          "content": "웃음이 많은 하루 되길!",
-          "sender": "황다솜ㅇ",
-          "created_at": "2023-11-10"
-        },
-        {
-          "message_id": 11,
-          "deco_id": 0,
-          "deco_color": "#0000ff",
-          "content": "매일매일 행복하게 보내길!",
-          "sender": "김민재네이션",
-          "created_at": "2023-11-10"
-        },
-        {
-          "message_id": 12,
-          "deco_id": 2,
-          "deco_color": "#1919ff",
-          "content": "무엇이든 해낼 수 있어. 자신을 믿어봐!",
-          "sender": "이훈",
-          "created_at": "2023-11-10"
-        },
-        {
-          "message_id": 13,
-          "deco_id": 0,
-          "deco_color": "#3232ff",
-          "content": "힘들면 쉬어가도 돼. 나에게 말해줘!",
-          "sender": "박수빈",
-          "created_at": "2023-11-10"
-        },
-        {
-          "message_id": 14,
-          "deco_id": 1,
-          "deco_color": "#4c4cff",
-          "content": "성공적인 하루를 만들어보자!",
-          "sender": "신동우",
-          "created_at": "2023-11-10"
-        },
-        {
-          "message_id": 15,
-          "deco_id": 2,
-          "deco_color": "#6666ff",
-          "content": "다음 만남을 기대할게. 안녕!",
-          "sender": "dsefdwdf",
-          "created_at": "2023-11-10"
-        },
-        {
-          "message_id": 16,
-          "deco_id": 1,
-          "deco_color": "#7f7fff",
-          "content": "앞으로의 모든 날이 행복하길!",
-          "sender": "박진우",
-          "created_at": "2023-11-10"
-        },
-        {
-          "message_id": 17,
-          "deco_id": 0,
-          "deco_color": "#9999ff",
-          "content": "매 순간을 소중히 즐겨봐!",
-          "sender": "김하은",
-          "created_at": "2023-11-10"
-        },
-        {
-          "message_id": 18,
-          "deco_id": 2,
-          "deco_color": "#b2b2ff",
-          "content": "일 년 중 가장 밝은 기억으로 남길 순간이길!",
-          "sender": "이진영",
-          "created_at": "2023-11-10"
-        },
-        {
-          "message_id": 19,
-          "deco_id": 0,
-          "deco_color": "#ccccff",
-          "content": "미래의 자신에게 감사해!",
-          "sender": "신승우",
-          "created_at": "2023-11-10"
-        },
-        {
-          "message_id": 20,
-          "deco_id": 1,
-          "deco_color": "#e5e5ff",
-          "content": "행운이 항상 미소를 머금길거야!",
-          "sender": "이영진",
-          "created_at": "2023-11-10"
-        },
-        {
-          "message_id": 21,
-          "deco_id": 2,
-          "deco_color": "#00ff00",
-          "content": "매일이 즐겁길!",
-          "sender": "김수빈",
-          "created_at": "2023-11-10"
-        },
-        {
-          "message_id": 22,
-          "deco_id": 1,
-          "deco_color": "#19ff19",
-          "content": "어려움을 이겨낼 힘을 갖길!",
-          "sender": "박진서",
-          "created_at": "2023-11-10"
-        },
-        {
-          "message_id": 23,
-          "deco_id": 0,
-          "deco_color": "#32ff32",
-          "content": "고생 끝에 낙이 온다고 해!",
-          "sender": "이성민",
-          "created_at": "2023-11-10"
-        },
-        {
-          "message_id": 24,
-          "deco_id": 2,
-          "deco_color": "#4cff4c",
-          "content": "행복을 따뜻하게 느껴보길!",
-          "sender": "신지우",
-          "created_at": "2023-11-10"
-        },
-        {
-          "message_id": 25,
-          "deco_id": 0,
-          "deco_color": "#66ff66",
-          "content": "더 나은 내일을 위해 노력해봐!",
-          "sender": "오은지",
-          "created_at": "2023-11-10"
-        },
-        {
-          "message_id": 26,
-          "deco_id": 1,
-          "deco_color": "#7fff7f",
-          "content": "모든 순간이 소중하다는 걸 느껴봐!",
-          "sender": "김민서",
-          "created_at": "2023-11-10"
-        },
-        {
-          "message_id": 27,
-          "deco_id": 2,
-          "deco_color": "#99ff99",
-          "content": "언제나 응원하고 있어!",
-          "sender": "이준호",
-          "created_at": "2023-11-10"
-        },
-        {
-          "message_id": 28,
-          "deco_id": 1,
-          "deco_color": "#b2ffb2",
-          "content": "마음이 편안한 순간을 찾아봐!",
-          "sender": "박소민",
-          "created_at": "2023-11-10"
-        },
-        {
-          "message_id": 29,
-          "deco_id": 0,
-          "deco_color": "#ccffcc",
-          "content": "행복한 기억만 쌓아가길!",
-          "sender": "신준영",
-          "created_at": "2023-11-10"
-        },
-        {
-          "message_id": 30,
-          "deco_id": 2,
-          "deco_color": "#e5ffe5",
-          "content": "미래의 성공을 위해 지금 노력해봐!❤️",
-          "sender": "이다솜",
-          "created_at": "2023-11-10"
-        }
-      ]
-    },
-    {
-      "title": "내 두번째 스노우볼",
-      "private": false,
-      "main_deco_id": 0,
-      "created_at": "2023-11-11",
-      "message": [
-        {
+          "letter_id": 0,
           "message_id": 1,
           "deco_id": 1,
           "deco_color": "#00ff00",
@@ -267,6 +20,7 @@
           "created_at": "2023-11-11"
         },
         {
+          "letter_id": 0,
           "message_id": 2,
           "deco_id": 0,
           "deco_color": "#0000ff",
@@ -275,6 +29,7 @@
           "created_at": "2023-11-12"
         },
         {
+          "letter_id": 1,
           "message_id": 3,
           "deco_id": 1,
           "deco_color": "#ff9900",
@@ -283,6 +38,7 @@
           "created_at": "2023-11-13"
         },
         {
+          "letter_id": 2,
           "message_id": 4,
           "deco_id": 0,
           "deco_color": "#993399",
@@ -291,6 +47,7 @@
           "created_at": "2023-11-14"
         },
         {
+          "letter_id": 0,
           "message_id": 5,
           "deco_id": 1,
           "deco_color": "#ff0000",
@@ -299,6 +56,7 @@
           "created_at": "2023-11-15"
         },
         {
+          "letter_id": 1,
           "message_id": 6,
           "deco_id": 0,
           "deco_color": "#00ff00",
@@ -307,38 +65,22 @@
           "created_at": "2023-11-16"
         },
         {
+          "letter_id": 2,
           "message_id": 7,
           "deco_id": 1,
           "deco_color": "#0000ff",
           "content": "자신을 믿어 인생을 즐겨봐!",
           "sender": "이하린",
           "created_at": "2023-11-17"
-        },
-        {
-          "message_id": 8,
-          "deco_id": 0,
-          "deco_color": "#ff9900",
-          "content": "새로운 경험을 기대해봐!",
-          "sender": "박서연",
-          "created_at": "2023-11-18"
-        },
-        {
-          "message_id": 9,
-          "deco_id": 1,
-          "deco_color": "#993399",
-          "content": "행복을 찾아 나선다면 이미 성공한 거야!",
-          "sender": "신혜원",
-          "created_at": "2023-11-19"
-        },
-        {
-          "message_id": 10,
-          "deco_id": 0,
-          "deco_color": "#ff0000",
-          "content": "오늘도 최고의 모습을 보여줘!",
-          "sender": "이현우",
-          "created_at": "2023-11-20"
         }
       ]
+    },
+    {
+      "title": "내 두번째 스노우볼",
+      "private": false,
+      "main_deco_id": 0,
+      "created_at": "2023-11-11",
+      "message": []
     }
   ]
 }
