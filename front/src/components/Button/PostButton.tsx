@@ -31,7 +31,9 @@ const StyledButton = styled.button<PostButtonProps>`
   }
 `;
 
-const PostButtonWrap = styled.div``;
+const PostButtonWrap = styled.div`
+  width: 100%;
+`;
 
 const StyledAlert = styled.div`
   color: ${theme.colors['--white-primary']};
@@ -43,14 +45,13 @@ const PostButton = (props: ButtonProps) => {
   const { color, decoID, letterID, content, sender } = useContext(DecoContext);
   const { data, setData } = useContext(SnowBallContext);
 
-  const [ alert, setAlert ] = useState(false);
-
+  const [alert, setAlert] = useState(false);
 
   const ClickedPost = () => {
     if (content === '' || sender === '') {
       setAlert(true);
-      return ;
-    };
+      return;
+    }
 
     props.view[1](!props.view[0]);
     props.visible[1](-1);
@@ -69,15 +70,12 @@ const PostButton = (props: ButtonProps) => {
 
   return (
     <>
-    <PostButtonWrap>
-    { alert ? (<StyledAlert>내용과 이름을 입력해주세요 !</StyledAlert>) : null}
-    <StyledButton
-      color={props.color}
-      onClick={ClickedPost}
-    >
-      {props.text}
-    </StyledButton>
-    </PostButtonWrap>
+      <PostButtonWrap>
+        {alert ? <StyledAlert>내용과 이름을 입력해주세요 !</StyledAlert> : null}
+        <StyledButton color={props.color} onClick={ClickedPost}>
+          {props.text}
+        </StyledButton>
+      </PostButtonWrap>
     </>
   );
 };
