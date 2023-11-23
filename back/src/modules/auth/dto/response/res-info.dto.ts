@@ -24,5 +24,5 @@ export class ResInfoDto {
     type: SnowballDto,
     description: '메인 스노우볼 정보'
   })
-  readonly main_snowball: SnowballDto;
+  readonly main_snowball: SnowballDto | null;
 }
