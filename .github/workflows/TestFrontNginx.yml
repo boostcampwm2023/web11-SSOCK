@@ -10,12 +10,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps: 
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
   
       - name: Setup Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: 20.5.1
           
       - name: Check Node v
         run: node -v
@@ -39,6 +39,5 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           script: |
-            echo hi
-            # echo ${{ secrets.SERVER_PASSWORD }} | sudo -S rm -rf /usr/share/nginx/html && sudo cp -r ./front/dist /usr/share/nginx/html
+            echo ${{ secrets.SERVER_PASSWORD }} | sudo -S rm -rf /usr/share/nginx/html && sudo cp -r ./front/dist /usr/share/nginx/html
 
