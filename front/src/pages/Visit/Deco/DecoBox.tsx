@@ -1,15 +1,10 @@
 import styled from 'styled-components';
 import theme from '../../../utils/theme';
-import { DECO, MAIN } from '../../../constants/deco';
+import { DECO, MSG_COLOR } from '../../../constants/deco';
+import { DecoContext } from './DecoProvider';
 
 interface DecoProps {
-  deco: 'Deco' | 'Main';
-}
-
-interface Deco {
-  name: string;
-  fileName: string;
-  img: string;
+  deco: 'Deco' | 'MsgColor';
 }
 
 const StyledBox = styled.div`
@@ -29,23 +24,23 @@ const StyledImg = styled.img`
   width: 100%;
 `;
 
+const StyledColorBox = styled(StyledBox)`
+  background-color: ${props => props.color};
+`;
+
 const decoImgs = (folder: string) => {
   return folder === 'Deco'
-    ? DECO.map(({ img }: Deco) => (
+    ? DECO.map(({ fileName, img }) => (
         <StyledBox key={img}>
           <StyledImg
             src={`/modelsPng/${folder}/${img}`}
             alt="deco"
+            onClick={() => console.log(`img click, ${fileName}`)}
           ></StyledImg>
         </StyledBox>
       ))
-    : MAIN.map(({ img }: Deco) => (
-        <StyledBox key={img}>
-          <StyledImg
-            src={`/modelsPng/${folder}/${img}`}
-            alt="main"
-          ></StyledImg>
-        </StyledBox>
+    : MSG_COLOR.map(({ color }) => (
+        <StyledColorBox key={color} color={color}></StyledColorBox>
       ));
 };
 

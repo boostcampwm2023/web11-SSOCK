@@ -241,7 +241,7 @@ const Steps = () => {
                   onChange={e => (decoColor.current = e.target.value)}
                 />
               ) : (
-                <DecoBox deco={'Main'} />
+                <DecoBox deco={'MsgColor'} />
               )}
             </SelectDeco>
           </SelectDecoBox>
