@@ -1,6 +1,6 @@
 import { useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
-import { DECO } from '../../../constants/deco';
+import { DECO, MSG_COLOR } from '../../../constants/deco';
 
 interface DecoProps {
   id: number;
@@ -9,9 +9,18 @@ interface DecoProps {
   message: string;
   color: string;
   sender: string;
+  letterID: number;
 }
 
-const Deco = ({ scale, position, message, id, color, sender }: DecoProps) => {
+const Deco = ({
+  scale,
+  position,
+  message,
+  id,
+  color,
+  sender,
+  letterID
+}: DecoProps) => {
   const deco = useGLTF(DECO[id].fileName).scene.clone();
   const target = { x: 8, z: 0 };
   const test = Math.atan2(position.z - target.z, position.x - target.x);
@@ -24,6 +33,7 @@ const Deco = ({ scale, position, message, id, color, sender }: DecoProps) => {
       child.userData.message = message;
       child.userData.sender = sender;
       child.userData.color = color;
+      child.userData.letterColor = MSG_COLOR[letterID].color;
 
       child.castShadow = true;
       if (child.name === 'Sub') {

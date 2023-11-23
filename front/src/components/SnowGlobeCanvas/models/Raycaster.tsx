@@ -43,7 +43,7 @@ const Raycaster: React.FC<RaycasterProps> = ({ isClickedRef }) => {
           camera.position.y = (camera.position.y + 0) * zoomOutSpeed;
           camera.position.z = (camera.position.z + 0) * zoomOutSpeed;
         } else {
-        setIsZoom(false);
+          setIsZoom(false);
         }
       }
     }
@@ -74,10 +74,13 @@ const Raycaster: React.FC<RaycasterProps> = ({ isClickedRef }) => {
           intersect => intersect.object.userData.message
         );
         if (selectedDeco) {
-          const { message, color, sender } = selectedDeco.object.userData;
+          console.log(selectedDeco.object.userData);
+          const { message, color, sender, letterColor } =
+            selectedDeco.object.userData;
+          console.log(message, color, sender);
           setMessage(message);
           setSender(sender);
-          setColor(color);
+          setColor(letterColor);
         }
       }
     };

@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import theme from '../../utils/theme';
 import { useContext } from 'react';
 import { DecoContext } from '../../pages/Visit/Deco/DecoProvider';
+import { MessageContext } from '../../pages/Visit/MessageProvider';
+import { SnowBallContext } from '../../pages/Visit/SnowBallProvider';
 
 interface ButtonColor {
   color: string;
@@ -33,10 +35,21 @@ const StyledButton = styled.button<ButtonColor>`
 
 const PostButton = (props: ButtonProps) => {
   const { color, decoID, letterID, content, sender } = useContext(DecoContext);
+  const { data, setData } = useContext(SnowBallContext);
   const ClickedPost = () => {
     console.log(color, decoID, letterID, content, sender);
     props.view[1](!props.view[0]);
     props.visible[1](-1);
+    const newData = data;
+    newData.snowball[0].message.push({
+      message_id: 0,
+      deco_id: decoID,
+      deco_color: color,
+      content: content,
+      sender: sender,
+      created_at: '2023-11-11'
+    });
+    setData(newData);
   };
 
   return (
