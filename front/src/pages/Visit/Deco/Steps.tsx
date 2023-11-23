@@ -237,55 +237,52 @@ const Steps = () => {
           )}
         </StyledButtonWrap>
 
-        {step === writeMsg ? (
-          <ButtonBox>
-            <PostButton
-              text="선물하기"
-              color={theme.colors['--primary-red-primary']}
-              view={[lastBox, setLastBox]}
-              visible={[step, setStep]}
-            />
-          </ButtonBox>
-        ) : null}
-
-        {step === selectDeco ||
-        step === selectColor ||
-        step === selectMsgColor ? (
-          <SelectDecoBox ref={decoBox}>
-            <SelectDeco>
-              {step === selectDeco ? (
-                <>
-                  <DecoBox />
-                  <DecoBox />
-                  <DecoBox />
-                  <DecoBox />
-                  <DecoBox />
-                  <DecoBox />
-                  <DecoBox />
-                  <DecoBox />
-                </>
-              ) : step === selectColor ? (
-                <>
-                  <ColorInput
-                    onChange={e => (decoColor.current = e.target.value)}
-                  />
-                  <p>장식 생상을 선택해주세요</p>
-                </>
-              ) : (
-                <>
-                  <DecoBox />
-                  <DecoBox />
-                  <DecoBox />
-                  <DecoBox />
-                  <DecoBox />
-                  <DecoBox />
-                  <DecoBox />
-                  <DecoBox />
-                </>
-              )}
-            </SelectDeco>
-          </SelectDecoBox>
-        ) : null}
+        <SelectDecoBox ref={decoBox}>
+          <SelectDeco>
+            {step === selectDeco ? (
+              <>
+                <DecoBox />
+                <DecoBox />
+                <DecoBox />
+                <DecoBox />
+                <DecoBox />
+                <DecoBox />
+                <DecoBox />
+                <DecoBox />
+              </>
+            ) : null}
+            {step === selectColor ? (
+              <>
+                <ColorInput
+                  onChange={e => (decoColor.current = e.target.value)}
+                />
+                <p>장식 생상을 선택해주세요</p>
+              </>
+            ) : null}{' '}
+            {step === writeMsg ? (
+              <ButtonBox>
+                <PostButton
+                  text="선물하기"
+                  color={theme.colors['--primary-red-primary']}
+                  view={[lastBox, setLastBox]}
+                  visible={[step, setStep]}
+                />
+              </ButtonBox>
+            ) : null}
+            {step === selectMsgColor ? (
+              <>
+                <DecoBox />
+                <DecoBox />
+                <DecoBox />
+                <DecoBox />
+                <DecoBox />
+                <DecoBox />
+                <DecoBox />
+                <DecoBox />
+              </>
+            ) : null}
+          </SelectDeco>
+        </SelectDecoBox>
       </StyledBottomWrap>
 
       {step === doneStep && lastBox === true ? (
