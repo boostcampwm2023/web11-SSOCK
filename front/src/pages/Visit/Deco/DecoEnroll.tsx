@@ -36,7 +36,6 @@ const StyledNaviBox = styled.div`
   pointer-events: all;
   z-index: 1;
 
-
   @media (min-width: ${theme.size['--desktop-min-width']}) {
     width: ${theme.size['--desktop-width']};
   }
@@ -72,15 +71,15 @@ const ButtonWrap = styled.div`
 
 const StyledNavButton = styled.button`
   height: 3rem;
-  width : 66%;
-  height : 4rem;
+  width: 66%;
+  height: 4rem;
   border-radius: 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
   color: ${theme.colors['--white-primary']};
   background-color: ${props => props.color};
-  border : 1px solid ${theme.colors['--white-primary']};
+  border: 1px solid ${theme.colors['--white-primary']};
 `;
 
 const StyeldButtonText = styled.div`
@@ -100,23 +99,22 @@ const EmptyDiv = styled.div`
   width: 3rem;
 `;
 
-
 const CloseNav = (
   props: NaviProps,
   closeRef: React.RefObject<HTMLDivElement>,
   setIsFocus: React.Dispatch<React.SetStateAction<boolean>>,
   navigate: NavigateFunction,
   user: string | undefined,
-  flag: string
+  flag: 'close' | 'root'
 ) => {
   const onAnimationEnd = () => {
     if (closeRef.current) {
       setIsFocus(false);
       props.view[1](!props.view[0]);
       closeRef.current.removeEventListener('animationend', onAnimationEnd);
-      if (flag === "root") {
-        navigate(`/`);
-        return ;
+      if (flag === 'root') {
+        navigate('/');
+        return;
       }
       navigate(`/visit/${user}`);
     }
@@ -138,26 +136,43 @@ const DecoEnroll = (props: NaviProps) => {
   const { user } = useParams();
   return (
     <>
-    <StyledBody onClick={() => CloseNav(props, closeRef, setIsFocus, navigate, user, "close")} />
-      {isFocus ? 
-      <StyledNaviBox ref={closeRef}>
-        <ButtonWrap>
-        <StyledNavButton color={theme.colors['--primary-red-primary']} onClick={() => CloseNav(props, closeRef, setIsFocus, navigate, user, "root")}>
-          <StyeldButtonText>
-            <StyledImgIcon src="/icons/snowGlobeButton.png" alt="snowGlobe" />
-            내 스노우볼 만들러 가기</StyeldButtonText>
-            <EmptyDiv />
-          </StyledNavButton>
-        </ButtonWrap>
-
-        <ButtonWrap>
-        <StyledNavButton color={theme.colors['--primary-green-primary']} onClick={() => CloseNav(props, closeRef, setIsFocus, navigate, user, "close")}>
-        <StyeldButtonText>
-          닫기
-          </StyeldButtonText>
-          </StyledNavButton>
+      <StyledBody
+        onClick={() =>
+          CloseNav(props, closeRef, setIsFocus, navigate, user, 'close')
+        }
+      />
+      {isFocus ? (
+        <StyledNaviBox ref={closeRef}>
+          <ButtonWrap>
+            <StyledNavButton
+              color={theme.colors['--primary-red-primary']}
+              onClick={() =>
+                CloseNav(props, closeRef, setIsFocus, navigate, user, 'root')
+              }
+            >
+              <StyeldButtonText>
+                <StyledImgIcon
+                  src="/icons/snowGlobeButton.png"
+                  alt="snowGlobe"
+                />
+                내 스노우볼 만들러 가기
+              </StyeldButtonText>
+              <EmptyDiv />
+            </StyledNavButton>
           </ButtonWrap>
-      </StyledNaviBox> : null}
+
+          <ButtonWrap>
+            <StyledNavButton
+              color={theme.colors['--primary-green-primary']}
+              onClick={() =>
+                CloseNav(props, closeRef, setIsFocus, navigate, user, 'close')
+              }
+            >
+              <StyeldButtonText>닫기</StyeldButtonText>
+            </StyledNavButton>
+          </ButtonWrap>
+        </StyledNaviBox>
+      ) : null}
     </>
   );
 };
