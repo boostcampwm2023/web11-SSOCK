@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 import { SnowballEntity } from 'src/modules/snowball/entity/snowball.entity';
 import { UserEntity } from 'src/modules/auth/entity/user.entity';
+import { LetterEntity } from './letter.entity';
 
 @Entity({ synchronize: true, name: 'message' })
 export class MessageEntity {
@@ -51,4 +52,9 @@ export class MessageEntity {
   @ManyToOne(() => UserEntity, user => user.messages)
   @JoinColumn({ name: 'user_id' })
   user: UserEntity;
+
+  //many to one relation letter_id with id in LetterEntity in letter.entity.ts
+  @ManyToOne(() => LetterEntity, letter => letter.messages)
+  @JoinColumn({ name: 'letter_id' })
+  letter: LetterEntity;
 }
