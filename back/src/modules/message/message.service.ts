@@ -13,6 +13,7 @@ import { MessageEntity } from './entity/message.entity';
 import { UserEntity } from '../auth/entity/user.entity';
 import { ResCreateMessageDto } from './dto/response/res-create-message.dto';
 import { MessageDto } from './dto/message.dto';
+import { SnowballEntity } from '../snowball/entity/snowball.entity';
 
 @Injectable()
 export class MessageService {
@@ -20,13 +21,17 @@ export class MessageService {
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
     @InjectRepository(MessageEntity)
-    private readonly messageRepository: Repository<MessageEntity>
+    private readonly messageRepository: Repository<MessageEntity>,
+    @InjectRepository(SnowballEntity)
+    private readonly snowballRepository: Repository<SnowballEntity>
   ) {}
   async createMessage(
     createMessageDto: ReqCreateMessageDto,
     snowball_id: number
   ): Promise<ResCreateMessageDto> {
+    const user_id = await this.getUserId(snowball_id);
     const messageEntity = this.messageRepository.create({
+      user_id: user_id,
       snowball_id: snowball_id,
       sender: createMessageDto.sender,
       content: createMessageDto.content,
@@ -135,5 +140,12 @@ export class MessageService {
     } catch (err) {
       throw new InternalServerErrorException('서버측 오류');
     }
+  }
+
+  async getUserId(snowball_id: number): Promise<number> {
+    const snowball = await this.snowballRepository.findOne({
+      where: { id: snowball_id }
+    });
+    return snowball.user_id;
   }
 }
