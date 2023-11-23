@@ -9,6 +9,7 @@ interface ModalProps {
 }
 
 const StyledModal = styled.div`
+  pointer-events: auto;
   position: absolute;
   top: 4%;
   right: 0;

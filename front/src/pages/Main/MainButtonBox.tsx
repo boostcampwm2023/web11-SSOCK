@@ -1,126 +1,81 @@
 import { useState, useRef } from 'react';
 import styled from 'styled-components';
-import theme from '../../utils/theme';
 import MenuModal from './MenuModal';
 import ListMsg from './ListMsg';
-import mock from '../../mockdata.json'; // temporary
-
-const StyledHeader = styled.div`
-  font: ${theme.font['--normal-main-header-font']};
-  text-shadow: -1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black;
-  position: absolute;
-  top: 5%;
-  left: 50%;
-  white-space: nowrap;
-  transform: translate(-50%, 0);
-  color: white;
-
-  @keyframes fadeInUp {
-    from {
-      opacity: 1;
-      transform: translate(-50%, 0);
-    }
-    to {
-      opacity: 0;
-      transform: translate3d(-50%, -100%, 0);
-    }
-  }
-`;
-
-const StyledUser = styled.span`
-  color: ${theme.colors['--nick-name']};
-  font-size: 20px;
-`;
+import { HeaderText } from '../../components';
 
 const StyledMenu = styled.img`
-  position: absolute;
-  top: 4%;
-  right: 4%;
+  position: fixed;
+  top: 3.5rem;
+  right: 0.8rem;
 
-  @media (min-width: ${theme.size['--desktop-min-width']}) {
-    left: 50%;
-    margin-left: 450px;
-  }
-
-  @keyframes fadeInUp {
+  @keyframes fadeInUp1 {
     from {
       opacity: 1;
-      transform: translate(-50%, 0);
+      transform: translate(0, 0);
     }
     to {
       opacity: 0;
-      transform: translate3d(-50%, -100%, 0);
+      transform: translate(0, -100%);
     }
   }
 `;
 
 const StyledScreen = styled.img`
   position: absolute;
-  bottom: 5%;
-  margin-left: 4%;
-
-  @media (min-width: ${theme.size['--desktop-min-width']}) {
-    margin-left: 0;
-    right: 50%;
-    margin-right: 450px;
-  }
+  bottom: 2rem;
+  margin-left: 0.8rem;
 
   @keyframes fadeInDown {
     from {
       opacity: 1;
-      transform: translate(-50%, 0);
+      transform: translate(0, 0);
     }
     to {
       opacity: 0;
-      transform: translate3d(-50%, 100%, 0);
+      transform: translate(0, 2rem);
     }
   }
 `;
 
 const StyledShareLink = styled.img`
   position: absolute;
-  bottom: 5%;
-  right: 4%;
-
-  @media (min-width: ${theme.size['--desktop-min-width']}) {
-    left: 50%;
-    margin-left: 450px;
-  }
+  bottom: 2rem;
+  right: 0.8rem;
 
   @keyframes fadeInDown {
     from {
       opacity: 1;
-      transform: translate(-50%, 0);
+      transform: translate(0, 0);
     }
     to {
       opacity: 0;
-      transform: translate3d(-50%, 100%, 0);
+      transform: translate(0, 2rem);
     }
   }
 `;
 
 const screenTime = (
   setScreen: React.Dispatch<React.SetStateAction<boolean>>,
-  headerRef: React.RefObject<HTMLDivElement>,
-  menuRef: React.RefObject<HTMLImageElement>,
-  screenRef: React.RefObject<HTMLImageElement>,
-  shareLinkRef: React.RefObject<HTMLImageElement>
+  refs: Array<React.RefObject<HTMLDivElement>>
 ) => {
-  if (headerRef.current) {
-    headerRef.current.style.setProperty('animation', 'fadeInUp 1s forwards');
-  }
-  if (menuRef.current) {
-    menuRef.current.style.setProperty('animation', 'fadeInUp 1s forwards');
-  }
-  if (screenRef.current) {
-    screenRef.current.style.setProperty('animation', 'fadeInDown 1s forwards');
-  }
-  if (shareLinkRef.current) {
-    shareLinkRef.current.style.setProperty(
-      'animation',
-      'fadeInDown 1s forwards'
-    );
-  }
+  const bottoms = 2;
+  const topFirst = 0;
+
+  refs.forEach((ref, idx) => {
+    if (ref.current) {
+      ref.current.style.setProperty(
+        'animation',
+        `${
+          idx >= bottoms
+            ? 'fadeInDown'
+            : idx === topFirst
+            ? 'fadeInUp1'
+            : 'fadeInUp1'
+        } 1s forwards`
+      );
+    }
+  });
 
   setTimeout(() => {
     setScreen(true);
@@ -129,28 +84,26 @@ const screenTime = (
   setTimeout(() => {
     setScreen(false);
 
-    if (headerRef.current) {
-      headerRef.current.style.setProperty('animation', 'none');
-    }
-    if (menuRef.current) {
-      menuRef.current.style.setProperty('animation', 'none');
-    }
-    if (screenRef.current) {
-      screenRef.current.style.setProperty('animation', 'none');
-    }
-    if (shareLinkRef.current) {
-      shareLinkRef.current.style.setProperty('animation', 'none');
-    }
+    refs.forEach(ref => {
+      if (ref.current) {
+        ref.current.style.setProperty('animation', 'none');
+      }
+    });
   }, 5000);
 };
 
-const MainButtonBox = () => {
-  const userName = mock.user_name;
+interface MainButtonBoxProps {
+  leftArrow: React.RefObject<HTMLImageElement>;
+  rightArrow: React.RefObject<HTMLImageElement>;
+};
 
+const MainButtonBox = (props :MainButtonBoxProps) => {
   const headerRef = useRef<HTMLDivElement>(null);
   const menuRef = useRef<HTMLImageElement>(null);
   const screenRef = useRef<HTMLImageElement>(null);
   const shareLinkRef = useRef<HTMLImageElement>(null);
+
+
 
   const [menuModal, setMenuModal] = useState(false);
   const [list, setList] = useState(false);
@@ -161,9 +114,7 @@ const MainButtonBox = () => {
     <>
       {!screen ? (
         <>
-          <StyledHeader ref={headerRef}>
-            <StyledUser>{userName}</StyledUser>님의 스노우볼
-          </StyledHeader>
+          <HeaderText Ref={headerRef} />
 
           <StyledMenu
             ref={menuRef}
@@ -176,7 +127,14 @@ const MainButtonBox = () => {
             ref={screenRef}
             src={'/buttons/screen.svg'}
             onClick={() =>
-              screenTime(setScreen, headerRef, menuRef, screenRef, shareLinkRef)
+              screenTime(setScreen, [
+                headerRef,
+                menuRef,
+                screenRef,
+                shareLinkRef,
+                props.leftArrow,
+                props.rightArrow,
+              ])
             }
           />
 
@@ -187,7 +145,7 @@ const MainButtonBox = () => {
           />
           {shareLink ? <div>shareLink</div> : null}
 
-          {list ? <ListMsg /> : null}
+          {list ? <ListMsg set={setList} /> : null}
         </>
       ) : null}
     </>

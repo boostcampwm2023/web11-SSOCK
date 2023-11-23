@@ -13,64 +13,57 @@ interface SocialLogin {
 
 const StyledBody = styled.div`
   position: fixed;
-  top: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(217, 217, 217, 0.2);
+  width: 100%;
+  height: 100%;
+  background-color: rgba(217, 217, 217, 0.1);
+  pointer-events: all;
 `;
 
 const StyledLoginBox = styled.div`
   background-color: ${theme.colors['--primary-black']};
-  position: absolute;
-  bottom: 0;
-  left: 50%;
   display: flex;
+  padding: 1.5rem;
   flex-direction: column;
-  justify-content: space-around;
+  gap: 1.5rem;
   width: 100%;
-  height: 35%;
-  padding: 2% 5%;
-  padding-bottom: 5%;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
+  height: 18rem;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
   animation: fadeInUp 0.5s forwards;
+  pointer-events: all;
+  z-index: 1;
 
-  @media (min-width: ${theme.size['--desktop-min-width']}) {
-    width: ${theme.size['--desktop-width']};
-  }
 
   @keyframes fadeInUp {
     from {
       opacity: 0;
-      transform: translate3d(-50%, 100%, 0);
+      transform: translate(0, 100%);
     }
     to {
       opacity: 1;
-      transform: translate(-50%, 0);
+      transform: translate(0, 0);
     }
   }
 
   @keyframes fadeOutDown {
     from {
       opacity: 1;
-      transform: translate(-50%, 0);
+      transform: translate(0, 0);
     }
     to {
       opacity: 0;
-      transform: translate3d(-50%, 100%, 0);
+      transform: translate(0, 100%);
     }
   }
 `;
 
 const StyledLogin = styled.button<SocialLogin>`
   font: ${theme.font['--normal-login-font']};
-  height: 20%;
-  margin: 1% 0;
-  border-radius: 12px;
+  height: 3rem;
+  border-radius: 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
   background-color: ${props =>
     props.social === '카카오'
       ? '#FEE500'
@@ -80,16 +73,11 @@ const StyledLogin = styled.button<SocialLogin>`
 `;
 
 const StyledLogo = styled.img`
-  position: absolute;
-  left: 0;
   height: 100%;
-  width: auto;
-  margin-left: 2%;
 `;
 
 const StyledSocial = styled.span`
   font-weight: 700;
-  margin-left: 5%;
 `;
 
 const closeLogin = (
@@ -118,8 +106,7 @@ const validLogin = (
   props: SocialLogin,
   setValid: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
-  // valid 체크!
-  console.log(props.social);
+  console.log(props);
   setValid(true);
 };
 
@@ -153,7 +140,8 @@ const LoginBox = (props: LoginProps) => {
   const closeRef = useRef<HTMLDivElement>(null);
 
   return (
-    <StyledBody onClick={() => closeLogin(props, closeRef, setIsFocus)}>
+    <>
+      <StyledBody onClick={() => closeLogin(props, closeRef, setIsFocus)} />
       {isFocus ? (
         <StyledLoginBox ref={closeRef}>
           <LoginUI social={'카카오'} />
@@ -161,7 +149,7 @@ const LoginBox = (props: LoginProps) => {
           <LoginUI social={'구글'} />
         </StyledLoginBox>
       ) : null}
-    </StyledBody>
+    </>
   );
 };
 

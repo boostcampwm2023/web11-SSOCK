@@ -35,13 +35,14 @@ const GlobalStyles = createGlobalStyle`
 
   * {
     box-sizing: border-box;
-    font-family: 'YClover-Bold';
+    font-family: 'KingSejongInstitute';
+    white-space: nowrap;
   }
 
   body {
     margin: 0;
     padding: 0;
-    font-size: 16px;
+    font-size: 1rem;
   }
 
   #root {
@@ -57,10 +58,12 @@ const GlobalStyles = createGlobalStyle`
     padding: 0;
     cursor: pointer;
     color: black;
+    pointer-events: all;
   }
 
   img {
     cursor: pointer;
+    pointer-events: all;
   }
 
   hr {

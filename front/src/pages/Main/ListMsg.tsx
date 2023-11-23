@@ -1,86 +1,66 @@
 import styled from 'styled-components';
-import theme from '../../utils/theme';
 import mock from '../../mockdata.json'; // temporary
+import { Msg, Prev } from '../../components';
+import Snowball from './../Make/Snowball/Snowball';
 
-interface MsgDetail {
-  color: string;
+interface ListMsgProps {
+  set: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+interface Snowball {
+  title: string;
+  private: boolean;
+  main_deco_id: number;
+  created_at: string;
+  message: {
+    message_id: number;
+    deco_id: number;
+    deco_color: string;
+    content: string;
+    sender: string;
+    created_at: string;
+  }[];
+}
+
+interface SnowballProps {
+  message_id: number;
+  deco_color: string;
   content: string;
   sender: string;
 }
 
-interface MsgColor {
-  color: string;
-}
-
-const StyledLetterBox = styled.div<MsgColor>`
-  font: ${theme.font['--normal-introduce-font']};
-  border-radius: 16px;
-  padding: 16px;
-  background-color: ${props => props.color + '4D'};
-  margin: 10px;
-`;
-
-const StyledLetterPerson = styled.div`
-  color: white;
-`;
-
-const StyledTo = styled.span`
-  color: ${theme.colors['--nick-name']};
-`;
-
-const StyledLetterContent = styled.div`
-  color: white;
-  margin: 30px 0;
-`;
-
-const StyledFromBox = styled(StyledLetterPerson)`
-  text-align: right;
-`;
-
-const StyledFrom = styled.span`
-  color: ${theme.colors['--primary-redp-variant']};
-`;
-
 const StyledList = styled.div`
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
   position: absolute;
   width: 100%;
   top: 10%;
   height: 85vh;
-  overflow: scroll;
+  overflow-y: scroll;
 `;
 
-const MsgBox = (props: MsgDetail) => {
-  const userName = mock.user_name;
-
+const ListMsg = (props: ListMsgProps) => {
   return (
-    <StyledLetterBox color={props.color}>
-      <StyledLetterPerson>
-        To. <StyledTo>{userName}</StyledTo>
-      </StyledLetterPerson>
+    <>
+      <Prev set={props.set} />
 
-      <StyledLetterContent>{props.content}</StyledLetterContent>
-
-      <StyledFromBox>
-        From. <StyledFrom>{props.sender}</StyledFrom>
-      </StyledFromBox>
-    </StyledLetterBox>
-  );
-};
-
-const ListMsg = () => {
-  return (
-    <StyledList>
-      {mock.snowball.map(snowball =>
-        snowball.message.map(elem => (
-          <MsgBox
-            key={elem.message_id}
-            color={elem.deco_color}
-            content={elem.content}
-            sender={elem.sender}
-          />
-        ))
-      )}
-    </StyledList>
+      <StyledList>
+        {mock.snowball.map((snowball: Snowball) =>
+          snowball.message.map(
+            ({ message_id, deco_color, content, sender }: SnowballProps) => (
+              <Msg
+                key={message_id}
+                color={deco_color}
+                isInput={false}
+                content={content}
+                sender={sender}
+              />
+            )
+          )
+        )}
+      </StyledList>
+    </>
   );
 };
 
