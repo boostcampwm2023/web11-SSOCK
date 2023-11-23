@@ -1,4 +1,9 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ReqCreateMessageDto } from './dto/request/req-create-message.dto';
@@ -83,5 +88,31 @@ export class MessageService {
       };
     });
     return messagesDto;
+  }
+
+  async openMessage(message_id: number): Promise<MessageDto> {
+    try {
+      const message = await this.messageRepository.findOne({
+        where: { id: message_id }
+      });
+      if (!message) {
+        throw new NotFoundException(
+          `${message_id} 메시지를 찾을 수 없었습니다.`
+        );
+      }
+      if (message.opened !== null) {
+        throw new ConflictException(
+          `${message_id} 메시지는 이미 열려있습니다.`
+        );
+      }
+      const date = new Date();
+      await this.messageRepository.update(message_id, { opened: date });
+      return {
+        ...message,
+        opened: date
+      };
+    } catch (err) {
+      throw new InternalServerErrorException('서버측 오류');
+    }
   }
 }

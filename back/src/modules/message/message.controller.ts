@@ -6,7 +6,8 @@ import {
   Body,
   Param,
   HttpCode,
-  UseGuards
+  UseGuards,
+  Put
 } from '@nestjs/common';
 import { MessageService } from './message.service';
 import { ReqCreateMessageDto } from './dto/request/req-create-message.dto';
@@ -16,7 +17,11 @@ import {
   ApiTags,
   ApiOperation,
   ApiResponse,
-  ApiBearerAuth
+  ApiBearerAuth,
+  ApiNotFoundResponse,
+  ApiConflictResponse,
+  ApiBadRequestResponse,
+  ApiInternalServerErrorResponse
 } from '@nestjs/swagger';
 import { ResCreateMessageDto } from './dto/response/res-create-message.dto';
 import { MessageDto } from './dto/message.dto';
@@ -92,5 +97,35 @@ export class MessageController {
   ): Promise<MessageDto[]> {
     const messages = await this.messageService.getAllMessages(user_id);
     return messages;
+  }
+
+  @UseGuards(JWTGuard)
+  @ApiBearerAuth('jwt-token')
+  @Put('/open/:message_id')
+  @HttpCode(200)
+  @ApiOperation({
+    summary: '메세지 오픈 처리',
+    description: '메시지를 오픈 처리합니다.'
+  })
+  @ApiResponse({
+    status: 200,
+    type: MessageDto
+  })
+  @ApiBadRequestResponse({
+    description: '잘못된 요청입니다.'
+  })
+  @ApiNotFoundResponse({
+    description: '해당 메시지가 존재하지 않습니다.'
+  })
+  @ApiConflictResponse({
+    description: '이미 오픈된 메시지입니다.'
+  })
+  @ApiInternalServerErrorResponse({
+    description: '서버측 오류'
+  })
+  async openMessage(
+    @Param('message_id') message_id: number
+  ): Promise<MessageDto> {
+    return await this.messageService.openMessage(message_id);
   }
 }
