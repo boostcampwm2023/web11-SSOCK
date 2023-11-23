@@ -23,10 +23,6 @@ const StyledButton = styled.button<ButtonColor>`
   color: white;
   border: 1px solid ${theme.colors['--white-primary']};
   cursor: pointer;
-  @media (max-width: 600px) {
-    font-size: 10px;
-    line-height: 10px;
-  }
 `;
 
 const StepButton = (props: ButtonProps) => {

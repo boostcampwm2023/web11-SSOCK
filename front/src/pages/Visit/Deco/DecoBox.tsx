@@ -9,11 +9,11 @@ interface DecoProps {
 }
 
 const StyledBox = styled.div`
-  border-radius: 50%;
-  border: 3px solid white;
+  border-radius: 100%;
+  border: 2px solid white;
   background-color: ${theme.colors['--black-primary']};
-  width: 10vh;
-  height: 10vh;
+  width: 7rem;
+  height: 7rem;
   cursor: pointer;
   pointer-events: stroke;
   display: flex;

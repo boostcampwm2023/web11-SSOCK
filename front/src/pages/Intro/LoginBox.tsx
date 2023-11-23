@@ -30,6 +30,9 @@ const StyledLoginBox = styled.div`
   border-top-left-radius: 1rem;
   border-top-right-radius: 1rem;
   animation: fadeInUp 0.5s forwards;
+  pointer-events: all;
+  z-index: 1;
+  
 
   @keyframes fadeInUp {
     from {
