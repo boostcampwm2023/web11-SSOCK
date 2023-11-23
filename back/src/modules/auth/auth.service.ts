@@ -20,11 +20,15 @@ export class AuthService {
   ) {}
 
   async createInfo(user: any): Promise<ResInfoDto> {
-    const jwt_token = this.generateJwtToken(user);
-    const userDto: UserDto = await this.createUserDto(user);
-    const mainSnowballDto: SnowballDto = await this.snowballService.getSnowball(
-      userDto.main_snowball_id
+    const { user_pk, is_existed } = await this.getUserPk(user);
+    const jwt_token = this.generateJwtToken(user_pk);
+    const userDto: UserDto = await this.createUserDto(
+      user,
+      user_pk,
+      is_existed
     );
+    const mainSnowballDto: SnowballDto =
+      await this.snowballService.getSnowball(1);
 
     const resInfoDto: ResInfoDto = {
       jwt_token,
@@ -35,21 +39,18 @@ export class AuthService {
     return resInfoDto;
   }
 
-  async createUserDto(user: any): Promise<UserDto> {
-    const exisitingUser = await this.UserRepository.findOne({
-      where: { user_id: user.id }
-    });
-
-    let userId: number,
-      snowball_count: number,
+  async createUserDto(
+    user: any,
+    user_pk: number,
+    is_existed: boolean
+  ): Promise<UserDto> {
+    let snowball_count: number,
       message_count: number,
       snowball_list: { id: number; uuid: string }[],
       main_snowball_id: number | null;
-    if (exisitingUser) {
-      userId = exisitingUser.id;
-
+    if (is_existed) {
       const snowballs = await this.SnowballRepository.findAndCount({
-        where: { user_id: userId }
+        where: { user_id: user_pk }
       });
       snowball_count = snowballs[1];
       snowball_list = snowballs[0].map(snowball => {
@@ -60,22 +61,13 @@ export class AuthService {
       });
       main_snowball_id = snowballs[0][0].id;
     } else {
-      const newUser: UserEntity = this.UserRepository.create({
-        user_id: user.id,
-        username: user.name,
-        provider: user.provider,
-        created_at: new Date()
-      });
-
-      const saveduser = await this.UserRepository.insert(newUser);
-      userId = saveduser.identifiers.pop().id;
       snowball_count = 0;
       message_count = 0;
       snowball_list = [];
       main_snowball_id = null;
     }
     const userDto: UserDto = {
-      id: userId,
+      id: user_pk,
       name: user.name,
       auth_id: user.id,
       snowball_count: snowball_count,
@@ -86,8 +78,30 @@ export class AuthService {
     return userDto;
   }
 
-  generateJwtToken(user: any): string {
-    const payload = { userid: user.id, username: user.name };
+  async getUserPk(
+    user: any
+  ): Promise<{ user_pk: number; is_existed: boolean }> {
+    const exisitingUser = await this.UserRepository.findOne({
+      where: { user_id: user.id }
+    });
+    if (exisitingUser) {
+      return { user_pk: exisitingUser.id, is_existed: true };
+    } else {
+      const newUser: UserEntity = this.UserRepository.create({
+        user_id: user.id,
+        username: user.name,
+        provider: user.provider,
+        created_at: new Date()
+      });
+
+      const saveduser = await this.UserRepository.insert(newUser);
+      const pk = saveduser.identifiers.pop().id;
+      return { user_pk: pk, is_existed: false };
+    }
+  }
+
+  generateJwtToken(user_pk: any): string {
+    const payload = { user_pk: user_pk };
     return this.jwtService.sign(payload);
   }
 }
