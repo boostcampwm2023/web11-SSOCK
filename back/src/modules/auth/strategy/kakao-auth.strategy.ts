@@ -8,7 +8,7 @@ export class KakaoAuthStrategy extends PassportStrategy(Strategy, 'kakao') {
     super({
       clientID: `${process.env.KAKAO_CLIENT_ID}`,
       clientSecret: `${process.env.KAKAO_SECRET}`,
-      callbackURL: 'http://localhost:3000/auth/kakao/redirect', // redirect_uri
+      callbackURL: 'http://www.mysnowball.kr/api/auth/kakao/redirect',
       passReqToCallback: false,
       scope: ['profile_nickname']
     });
