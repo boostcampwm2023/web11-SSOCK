@@ -22,8 +22,9 @@ export class AuthService {
   async createInfo(user: any): Promise<ResInfoDto> {
     const jwt_token = this.generateJwtToken(user);
     const userDto: UserDto = await this.createUserDto(user);
-    const mainSnowballDto: SnowballDto =
-      await this.snowballService.getSnowball(1);
+    const mainSnowballDto: SnowballDto = await this.snowballService.getSnowball(
+      userDto.main_snowball_id
+    );
 
     const resInfoDto: ResInfoDto = {
       jwt_token,

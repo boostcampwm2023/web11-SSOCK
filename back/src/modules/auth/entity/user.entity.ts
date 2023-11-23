@@ -3,12 +3,14 @@ import {
   PrimaryGeneratedColumn,
   Column,
   OneToMany,
+  Index,
   CreateDateColumn
 } from 'typeorm';
 import { SnowballEntity } from '../../snowball/entity/snowball.entity';
 import { MessageEntity } from 'src/modules/message/entity/message.entity';
 
 @Entity({ name: 'user' })
+@Index(['user_id'], { unique: true })
 export class UserEntity {
   @PrimaryGeneratedColumn()
   id: number;

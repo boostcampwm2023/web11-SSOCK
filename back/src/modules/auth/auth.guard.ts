@@ -22,7 +22,7 @@ export class JWTGuard implements CanActivate {
       const payload = await this.jwtService.verify(token, {
         secret: process.env.JWT_SECRET
       });
-      request['user'] = payload.userid; // 이거 oauth2.0 아이디라 pk로 바꿔야함
+      request['user'] = payload.userid;
     } catch {
       throw new UnauthorizedException();
     }
