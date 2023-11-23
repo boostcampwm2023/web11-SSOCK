@@ -106,6 +106,7 @@ const validLogin = (
   props: SocialLogin,
   setValid: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
+  console.log(props);
   setValid(true);
 };
 

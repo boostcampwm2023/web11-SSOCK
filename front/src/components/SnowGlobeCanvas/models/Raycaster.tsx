@@ -76,6 +76,7 @@ const Raycaster: React.FC<RaycasterProps> = ({ isClickedRef }) => {
         if (selectedDeco) {
           const { message, color, sender, letterColor } =
             selectedDeco.object.userData;
+            console.log(color);
           setMessage(message);
           setSender(sender);
           setColor(letterColor);
