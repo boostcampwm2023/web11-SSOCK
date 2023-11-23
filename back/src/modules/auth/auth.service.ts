@@ -7,11 +7,14 @@ import { SnowballService } from '../snowball/snowball.service';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UserEntity } from './entity/user.entity';
+import { SnowballEntity } from '../snowball/entity/snowball.entity';
 @Injectable()
 export class AuthService {
   constructor(
     @InjectRepository(UserEntity)
     private readonly UserRepository: Repository<UserEntity>,
+    @InjectRepository(SnowballEntity)
+    private readonly SnowballRepository: Repository<SnowballEntity>,
     private readonly jwtService: JwtService,
     private readonly snowballService: SnowballService
   ) {}
@@ -31,25 +34,46 @@ export class AuthService {
     return resInfoDto;
   }
 
-  async createUserDto(user:any): Promise<UserDto> {
-    // To Do : 쿼리짜기..
-    console.log(user);
-    return {
-      id: 1,
-      name: '김찬우',
-      auth_id: 'Oauth에서 주는 값',
+  async createUserDto(user: any): Promise<UserDto> {
+    const exisitingUser = await this.UserRepository.findOne({
+      where: { user_id: user.id }
+    });
+
+    let userId;
+    if (exisitingUser) {
+      userId = exisitingUser.id;
+
+      const snowballCount = await this.SnowballRepository.findAndCount({
+        where: { user_id: userId }
+      });
+      const snowballList = await this.SnowballRepository.find({
+        where: { user_id: userId }
+      });
+      console.log(snowballCount, snowballList);
+    } else {
+      const newUser: UserEntity = this.UserRepository.create({
+        user_id: user.id,
+        username: user.name,
+        provider: user.provider,
+        created_at: new Date()
+      });
+
+      const saveduser = await this.UserRepository.insert(newUser);
+      userId = saveduser.identifiers.pop().id;
+    }
+    const userDto: UserDto = {
+      id: userId,
+      name: user.name,
+      auth_id: user.id,
       snowball_count: 3,
-      snowball_list: [
-        { id: 1, uuid: '32413434-32a2-2342-3242-3g23-413oye3' },
-        { id: 2, uuid: '32413434-32a2-2342-3242-3g23-413oye4' },
-        { id: 3, uuid: '32413434-32a2-2342-3242-3g23-413oye5' }
-      ],
+      snowball_list: [],
       message_count: 123
     };
+    return userDto;
   }
 
   generateJwtToken(user: any): string {
-    const payload = { userid: user.id, username: user.username };
+    const payload = { userid: user.id, username: user.name };
     return this.jwtService.sign(payload);
   }
 }

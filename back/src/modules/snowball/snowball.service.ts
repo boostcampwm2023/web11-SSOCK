@@ -103,7 +103,6 @@ export class SnowballService {
       })
       .where('id = :id', { id: snowball_id })
       .execute();
-    console.log(updateResult);
     if (!updateResult.affected) {
       throw new NotFoundException('업데이트할 스노우볼이 존재하지 않습니다.');
     }
@@ -118,7 +117,7 @@ export class SnowballService {
     return resUpdateSnowballDto;
   }
 
-  async getSnowball(snowball_id: number): Promise<SnowballDto> {
+  async getSnowball(snowball_id: number): Promise<SnowballDto> | null {
     const snowball = await this.snowballRepository.findOne({
       where: { id: snowball_id },
       relations: {
@@ -127,7 +126,7 @@ export class SnowballService {
       }
     });
     if (!snowball) {
-      throw new NotFoundException('스노우볼이 존재하지 않습니다.');
+      return null;
     }
 
     const resSnowball: SnowballDto = {
