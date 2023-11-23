@@ -28,8 +28,14 @@ jobs:
         working-directory: ./front
         run: npm run build
 
+      - name: Debug: List contents of ./front/dist
+        run: ls -la ./front/dist
+
       - name: Create tarball
-        run: tar -czvf /tmp/ZUpGilcHdW.tar.gz -C ./front/dist .
+        run: tar -czvf /tmp/siLHtfaHsJ.tar.gz -C ./front/dist .
+
+      - name: Debug: List contents of /tmp
+        run: ls -la /tmp
 
       - name: Move tarball to server
         uses: appleboy/scp-action@v0.1.4
@@ -38,7 +44,7 @@ jobs:
           username: ${{ secrets.SERVER_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
-          source: "/tmp/ZUpGilcHdW.tar.gz"
+          source: "/tmp/siLHtfaHsJ.tar.gz"
           target: "/tmp"
 
       - name: Extract tarball on server
@@ -49,4 +55,4 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           script: |
-            tar -xzvf /tmp/ZUpGilcHdW.tar.gz -C /usr/share/nginx/html
+            tar -xzvf /tmp/siLHtfaHsJ.tar.gz -C /usr/share/nginx/html
