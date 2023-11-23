@@ -9,7 +9,16 @@ interface HeaderProps {
 const StyledHeader = styled.div`
   font: ${theme.font['--normal-main-header-font']};
   text-shadow: -1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black;
+
+  white-space: nowrap;
   color: white;
+
+  display: flex;
+  justify-content: center;
+  height: 5rem;
+  text-align: center;
+
+  padding-top: 5%;
 
   @keyframes fadeInUp1 {
     from {
@@ -22,6 +31,8 @@ const StyledHeader = styled.div`
     }
   }
 `;
+
+
 
 const StyledUser = styled.span`
   color: ${theme.colors['--nick-name']};

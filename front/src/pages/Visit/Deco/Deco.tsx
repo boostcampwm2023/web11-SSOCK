@@ -1,18 +1,22 @@
-import { HeaderText, Prev } from '../../../components';
+import { Prev } from '../../../components';
 import { DecoProvider } from './DecoProvider';
 import Steps from './Steps';
 import DecoCavnas from './DecoCanvas/DecoCanvas';
-import TestBtn from './TestBtn';
+import { UIContainer } from '../../../components/UIContainer';
 
 const Deco = () => {
   return (
+    <>
     <DecoProvider>
       <DecoCavnas />
-      <Prev set={null} />
-      <HeaderText Ref={null} />
+
+
+      <UIContainer>
       <Steps />
-      <TestBtn />
-    </DecoProvider>
+      </UIContainer>
+      <Prev set={null} />
+      </DecoProvider>
+    </>
   );
 };
 

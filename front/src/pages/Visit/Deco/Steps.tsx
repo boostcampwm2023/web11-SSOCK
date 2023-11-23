@@ -4,10 +4,10 @@ import theme from '../../../utils/theme';
 import styled from 'styled-components';
 import { Msg } from '../../../components';
 import DecoEnroll from './DecoEnroll';
+import { HeaderText } from '../../../components';
 
 const StateBar = styled.div`
-  position: absolute;
-  top: 15%;
+  margin-top: 10%;
   display: flex;
   width: 100%;
   height: 40px;
@@ -26,16 +26,13 @@ const StateBox = styled.div`
 `;
 
 const StyledButtonWrap = styled.div`
-  position: absolute;
-  bottom: 300px;
+  position: relative;
   display: flex;
   gap: 4px;
   width: 100%;
-  padding: 36px;
   align-items: center;
-  margin: auto;
   justify-content: space-between;
-  z-index: 1;
+  padding-bottom: 5%;
 `;
 
 // 한번 더 감싸자
@@ -43,7 +40,7 @@ const StyledButtonBox = styled.div``;
 
 const SelectDecoBox = styled.div`
   position: relative;
-  top: 85vh;
+
   overflow: hidden;
   height: 15vh;
   background-color: rgba(236, 236, 236, 0.5);
@@ -66,11 +63,12 @@ const DecoBox = styled.div`
   width: 10vh;
   height: 10vh;
   cursor: pointer;
+  pointer-events: stroke;
 `;
 
 const MsgBox = styled.div`
   position: absolute;
-  top: 20%;
+  bottom: 30%;
   display: flex;
   width: 100%;
   height: 50%;
@@ -79,8 +77,6 @@ const MsgBox = styled.div`
 `;
 
 const ButtonBox = styled.div`
-  position: absolute;
-  bottom: 2%;
   display: flex;
   width: 100%;
   text-align: center;
@@ -88,11 +84,22 @@ const ButtonBox = styled.div`
   justify-content: center;
 `;
 
+const StyledTopWrap = styled.div``;
+
+const StyledBottomWrap = styled.div``;
+
 const Steps = () => {
   const [step, setStep] = useState(0);
   const [lastBox, setLastBox] = useState(false);
 
   const decoColor = useRef<string | null>(null);
+
+  const doneStep = -1;
+  const selectDeco = 0;
+  const selectColor = 1;
+  const selectMsgColor = 2;
+  const writeMsg = 3;
+
   //const decoId = useRef<string | null>(null);
   const decoBox = useRef<HTMLDivElement>(null);
 
@@ -172,76 +179,15 @@ const Steps = () => {
 
   return (
     <>
-      {step === 3 || step === -1 ? null : (
-        <StateBar>{renderStateBoxes()}</StateBar>
-      )}
+      <StyledTopWrap>
+        <HeaderText Ref={null} />
 
-      <StyledButtonWrap>
-        <StyledButtonBox>
-          {step <= 0 ? null : (
-            <StepButton
-              text="< 이전"
-              step="decrease"
-              color={theme.colors['--primary-red-primary']}
-              view={[step, setStep]}
-              disabled={false}
-            />
-          )}
-        </StyledButtonBox>
+        {step === writeMsg || step === doneStep ? null : (
+          <StateBar>{renderStateBoxes()}</StateBar>
+        )}
+      </StyledTopWrap>
 
-        <StyledButtonBox>
-          {step >= 3 || step === -1 ? null : (
-            <StepButton
-              text="다음 >"
-              step="increase"
-              color={theme.colors['--primary-red-primary']}
-              view={[step, setStep]}
-              disabled={false}
-            />
-          )}
-        </StyledButtonBox>
-      </StyledButtonWrap>
-
-      {step === 0 || step === 1 || step === 2 ? (
-        <SelectDecoBox ref={decoBox}>
-          <SelectDeco>
-            {step === 0 ? (
-              <>
-                <DecoBox />
-                <DecoBox />
-                <DecoBox />
-                <DecoBox />
-                <DecoBox />
-                <DecoBox />
-                <DecoBox />
-                <DecoBox />
-                <DecoBox />
-              </>
-            ) : step === 1 ? (
-              <input
-                type="color"
-                onChange={e => {
-                  decoColor.current = e.target.value;
-                }}
-              />
-            ) : (
-              <>
-                <DecoBox />
-                <DecoBox />
-                <DecoBox />
-                <DecoBox />
-                <DecoBox />
-                <DecoBox />
-                <DecoBox />
-                <DecoBox />
-                <DecoBox />
-              </>
-            )}
-          </SelectDeco>
-        </SelectDecoBox>
-      ) : null}
-
-      {step === 3 ? (
+      {step === writeMsg ? (
         <MsgBox>
           <Msg
             key={1}
@@ -253,18 +199,81 @@ const Steps = () => {
         </MsgBox>
       ) : null}
 
-      {step === 3 ? (
-        <ButtonBox>
-          <PostButton
-            text="선물하기"
-            color={theme.colors['--primary-red-primary']}
-            view={[lastBox, setLastBox]}
-            visible={[step, setStep]}
-          />
-        </ButtonBox>
-      ) : null}
+      <StyledBottomWrap>
+        <StyledButtonWrap>
+          <StyledButtonBox>
+            {step <= selectDeco ? null : (
+              <StepButton
+                text="< 이전"
+                step="decrease"
+                color={theme.colors['--primary-red-primary']}
+                view={[step, setStep]}
+                disabled={false}
+              />
+            )}
+          </StyledButtonBox>
 
-      {step === -1 && lastBox === true ? (
+          <StyledButtonBox>
+            {step >= writeMsg || step === doneStep ? null : (
+              <StepButton
+                text="다음 >"
+                step="increase"
+                color={theme.colors['--primary-red-primary']}
+                view={[step, setStep]}
+                disabled={false}
+              />
+            )}
+          </StyledButtonBox>
+        </StyledButtonWrap>
+
+        {step === writeMsg ? (
+          <ButtonBox>
+            <PostButton
+              text="선물하기"
+              color={theme.colors['--primary-red-primary']}
+              view={[lastBox, setLastBox]}
+              visible={[step, setStep]}
+            />
+          </ButtonBox>
+        ) : null}
+
+        {step === selectDeco || step === selectColor || step === selectMsgColor ? (
+          <SelectDecoBox ref={decoBox}>
+            <SelectDeco>
+              {step === selectDeco ? (
+                <>
+                  <DecoBox />
+                  <DecoBox />
+                  <DecoBox />
+                  <DecoBox />
+                  <DecoBox />
+                  <DecoBox />
+                  <DecoBox />
+                  <DecoBox />
+                </>
+              ) : step === selectColor ? (
+                <input
+                  type="color"
+                  onChange={e => (decoColor.current = e.target.value)}
+                />
+              ) : (
+                <>
+                  <DecoBox />
+                  <DecoBox />
+                  <DecoBox />
+                  <DecoBox />
+                  <DecoBox />
+                  <DecoBox />
+                  <DecoBox />
+                  <DecoBox />
+                </>
+              )}
+            </SelectDeco>
+          </SelectDecoBox>
+        ) : null}
+      </StyledBottomWrap>
+
+      {step === doneStep && lastBox === true ? (
         <DecoEnroll
           visible={[step, setStep]}
           view={[lastBox, setLastBox]}

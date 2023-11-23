@@ -15,30 +15,36 @@ const Raycaster: React.FC<RaycasterProps> = ({ isClickedRef }) => {
   const isAnimating = useRef(false); // 유리 클릭한 시점 , 뒤로가기 버튼 누른 시점 === true // 카메라 업 다운 차이 기록
   const lastPosition = useRef<number>(0);
 
+  const zoomInSpeed = 0.99;
+  const zoomOutSpeed = 1.01;
+
   useFrame(() => {
     const isClicked = isClickedRef.current;
 
     if (isAnimating.current) {
-      if (isClicked) {
+      if (isClicked && !isZoom) {
         setView(true);
-
         if (camera.position.distanceTo(new THREE.Vector3(0, 0, 0)) > 7) {
-          camera.position.x = (camera.position.x - 0) * 0.9;
-          camera.position.y = (camera.position.y - 0) * 0.9;
-          camera.position.z = (camera.position.z - 0) * 0.9;
+          camera.position.x = (camera.position.x - 0) * zoomInSpeed;
+          camera.position.y = (camera.position.y - 0) * zoomInSpeed;
+          camera.position.z = (camera.position.z - 0) * zoomInSpeed;
         } else {
           isAnimating.current = false;
         }
       } else {
-        camera.position.set(10, 10, 10);
         isAnimating.current = false;
       }
     } else {
       if (view) {
         setIsZoom(true);
       } else if (isZoom && !view) {
-        camera.position.set(15, 10, 0);
-        // animation 구현 필요
+        if (camera.position.distanceTo(new THREE.Vector3(0, 0, 0)) < 15) {
+          camera.position.x = (camera.position.x + 0) * zoomOutSpeed;
+          camera.position.y = (camera.position.y + 0) * zoomOutSpeed;
+          camera.position.z = (camera.position.z + 0) * zoomOutSpeed;
+        } else {
+        setIsZoom(false);
+        }
       }
     }
   });
