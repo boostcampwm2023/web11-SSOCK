@@ -12,7 +12,6 @@ import {
 } from '@nestjs/common';
 import { MessageService } from './message.service';
 import { ReqCreateMessageDto } from './dto/request/req-create-message.dto';
-import { ReqDeleteMessageDto } from './dto/request/req-delete-message.dto';
 import {
   ApiBody,
   ApiTags,
@@ -22,7 +21,9 @@ import {
   ApiNotFoundResponse,
   ApiConflictResponse,
   ApiBadRequestResponse,
-  ApiInternalServerErrorResponse
+  ApiInternalServerErrorResponse,
+  ApiGoneResponse,
+  ApiUnauthorizedResponse
 } from '@nestjs/swagger';
 import { ResCreateMessageDto } from './dto/response/res-create-message.dto';
 import { MessageDto } from './dto/message.dto';
@@ -68,13 +69,21 @@ export class MessageController {
     summary: '메세지 삭제 API',
     description: '스노우볼에서 특정 메세지를 삭제합니다.'
   })
-  @ApiResponse({ status: 204, description: 'No Content' })
   @ApiResponse({
-    status: 500,
-    description: 'Delete Fail'
+    status: 204,
+    description: '해당 메시지가 성공적으로 지워졌음'
   })
-  async deleteMessage(@Param() deleteMessageDto: ReqDeleteMessageDto) {
-    await this.messageService.deleteMessage(deleteMessageDto);
+  @ApiGoneResponse({
+    description: '이미 삭제된 메시지입니다.'
+  })
+  @ApiUnauthorizedResponse({
+    description: '로그인이 필요합니다.'
+  })
+  async deleteMessage(
+    @Req() req: any,
+    @Param('message_id') message_id: number
+  ) {
+    await this.messageService.deleteMessage(req.user, message_id);
   }
 
   @UseGuards(JWTGuard)

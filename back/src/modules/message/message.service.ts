@@ -1,5 +1,7 @@
 import {
   ConflictException,
+  ForbiddenException,
+  GoneException,
   Injectable,
   InternalServerErrorException,
   NotFoundException
@@ -7,7 +9,6 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ReqCreateMessageDto } from './dto/request/req-create-message.dto';
-import { ReqDeleteMessageDto } from './dto/request/req-delete-message.dto';
 import { MessageEntity } from './entity/message.entity';
 import { UserEntity } from '../auth/entity/user.entity';
 import { ResCreateMessageDto } from './dto/response/res-create-message.dto';
@@ -44,8 +45,28 @@ export class MessageService {
 
     return resCreateMessage;
   }
-  async deleteMessage(deleteMessageDto: ReqDeleteMessageDto): Promise<void> {
-    await this.messageRepository.delete(deleteMessageDto.message_id);
+  async deleteMessage(user_id: number, message_id: number): Promise<void> {
+    try {
+      const message = await this.messageRepository.findOne({
+        where: { id: message_id }
+      });
+      if (message.user_id !== user_id) {
+        throw new ForbiddenException(
+          `${message_id} 메시지는 해당 유저의 메시지가 아닙니다.`
+        );
+      }
+      if (!message) {
+        throw new NotFoundException(
+          `${message_id} 메시지를 찾을 수 없었습니다.`
+        );
+      }
+      if (message.is_deleted) {
+        throw new GoneException(`${message_id}는 이미 삭제된 메시지입니다.`);
+      }
+      await this.messageRepository.update(message_id, { is_deleted: true });
+    } catch (err) {
+      throw new InternalServerErrorException('서버측 오류');
+    }
   }
 
   async getAllMessages(user_id: number): Promise<MessageDto[]> {
