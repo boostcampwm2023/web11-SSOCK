@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { MessageEntity } from './message.entity';
 
-@Entity()
+@Entity({ name: 'letter_prefix' })
 export class LetterEntity {
   @PrimaryGeneratedColumn()
   id: number;

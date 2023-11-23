@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { SnowballDecorationEntity } from './snowball-decoration.entity';
 
-@Entity()
+@Entity({ name: 'decoration_prefix' })
 export class DecorationPrefixEntity {
   @PrimaryGeneratedColumn()
   id: number;
