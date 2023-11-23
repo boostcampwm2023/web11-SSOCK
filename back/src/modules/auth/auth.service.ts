@@ -18,7 +18,7 @@ export class AuthService {
 
   async createInfo(user: any): Promise<ResInfoDto> {
     const jwt_token = this.generateJwtToken(user);
-    const userDto: UserDto = await this.createUserDto();
+    const userDto: UserDto = await this.createUserDto(user);
     const mainSnowballDto: SnowballDto =
       await this.snowballService.getSnowball(1);
 
@@ -31,8 +31,9 @@ export class AuthService {
     return resInfoDto;
   }
 
-  async createUserDto(): Promise<UserDto> {
+  async createUserDto(user:any): Promise<UserDto> {
     // To Do : 쿼리짜기..
+    console.log(user);
     return {
       id: 1,
       name: '김찬우',
