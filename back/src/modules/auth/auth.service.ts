@@ -39,17 +39,25 @@ export class AuthService {
       where: { user_id: user.id }
     });
 
-    let userId;
+    let userId: number,
+      snowball_count: number,
+      message_count: number,
+      snowball_list: { id: number; uuid: string }[],
+      main_snowball_id: number | null;
     if (exisitingUser) {
       userId = exisitingUser.id;
 
-      const snowballCount = await this.SnowballRepository.findAndCount({
+      const snowballs = await this.SnowballRepository.findAndCount({
         where: { user_id: userId }
       });
-      const snowballList = await this.SnowballRepository.find({
-        where: { user_id: userId }
+      snowball_count = snowballs[1];
+      snowball_list = snowballs[0].map(snowball => {
+        return {
+          id: snowball.id,
+          uuid: snowball.snowball_uuid
+        };
       });
-      console.log(snowballCount, snowballList);
+      main_snowball_id = snowballs[0][0].id;
     } else {
       const newUser: UserEntity = this.UserRepository.create({
         user_id: user.id,
@@ -60,14 +68,19 @@ export class AuthService {
 
       const saveduser = await this.UserRepository.insert(newUser);
       userId = saveduser.identifiers.pop().id;
+      snowball_count = 0;
+      message_count = 0;
+      snowball_list = [];
+      main_snowball_id = null;
     }
     const userDto: UserDto = {
       id: userId,
       name: user.name,
       auth_id: user.id,
-      snowball_count: 3,
-      snowball_list: [],
-      message_count: 123
+      snowball_count: snowball_count,
+      main_snowball_id: main_snowball_id,
+      snowball_list: snowball_list,
+      message_count: message_count
     };
     return userDto;
   }

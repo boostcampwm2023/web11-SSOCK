@@ -22,6 +22,10 @@ export class UserDto {
   @ApiProperty({ type: Number, description: '스노우볼 갯수' })
   readonly snowball_count: number;
 
+  @IsNumber()
+  @ApiProperty({ type: Number, description: '메인 스노우볼 id' })
+  readonly main_snowball_id: number;
+
   @IsNotEmpty()
   @ApiProperty({
     type: 'array',
