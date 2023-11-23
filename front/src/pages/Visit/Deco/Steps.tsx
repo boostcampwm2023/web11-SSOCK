@@ -229,7 +229,7 @@ const Steps = () => {
                 />
                 <p>장식 색상을 선택해주세요</p>
               </>
-            ) : null}{' '}
+            ) : null}
             {step === writeMsg ? (
               <ButtonBox>
                 <PostButton

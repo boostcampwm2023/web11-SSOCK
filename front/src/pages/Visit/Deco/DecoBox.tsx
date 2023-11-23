@@ -39,7 +39,7 @@ const DecoImgs = (folder: string) => {
             src={`/modelsPng/${folder}/${img}`}
             alt="deco"
             onClick={() => setDecoID(index)}
-          ></StyledImg>
+          />
         </StyledBox>
       ))
     : MSG_COLOR.map(({ color }, index) => (
@@ -47,7 +47,7 @@ const DecoImgs = (folder: string) => {
           key={color}
           color={color}
           onClick={() => setLetterID(index)}
-        ></StyledColorBox>
+        />
       ));
 };
 
