@@ -15,10 +15,7 @@ const StyledHeader = styled.div`
 
   display: flex;
   justify-content: center;
-  height: 5rem;
   text-align: center;
-
-  padding-top: 5%;
 
   @keyframes fadeInUp1 {
     from {
@@ -32,11 +29,9 @@ const StyledHeader = styled.div`
   }
 `;
 
-
-
 const StyledUser = styled.span`
   color: ${theme.colors['--nick-name']};
-  font-size: 20px;
+  font-size: 1.5rem;
 `;
 
 const HeaderText = (props: HeaderProps) => {
