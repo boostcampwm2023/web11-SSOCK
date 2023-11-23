@@ -32,7 +32,7 @@ const StyledLoginBox = styled.div`
   animation: fadeInUp 0.5s forwards;
   pointer-events: all;
   z-index: 1;
-  
+
 
   @keyframes fadeInUp {
     from {
@@ -106,8 +106,6 @@ const validLogin = (
   props: SocialLogin,
   setValid: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
-  // valid 체크!
-  console.log(props.social);
   setValid(true);
 };
 

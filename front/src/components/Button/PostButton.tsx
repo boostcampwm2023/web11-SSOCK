@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 import theme from '../../utils/theme';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { DecoContext } from '../../pages/Visit/Deco/DecoProvider';
 import { SnowBallContext } from '../../pages/Visit/SnowBallProvider';
 
-interface ButtonColor {
+interface PostButtonProps {
   color: string;
 }
 
@@ -13,10 +13,9 @@ interface ButtonProps {
   color: string;
   view: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
   visible: [number, React.Dispatch<React.SetStateAction<number>>];
-  disabled?: boolean;
 }
 
-const StyledButton = styled.button<ButtonColor>`
+const StyledButton = styled.button<PostButtonProps>`
   background-color: ${props => props.color};
   font: ${theme.font['--normal-button-font']};
   border-radius: 10px;
@@ -32,11 +31,27 @@ const StyledButton = styled.button<ButtonColor>`
   }
 `;
 
+const PostButtonWrap = styled.div``;
+
+const StyledAlert = styled.div`
+  color: ${theme.colors['--white-primary']};
+  padding-bottom: 1rem;
+  font: ${theme.font['--normal-introduce-font']};
+`;
+
 const PostButton = (props: ButtonProps) => {
   const { color, decoID, letterID, content, sender } = useContext(DecoContext);
   const { data, setData } = useContext(SnowBallContext);
+
+  const [ alert, setAlert ] = useState(false);
+
+
   const ClickedPost = () => {
-    console.log(color, decoID, letterID, content, sender);
+    if (content === '' || sender === '') {
+      setAlert(true);
+      return ;
+    };
+
     props.view[1](!props.view[0]);
     props.visible[1](-1);
     const newData = data;
@@ -53,13 +68,17 @@ const PostButton = (props: ButtonProps) => {
   };
 
   return (
+    <>
+    <PostButtonWrap>
+    { alert ? (<StyledAlert>내용과 이름을 입력해주세요 !</StyledAlert>) : null}
     <StyledButton
       color={props.color}
       onClick={ClickedPost}
-      disabled={props.disabled}
     >
       {props.text}
     </StyledButton>
+    </PostButtonWrap>
+    </>
   );
 };
 

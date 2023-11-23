@@ -106,7 +106,7 @@ const StyledTextArea = styled.textarea`
 `;
 
 const StyledFromInput = styled.input`
-  width: 40%;
+  width: 55%;
   outline: none;
   border: none;
   background-color: transparent;
@@ -156,11 +156,14 @@ const Msg = (props: MsgProps) => {
           From.
           {props.isInput ? (
             <StyledFromInput
-              defaultValue={'김부캠'}
+              placeholder="이름입력"
               onFocus={e => {
                 e.target.value = '';
               }}
               onChange={e => {
+                if (e.target.value.length > 8) {
+                  e.target.value = e.target.value.substring(0, 8);
+                }
                 setSender(e.target.value);
               }}
             />

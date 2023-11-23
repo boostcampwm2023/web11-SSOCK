@@ -47,7 +47,6 @@ const Main = () => {
       setSearchParams(searchParams);
     }
 
-    console.log(`fetch ${searchParams.get('snowball')}`); // fetch snowball
   }, [searchParams, setSearchParams, navigate, snowballIdx]);
 
   const moveSnowball = (where: 'prev' | 'next') => {

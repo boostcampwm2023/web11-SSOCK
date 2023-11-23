@@ -33,7 +33,6 @@ const Deco = ({
       child.userData.message = message;
       child.userData.sender = sender;
       child.userData.color = color;
-      console.log('aaaaa', letterID);
       child.userData.letterColor = MSG_COLOR[letterID].color;
 
       child.castShadow = true;
