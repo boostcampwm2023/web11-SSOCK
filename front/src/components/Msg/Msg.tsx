@@ -48,7 +48,6 @@ const StyledFromBox = styled(StyledLetterPerson)`
 `;
 
 const StyledFrom = styled.span`
-
   color: ${theme.colors['--primary-redp-variant']};
 `;
 
@@ -58,30 +57,38 @@ const StyledInputBox = styled.div`
 `;
 
 const StyledTextArea = styled.textarea`
-  width: 100%;       /* 너비를 100%로 설정 */
-
+  width: 100%; /* 너비를 100%로 설정 */
+  outline: none;
   border: none;
   background-color: transparent;
   color: ${theme.colors['--white-primary']};
   font-size: 1rem;
   font-weight: 700;
-  outline: none;
-  line-height: 2em;  /* 줄 간격 설정, 10줄에 맞게 조절 필요 */
-  overflow: auto;    /* 내용이 많아질 경우 스크롤바 표시 */
-  resize: none;      /* 사용자가 크기를 조정하지 못하게 함 */
-
-
-  pointer-events: stroke;
+  line-height: 2rem;
+  white-space: pre-wrap;
+  resize: none; /* 사용자가 크기를 조정하지 못하게 함 */
 
   /* 각 줄마다 밑줄을 추가하는 배경 설정 */
-  background-image: linear-gradient(to bottom, transparent 1.9em, ${theme.colors['--white-primary']} 1.9em);
-  background-size: 100% 2em;
+  /* background-image: linear-gradient(
+    to bottom,
+    transparent 1.9rem,
+    ${theme.colors['--white-primary']} 2rem
+  );
+  background-size: 100% 2rem; */
 
-  &::placeholder {
+  background-attachment: local;
+  background-image: repeating-linear-gradient(
+    #00000000,
+    #00000000 1.8rem,
+    #ccc 1.8rem,
+    #ccc 1.9rem,
+    #00000000 2rem
+  );
+  /* &::placeholder {
     color: gray;
     font-size: 1rem;
     font-weight: 700;
-  }
+  } */
 
   /* 스크롤바 숨김 처리 */
   /* 크롬, 사파리, 기타 웹킷 기반 브라우저 */
@@ -102,7 +109,7 @@ const StyledFromInput = styled.input`
   border: none;
   background-color: transparent;
   color: ${theme.colors['--nick-name']};
-  font-size: 1.0rem;
+  font-size: 1rem;
   font-weight: 700;
   pointer-events: stroke;
 `;
@@ -114,6 +121,9 @@ const Msg = (props: MsgProps) => {
 
   const wordLength = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const text = e.target;
+    text.style.height = '1px';
+    text.style.height = text.scrollHeight + 'px';
+    console.log(text.scrollHeight);
     if (text.value.length > maxWordCount) {
       text.value = text.value.substring(0, maxWordCount);
     }
@@ -128,7 +138,11 @@ const Msg = (props: MsgProps) => {
 
       {props.isInput ? (
         <StyledInputBox>
-          <StyledTextArea onChange={wordLength} rows={5} placeholder="편지를 작성해주세요." />
+          <StyledTextArea
+            rows={1}
+            onChange={wordLength}
+            placeholder="편지를 작성해주세요."
+          />
         </StyledInputBox>
       ) : (
         <StyledLetterContent>{props.content}</StyledLetterContent>
