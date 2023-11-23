@@ -21,7 +21,7 @@ export function setupSwagger(app: INestApplication): void {
       type: 'oauth2',
       flows: {
         authorizationCode: {
-          authorizationUrl: 'http://www.mysnowball.kr/auth/google',
+          authorizationUrl: 'http://www.mysnowball.kr/api/auth/google',
           scopes: {
             profile: 'profile'
           }
