@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const StyledMusic = styled.img`
   position: fixed;
-  top: 7rem;
+  top: 9rem;
   height: 1.6rem;
   margin-left: 0.8rem;
   filter: invert(100%) sepia(82%) saturate(2%) hue-rotate(196deg)

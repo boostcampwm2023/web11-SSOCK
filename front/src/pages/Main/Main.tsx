@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { SnowGlobeCanvas } from '../../components';
@@ -9,6 +9,17 @@ const StyledLeft = styled.img`
   position: fixed;
   top: 50%;
   height: 4rem;
+
+  @keyframes fadeInUp1 {
+    from {
+      opacity: 1;
+      transform: translate(0, 0);
+    }
+    to {
+      opacity: 0;
+      transform: translate(0, -100%);
+    }
+  }
 `;
 
 const StyledRight = styled(StyledLeft)`
@@ -20,6 +31,10 @@ const Main = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const allSnowballIdx = 5; // fetch 필요
   const [snowballIdx, setSnowballIdx] = useState(1);
+
+
+  const leftArrowRef = useRef<HTMLImageElement>(null);
+  const rightArrowRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
     if (
@@ -48,20 +63,20 @@ const Main = () => {
 
       <UIContainer>
         {snowballIdx > 1 ? (
-          <StyledLeft
+          <StyledLeft ref={leftArrowRef}
             src={'/icons/prev.svg'}
             onClick={() => moveSnowball('prev')}
           />
         ) : null}
 
         {snowballIdx < allSnowballIdx ? (
-          <StyledRight
+          <StyledRight ref={rightArrowRef}
             src={'/icons/next.svg'}
             onClick={() => moveSnowball('next')}
           />
         ) : null}
 
-        <MainButtonBox />
+        <MainButtonBox leftArrow={leftArrowRef} rightArrow={rightArrowRef}/>
       </UIContainer>
     </>
   );

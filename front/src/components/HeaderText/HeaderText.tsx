@@ -23,11 +23,11 @@ const StyledHeader = styled.div`
   @keyframes fadeInUp1 {
     from {
       opacity: 1;
-      transform: translate(-50%, 0);
+      transform: translate(0, 0);
     }
     to {
       opacity: 0;
-      transform: translate(-50%, -100%);
+      transform: translate(0, -100%);
     }
   }
 `;
