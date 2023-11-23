@@ -3,7 +3,7 @@ import { NavigateFunction, useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import theme from '../../../utils/theme';
 
-interface LoginProps {
+interface NaviProps {
   visible: [number, React.Dispatch<React.SetStateAction<number>>];
   view: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
 }
@@ -17,7 +17,7 @@ const StyledBody = styled.div`
   pointer-events: all;
 `;
 
-const StyledLoginBox = styled.div`
+const StyledNaviBox = styled.div`
   background-color: ${theme.colors['--primary-black']};
   position: absolute;
   bottom: 0;
@@ -32,6 +32,10 @@ const StyledLoginBox = styled.div`
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   animation: fadeInUp 0.5s forwards;
+
+  pointer-events: all;
+  z-index: 1;
+
 
   @media (min-width: ${theme.size['--desktop-min-width']}) {
     width: ${theme.size['--desktop-width']};
@@ -60,18 +64,60 @@ const StyledLoginBox = styled.div`
   }
 `;
 
-const CloseLogin = (
-  props: LoginProps,
+const ButtonWrap = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+`;
+
+const StyledNavButton = styled.button`
+  height: 3rem;
+  width : 66%;
+  height : 4rem;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: ${theme.colors['--white-primary']};
+  background-color: ${props => props.color};
+  border : 1px solid ${theme.colors['--white-primary']};
+`;
+
+const StyeldButtonText = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  font: ${theme.font['--normal-button-font']};
+  justify-content: center;
+`;
+
+const StyledImgIcon = styled.img`
+  width: 3rem;
+`;
+
+const EmptyDiv = styled.div`
+  width: 3rem;
+`;
+
+
+const CloseNav = (
+  props: NaviProps,
   closeRef: React.RefObject<HTMLDivElement>,
   setIsFocus: React.Dispatch<React.SetStateAction<boolean>>,
   navigate: NavigateFunction,
-  user: string | undefined
+  user: string | undefined,
+  flag: string
 ) => {
   const onAnimationEnd = () => {
     if (closeRef.current) {
       setIsFocus(false);
       props.view[1](!props.view[0]);
       closeRef.current.removeEventListener('animationend', onAnimationEnd);
+      if (flag === "root") {
+        navigate(`/`);
+        return ;
+      }
       navigate(`/visit/${user}`);
     }
   };
@@ -85,17 +131,34 @@ const CloseLogin = (
   }
 };
 
-const DecoEnroll = (props: LoginProps) => {
+const DecoEnroll = (props: NaviProps) => {
   const [isFocus, setIsFocus] = useState(true);
   const closeRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
   const { user } = useParams();
   return (
-    <StyledBody
-      onClick={() => CloseLogin(props, closeRef, setIsFocus, navigate, user)}
-    >
-      {isFocus ? <StyledLoginBox ref={closeRef}></StyledLoginBox> : null}
-    </StyledBody>
+    <>
+    <StyledBody onClick={() => CloseNav(props, closeRef, setIsFocus, navigate, user, "close")} />
+      {isFocus ? 
+      <StyledNaviBox ref={closeRef}>
+        <ButtonWrap>
+        <StyledNavButton color={theme.colors['--primary-red-primary']} onClick={() => CloseNav(props, closeRef, setIsFocus, navigate, user, "root")}>
+          <StyeldButtonText>
+            <StyledImgIcon src="/icons/snowGlobeButton.png" alt="snowGlobe" />
+            내 스노우볼 만들러 가기</StyeldButtonText>
+            <EmptyDiv />
+          </StyledNavButton>
+        </ButtonWrap>
+
+        <ButtonWrap>
+        <StyledNavButton color={theme.colors['--primary-green-primary']} onClick={() => CloseNav(props, closeRef, setIsFocus, navigate, user, "close")}>
+        <StyeldButtonText>
+          닫기
+          </StyeldButtonText>
+          </StyledNavButton>
+          </ButtonWrap>
+      </StyledNaviBox> : null}
+    </>
   );
 };
 
