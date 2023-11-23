@@ -110,13 +110,14 @@ const StyledFromInput = styled.input`
 const Msg = (props: MsgProps) => {
   const userName = mock.user_name;
   const [wordCount, setWordCount] = useState(0);
+  const maxWordCount = 500;
 
   const wordLength = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const text = e.target.value;
-    if (text.length > 500) {
-      e.target.value = text.substring(0, 500);
+    const text = e.target;
+    if (text.value.length > maxWordCount) {
+      text.value = text.value.substring(0, maxWordCount);
     }
-    setWordCount(e.target.value.length);
+    setWordCount(text.value.length);
   };
 
   return (
