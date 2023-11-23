@@ -1,19 +1,13 @@
 import { useState, useRef } from 'react';
 import styled from 'styled-components';
-import theme from '../../utils/theme';
 import MenuModal from './MenuModal';
 import ListMsg from './ListMsg';
 import { HeaderText } from '../../components';
 
 const StyledMenu = styled.img`
-  position: absolute;
-  top: 4%;
-  right: 4%;
-
-  @media (min-width: ${theme.size['--desktop-min-width']}) {
-    left: 50%;
-    margin-left: 450px;
-  }
+  position: fixed;
+  top: 3.5rem;
+  right: 0.8rem;
 
   @keyframes fadeInUp2 {
     from {
@@ -29,14 +23,8 @@ const StyledMenu = styled.img`
 
 const StyledScreen = styled.img`
   position: absolute;
-  bottom: 5%;
-  margin-left: 4%;
-
-  @media (min-width: ${theme.size['--desktop-min-width']}) {
-    margin-left: 0;
-    right: 50%;
-    margin-right: 450px;
-  }
+  bottom: 2rem;
+  margin-left: 0.8rem;
 
   @keyframes fadeInDown {
     from {
@@ -45,20 +33,15 @@ const StyledScreen = styled.img`
     }
     to {
       opacity: 0;
-      transform: translate(0, 5%);
+      transform: translate(0, 2rem);
     }
   }
 `;
 
 const StyledShareLink = styled.img`
   position: absolute;
-  bottom: 5%;
-  right: 4%;
-
-  @media (min-width: ${theme.size['--desktop-min-width']}) {
-    left: 50%;
-    margin-left: 450px;
-  }
+  bottom: 2rem;
+  right: 0.8rem;
 
   @keyframes fadeInDown {
     from {
@@ -67,7 +50,7 @@ const StyledShareLink = styled.img`
     }
     to {
       opacity: 0;
-      transform: translate(0, 5%);
+      transform: translate(0, 2rem);
     }
   }
 `;

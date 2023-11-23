@@ -1,29 +1,18 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
-import theme from '../../utils/theme';
 import { SnowGlobeCanvas } from '../../components';
 import MainButtonBox from './MainButtonBox';
+import { UIContainer } from '../../components/UIContainer';
 
 const StyledLeft = styled.img`
-  position: absolute;
+  position: fixed;
   top: 50%;
-  height: 10%;
-
-  @media (min-width: ${theme.size['--desktop-min-width']}) {
-    margin-left: 0;
-    right: 50%;
-    margin-right: 450px;
-  }
+  height: 4rem;
 `;
 
 const StyledRight = styled(StyledLeft)`
   right: 0;
-
-  @media (min-width: ${theme.size['--desktop-min-width']}) {
-    left: 50%;
-    margin-left: 450px;
-  }
 `;
 
 const Main = () => {
@@ -57,21 +46,23 @@ const Main = () => {
     <>
       <SnowGlobeCanvas />
 
-      {snowballIdx > 1 ? (
-        <StyledLeft
-          src={'/icons/prev.svg'}
-          onClick={() => moveSnowball('prev')}
-        />
-      ) : null}
+      <UIContainer>
+        {snowballIdx > 1 ? (
+          <StyledLeft
+            src={'/icons/prev.svg'}
+            onClick={() => moveSnowball('prev')}
+          />
+        ) : null}
 
-      {snowballIdx < allSnowballIdx ? (
-        <StyledRight
-          src={'/icons/next.svg'}
-          onClick={() => moveSnowball('next')}
-        />
-      ) : null}
+        {snowballIdx < allSnowballIdx ? (
+          <StyledRight
+            src={'/icons/next.svg'}
+            onClick={() => moveSnowball('next')}
+          />
+        ) : null}
 
-      <MainButtonBox />
+        <MainButtonBox />
+      </UIContainer>
     </>
   );
 };

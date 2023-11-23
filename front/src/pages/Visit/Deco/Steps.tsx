@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { StepButton, PostButton } from '../../../components';
 import theme from '../../../utils/theme';
 import styled from 'styled-components';
@@ -7,7 +7,7 @@ import DecoEnroll from './DecoEnroll';
 import { HeaderText } from '../../../components';
 
 const StateBar = styled.div`
-  margin-top: 13%;
+  margin-top: 10%;
   display: flex;
   width: 100%;
   height: 40px;
@@ -39,10 +39,18 @@ const StyledButtonWrap = styled.div`
 const StyledButtonBox = styled.div``;
 
 const SelectDecoBox = styled.div`
-  display: flex;
-  width: 100%;
-  height: 100%;
+  position: relative;
+
+  overflow: hidden;
+  height: 15vh;
   background-color: rgba(236, 236, 236, 0.5);
+`;
+
+const SelectDeco = styled.div`
+  position: absolute;
+  bottom: 0;
+  height: inherit;
+  display: flex;
   align-items: center;
   justify-content: center;
   gap: 18px;
@@ -52,8 +60,8 @@ const DecoBox = styled.div`
   border-radius: 50%;
   border: 3px solid white;
   background-color: ${theme.colors['--black-primary']};
-  width: 100px;
-  height: 100px;
+  width: 10vh;
+  height: 10vh;
   cursor: pointer;
   pointer-events: stroke;
 `;
@@ -78,9 +86,7 @@ const ButtonBox = styled.div`
 
 const StyledTopWrap = styled.div``;
 
-const StyledBottomWrap = styled.div`
-  height: 15%;
-`;
+const StyledBottomWrap = styled.div``;
 
 const Steps = () => {
   const [step, setStep] = useState(0);
@@ -94,6 +100,69 @@ const Steps = () => {
   const selectMsgColor = 2;
   const writeMsg = 3;
 
+  //const decoId = useRef<string | null>(null);
+  const decoBox = useRef<HTMLDivElement>(null);
+
+  const [isDecoBoxClicked, setIsDecoBoxClicked] = useState(false);
+  const [startClickedX, setStartClickedX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
+
+  const mouseDown = (event: MouseEvent) => {
+    setIsDecoBoxClicked(true);
+    setStartClickedX(event.pageX - decoBox.current!.offsetLeft);
+    setScrollLeft(decoBox.current!.scrollLeft);
+  };
+
+  const touchDown = (event: TouchEvent) => {
+    setIsDecoBoxClicked(true);
+    setStartClickedX(event.touches[0].pageX - decoBox.current!.offsetLeft);
+    setScrollLeft(decoBox.current!.scrollLeft);
+  };
+
+  const leave = () => setIsDecoBoxClicked(false);
+  const up = () => setIsDecoBoxClicked(false);
+
+  const mouseMove = (event: MouseEvent) => {
+    if (!isDecoBoxClicked) return;
+    event.preventDefault();
+    const nowX = event.pageX - decoBox.current!.offsetLeft;
+    const move = nowX - startClickedX;
+    decoBox.current!.scrollLeft = scrollLeft - move;
+  };
+
+  const touchMove = (event: TouchEvent) => {
+    if (!isDecoBoxClicked) return;
+    event.preventDefault();
+    const nowX = event.touches[0].pageX - decoBox.current!.offsetLeft;
+    const move = nowX - startClickedX;
+    decoBox.current!.scrollLeft = scrollLeft - move;
+  };
+
+  useEffect(() => {
+    if (decoBox.current) {
+      const decoBoxRef = decoBox.current;
+
+      decoBoxRef.addEventListener('mousedown', mouseDown);
+      decoBoxRef.addEventListener('mouseleave', leave);
+      decoBoxRef.addEventListener('mouseup', up);
+      decoBoxRef.addEventListener('mousemove', mouseMove);
+
+      decoBoxRef.addEventListener('touchstart', touchDown);
+      decoBoxRef.addEventListener('touchend', up);
+      decoBoxRef.addEventListener('touchmove', touchMove);
+    }
+
+    return () => {
+      decoBox.current!.removeEventListener('mousedown', mouseDown);
+      decoBox.current!.removeEventListener('mouseleave', leave);
+      decoBox.current!.removeEventListener('mouseup', up);
+      decoBox.current!.removeEventListener('mousemove', mouseMove);
+
+      decoBox.current!.removeEventListener('touchstart', touchDown);
+      decoBox.current!.removeEventListener('touchend', up);
+      decoBox.current!.removeEventListener('touchmove', touchMove);
+    };
+  }, [isDecoBoxClicked]);
 
   const renderStateBoxes = () => {
     const boxes = [];
@@ -110,12 +179,12 @@ const Steps = () => {
 
   return (
     <>
-    <StyledTopWrap>
-      <HeaderText Ref={null} />
+      <StyledTopWrap>
+        <HeaderText Ref={null} />
 
-      {step === writeMsg || step === doneStep ? null : (
-        <StateBar>{renderStateBoxes()}</StateBar>
-      )}
+        {step === writeMsg || step === doneStep ? null : (
+          <StateBar>{renderStateBoxes()}</StateBar>
+        )}
       </StyledTopWrap>
 
       {step === writeMsg ? (
@@ -131,82 +200,77 @@ const Steps = () => {
       ) : null}
 
       <StyledBottomWrap>
-      <StyledButtonWrap>
-        <StyledButtonBox>
-          {step <= selectDeco ? null : (
-            <StepButton
-              text="< 이전"
-              step="decrease"
+        <StyledButtonWrap>
+          <StyledButtonBox>
+            {step <= selectDeco ? null : (
+              <StepButton
+                text="< 이전"
+                step="decrease"
+                color={theme.colors['--primary-red-primary']}
+                view={[step, setStep]}
+                disabled={false}
+              />
+            )}
+          </StyledButtonBox>
+
+          <StyledButtonBox>
+            {step >= writeMsg || step === doneStep ? null : (
+              <StepButton
+                text="다음 >"
+                step="increase"
+                color={theme.colors['--primary-red-primary']}
+                view={[step, setStep]}
+                disabled={false}
+              />
+            )}
+          </StyledButtonBox>
+        </StyledButtonWrap>
+
+        {step === writeMsg ? (
+          <ButtonBox>
+            <PostButton
+              text="선물하기"
               color={theme.colors['--primary-red-primary']}
-              view={[step, setStep]}
-              disabled={false}
+              view={[lastBox, setLastBox]}
+              visible={[step, setStep]}
             />
-          )}
-        </StyledButtonBox>
+          </ButtonBox>
+        ) : null}
 
-        <StyledButtonBox>
-          {step >= writeMsg || step === doneStep ? null : (
-            <StepButton
-              text="다음 >"
-              step="increase"
-              color={theme.colors['--primary-red-primary']}
-              view={[step, setStep]}
-              disabled={false}
-            />
-          )}
-        </StyledButtonBox>
-      </StyledButtonWrap>
-
-      {step === writeMsg ? (
-        <ButtonBox>
-          <PostButton
-            text="선물하기"
-            color={theme.colors['--primary-red-primary']}
-            view={[lastBox, setLastBox]}
-            visible={[step, setStep]}
-          />
-        </ButtonBox>
-      ) : null}
-
-      {step === selectDeco ? (
-        <SelectDecoBox>
-          <DecoBox />
-          <DecoBox />
-          <DecoBox />
-          <DecoBox />
-          <DecoBox />
-          <DecoBox />
-          <DecoBox />
-          <DecoBox />
-          <DecoBox />
-        </SelectDecoBox>
-      ) : null}
-
-      {step === selectColor ? (
-        <SelectDecoBox>
-          <input
-            type="color"
-            onChange={e => {
-              decoColor.current = e.target.value;
-            }}
-            style={{ pointerEvents: 'stroke' }}
-          />
-        </SelectDecoBox>
-      ) : null}
-
-      {step === selectMsgColor ? (
-        <SelectDecoBox>
-          <DecoBox />
-          <DecoBox />
-          <DecoBox />
-          <DecoBox />
-          <DecoBox />
-          <DecoBox />
-          <DecoBox />
-          <DecoBox />
-          <DecoBox />
-        </SelectDecoBox>
-      ) : null}
+        {step === selectDeco || step === selectColor || step === selectMsgColor ? (
+          <SelectDecoBox ref={decoBox}>
+            <SelectDeco>
+              {step === selectDeco ? (
+                <>
+                  <DecoBox />
+                  <DecoBox />
+                  <DecoBox />
+                  <DecoBox />
+                  <DecoBox />
+                  <DecoBox />
+                  <DecoBox />
+                  <DecoBox />
+                </>
+              ) : step === selectColor ? (
+                <input
+                  type="color"
+                  onChange={e => (decoColor.current = e.target.value)}
+                />
+              ) : (
+                <>
+                  <DecoBox />
+                  <DecoBox />
+                  <DecoBox />
+                  <DecoBox />
+                  <DecoBox />
+                  <DecoBox />
+                  <DecoBox />
+                  <DecoBox />
+                </>
+              )}
+            </SelectDeco>
+          </SelectDecoBox>
+        ) : null}
       </StyledBottomWrap>
 
       {step === doneStep && lastBox === true ? (
