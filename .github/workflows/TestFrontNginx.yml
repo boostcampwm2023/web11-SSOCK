@@ -9,26 +9,32 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '18'
-
-    - name: Install dependencies and build
-      run: |
-        npm install
-        npm run build
-
-    - name: Deploy to server
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.SERVER_HOST }}
-        username: ${{ secrets.SSH_USERNAME }}
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
-        script: |
-          sudo cp -r ./build /usr/share/nginx/html
+    steps: 
+      - uses: actions/checkout@v3
+  
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18'
+          
+      - name: Check Node v
+        run: node -v
+  
+      - name: Install dependencies
+        working-directory: ./front
+        run: npm install
+  
+      - name: Generate build
+        working-directory: ./front
+        run: npm run build
+  
+  
+      - name: Deploy to server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            echo ${{ secrets.SERVER_PASSWORD }} | sudo -S rm -rf /usr/share/nginx/html && sudo cp -r ./front/dist /usr/share/nginx/html
+            
