@@ -88,6 +88,12 @@ const Steps = () => {
 
   const decoColor = useRef<string | null>(null);
 
+  const doneStep = -1;
+  const selectDeco = 0;
+  const selectColor = 1;
+  const selectMsgColor = 2;
+  const writeMsg = 3;
+
 
   const renderStateBoxes = () => {
     const boxes = [];
@@ -107,12 +113,12 @@ const Steps = () => {
     <StyledTopWrap>
       <HeaderText Ref={null} />
 
-      {step === 3 || step === -1 ? null : (
+      {step === writeMsg || step === doneStep ? null : (
         <StateBar>{renderStateBoxes()}</StateBar>
       )}
       </StyledTopWrap>
 
-      {step === 3 ? (
+      {step === writeMsg ? (
         <MsgBox>
           <Msg
             key={1}
@@ -127,7 +133,7 @@ const Steps = () => {
       <StyledBottomWrap>
       <StyledButtonWrap>
         <StyledButtonBox>
-          {step <= 0 ? null : (
+          {step <= selectDeco ? null : (
             <StepButton
               text="< 이전"
               step="decrease"
@@ -139,7 +145,7 @@ const Steps = () => {
         </StyledButtonBox>
 
         <StyledButtonBox>
-          {step >= 3 || step === -1 ? null : (
+          {step >= writeMsg || step === doneStep ? null : (
             <StepButton
               text="다음 >"
               step="increase"
@@ -151,7 +157,7 @@ const Steps = () => {
         </StyledButtonBox>
       </StyledButtonWrap>
 
-      {step === 3 ? (
+      {step === writeMsg ? (
         <ButtonBox>
           <PostButton
             text="선물하기"
@@ -162,7 +168,7 @@ const Steps = () => {
         </ButtonBox>
       ) : null}
 
-      {step === 0 ? (
+      {step === selectDeco ? (
         <SelectDecoBox>
           <DecoBox />
           <DecoBox />
@@ -176,7 +182,7 @@ const Steps = () => {
         </SelectDecoBox>
       ) : null}
 
-      {step === 1 ? (
+      {step === selectColor ? (
         <SelectDecoBox>
           <input
             type="color"
@@ -188,7 +194,7 @@ const Steps = () => {
         </SelectDecoBox>
       ) : null}
 
-      {step === 2 ? (
+      {step === selectMsgColor ? (
         <SelectDecoBox>
           <DecoBox />
           <DecoBox />
@@ -203,7 +209,7 @@ const Steps = () => {
       ) : null}
       </StyledBottomWrap>
 
-      {step === -1 && lastBox === true ? (
+      {step === doneStep && lastBox === true ? (
         <DecoEnroll
           visible={[step, setStep]}
           view={[lastBox, setLastBox]}

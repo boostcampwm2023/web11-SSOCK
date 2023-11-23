@@ -15,6 +15,9 @@ const Raycaster: React.FC<RaycasterProps> = ({ isClickedRef }) => {
   const isAnimating = useRef(false); // 유리 클릭한 시점 , 뒤로가기 버튼 누른 시점 === true // 카메라 업 다운 차이 기록
   const lastPosition = useRef<number>(0);
 
+  const zoomInSpeed = 0.99;
+  const zoomOutSpeed = 1.01;
+
   useFrame(() => {
     const isClicked = isClickedRef.current;
 
@@ -23,9 +26,9 @@ const Raycaster: React.FC<RaycasterProps> = ({ isClickedRef }) => {
         setView(true);
 
         if (camera.position.distanceTo(new THREE.Vector3(0, 0, 0)) > 7) {
-          camera.position.x = (camera.position.x - 0) * 0.99;
-          camera.position.y = (camera.position.y - 0) * 0.99;
-          camera.position.z = (camera.position.z - 0) * 0.99;
+          camera.position.x = (camera.position.x - 0) * zoomInSpeed;
+          camera.position.y = (camera.position.y - 0) * zoomInSpeed;
+          camera.position.z = (camera.position.z - 0) * zoomInSpeed;
         } else {
           isAnimating.current = false;
         }
@@ -38,9 +41,9 @@ const Raycaster: React.FC<RaycasterProps> = ({ isClickedRef }) => {
         setIsZoom(true);
       } else if (isZoom && !view) {
         if (camera.position.distanceTo(new THREE.Vector3(0, 0, 0)) < 15) {
-          camera.position.x = (camera.position.x + 0) * 1.01;
-          camera.position.y = (camera.position.y + 0) * 1.01;
-          camera.position.z = (camera.position.z + 0) * 1.01;
+          camera.position.x = (camera.position.x + 0) * zoomOutSpeed;
+          camera.position.y = (camera.position.y + 0) * zoomOutSpeed;
+          camera.position.z = (camera.position.z + 0) * zoomOutSpeed;
         } else {
         setIsZoom(false);
         isAnimating.current = false;
