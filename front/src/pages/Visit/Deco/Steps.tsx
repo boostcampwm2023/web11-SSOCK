@@ -153,14 +153,14 @@ const Steps = () => {
     }
 
     return () => {
-      decoBox.current!.removeEventListener('mousedown', mouseDown);
-      decoBox.current!.removeEventListener('mouseleave', leave);
-      decoBox.current!.removeEventListener('mouseup', up);
-      decoBox.current!.removeEventListener('mousemove', mouseMove);
+      decoBox.current?.removeEventListener('mousedown', mouseDown);
+      decoBox.current?.removeEventListener('mouseleave', leave);
+      decoBox.current?.removeEventListener('mouseup', up);
+      decoBox.current?.removeEventListener('mousemove', mouseMove);
 
-      decoBox.current!.removeEventListener('touchstart', touchDown);
-      decoBox.current!.removeEventListener('touchend', up);
-      decoBox.current!.removeEventListener('touchmove', touchMove);
+      decoBox.current?.removeEventListener('touchstart', touchDown);
+      decoBox.current?.removeEventListener('touchend', up);
+      decoBox.current?.removeEventListener('touchmove', touchMove);
     };
   }, [isDecoBoxClicked]);
 
