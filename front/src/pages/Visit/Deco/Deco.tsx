@@ -7,14 +7,13 @@ import { UIContainer } from '../../../components/UIContainer';
 const Deco = () => {
   return (
     <>
-    <DecoProvider>
-      <DecoCavnas />
+      <DecoProvider>
+        <DecoCavnas />
 
-
-      <UIContainer>
-      <Steps />
-      </UIContainer>
-      <Prev set={null} />
+        <UIContainer>
+          <Steps />
+        </UIContainer>
+        <Prev set={null} />
       </DecoProvider>
     </>
   );
