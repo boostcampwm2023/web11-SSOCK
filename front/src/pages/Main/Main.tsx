@@ -32,7 +32,6 @@ const Main = () => {
   const allSnowballIdx = 5; // fetch 필요
   const [snowballIdx, setSnowballIdx] = useState(1);
 
-
   const leftArrowRef = useRef<HTMLImageElement>(null);
   const rightArrowRef = useRef<HTMLImageElement>(null);
 
@@ -46,7 +45,6 @@ const Main = () => {
       searchParams.set('snowball', '1');
       setSearchParams(searchParams);
     }
-
   }, [searchParams, setSearchParams, navigate, snowballIdx]);
 
   const moveSnowball = (where: 'prev' | 'next') => {
@@ -62,20 +60,22 @@ const Main = () => {
 
       <UIContainer>
         {snowballIdx > 1 ? (
-          <StyledLeft ref={leftArrowRef}
+          <StyledLeft
+            ref={leftArrowRef}
             src={'/icons/prev.svg'}
             onClick={() => moveSnowball('prev')}
           />
         ) : null}
 
         {snowballIdx < allSnowballIdx ? (
-          <StyledRight ref={rightArrowRef}
+          <StyledRight
+            ref={rightArrowRef}
             src={'/icons/next.svg'}
             onClick={() => moveSnowball('next')}
           />
         ) : null}
 
-        <MainButtonBox leftArrow={leftArrowRef} rightArrow={rightArrowRef}/>
+        <MainButtonBox leftArrow={leftArrowRef} rightArrow={rightArrowRef} />
       </UIContainer>
     </>
   );
