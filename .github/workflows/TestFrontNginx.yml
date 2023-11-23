@@ -34,7 +34,7 @@ jobs:
       - name: Create tarball
         run: tar -czvf /tmp/siLHtfaHsJ.tar.gz -C ./front/dist .
 
-      - name: Debug: List contents of /tmp
+      - name: List contents of /tmp
         run: ls -la /tmp
 
       - name: Move tarball to server
