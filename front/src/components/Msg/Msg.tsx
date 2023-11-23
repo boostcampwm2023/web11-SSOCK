@@ -172,7 +172,7 @@ const Msg = (props: MsgProps) => {
           )}
         </StyledFrom>
 
-        {props.sender === '' ? `${wordCount} / 500` : null}
+        {props.isInput && props.sender === '' ? `${wordCount} / 500` : null}
       </StyledFromBox>
     </StyledLetterBox>
   );
