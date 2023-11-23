@@ -1,11 +1,10 @@
 import { useState, useRef, useEffect, useContext } from 'react';
 import styled from 'styled-components';
 import theme from '../../../utils/theme';
-import { HeaderText, StepButton, PostButton, Msg } from '../../../components';
+import { HeaderText, StepButton, PostButton } from '../../../components';
 import DecoEnroll from './DecoEnroll';
 import DecoBox from './DecoBox';
 import { DecoContext } from './DecoProvider';
-import { DECO } from '../../../constants/deco';
 import MsgBox from './MsgBox';
 
 const StateBar = styled.div`

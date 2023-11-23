@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 import theme from '../../utils/theme';
 import mock from '../../mockdata.json'; // temporary
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { DecoContext } from '../../pages/Visit/Deco/DecoProvider';
 
 interface MsgProps {
   color: string;
@@ -117,6 +118,7 @@ const StyledFromInput = styled.input`
 const Msg = (props: MsgProps) => {
   const userName = mock.user_name;
   const [wordCount, setWordCount] = useState(0);
+  const { setContent, setSender } = useContext(DecoContext);
   const maxWordCount = 500;
 
   const wordLength = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -127,6 +129,7 @@ const Msg = (props: MsgProps) => {
     if (text.value.length > maxWordCount) {
       text.value = text.value.substring(0, maxWordCount);
     }
+    setContent(text.value);
     setWordCount(text.value.length);
   };
 
@@ -152,7 +155,11 @@ const Msg = (props: MsgProps) => {
         {props.sender === '' ? `${wordCount} / 500` : null}
         <StyledFrom>
           From.
-          {props.sender === '' ? <StyledFromInput /> : props.sender}
+          <StyledFromInput
+            onChange={e => {
+              setSender(e.target.value);
+            }}
+          />
         </StyledFrom>
       </StyledFromBox>
     </StyledLetterBox>

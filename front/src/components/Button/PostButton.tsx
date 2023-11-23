@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import theme from '../../utils/theme';
+import { useContext } from 'react';
+import { DecoContext } from '../../pages/Visit/Deco/DecoProvider';
 
 interface ButtonColor {
   color: string;
@@ -30,7 +32,9 @@ const StyledButton = styled.button<ButtonColor>`
 `;
 
 const PostButton = (props: ButtonProps) => {
+  const { color, decoID, letterID, content, sender } = useContext(DecoContext);
   const ClickedPost = () => {
+    console.log(color, decoID, letterID, content, sender);
     props.view[1](!props.view[0]);
     props.visible[1](-1);
   };
