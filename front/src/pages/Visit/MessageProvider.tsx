@@ -1,5 +1,4 @@
 import React, { useState, createContext } from 'react';
-import mockData from '../../mockdata.json';
 
 interface MyContextType {
   message: string;
