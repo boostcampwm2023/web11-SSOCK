@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import theme from '../../utils/theme';
 import { HeaderText } from '../../components';
+import { useContext } from 'react';
+import { SnowBallContext } from './SnowBallProvider';
 
 const Container = styled.div`
   display: flex;
@@ -27,14 +29,14 @@ const StyledLetterImg = styled.img`
 `;
 
 const VisitHeader = () => {
-  const letterNum = 30;
+  const { data } = useContext(SnowBallContext);
 
   return (
     <Container>
       <HeaderText Ref={null} />
       <StyledLetter>
         <StyledLetterImg src={'/icons/letter.svg'} />
-        {letterNum}개의 편지
+        {data.snowball[0].message.length}개의 편지
       </StyledLetter>
     </Container>
   );
