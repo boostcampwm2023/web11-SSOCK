@@ -11,11 +11,8 @@ interface NaviProps {
 const StyledBody = styled.div`
   position: fixed;
   top: 0;
-  width: 100vw;
-  height: 100vh;
-  height: -moz-available;
-  height: -webkit-fill-available;
-  height: fill-available;
+  width: 100%;
+  height: 100%;
   background-color: rgba(217, 217, 217, 0.2);
   pointer-events: all;
 `;
@@ -37,10 +34,6 @@ const StyledNaviBox = styled.div`
 
   pointer-events: all;
   z-index: 1;
-
-  @media (min-width: ${theme.size['--desktop-min-width']}) {
-    width: ${theme.size['--desktop-width']};
-  }
 
   @keyframes fadeInUp {
     from {
@@ -136,6 +129,7 @@ const DecoEnroll = (props: NaviProps) => {
   const closeRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
   const { user } = useParams();
+
   return (
     <>
       <StyledBody
@@ -143,6 +137,7 @@ const DecoEnroll = (props: NaviProps) => {
           CloseNav(props, closeRef, setIsFocus, navigate, user, 'close')
         }
       />
+
       {isFocus ? (
         <StyledNaviBox ref={closeRef}>
           <ButtonWrap>

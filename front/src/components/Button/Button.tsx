@@ -17,15 +17,11 @@ const StyledButton = styled.button<ButtonColor>`
   font: ${theme.font['--normal-button-font']};
   border-radius: 10px;
   width: 66.6667%;
-  height: 48px;
-  padding: 10px;
-  margin: 4px;
+  height: 3rem;
+  padding: 0.625rem;
+  margin: 0.25rem;
   color: white;
   border: 1px solid ${theme.colors['--white-primary']};
-
-  @media (min-width: ${theme.size.maxWidth}) {
-    width: 600px;
-  }
 `;
 
 const Button = (props: ButtonProps) => {

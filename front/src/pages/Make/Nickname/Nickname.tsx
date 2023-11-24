@@ -4,14 +4,14 @@ import styled from 'styled-components';
 import theme from '../../../utils/theme';
 import { Button } from '../../../components';
 
-const StyledBody = styled.div`
+const StyledWrap = styled.div`
   width: 100vw;
-  height: 100vh;
-  height: -moz-available;
-  height: -webkit-fill-available;
-  height: fill-available;
+  height: 80vh;
   padding: 5%;
   margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
   @media (min-width: ${theme.size['--desktop-width']}) {
     width: ${theme.size['--desktop-width']};
@@ -22,6 +22,10 @@ const StyledExplain = styled.div`
   font: ${theme.font['--normal-nickname-font']};
   color: white;
   padding-top: 40%;
+
+  @media (min-width: ${theme.size['--desktop-width']}) {
+    padding-top: 25%;
+  }
 `;
 
 const StyledPink = styled.span`
@@ -30,7 +34,6 @@ const StyledPink = styled.span`
 
 const StyledNickName = styled.div`
   font: ${theme.font['--normal-login-font']};
-  padding-top: 15%;
   color: white;
 `;
 
@@ -55,7 +58,7 @@ const StyledInput = styled.input`
 const StyledButtonBox = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 25%;
+  padding-top: 10%;
 `;
 
 const validNickname = (
@@ -78,19 +81,21 @@ const Nickname = () => {
   }, [nickname, navigate]);
 
   return (
-    <StyledBody>
+    <StyledWrap>
       <StyledExplain>
         사용하실
         <br />
         <StyledPink>닉네임</StyledPink>을 입력해주세요.
       </StyledExplain>
 
-      <StyledNickName>닉네임</StyledNickName>
-      <StyledInput
-        ref={nicknameRef}
-        placeholder="ex) 라온이"
-        onChange={() => validNickname(nicknameRef, setStartNickname)}
-      />
+      <div>
+        <StyledNickName>닉네임</StyledNickName>
+        <StyledInput
+          ref={nicknameRef}
+          placeholder="ex) 라온이"
+          onChange={() => validNickname(nicknameRef, setStartNickname)}
+        />
+      </div>
 
       <StyledButtonBox>
         <Button
@@ -100,7 +105,7 @@ const Nickname = () => {
           disabled={!startNickname}
         />
       </StyledButtonBox>
-    </StyledBody>
+    </StyledWrap>
   );
 };
 

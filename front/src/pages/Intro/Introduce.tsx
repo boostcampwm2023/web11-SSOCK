@@ -21,7 +21,7 @@ const StyledIntroduce = styled.div`
   flex-direction: column;
   animation: fadein 0.7s;
 
-  @media (min-width: ${theme.size.maxWidth}) {
+  @media (min-width: ${theme.size['--desktop-width']}) {
     width: 600px;
   }
 
@@ -61,7 +61,7 @@ const StyledClosed = styled.button`
   justify-content: center;
   align-items: center;
   font: ${theme.font['--normal-button-font']};
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: normal;
 `;
 
