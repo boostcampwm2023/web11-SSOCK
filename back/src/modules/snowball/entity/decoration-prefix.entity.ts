@@ -4,6 +4,6 @@ export class DecorationPrefixEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ type: 'boolean', default: true })
   active: boolean;
 }

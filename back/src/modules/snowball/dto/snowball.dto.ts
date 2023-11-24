@@ -1,6 +1,5 @@
 import {
   IsString,
-  IsUUID,
   IsBoolean,
   IsNumber,
   IsNotEmpty,
@@ -21,11 +20,6 @@ export class SnowballDto {
   @IsNumber()
   @ApiProperty({ type: Number, description: '스노우볼 id' })
   readonly id: number;
-
-  @IsUUID('4')
-  @IsNotEmpty()
-  @ApiProperty({ format: 'uuid', description: '스노우볼 UUID' })
-  readonly uuid: string;
 
   @IsBoolean()
   @IsNotEmpty()

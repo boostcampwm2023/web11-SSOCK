@@ -38,7 +38,6 @@ export class SnowballService {
     }
     const combinedSnowballDto: SnowballDto = {
       id: savedSnowball.id,
-      uuid: savedSnowball.snowball_uuid,
       title: savedSnowball.title,
       is_message_private: savedSnowball.message_private === null ? false : true,
       deco_list: decoList,
@@ -131,7 +130,6 @@ export class SnowballService {
 
     const resSnowball: SnowballDto = {
       id: snowball.id,
-      uuid: snowball.snowball_uuid,
       title: snowball.title,
       is_message_private: snowball.message_private ? true : false,
       deco_list: snowball.decorations,

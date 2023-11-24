@@ -37,8 +37,9 @@ export class MessageService {
       content: createMessageDto.content,
       decoration_id: createMessageDto.decoration_id,
       decoration_color: createMessageDto.decoration_color,
-      letter_id: createMessageDto.letter_id
-      // opened와 created는 자동으로 설정
+      letter_id: createMessageDto.letter_id,
+      opened: null
+      // is_deleted랑 created는 자동으로 설정
     });
     const savedMessage = await this.messageRepository.save(messageEntity);
 
@@ -88,9 +89,9 @@ export class MessageService {
     if (!user) {
       throw new NotFoundException(`User with id ${user_id} not found`);
     }
-    const messages: MessageEntity[] = user.snowballs.flatMap(
-      snowball => snowball.messages
-    );
+    const messages: MessageEntity[] = user.snowballs
+      .flatMap(snowball => snowball.messages)
+      .filter(message => !message.is_deleted);
     const messagesDto: MessageDto[] = messages.map(message => {
       const {
         id,
