@@ -46,7 +46,7 @@ export class AuthService {
   ): Promise<UserDto> {
     let snowball_count: number,
       message_count: number,
-      snowball_list: { id: number; uuid: string }[],
+      snowball_list: number[],
       main_snowball_id: number | null;
     if (is_existed) {
       const snowballs = await this.SnowballRepository.findAndCount({
@@ -54,10 +54,7 @@ export class AuthService {
       });
       snowball_count = snowballs[1];
       snowball_list = snowballs[0].map(snowball => {
-        return {
-          id: snowball.id,
-          uuid: snowball.snowball_uuid
-        };
+        return snowball.id;
       });
       main_snowball_id = snowballs[0][0].id;
     } else {

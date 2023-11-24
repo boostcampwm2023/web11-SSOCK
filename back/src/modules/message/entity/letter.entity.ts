@@ -5,6 +5,6 @@ export class LetterEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ type: 'boolean', default: true })
   active: boolean;
 }

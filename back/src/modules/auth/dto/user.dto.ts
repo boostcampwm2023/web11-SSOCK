@@ -28,17 +28,10 @@ export class UserDto {
 
   @IsNotEmpty()
   @ApiProperty({
-    type: 'array',
-    items: {
-      type: 'object',
-      properties: {
-        id: { type: 'number' },
-        uuid: { type: 'string' }
-      }
-    },
-    description: '스노우볼 key-value 리스트'
+    type: [Number],
+    description: '스노우볼 id 리스트'
   })
-  readonly snowball_list: { id: number; uuid: string }[];
+  readonly snowball_list: number[];
 
   @IsNumber()
   @IsNotEmpty()
