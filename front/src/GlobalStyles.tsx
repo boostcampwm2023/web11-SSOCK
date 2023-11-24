@@ -47,7 +47,11 @@ const GlobalStyles = createGlobalStyle`
 
   #root {
     width: 100%;
-    height: 100vh;
+    height: 100vh; 
+    @supports (-webkit-touch-callout: none) { 
+    height: -webkit-fill-available;
+    }
+    display: grid;
     background-color: ${theme.colors['--primary-black']};
     margin: auto;
   }
