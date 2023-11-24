@@ -24,7 +24,7 @@ export class UserDto {
 
   @IsNumber()
   @ApiProperty({ type: Number, description: '메인 스노우볼 id' })
-  readonly main_snowball_id: number;
+  readonly main_snowball_id: number | null;
 
   @IsNotEmpty()
   @ApiProperty({
