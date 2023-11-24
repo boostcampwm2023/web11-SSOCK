@@ -7,6 +7,9 @@ import { Button } from '../../../components';
 const StyledBody = styled.div`
   width: 100vw;
   height: 100vh;
+  height: -moz-available;
+  height: -webkit-fill-available;
+  height: fill-available;
   padding: 5%;
   margin: auto;
 

@@ -13,6 +13,9 @@ const StyledBody = styled.div`
   top: 0;
   width: 100vw;
   height: 100vh;
+  height: -moz-available;
+  height: -webkit-fill-available;
+  height: fill-available;
   background-color: rgba(217, 217, 217, 0.2);
   pointer-events: all;
 `;
