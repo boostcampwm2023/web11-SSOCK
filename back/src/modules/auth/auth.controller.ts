@@ -1,8 +1,9 @@
-import { Controller, Get, Req, UseGuards } from '@nestjs/common';
+import { Controller, Get, Req, Param, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { ResInfoDto } from './dto/response/res-info.dto';
 import { AuthService } from './auth.service';
+import { ResVisitInfoDto } from './dto/response/res-visit-info.do';
 
 @ApiTags('Oauth API')
 @Controller('auth')
@@ -38,7 +39,7 @@ export class AuthController {
   })
   async googleLoginCallback(@Req() req): Promise<ResInfoDto> {
     const userInfo = req.user;
-    const result = this.authService.createInfo(userInfo);
+    const result = this.authService.createUserInfo(userInfo);
     return result;
   }
 
@@ -72,7 +73,7 @@ export class AuthController {
   })
   async naverLoginCallBack(@Req() req): Promise<ResInfoDto> {
     const userInfo = req.user;
-    const result = this.authService.createInfo(userInfo);
+    const result = this.authService.createUserInfo(userInfo);
     return result;
   }
 
@@ -106,7 +107,24 @@ export class AuthController {
   })
   async kakaoLoginCallBack(@Req() req): Promise<ResInfoDto> {
     const userInfo = req.user;
-    const result = this.authService.createInfo(userInfo);
+    const result = this.authService.createUserInfo(userInfo);
+    return result;
+  }
+
+  @Get('visit/:user_id')
+  @ApiOperation({
+    summary: '방문자 유저 조회 API',
+    description: '방문자가 접속한 유저의 정보를 반환합니다'
+  })
+  @ApiResponse({
+    status: 500,
+    description: 'Internal Server Error',
+    type: ResVisitInfoDto
+  })
+  async createVisitInfo(
+    @Param('user_id') user_id: string
+  ): Promise<ResVisitInfoDto> {
+    const result = this.authService.createVisitInfo(user_id);
     return result;
   }
 }

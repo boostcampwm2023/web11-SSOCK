@@ -9,15 +9,17 @@ import { SnowballService } from '../snowball/snowball.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { SnowballEntity } from '../snowball/entity/snowball.entity';
 import { UserEntity } from './entity/user.entity';
-import { SnowballDecorationEntity } from '../snowball/entity/snowball-decoration.entity';
 import { JWTGuard } from './auth.guard';
+import { MessageEntity } from '../message/entity/message.entity';
+import { SnowballDecorationEntity } from '../snowball/entity/snowball-decoration.entity';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([
-      SnowballEntity,
       UserEntity,
-      SnowballDecorationEntity
+      SnowballEntity,
+      SnowballDecorationEntity,
+      MessageEntity
     ]),
     PassportModule
   ],
