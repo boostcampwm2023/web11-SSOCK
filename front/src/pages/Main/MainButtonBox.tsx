@@ -116,14 +116,14 @@ const MainButtonBox = (props: MainButtonBoxProps) => {
 
           <StyledMenu
             ref={menuRef}
-            src={'/buttons/menu.svg'}
+            src={'/icons/menu.svg'}
             onClick={() => setMenuModal(true)}
           />
           {menuModal ? <MenuModal set={setMenuModal} list={setList} /> : null}
 
           <StyledScreen
             ref={screenRef}
-            src={'/buttons/screen.svg'}
+            src={'/icons/screen.svg'}
             onClick={() =>
               screenTime(setScreen, [
                 headerRef,
@@ -138,7 +138,7 @@ const MainButtonBox = (props: MainButtonBoxProps) => {
 
           <StyledShareLink
             ref={shareLinkRef}
-            src={'/buttons/shareLink.svg'}
+            src={'/icons/shareLink.svg'}
             onClick={() => setShareLink(true)}
           />
           {shareLink ? <div>shareLink</div> : null}
