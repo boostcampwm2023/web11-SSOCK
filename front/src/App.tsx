@@ -12,18 +12,13 @@ const Outer = styled.div`
   left: 50%;
   transform: translateX(-50%);
 
-  width: 100vw;
-  height: 100vh;
-  height: -moz-available;
-  height: -webkit-fill-available;
-  height: fill-available;
-  overflow-y: hidden;
-
-  ::-webkit-scrollbar {
+  width: 100%;
+  height: 100%;
+  /* ::-webkit-scrollbar {
     display: none;
-  }
+  } */
 
-  overflow: hidden;
+  //overflow: hidden;
 
   @media (min-width: ${theme.size['--desktop-min-width']}) {
     width: ${theme.size['--desktop-width']};
