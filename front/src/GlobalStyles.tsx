@@ -42,14 +42,17 @@ const GlobalStyles = createGlobalStyle`
   body {
     margin: 0;
     padding: 0;
+    background-color: ${theme.colors['--primary-black']};
     font-size: 1rem;
   }
 
   #root {
     width: 100%;
     height: 100vh; 
+    position: absolute;
     @supports (-webkit-touch-callout: none) { 
-    height: -webkit-fill-available;
+      height: -webkit-fill-available;
+      bottom: 0;
     }
     display: grid;
     background-color: ${theme.colors['--primary-black']};
