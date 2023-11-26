@@ -5,8 +5,8 @@ import theme from '../../../utils/theme';
 import { Button } from '../../../components';
 
 const StyledWrap = styled.div`
-  width: 100vw;
-  height: 80vh;
+  width: 100%;
+  height: 80%;
   padding: 5%;
   margin: auto;
   display: flex;
