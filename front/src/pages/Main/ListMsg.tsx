@@ -36,7 +36,7 @@ const StyledList = styled.div`
   position: absolute;
   width: 100%;
   top: 10%;
-  height: 85vh;
+  height: 85%;
   overflow-y: scroll;
 `;
 
