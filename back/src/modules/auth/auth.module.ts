@@ -11,16 +11,10 @@ import { SnowballEntity } from '../snowball/entity/snowball.entity';
 import { UserEntity } from './entity/user.entity';
 import { JWTGuard } from './auth.guard';
 import { MessageEntity } from '../message/entity/message.entity';
-import { SnowballDecorationEntity } from '../snowball/entity/snowball-decoration.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([
-      UserEntity,
-      SnowballEntity,
-      SnowballDecorationEntity,
-      MessageEntity
-    ]),
+    TypeOrmModule.forFeature([UserEntity, SnowballEntity, MessageEntity]),
     PassportModule
   ],
   providers: [

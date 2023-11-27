@@ -22,9 +22,8 @@ import { ReqCreateSnowballDto } from './dto/request/req-create-snowball.dto';
 import { ReqUpdateSnowballDto } from './dto/request/req-update-snowball.dto';
 import { SnowballDto } from './dto/snowball.dto';
 import { ResUpdateSnowballDto } from './dto/response/res-update-snowball.dto';
-import { ReqUpdateSnowballDecoDto } from './dto/request/req-update-decoration.dto';
-import { ResUpdateSnowballDecoDto } from './dto/response/res-update-decoration.dto';
 import { JWTGuard } from '../auth/auth.guard';
+import { UpdateMainDecoDto } from './dto/update-main-decoration.dto';
 
 @ApiTags('Snowball API')
 @UseGuards(JWTGuard)
@@ -53,29 +52,6 @@ export class SnowballController {
       createSnowballDto
     );
     return snowball;
-  }
-
-  @Put('/:snowball_id/decoration')
-  @HttpCode(200)
-  @ApiResponse({
-    status: 200,
-    description: '스노우볼 데코레이션 업데이트 성공',
-    type: ResUpdateSnowballDecoDto
-  })
-  @ApiOperation({
-    summary: '스노우볼 데코레이션 업데이트 API',
-    description: '스노우볼의 데코레이션들을 업데이트 해줍니다.'
-  })
-  @ApiBody({ type: ReqUpdateSnowballDecoDto })
-  updateSnowballDecor(
-    @Param('snowball_id') snowball_id: number,
-    @Body() updateSnowballDecoDto: ReqUpdateSnowballDecoDto
-  ) {
-    const snowballDecoration = this.snowballService.updateSnowballDeco(
-      updateSnowballDecoDto,
-      snowball_id
-    );
-    return snowballDecoration;
   }
 
   @Put('/:snowball_id')
@@ -114,6 +90,28 @@ export class SnowballController {
   })
   async getSnowball(@Param('snowball_id') snowball_id: number) {
     const snowball = await this.snowballService.getSnowball(snowball_id);
+    return snowball;
+  }
+
+  @Put('/:snowball_id/decoration')
+  @ApiResponse({
+    status: 200,
+    description: '스노우볼 메인 장식 업데이트 성공',
+    type: UpdateMainDecoDto
+  })
+  @ApiOperation({
+    summary: '스노우볼 메인 장식 업데이트 API',
+    description: '스노우볼의 메인 장식을 업데이트 합니다.'
+  })
+  @ApiBody({ type: UpdateMainDecoDto })
+  async updateMainDecoration(
+    @Param('snowball_id') snowball_id: number,
+    @Body() updateMainDecoDto: UpdateMainDecoDto
+  ) {
+    const snowball = await this.snowballService.updateMainDecoration(
+      updateMainDecoDto,
+      snowball_id
+    );
     return snowball;
   }
 }

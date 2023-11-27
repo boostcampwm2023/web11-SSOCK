@@ -5,16 +5,11 @@ import { MessageModule } from '../message/message.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { SnowballEntity } from './entity/snowball.entity';
 import { MessageEntity } from '../message/entity/message.entity';
-import { SnowballDecorationEntity } from './entity/snowball-decoration.entity';
 import { AuthModule } from '../auth/auth.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([
-      SnowballEntity,
-      MessageEntity,
-      SnowballDecorationEntity
-    ]),
+    TypeOrmModule.forFeature([SnowballEntity, MessageEntity]),
     MessageModule,
     AuthModule
   ],

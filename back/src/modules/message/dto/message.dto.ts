@@ -33,4 +33,8 @@ export class MessageDto {
   @IsDate()
   @ApiProperty({ type: Date, description: '생성 날짜' })
   readonly created: Date;
+
+  @IsNumber()
+  @ApiProperty({ type: Number, description: '위치값' })
+  readonly location: number;
 }

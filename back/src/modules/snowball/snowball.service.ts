@@ -5,19 +5,14 @@ import { SnowballEntity } from './entity/snowball.entity';
 import { ReqCreateSnowballDto } from './dto/request/req-create-snowball.dto';
 import { ReqUpdateSnowballDto } from './dto/request/req-update-snowball.dto';
 import { SnowballDto } from './dto/snowball.dto';
-import { SnowballDecorationEntity } from './entity/snowball-decoration.entity';
-import { DecorationSnowballDto } from './dto/decoration-snowball.dto';
-import { ResUpdateSnowballDecoDto } from './dto/response/res-update-decoration.dto';
-import { ReqUpdateSnowballDecoDto } from './dto/request/req-update-decoration.dto';
 import { ResUpdateSnowballDto } from './dto/response/res-update-snowball.dto';
+import { UpdateMainDecoDto } from './dto/update-main-decoration.dto';
 
 @Injectable()
 export class SnowballService {
   constructor(
     @InjectRepository(SnowballEntity)
-    private readonly snowballRepository: Repository<SnowballEntity>,
-    @InjectRepository(SnowballDecorationEntity)
-    private readonly decorationRepository: Repository<SnowballDecorationEntity>
+    private readonly snowballRepository: Repository<SnowballEntity>
   ) {}
 
   async createSnowball(
@@ -31,60 +26,15 @@ export class SnowballService {
     });
     const savedSnowball = await this.snowballRepository.save(snowball);
 
-    // To Do: bulk insert로 변경 & 반환값으로 Dto
-    const decoList = createSnowballDto.deco_list;
-    for (const deco of decoList) {
-      await this.createDecoration(savedSnowball.id, deco);
-    }
     const combinedSnowballDto: SnowballDto = {
       id: savedSnowball.id,
       title: savedSnowball.title,
+      main_decoration_color: savedSnowball.main_decoration_color,
+      main_decoration_id: savedSnowball.main_decoration_id,
       is_message_private: savedSnowball.message_private === null ? false : true,
-      deco_list: decoList,
       message_list: []
     };
     return combinedSnowballDto;
-  }
-
-  async createDecoration(
-    snowball_id: number,
-    deco: DecorationSnowballDto
-  ): Promise<DecorationSnowballDto> {
-    const decoration = this.decorationRepository.create({
-      ...deco,
-      snowball_id
-    });
-    const savedDecoration = await this.decorationRepository.save(decoration);
-    const decorationDto: DecorationSnowballDto = {
-      decoration_id: savedDecoration.decoration_id,
-      decoration_color: savedDecoration.decoration_color,
-      location: savedDecoration.location
-    };
-    return decorationDto;
-  }
-
-  async updateSnowballDeco(
-    updateSnowballDecoDto: ReqUpdateSnowballDecoDto,
-    snowball_id: number
-  ): Promise<ResUpdateSnowballDecoDto> {
-    const { deco_list } = updateSnowballDecoDto;
-
-    // Delete all decorations
-    await this.decorationRepository.delete({
-      snowball_id
-    });
-
-    // Create new decorations
-    for (const deco of deco_list) {
-      await this.createDecoration(snowball_id, deco);
-    }
-
-    // Return the updated snowball
-    const resSnowball: ResUpdateSnowballDecoDto = {
-      snowball_id,
-      deco_list
-    };
-    return resSnowball;
   }
 
   async updateSnowball(
@@ -120,8 +70,7 @@ export class SnowballService {
     const snowball = await this.snowballRepository.findOne({
       where: { id: snowball_id },
       relations: {
-        messages: true,
-        decorations: true
+        messages: true
       }
     });
     if (!snowball) {
@@ -132,7 +81,6 @@ export class SnowballService {
       id: snowball.id,
       title: snowball.title,
       is_message_private: snowball.message_private ? true : false,
-      deco_list: snowball.decorations,
       message_list: snowball.messages.map(message => ({
         id: message.id,
         decoration_id: message.decoration_id,
@@ -141,10 +89,35 @@ export class SnowballService {
         sender: message.sender,
         opened: message.opened,
         created: message.created,
-        letter_id: message.letter_id
-      }))
+        letter_id: message.letter_id,
+        location: message.location
+      })),
+      main_decoration_id: 0,
+      main_decoration_color: ''
     };
 
     return resSnowball;
+  }
+
+  async updateMainDecoration(
+    updateMainDecoDto: UpdateMainDecoDto,
+    snowball_id: number
+  ): Promise<UpdateMainDecoDto> {
+    const { main_decoration_id, main_decoration_color } = updateMainDecoDto;
+
+    const updateResult = await this.snowballRepository
+      .createQueryBuilder()
+      .update(SnowballEntity)
+      .set({
+        main_decoration_id: main_decoration_id,
+        main_decoration_color: main_decoration_color
+      })
+      .where('id = :id', { id: snowball_id })
+      .execute();
+    if (!updateResult.affected) {
+      throw new NotFoundException('업데이트할 스노우볼이 존재하지 않습니다.');
+    }
+
+    return updateMainDecoDto;
   }
 }

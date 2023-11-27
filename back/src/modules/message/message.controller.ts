@@ -28,6 +28,8 @@ import {
 import { ResCreateMessageDto } from './dto/response/res-create-message.dto';
 import { MessageDto } from './dto/message.dto';
 import { JWTGuard } from '../auth/auth.guard';
+import { ReqUpdateMessageDecorationDto } from './dto/request/req-update-message-decoration.dto';
+import { ReqUpdateMessageLocationDto } from './dto/request/req-update-message-location.dto';
 
 @ApiTags('Message API')
 @Controller('message')
@@ -136,5 +138,68 @@ export class MessageController {
     @Param('message_id') message_id: number
   ): Promise<MessageDto> {
     return await this.messageService.openMessage(message_id);
+  }
+
+  @UseGuards(JWTGuard)
+  @ApiBearerAuth('jwt-token')
+  @Put('/:message_id/decoration')
+  @ApiOperation({
+    summary: '메세지 장식 변경',
+    description: '메시지의 장식을 변경합니다.'
+  })
+  @ApiResponse({
+    status: 200,
+    type: MessageDto
+  })
+  @ApiBadRequestResponse({
+    description: '잘못된 요청입니다.'
+  })
+  @ApiNotFoundResponse({
+    description: '해당 메시지가 존재하지 않습니다.'
+  })
+  @ApiInternalServerErrorResponse({
+    description: '서버측 오류'
+  })
+  async updateMessageDecoration(
+    @Param('message_id') message_id: number,
+    @Body() updateMessageDecorationDto: ReqUpdateMessageDecorationDto
+  ): Promise<MessageDto> {
+    return await this.messageService.updateMessageDecoration(
+      message_id,
+      updateMessageDecorationDto
+    );
+  }
+
+  @UseGuards(JWTGuard)
+  @ApiBearerAuth('jwt-token')
+  @Put('/:message_id/location')
+  @ApiOperation({
+    summary: '메세지 위치 변경',
+    description: '메시지의 위치를 변경합니다.'
+  })
+  @ApiResponse({
+    status: 200,
+    type: MessageDto
+  })
+  @ApiBadRequestResponse({
+    description: '잘못된 요청입니다.'
+  })
+  @ApiNotFoundResponse({
+    description: '해당 메시지가 존재하지 않습니다.'
+  })
+  @ApiInternalServerErrorResponse({
+    description: '서버측 오류'
+  })
+  @ApiConflictResponse({
+    description: '목표 위치가 비어있지 않습니다.'
+  })
+  async updateMessageLocation(
+    @Param('message_id') message_id: number,
+    @Body() updateMessageLocationDto: ReqUpdateMessageLocationDto
+  ): Promise<MessageDto> {
+    return await this.messageService.updateMessageLocation(
+      message_id,
+      updateMessageLocationDto
+    );
   }
 }

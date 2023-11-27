@@ -14,6 +14,8 @@ import { UserEntity } from '../auth/entity/user.entity';
 import { ResCreateMessageDto } from './dto/response/res-create-message.dto';
 import { MessageDto } from './dto/message.dto';
 import { SnowballEntity } from '../snowball/entity/snowball.entity';
+import { ReqUpdateMessageDecorationDto } from './dto/request/req-update-message-decoration.dto';
+import { ReqUpdateMessageLocationDto } from './dto/request/req-update-message-location.dto';
 
 @Injectable()
 export class MessageService {
@@ -101,7 +103,8 @@ export class MessageService {
         content,
         sender,
         opened,
-        created
+        created,
+        location
       } = message;
       return {
         id,
@@ -111,7 +114,8 @@ export class MessageService {
         content,
         sender,
         opened,
-        created
+        created,
+        location
       };
     });
     return messagesDto;
@@ -145,5 +149,51 @@ export class MessageService {
       where: { id: snowball_id }
     });
     return snowball.user_id;
+  }
+
+  async updateMessageDecoration(
+    message_id: number,
+    updateMessageDecorationDto: ReqUpdateMessageDecorationDto
+  ): Promise<MessageDto> {
+    const { decoration_id, decoration_color } = updateMessageDecorationDto;
+    const updateResult = await this.messageRepository
+      .createQueryBuilder()
+      .update(MessageEntity)
+      .set({
+        decoration_id,
+        decoration_color
+      })
+      .where('id = :id', { id: message_id })
+      .returning('*')
+      .execute();
+    if (!updateResult.affected) {
+      throw new NotFoundException('업데이트할 메시지가 존재하지 않습니다.');
+    } else if (updateResult.affected > 1) {
+      throw new InternalServerErrorException('서버측 오류');
+    }
+    return updateResult.raw[0] as MessageDto;
+  }
+
+  async updateMessageLocation(
+    message_id: number,
+    updateMessageLocationDto: ReqUpdateMessageLocationDto
+  ): Promise<MessageDto> {
+    //TODO: location이 available 한지 확인 해야함
+    const { location } = updateMessageLocationDto;
+    const updateResult = await this.messageRepository
+      .createQueryBuilder()
+      .update(MessageEntity)
+      .set({
+        location
+      })
+      .where('id = :id', { id: message_id })
+      .returning('*')
+      .execute();
+    if (!updateResult.affected) {
+      throw new NotFoundException('업데이트할 메시지가 존재하지 않습니다.');
+    } else if (updateResult.affected > 1) {
+      throw new InternalServerErrorException('서버측 오류');
+    }
+    return updateResult.raw[0] as MessageDto;
   }
 }
