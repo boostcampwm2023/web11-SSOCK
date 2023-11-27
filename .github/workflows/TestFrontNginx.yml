@@ -38,7 +38,7 @@ jobs:
           username: ${{ secrets.SERVER_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            rm -rf /usr/share/nginx
+            rm -rf /usr/share/nginx/build
             
       - name: Deploy to Server
         uses: appleboy/scp-action@master
@@ -47,4 +47,4 @@ jobs:
           username: ${{ secrets.SERVER_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: front/dist
-          target: /usr/share/nginx
+          target: /usr/share/nginx/build
