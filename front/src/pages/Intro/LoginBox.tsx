@@ -1,8 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import styled from 'styled-components';
 import theme from '../../utils/theme';
-import axios from 'axios';
+
 interface LoginProps {
   view: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
 }
