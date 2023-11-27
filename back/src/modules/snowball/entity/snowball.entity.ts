@@ -8,7 +8,6 @@ import {
   JoinColumn
 } from 'typeorm';
 import { UserEntity } from '../../auth/entity/user.entity';
-import { SnowballDecorationEntity } from './snowball-decoration.entity';
 import { MessageEntity } from '../../message/entity/message.entity';
 
 @Entity({ name: 'snowball' })
@@ -25,6 +24,12 @@ export class SnowballEntity {
   @CreateDateColumn()
   created_at: Date;
 
+  @Column()
+  main_decoration_id: number;
+
+  @Column()
+  main_decoration_color: string;
+
   @CreateDateColumn({ nullable: true, default: null })
   message_private: Date | null;
 
@@ -34,7 +39,4 @@ export class SnowballEntity {
 
   @OneToMany(() => MessageEntity, message => message.snowball)
   messages: MessageEntity[];
-
-  @OneToMany(() => SnowballDecorationEntity, decoration => decoration.snowball)
-  decorations: SnowballDecorationEntity[];
 }

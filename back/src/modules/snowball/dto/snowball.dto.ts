@@ -3,11 +3,11 @@ import {
   IsBoolean,
   IsNumber,
   IsNotEmpty,
-  ValidateNested
+  ValidateNested,
+  IsHexColor
 } from '@nestjs/class-validator';
 import { Type } from '@nestjs/class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
-import { DecorationSnowballDto } from '../../snowball/dto/decoration-snowball.dto';
 import { MessageDto } from '../../message/dto/message.dto';
 
 export class SnowballDto {
@@ -29,14 +29,18 @@ export class SnowballDto {
   })
   readonly is_message_private: boolean;
 
+  @IsNumber()
   @IsNotEmpty()
-  @ValidateNested({ each: true })
-  @Type(() => DecorationSnowballDto)
   @ApiProperty({
-    type: [DecorationSnowballDto],
-    description: '데코오브젝트들이 들어있는 리스트'
+    type: Number,
+    description: '스노우볼 메인 장식 데코레이션 id'
   })
-  readonly deco_list: DecorationSnowballDto[];
+  readonly main_decoration_id: number;
+
+  @IsHexColor()
+  @IsNotEmpty()
+  @ApiProperty({ type: String, description: '스노우볼 메인 장식 색상' })
+  readonly main_decoration_color: string;
 
   @ValidateNested({ each: true })
   @Type(() => MessageDto)

@@ -38,6 +38,9 @@ export class MessageEntity {
   @Column({ type: 'boolean', default: false })
   is_deleted: boolean;
 
+  @Column({ nullable: false })
+  location: number;
+
   @CreateDateColumn({ nullable: true, default: null })
   opened: Date | null;
 
