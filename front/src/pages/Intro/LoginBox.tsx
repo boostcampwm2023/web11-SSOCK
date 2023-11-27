@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import theme from '../../utils/theme';
-
+import axios from 'axios';
 interface LoginProps {
   view: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
 }
@@ -105,6 +105,9 @@ const validLogin = (
   props: SocialLogin,
   setValid: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
+  axios.get('/api/auth/google').then(res => {
+    console.log(res);
+  });
   console.log(props);
   setValid(true);
 };
