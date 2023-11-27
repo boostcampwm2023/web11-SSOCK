@@ -31,25 +31,20 @@ jobs:
       - name: List contents of ./front/dist
         run: ls -la ./front/dist
 
-      - name: List contents of ./
-        run: ls -la ./
-  
-      # - name: Deploy to server
-      #   uses: appleboy/ssh-action@master
-      #   with:
-      #     host: ${{ secrets.SERVER_HOST }}
-      #     username: ${{ secrets.SERVER_USERNAME }}
-      #     key: ${{ secrets.SSH_PRIVATE_KEY }}
-      #     port: 22
-      #     working-directory: ./front
-      #     script: |
-      #       echo ${{ secrets.SERVER_PASSWORD }} | sudo -S rm -rf /usr/share/nginx/html
-      #       echo ${{ secrets.SERVER_PASSWORD }} | sudo -S cp -r ./front/dist /usr/share/nginx/html
-      - name: Copy folder content recursively to remote
-        uses: garygrossgarten/github-action-scp@release
+      - name: Remove build folder in the server
+        uses: appleboy/ssh-action@master
         with:
-          local: ./front/dist
-          remote: /usr/share/nginx/html
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USERNAME }}
-          privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            rm -rf /usr/share/nginx
+            
+      - name: Deploy to Server
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: front/dist
+          target: /usr/share/nginx
