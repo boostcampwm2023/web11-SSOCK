@@ -21,19 +21,18 @@ const Snow: React.FC<SnowProps> = ({ radius, centerPosition, rangeRadius }) => {
     const speed = 1 * delta;
     if (snow) {
       if (snow.position.y <= 0) {
-        snow.position.y = centerPosition.y + rangeRadius;
+        snow.position.y =
+          centerPosition.y + rangeRadius + Math.random() * rangeRadius * 2;
       }
       snow.position.y -= speed;
 
       if (snow.position.distanceTo(centerPosition) > rangeRadius - 0.5) {
-
         snow.visible = false;
       } else {
         snow.visible = true;
       }
     }
   });
-
 
   return (
     <mesh position={position} ref={snowRef}>
