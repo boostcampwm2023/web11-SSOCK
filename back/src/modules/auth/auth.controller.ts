@@ -1,4 +1,4 @@
-import { Controller, Get, Req, Param, UseGuards, Res } from '@nestjs/common';
+import { Controller, Get, Req, Param, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { ResInfoDto } from './dto/response/res-info.dto';
@@ -37,10 +37,10 @@ export class AuthController {
     status: 500,
     description: 'Internal Server Error'
   })
-  async googleLoginCallBack(@Req() req, @Res() res): Promise<void> {
+  async googleLoginCallback(@Req() req): Promise<ResInfoDto> {
     const userInfo = req.user;
     const result = this.authService.createUserInfo(userInfo);
-    res.status(200).redirect('http://www.mysnowball.kr').send(result);
+    return result;
   }
 
   @Get('naver')
