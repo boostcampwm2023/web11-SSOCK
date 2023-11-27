@@ -127,7 +127,7 @@ export class AuthService {
     const snowballs = await this.SnowballRepository.findAndCount({
       where: { user_id: user_pk }
     });
-    console.log(snowballs);
+
     if (is_existed && snowballs[0].length > 0) {
       const snowball_list = snowballs[0].map(snowball => snowball.id);
       return {
