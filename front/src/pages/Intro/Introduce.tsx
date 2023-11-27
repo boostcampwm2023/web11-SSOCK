@@ -94,9 +94,14 @@ const Introduce = (props: IntroduceProps) => {
         안녕하세요 저희는 쏙입니다. <br /> <br />
         국민은행 <br /> 942902-00-180129
         <br /> 계좌주 : 오승엽 <br /> 후원시 찬우 제로투 or 슬릭백 10초
-        <a href="/api/auth/google">google</a>
-        <a href="/api/auth/kakao">kakao</a>
-        <a href="/api/auth/naver">naver</a>
+        <div>
+          <a href="/api/auth/google">google</a>
+          <br />
+          <a href="/api/auth/kakao">kakao</a>
+          <br />
+          <a href="/api/auth/naver">naver</a>
+          <br />
+        </div>
       </StyledText>
       <StyledClosed onClick={() => closeIntroduce(props, closeRef)}>
         닫기
