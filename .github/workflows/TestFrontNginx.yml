@@ -2,33 +2,50 @@ name: Deploy Frontend To Nginx Test
 
 on:
   push:
-    branches: [ "FE/test" ]
+    branches: [ "FE/main" ]
 
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    steps: 
+      - uses: actions/checkout@v4
 
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.5.1
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '18'
+      - name: Check Node v
+        run: node -v
 
-    - name: Install dependencies and build
-      run: |
-        npm install
-        npm run build
+      - name: Install dependencies
+        working-directory: ./front
+        run: npm install
 
-    - name: Deploy to server
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.SERVER_HOST }}
-        username: ${{ secrets.SSH_USERNAME }}
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
-        script: |
-          sudo cp -r ./build /usr/share/nginx/html
+      - name: Generate build
+        working-directory: ./front
+        run: npm run build
+
+      - name: List contents of ./front/dist
+        run: ls -la ./front/dist
+
+      - name: Remove build folder in the server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            rm -rf /usr/share/nginx/build
+            
+      - name: Deploy to Server
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          # key: ${{ secrets.SSH_PRIVATE_KEY }}
+          password: ${{ secrets.SERVER_PASSWORD }}
+          source: front/dist
+          target: /usr/share/nginx/build
