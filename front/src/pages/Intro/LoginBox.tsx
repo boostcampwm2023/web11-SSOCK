@@ -106,9 +106,12 @@ const validLogin = (
   props: SocialLogin,
   setValid: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
-  axios.get('/api/auth/google').then(res => {
-    console.log(res);
-  });
+  axios
+    .get('/api/auth/google')
+    .then(res => {
+      console.log(res);
+    })
+    .catch(e => console.log(e));
   console.log(props);
   setValid(true);
 };

@@ -87,7 +87,6 @@ const closeIntroduce = (
 
 const Introduce = (props: IntroduceProps) => {
   const closeRef = useRef<HTMLDivElement>(null);
-
   return (
     <StyledIntroduce ref={closeRef}>
       <StyledText>

@@ -27,7 +27,8 @@ const SnowGlobeCanvas = () => {
       key={i}
       centerPosition={glassPosition}
       rangeRadius={glassRadius}
-      radius={0.05 + Math.random() * 0.15}
+      radius={0.3 + Math.random() * 0.7}
+      model={Math.floor(Math.random() * 3)}
     />
   ));
 
