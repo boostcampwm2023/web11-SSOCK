@@ -3,7 +3,6 @@ import theme from '../../utils/theme';
 import { useContext, useState } from 'react';
 import { SnowballNameContext } from '../../pages/MainDeco/SnowballNameProvider';
 
-
 const StyledLetterBox = styled.div`
   width: 80%;
   display: flex;
@@ -21,8 +20,6 @@ const StyledLetterPerson = styled.div`
   text-align: left;
   color: white;
 `;
-
-
 
 const StyledFromBox = styled(StyledLetterPerson)`
   flex-direction: row-reverse;
@@ -48,7 +45,6 @@ const StyledTextArea = styled.textarea`
   resize: none; /* 사용자가 크기를 조정하지 못하게 함 */
   text-align: center;
 
-
   background-attachment: local;
   background-image: repeating-linear-gradient(
     #00000000,
@@ -71,7 +67,7 @@ const StyledTextArea = styled.textarea`
 
 const InputSnowball = () => {
   const [wordCount, setWordCount] = useState(0);
-  const { setSnowballName } = useContext( SnowballNameContext );
+  const { setSnowballName } = useContext(SnowballNameContext);
   const maxNameCount = 10;
 
   const wordLength = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -85,19 +81,15 @@ const InputSnowball = () => {
 
   return (
     <StyledLetterBox>
+      <StyledInputBox>
+        <StyledTextArea
+          rows={1}
+          onChange={wordLength}
+          placeholder="편지를 작성해주세요."
+        />
+      </StyledInputBox>
 
-      
-        <StyledInputBox>
-          <StyledTextArea
-            rows={1}
-            onChange={wordLength}
-            placeholder="편지를 작성해주세요."
-          />
-        </StyledInputBox>
-
-      <StyledFromBox>
-        {`${wordCount} / 10`}
-      </StyledFromBox>
+      <StyledFromBox>{`${wordCount} / 10`}</StyledFromBox>
     </StyledLetterBox>
   );
 };

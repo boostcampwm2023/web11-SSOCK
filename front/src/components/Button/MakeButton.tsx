@@ -3,7 +3,6 @@ import theme from '../../utils/theme';
 import { useState, useContext } from 'react';
 import { SnowballNameContext } from '../../pages/MainDeco/SnowballNameProvider';
 
-
 interface MakeButtonProps {
   color: string;
 }
@@ -57,7 +56,9 @@ const MakeButton = (props: ButtonProps) => {
   return (
     <>
       <PostButtonWrap>
-        {alert ? <StyledAlert>스노우볼 이름을 입력해주세요 !</StyledAlert> : null}
+        {alert ? (
+          <StyledAlert>스노우볼 이름을 입력해주세요 !</StyledAlert>
+        ) : null}
         <StyledButton color={props.color} onClick={ClickedMake}>
           {props.text}
         </StyledButton>

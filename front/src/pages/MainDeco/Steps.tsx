@@ -191,9 +191,7 @@ const Steps = () => {
       </StyledTopWrap>
 
       <StyledBody>
-        {step === writeSnowball ? (
-          <InputSnowball></InputSnowball>
-        ) : null}
+        {step === writeSnowball ? <InputSnowball></InputSnowball> : null}
       </StyledBody>
 
       <StyledBottomWrap>
