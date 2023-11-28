@@ -32,7 +32,9 @@ export class SnowballService {
     const snowball = this.snowballRepository.create({
       user_id: userid,
       title: createSnowballDto.title,
-      message_private: createSnowballDto.is_message_private ? new Date() : null
+      message_private: createSnowballDto.is_message_private ? new Date() : null,
+      main_decoration_color:createSnowballDto.main_decoration_color,
+      main_decoration_id:createSnowballDto.main_decoration_id
     });
     const savedSnowball = await this.snowballRepository.save(snowball);
 

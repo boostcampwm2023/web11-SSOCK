@@ -1,21 +1,27 @@
 import {
   IsString,
-  IsNumber,
   IsNotEmpty,
-  IsBoolean
+  IsBoolean,
+  IsNumber,
+  IsHexColor
 } from '@nestjs/class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class ReqCreateSnowballDto {
-  @IsNumber()
-  @IsNotEmpty()
-  @ApiProperty({ type: Number, description: '유저의 id' })
-  readonly user_id: number;
-
   @IsString()
   @IsNotEmpty()
   @ApiProperty({ type: String, description: '스노우볼 제목' })
   readonly title: string;
+
+  @IsNumber()
+  @IsNotEmpty()
+  @ApiProperty({ type: Number, description: '장식 id' })
+  readonly main_decoration_id: number;
+
+  @IsHexColor()
+  @IsNotEmpty()
+  @ApiProperty({ type: String, description: '장식 색상', example: '#FFFFFF' })
+  readonly main_decoration_color: string;
 
   @IsBoolean()
   @IsNotEmpty()

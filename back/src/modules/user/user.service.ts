@@ -30,7 +30,6 @@ export class UserService {
     const exisitingUser = await this.userRepository.findOne({
       where: { id: id }
     });
-    console.log(exisitingUser);
     if (exisitingUser) {
       return exisitingUser.nickname;
     } else {
