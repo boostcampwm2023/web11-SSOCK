@@ -32,9 +32,9 @@ export class SnowballService {
     const snowball = this.snowballRepository.create({
       user_id: userid,
       title: createSnowballDto.title,
-      message_private: createSnowballDto.is_message_private ? new Date() : null,
       main_decoration_color:createSnowballDto.main_decoration_color,
-      main_decoration_id:createSnowballDto.main_decoration_id
+      main_decoration_id:createSnowballDto.main_decoration_id,
+      message_private: createSnowballDto.is_message_private ? new Date() : null
     });
     const savedSnowball = await this.snowballRepository.save(snowball);
 
@@ -104,8 +104,8 @@ export class SnowballService {
         letter_id: message.letter_id,
         location: message.location
       })),
-      main_decoration_id: 0,
-      main_decoration_color: ''
+      main_decoration_id: snowball.main_decoration_id,
+      main_decoration_color: snowball.main_decoration_color
     };
 
     return resSnowball;
