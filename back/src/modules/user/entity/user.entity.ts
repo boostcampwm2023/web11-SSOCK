@@ -18,15 +18,12 @@ export class UserEntity {
   @Column({ length: 45 })
   user_id: string;
 
-  // kakao, naver, google에서 주는 거임
   @Column({ length: 16 })
   username: string;
 
-  // 닉네임?? 16자?
   @Column({ length: 16, default: null })
   nickname: string | null;
 
-  // kakao, naver, google
   @Column({ length: 6 })
   provider: string;
 

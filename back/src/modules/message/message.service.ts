@@ -160,7 +160,7 @@ export class MessageService {
 
   async getMessageList(snowball_id: number): Promise<MessageEntity[]> {
     const messages = await this.messageRepository.find({
-      where: { snowball_id: snowball_id }
+      where: { snowball_id: snowball_id, is_deleted: false }
     });
     return messages;
   }
