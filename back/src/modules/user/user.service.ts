@@ -26,7 +26,11 @@ export class UserService {
       where: { user_id: user_id }
     });
     if (exisitingUser) {
-      return {id:exisitingUser.id, name:exisitingUser.username, user_id:exisitingUser.user_id};
+      return {
+        id: exisitingUser.id,
+        name: exisitingUser.username,
+        user_id: exisitingUser.user_id
+      };
     } else {
       throw new NotFoundException('해당 유저를 찾을 수 없습니다.');
     }
@@ -82,12 +86,15 @@ export class UserService {
     return userDto;
   }
 
-  async updateNickname(id: number, nicknameDto: NicknameDto): Promise<NicknameDto> {
+  async updateNickname(
+    id: number,
+    nicknameDto: NicknameDto
+  ): Promise<NicknameDto> {
     const updateResult = await this.userRepository
       .createQueryBuilder()
       .update(UserEntity)
       .set({
-        nickname:nicknameDto.nickname
+        nickname: nicknameDto.nickname
       })
       .where('id = :id', { id: id })
       .execute();
