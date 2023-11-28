@@ -12,11 +12,11 @@ export class UserService {
   constructor(
     private readonly snowballService: SnowballService,
     @InjectRepository(UserEntity)
-    private readonly UserRepository: Repository<UserEntity>
+    private readonly userRepository: Repository<UserEntity>
   ) {}
 
   async getUserPk(user: any): Promise<number> {
-    const exisitingUser = await this.UserRepository.findOne({
+    const exisitingUser = await this.userRepository.findOne({
       where: { user_id: user.id }
     });
     if (exisitingUser) {
@@ -27,9 +27,10 @@ export class UserService {
   }
 
   async getUserNickname(id: number): Promise<string> {
-    const exisitingUser = await this.UserRepository.findOne({
+    const exisitingUser = await this.userRepository.findOne({
       where: { id: id }
     });
+    console.log(exisitingUser);
     if (exisitingUser) {
       return exisitingUser.nickname;
     } else {
@@ -62,6 +63,7 @@ export class UserService {
     const { snowball_count, message_count, snowball_list, main_snowball_id } =
       await this.snowballService.getSnowballInfo(id);
     const nickname = await this.getUserNickname(id);
+    console.log(nickname);
     const userDto: UserDto = {
       id: id,
       username: username,
@@ -76,10 +78,11 @@ export class UserService {
   }
 
   async updateNickname(id: number, nickname: string): Promise<NicknameDto> {
-    const updateResult = await this.UserRepository.createQueryBuilder()
+    const updateResult = await this.userRepository
+      .createQueryBuilder()
       .update(UserEntity)
       .set({
-        nickname: nickname
+        nickname: `${nickname}`
       })
       .where('id = :id', { id: id })
       .execute();
