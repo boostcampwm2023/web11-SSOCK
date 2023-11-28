@@ -26,7 +26,7 @@ export class GoogleAuthStrategy extends PassportStrategy(Strategy, 'google') {
   ) {
     try {
       const user = {
-        id: profile.id,
+        user_id: profile.id,
         name: profile.displayName,
         provider: profile.provider,
         accessToken,

@@ -7,7 +7,7 @@ import {
   JoinColumn
 } from 'typeorm';
 import { SnowballEntity } from 'src/modules/snowball/entity/snowball.entity';
-import { UserEntity } from 'src/modules/auth/entity/user.entity';
+import { UserEntity } from 'src/modules/user/entity/user.entity';
 
 @Entity({ synchronize: true, name: 'message' })
 export class MessageEntity {

@@ -28,15 +28,14 @@ import {
 import { ResCreateMessageDto } from './dto/response/res-create-message.dto';
 import { MessageDto } from './dto/message.dto';
 import { JWTGuard } from '../auth/auth.guard';
-import { ReqUpdateMessageDecorationDto } from './dto/request/req-update-message-decoration.dto';
-import { ReqUpdateMessageLocationDto } from './dto/request/req-update-message-location.dto';
-
+import { UpdateMessageDecorationDto } from './dto/update-message-decoration.dto';
+import { UpdateMessageLocationDto } from './dto/update-message-location.dto';
 @ApiTags('Message API')
 @Controller('message')
 export class MessageController {
   constructor(private readonly messageService: MessageService) {}
 
-  @Post('/:snowball_id')
+  @Post('/:user_id/:snowball_id')
   @HttpCode(201)
   @ApiOperation({
     summary: '메세지 생성 API',
@@ -53,11 +52,13 @@ export class MessageController {
     description: 'Insert Fail'
   })
   async createMessage(
+    @Param('user_id') user_id: number,
     @Param('snowball_id') snowball_id: number,
     @Body() createMessageDto: ReqCreateMessageDto
   ): Promise<ResCreateMessageDto> {
     const resCreateMessage = await this.messageService.createMessage(
       createMessageDto,
+      user_id,
       snowball_id
     );
     return resCreateMessage;
@@ -162,8 +163,8 @@ export class MessageController {
   })
   async updateMessageDecoration(
     @Param('message_id') message_id: number,
-    @Body() updateMessageDecorationDto: ReqUpdateMessageDecorationDto
-  ): Promise<MessageDto> {
+    @Body() updateMessageDecorationDto: UpdateMessageDecorationDto
+  ): Promise<UpdateMessageDecorationDto> {
     return await this.messageService.updateMessageDecoration(
       message_id,
       updateMessageDecorationDto
@@ -195,8 +196,8 @@ export class MessageController {
   })
   async updateMessageLocation(
     @Param('message_id') message_id: number,
-    @Body() updateMessageLocationDto: ReqUpdateMessageLocationDto
-  ): Promise<MessageDto> {
+    @Body() updateMessageLocationDto: UpdateMessageLocationDto
+  ): Promise<UpdateMessageLocationDto> {
     return await this.messageService.updateMessageLocation(
       message_id,
       updateMessageLocationDto

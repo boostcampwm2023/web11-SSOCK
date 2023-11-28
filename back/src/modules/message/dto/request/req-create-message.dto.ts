@@ -22,6 +22,12 @@ export class ReqCreateMessageDto {
   @ApiProperty({ type: String, description: '장식 색상', example: '#FFFFFF' })
   readonly decoration_color: string;
 
+  // To Do: location 프론트가 정할 지 우리가 정할 지
+  @IsNumber()
+  @IsNotEmpty()
+  @ApiProperty({ type: Number, description: '장식 위치' })
+  readonly location: number;
+
   @IsNumber()
   @IsNotEmpty()
   @ApiProperty({ type: Number, description: '편지지 종류' })

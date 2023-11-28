@@ -10,12 +10,16 @@ export class UserDto {
   @IsString()
   @IsNotEmpty()
   @ApiProperty({ type: String, description: '사용자 이름' })
-  readonly name: string;
+  readonly username: string;
+
+  @IsString()
+  @ApiProperty({ type: String, description: '사용자 닉네임' })
+  readonly nickname: string | null;
 
   @IsString()
   @IsNotEmpty()
   @ApiProperty({ type: String, description: 'Oauth에서 주는 값' })
-  readonly auth_id: string;
+  readonly user_id: string;
 
   @IsNumber()
   @IsNotEmpty()

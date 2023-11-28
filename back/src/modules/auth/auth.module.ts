@@ -5,24 +5,18 @@ import { KakaoAuthStrategy } from './strategy/kakao-auth.strategy';
 import { AuthController } from './auth.controller';
 import { PassportModule } from '@nestjs/passport';
 import { AuthService } from './auth.service';
-import { SnowballService } from '../snowball/snowball.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { SnowballEntity } from '../snowball/entity/snowball.entity';
-import { UserEntity } from './entity/user.entity';
+import { UserEntity } from '../user/entity/user.entity';
 import { JWTGuard } from './auth.guard';
-import { MessageEntity } from '../message/entity/message.entity';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([UserEntity, SnowballEntity, MessageEntity]),
-    PassportModule
-  ],
+  imports: [TypeOrmModule.forFeature([UserEntity]), PassportModule, JwtModule],
   providers: [
     GoogleAuthStrategy,
     NaverAuthStrategy,
     KakaoAuthStrategy,
     AuthService,
-    SnowballService,
     JWTGuard
   ],
   controllers: [AuthController],

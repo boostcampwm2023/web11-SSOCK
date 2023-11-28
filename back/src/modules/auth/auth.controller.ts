@@ -1,9 +1,9 @@
-import { Controller, Get, Req, Param, UseGuards } from '@nestjs/common';
+import { Controller, Get, Req, Res, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
-import { ResInfoDto } from './dto/response/res-info.dto';
+import { ResInfoDto } from '../user/dto/response/res-info.dto';
 import { AuthService } from './auth.service';
-import { ResVisitInfoDto } from './dto/response/res-visit-info.do';
+import { payload } from './auth.service';
 
 @ApiTags('Oauth API')
 @Controller('auth')
@@ -37,10 +37,17 @@ export class AuthController {
     status: 500,
     description: 'Internal Server Error'
   })
-  async googleLoginCallback(@Req() req): Promise<ResInfoDto> {
-    const userInfo = req.user;
-    const result = this.authService.createUserInfo(userInfo);
-    return result;
+  async googleLoginCallback(@Req() req: any, @Res() res: any): Promise<void> {
+    const payload: payload = await this.authService.getUserInfo(req.user);
+    const { accessToken, refreshToken } =
+      this.authService.generateJwtToken(payload);
+    res.setHeader('Authorization', `Bearer  ${accessToken}`);
+    // To DO: refresh token db에 저장 & 클라이언트에는 index만 저장?
+    res.cookie('refresh_token', refreshToken, {
+      httpOnly: true,
+      maxAge: parseInt(`${process.env.JWT_REFRESH_AGE}`)
+    });
+    res.redirect(`${process.env.OAUTH_REDIRECT_URL}`);
   }
 
   @Get('naver')
@@ -71,10 +78,17 @@ export class AuthController {
     status: 500,
     description: 'Internal Server Error'
   })
-  async naverLoginCallBack(@Req() req): Promise<ResInfoDto> {
-    const userInfo = req.user;
-    const result = this.authService.createUserInfo(userInfo);
-    return result;
+  async naverLoginCallBack(@Req() req: any, @Res() res: any): Promise<void> {
+    const payload: payload = await this.authService.getUserInfo(req.user);
+    const { accessToken, refreshToken } =
+      this.authService.generateJwtToken(payload);
+    res.setHeader('Authorization', `Bearer  ${accessToken}`);
+    // To DO: refresh token db에 저장 & 클라이언트에는 index만 저장?
+    res.cookie('refresh_token', refreshToken, {
+      httpOnly: true,
+      maxAge: parseInt(`${process.env.JWT_REFRESH_AGE}`)
+    });
+    res.redirect(`${process.env.OAUTH_REDIRECT_URL}`);
   }
 
   @Get('kakao')
@@ -105,26 +119,16 @@ export class AuthController {
     status: 500,
     description: 'Internal Server Error'
   })
-  async kakaoLoginCallBack(@Req() req): Promise<ResInfoDto> {
-    const userInfo = req.user;
-    const result = this.authService.createUserInfo(userInfo);
-    return result;
-  }
-
-  @Get('visit/:user_id')
-  @ApiOperation({
-    summary: '방문자 유저 조회 API',
-    description: '방문자가 접속한 유저의 정보를 반환합니다'
-  })
-  @ApiResponse({
-    status: 500,
-    description: 'Internal Server Error',
-    type: ResVisitInfoDto
-  })
-  async createVisitInfo(
-    @Param('user_id') user_id: string
-  ): Promise<ResVisitInfoDto> {
-    const result = this.authService.createVisitInfo(user_id);
-    return result;
+  async kakaoLoginCallBack(@Req() req: any, @Res() res: any): Promise<void> {
+    const payload: payload = await this.authService.getUserInfo(req.user);
+    const { accessToken, refreshToken } =
+      this.authService.generateJwtToken(payload);
+    res.setHeader('Authorization', `Bearer  ${accessToken}`);
+    // To DO: refresh token db에 저장 & 클라이언트에는 index만 저장?
+    res.cookie('refresh_token', refreshToken, {
+      httpOnly: true,
+      maxAge: parseInt(`${process.env.JWT_REFRESH_AGE}`)
+    });
+    res.redirect(`${process.env.OAUTH_REDIRECT_URL}`);
   }
 }

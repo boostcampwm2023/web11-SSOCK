@@ -7,10 +7,20 @@ import { ReqUpdateSnowballDto } from './dto/request/req-update-snowball.dto';
 import { SnowballDto } from './dto/snowball.dto';
 import { ResUpdateSnowballDto } from './dto/response/res-update-snowball.dto';
 import { UpdateMainDecoDto } from './dto/update-main-decoration.dto';
+import { UserDto } from '../user/dto/user.dto';
+import { MessageService } from '../message/message.service';
+
+export interface SnowballInfo {
+  snowball_count: number;
+  message_count: number;
+  snowball_list: number[];
+  main_snowball_id: number | null;
+}
 
 @Injectable()
 export class SnowballService {
   constructor(
+    private readonly messageService: MessageService,
     @InjectRepository(SnowballEntity)
     private readonly snowballRepository: Repository<SnowballEntity>
   ) {}
@@ -22,6 +32,8 @@ export class SnowballService {
     const snowball = this.snowballRepository.create({
       user_id: userid,
       title: createSnowballDto.title,
+      main_decoration_color:createSnowballDto.main_decoration_color,
+      main_decoration_id:createSnowballDto.main_decoration_id,
       message_private: createSnowballDto.is_message_private ? new Date() : null
     });
     const savedSnowball = await this.snowballRepository.save(snowball);
@@ -80,6 +92,8 @@ export class SnowballService {
     const resSnowball: SnowballDto = {
       id: snowball.id,
       title: snowball.title,
+      main_decoration_id: snowball.main_decoration_id,
+      main_decoration_color: snowball.main_decoration_color,
       is_message_private: snowball.message_private ? true : false,
       message_list: snowball.messages.map(message => ({
         id: message.id,
@@ -91,9 +105,7 @@ export class SnowballService {
         created: message.created,
         letter_id: message.letter_id,
         location: message.location
-      })),
-      main_decoration_id: 0,
-      main_decoration_color: ''
+      }))
     };
 
     return resSnowball;
@@ -119,5 +131,36 @@ export class SnowballService {
     }
 
     return updateMainDecoDto;
+  }
+
+  async getMainSnowballDto(userDto: UserDto): Promise<SnowballDto | null> {
+    if (!userDto.main_snowball_id) {
+      return null;
+    } else {
+      return await this.getSnowball(userDto.main_snowball_id);
+    }
+  }
+
+  async getSnowballInfo(user_pk: number): Promise<SnowballInfo> {
+    const snowballs = await this.snowballRepository.findAndCount({
+      where: { user_id: user_pk }
+    });
+
+    if (snowballs[0].length > 0) {
+      const snowball_list = snowballs[0].map(snowball => snowball.id);
+      return {
+        snowball_count: snowballs[1],
+        message_count: await this.messageService.getMessageCount(user_pk),
+        snowball_list,
+        main_snowball_id: snowballs[0][0].id
+      };
+    } else {
+      return {
+        snowball_count: 0,
+        message_count: 0,
+        snowball_list: [],
+        main_snowball_id: null
+      };
+    }
   }
 }

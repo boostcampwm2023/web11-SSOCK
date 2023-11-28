@@ -10,28 +10,23 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ReqCreateMessageDto } from './dto/request/req-create-message.dto';
 import { MessageEntity } from './entity/message.entity';
-import { UserEntity } from '../auth/entity/user.entity';
 import { ResCreateMessageDto } from './dto/response/res-create-message.dto';
 import { MessageDto } from './dto/message.dto';
-import { SnowballEntity } from '../snowball/entity/snowball.entity';
-import { ReqUpdateMessageDecorationDto } from './dto/request/req-update-message-decoration.dto';
-import { ReqUpdateMessageLocationDto } from './dto/request/req-update-message-location.dto';
+import { plainToClass } from '@nestjs/class-transformer';
+import { UpdateMessageDecorationDto } from './dto/update-message-decoration.dto';
+import { UpdateMessageLocationDto } from './dto/update-message-location.dto';
 
 @Injectable()
 export class MessageService {
   constructor(
-    @InjectRepository(UserEntity)
-    private readonly userRepository: Repository<UserEntity>,
     @InjectRepository(MessageEntity)
-    private readonly messageRepository: Repository<MessageEntity>,
-    @InjectRepository(SnowballEntity)
-    private readonly snowballRepository: Repository<SnowballEntity>
+    private readonly messageRepository: Repository<MessageEntity>
   ) {}
   async createMessage(
     createMessageDto: ReqCreateMessageDto,
+    user_id: number,
     snowball_id: number
   ): Promise<ResCreateMessageDto> {
-    const user_id = await this.getUserId(snowball_id);
     const messageEntity = this.messageRepository.create({
       user_id: user_id,
       snowball_id: snowball_id,
@@ -39,6 +34,7 @@ export class MessageService {
       content: createMessageDto.content,
       decoration_id: createMessageDto.decoration_id,
       decoration_color: createMessageDto.decoration_color,
+      location: createMessageDto.location,
       letter_id: createMessageDto.letter_id,
       opened: null
       // is_deleted랑 created는 자동으로 설정
@@ -79,45 +75,14 @@ export class MessageService {
 
   async getAllMessages(user_id: number): Promise<MessageDto[]> {
     //To Do: query builder로 개선하기
-    const user = await this.userRepository.findOne({
-      where: { id: user_id },
-      relations: {
-        snowballs: {
-          messages: true
-        }
-      }
+    const messages: MessageEntity[] = await this.messageRepository.find({
+      where: { user_id: user_id, is_deleted: false }
     });
 
-    if (!user) {
+    if (!messages) {
       throw new NotFoundException(`User with id ${user_id} not found`);
     }
-    const messages: MessageEntity[] = user.snowballs
-      .flatMap(snowball => snowball.messages)
-      .filter(message => !message.is_deleted);
-    const messagesDto: MessageDto[] = messages.map(message => {
-      const {
-        id,
-        decoration_id,
-        decoration_color,
-        letter_id,
-        content,
-        sender,
-        opened,
-        created,
-        location
-      } = message;
-      return {
-        id,
-        decoration_id,
-        decoration_color,
-        letter_id,
-        content,
-        sender,
-        opened,
-        created,
-        location
-      };
-    });
+    const messagesDto: MessageDto[] = plainToClass(MessageDto, messages);
     return messagesDto;
   }
 
@@ -144,17 +109,10 @@ export class MessageService {
     };
   }
 
-  async getUserId(snowball_id: number): Promise<number> {
-    const snowball = await this.snowballRepository.findOne({
-      where: { id: snowball_id }
-    });
-    return snowball.user_id;
-  }
-
   async updateMessageDecoration(
     message_id: number,
-    updateMessageDecorationDto: ReqUpdateMessageDecorationDto
-  ): Promise<MessageDto> {
+    updateMessageDecorationDto: UpdateMessageDecorationDto
+  ): Promise<UpdateMessageDecorationDto> {
     const { decoration_id, decoration_color } = updateMessageDecorationDto;
     const updateResult = await this.messageRepository
       .createQueryBuilder()
@@ -164,20 +122,20 @@ export class MessageService {
         decoration_color
       })
       .where('id = :id', { id: message_id })
-      .returning('*')
       .execute();
+      console.log(updateResult);
     if (!updateResult.affected) {
       throw new NotFoundException('업데이트할 메시지가 존재하지 않습니다.');
     } else if (updateResult.affected > 1) {
       throw new InternalServerErrorException('서버측 오류');
     }
-    return updateResult.raw[0] as MessageDto;
+    return updateMessageDecorationDto;
   }
 
   async updateMessageLocation(
     message_id: number,
-    updateMessageLocationDto: ReqUpdateMessageLocationDto
-  ): Promise<MessageDto> {
+    updateMessageLocationDto: UpdateMessageLocationDto
+  ): Promise<UpdateMessageLocationDto> {
     //TODO: location이 available 한지 확인 해야함
     const { location } = updateMessageLocationDto;
     const updateResult = await this.messageRepository
@@ -187,13 +145,16 @@ export class MessageService {
         location
       })
       .where('id = :id', { id: message_id })
-      .returning('*')
       .execute();
     if (!updateResult.affected) {
       throw new NotFoundException('업데이트할 메시지가 존재하지 않습니다.');
     } else if (updateResult.affected > 1) {
       throw new InternalServerErrorException('서버측 오류');
     }
-    return updateResult.raw[0] as MessageDto;
+    return updateMessageLocationDto;
+  }
+
+  async getMessageCount(user_pk: number): Promise<number> {
+    return this.messageRepository.count({ where: { user: { id: user_pk } } });
   }
 }

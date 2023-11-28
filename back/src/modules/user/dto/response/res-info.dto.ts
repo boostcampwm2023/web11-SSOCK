@@ -3,7 +3,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { UserDto } from '../user.dto';
 import { SnowballDto } from '../../../snowball/dto/snowball.dto';
 
-export class ResVisitInfoDto {
+export class ResInfoDto {
   @IsNotEmpty()
   @ApiProperty({
     type: UserDto,
