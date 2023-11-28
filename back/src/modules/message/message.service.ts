@@ -12,9 +12,9 @@ import { ReqCreateMessageDto } from './dto/request/req-create-message.dto';
 import { MessageEntity } from './entity/message.entity';
 import { ResCreateMessageDto } from './dto/response/res-create-message.dto';
 import { MessageDto } from './dto/message.dto';
-import { ReqUpdateMessageDecorationDto } from './dto/request/req-update-message-decoration.dto';
-import { ReqUpdateMessageLocationDto } from './dto/request/req-update-message-location.dto';
 import { plainToClass } from '@nestjs/class-transformer';
+import { UpdateMessageDecorationDto } from './dto/update-message-decoration.dto';
+import { UpdateMessageLocationDto } from './dto/update-message-location.dto';
 
 @Injectable()
 export class MessageService {
@@ -111,8 +111,8 @@ export class MessageService {
 
   async updateMessageDecoration(
     message_id: number,
-    updateMessageDecorationDto: ReqUpdateMessageDecorationDto
-  ): Promise<MessageDto> {
+    updateMessageDecorationDto: UpdateMessageDecorationDto
+  ): Promise<UpdateMessageDecorationDto> {
     const { decoration_id, decoration_color } = updateMessageDecorationDto;
     const updateResult = await this.messageRepository
       .createQueryBuilder()
@@ -122,20 +122,20 @@ export class MessageService {
         decoration_color
       })
       .where('id = :id', { id: message_id })
-      .returning('*')
       .execute();
+      console.log(updateResult);
     if (!updateResult.affected) {
       throw new NotFoundException('업데이트할 메시지가 존재하지 않습니다.');
     } else if (updateResult.affected > 1) {
       throw new InternalServerErrorException('서버측 오류');
     }
-    return updateResult.raw[0] as MessageDto;
+    return updateMessageDecorationDto;
   }
 
   async updateMessageLocation(
     message_id: number,
-    updateMessageLocationDto: ReqUpdateMessageLocationDto
-  ): Promise<MessageDto> {
+    updateMessageLocationDto: UpdateMessageLocationDto
+  ): Promise<UpdateMessageLocationDto> {
     //TODO: location이 available 한지 확인 해야함
     const { location } = updateMessageLocationDto;
     const updateResult = await this.messageRepository
@@ -145,14 +145,13 @@ export class MessageService {
         location
       })
       .where('id = :id', { id: message_id })
-      .returning('*')
       .execute();
     if (!updateResult.affected) {
       throw new NotFoundException('업데이트할 메시지가 존재하지 않습니다.');
     } else if (updateResult.affected > 1) {
       throw new InternalServerErrorException('서버측 오류');
     }
-    return updateResult.raw[0] as MessageDto;
+    return updateMessageLocationDto;
   }
 
   async getMessageCount(user_pk: number): Promise<number> {

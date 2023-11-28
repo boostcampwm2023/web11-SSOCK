@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNumber, IsNotEmpty, IsHexColor } from 'class-validator';
 
-export class ReqUpdateMessageDecorationDto {
+export class UpdateMessageDecorationDto {
   @IsNumber()
   @IsNotEmpty()
   @ApiProperty({ type: Number, description: '장식 id' })
