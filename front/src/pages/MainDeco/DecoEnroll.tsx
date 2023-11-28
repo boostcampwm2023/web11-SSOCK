@@ -99,7 +99,6 @@ const CloseNav = (
   closeRef: React.RefObject<HTMLDivElement>,
   setIsFocus: React.Dispatch<React.SetStateAction<boolean>>,
   navigate: NavigateFunction,
-  user: string | undefined,
   flag: 'close' | 'root'
 ) => {
   const onAnimationEnd = () => {
@@ -108,10 +107,10 @@ const CloseNav = (
       props.view[1](!props.view[0]);
       closeRef.current.removeEventListener('animationend', onAnimationEnd);
       if (flag === 'root') {
-        navigate('/');
+        navigate('/main');
         return;
       }
-      navigate(`/visit/${user}`);
+      navigate(`/main`);
     }
   };
 
@@ -134,7 +133,7 @@ const DecoEnroll = (props: NaviProps) => {
     <>
       <StyledBody
         onClick={() =>
-          CloseNav(props, closeRef, setIsFocus, navigate, user, 'close')
+          CloseNav(props, closeRef, setIsFocus, navigate, 'close')
         }
       />
 
@@ -144,7 +143,7 @@ const DecoEnroll = (props: NaviProps) => {
             <StyledNavButton
               color={theme.colors['--primary-red-primary']}
               onClick={() =>
-                CloseNav(props, closeRef, setIsFocus, navigate, user, 'root')
+                CloseNav(props, closeRef, setIsFocus, navigate, 'root')
               }
             >
               <StyeldButtonText>
@@ -152,7 +151,7 @@ const DecoEnroll = (props: NaviProps) => {
                   src="/icons/snowGlobeButton.png"
                   alt="snowGlobe"
                 />
-                내 스노우볼 만들러 가기
+                링크 공유하기
               </StyeldButtonText>
               <EmptyDiv />
             </StyledNavButton>
@@ -162,10 +161,10 @@ const DecoEnroll = (props: NaviProps) => {
             <StyledNavButton
               color={theme.colors['--primary-green-primary']}
               onClick={() =>
-                CloseNav(props, closeRef, setIsFocus, navigate, user, 'close')
+                CloseNav(props, closeRef, setIsFocus, navigate, 'close')
               }
             >
-              <StyeldButtonText>닫기</StyeldButtonText>
+              <StyeldButtonText>내 스노우볼 보러가기</StyeldButtonText>
             </StyledNavButton>
           </ButtonWrap>
         </StyledNaviBox>
