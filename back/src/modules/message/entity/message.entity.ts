@@ -29,9 +29,11 @@ export class MessageEntity {
   @Column()
   letter_id: number;
 
+  // 500자 
   @Column({ type: 'text' })
   content: string;
 
+  // 16자
   @Column({ length: 16 })
   sender: string;
 
