@@ -32,8 +32,8 @@ export class SnowballService {
     const snowball = this.snowballRepository.create({
       user_id: userid,
       title: createSnowballDto.title,
-      main_decoration_color:createSnowballDto.main_decoration_color,
-      main_decoration_id:createSnowballDto.main_decoration_id,
+      main_decoration_color: createSnowballDto.main_decoration_color,
+      main_decoration_id: createSnowballDto.main_decoration_id,
       message_private: createSnowballDto.is_message_private ? new Date() : null
     });
     const savedSnowball = await this.snowballRepository.save(snowball);
@@ -80,10 +80,7 @@ export class SnowballService {
 
   async getSnowball(snowball_id: number): Promise<SnowballDto> | null {
     const snowball = await this.snowballRepository.findOne({
-      where: { id: snowball_id },
-      relations: {
-        messages: true
-      }
+      where: { id: snowball_id }
     });
     if (!snowball) {
       return null;
@@ -95,17 +92,7 @@ export class SnowballService {
       main_decoration_id: snowball.main_decoration_id,
       main_decoration_color: snowball.main_decoration_color,
       is_message_private: snowball.message_private ? true : false,
-      message_list: snowball.messages.map(message => ({
-        id: message.id,
-        decoration_id: message.decoration_id,
-        decoration_color: message.decoration_color,
-        content: message.content,
-        sender: message.sender,
-        opened: message.opened,
-        created: message.created,
-        letter_id: message.letter_id,
-        location: message.location
-      }))
+      message_list: await this.messageService.getMessageList(snowball.id)
     };
 
     return resSnowball;
