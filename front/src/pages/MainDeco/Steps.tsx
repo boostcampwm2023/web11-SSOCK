@@ -5,6 +5,7 @@ import { HeaderText, StepButton, MakeButton } from '../../components';
 import DecoEnroll from './DecoEnroll';
 import DecoBox from './DecoBox';
 import { DecoContext } from './DecoProvider';
+import { NicknameProvider } from './NicknameProvider';
 
 const StateBar = styled.div`
   display: flex;
@@ -187,10 +188,7 @@ const Steps = () => {
           <StateBar>{renderStateBoxes()}</StateBar>
         )}
       </StyledTopWrap>
-      <StyledBody>
-        
-        
-      </StyledBody>
+
       <StyledBottomWrap>
         <StyledButtonWrap>
           {step <= selectDeco ? (
@@ -241,14 +239,17 @@ const Steps = () => {
               </>
             ) : null}
             {step === writeSnowball ? (
-              <ButtonBox>
-                <MakeButton
-                  text="스노우볼 만들기"
-                  color={theme.colors['--primary-red-primary']}
-                  view={[lastBox, setLastBox]}
-                  visible={[step, setStep]}
-                />
-              </ButtonBox>
+              <NicknameProvider>
+                <StyledBody></StyledBody>
+                <ButtonBox>
+                  <MakeButton
+                    text="스노우볼 만들기"
+                    color={theme.colors['--primary-red-primary']}
+                    view={[lastBox, setLastBox]}
+                    visible={[step, setStep]}
+                  />
+                </ButtonBox>
+              </NicknameProvider>
             ) : null}
           </SelectDeco>
         </SelectDecoBox>

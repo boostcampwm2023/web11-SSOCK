@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import theme from '../../utils/theme';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { NicknameContext } from '../../pages/MainDeco/NicknameProvider';
 
 
 interface MakeButtonProps {
@@ -41,10 +42,14 @@ const StyledAlert = styled.div`
 `;
 
 const MakeButton = (props: ButtonProps) => {
+  const { nickname } = useContext(NicknameContext);
   const [alert, setAlert] = useState(false);
 
   const ClickedMake = () => {
-
+    if (nickname === '') {
+      setAlert(true);
+      return;
+    }
     props.view[1](!props.view[0]);
     props.visible[1](-1);
   };
