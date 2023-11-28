@@ -27,7 +27,7 @@ const Snow: React.FC<SnowProps> = ({
   const snow = useGLTF(`/models/snowFlake0${model + 1}.glb`).scene.clone();
 
   snow.position.set(position.x, position.y, position.z);
-  snow.scale.set(0.5, 0.5, 0.5);
+  snow.scale.set(radius, radius, radius);
   snow.rotation.y = Math.random();
   useFrame((_, delta) => {
     const snow = snowRef.current;

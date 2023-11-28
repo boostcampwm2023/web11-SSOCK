@@ -18,8 +18,6 @@ const Outer = styled.div`
     display: none;
   } */
 
-  //overflow: hidden;
-
   @media (min-width: ${theme.size['--desktop-min-width']}) {
     width: ${theme.size['--desktop-width']};
   }

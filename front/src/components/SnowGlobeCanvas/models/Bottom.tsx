@@ -9,7 +9,7 @@ interface BottomProps {
 
 const Bottom: React.FC<BottomProps> = ({ scale, position }) => {
   const bottom = useGLTF('/models/bottom2.glb').scene.clone();
-  const title = '바보의 스노우볼';
+  const title = '오승엽의 스노우볼👻';
   const nameTag = bottom.getObjectByName('nameTag') as THREE.Mesh;
 
   if (nameTag) {
