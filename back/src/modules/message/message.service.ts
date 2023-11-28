@@ -33,6 +33,7 @@ export class MessageService {
       content: createMessageDto.content,
       decoration_id: createMessageDto.decoration_id,
       decoration_color: createMessageDto.decoration_color,
+      location: createMessageDto.location,
       letter_id: createMessageDto.letter_id,
       opened: null
       // is_deleted랑 created는 자동으로 설정
