@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { ResInfoDto } from './dto/response/res-info.dto';
 import { UserDto } from './dto/user.dto';
 import { SnowballService } from '../snowball/snowball.service';
+import { NicknameDto } from './dto/nickname.dto';
 
 @Injectable()
 export class UserService {
@@ -74,7 +75,7 @@ export class UserService {
     return userDto;
   }
 
-  async updateNickname(id: number, nickname: string): Promise<string> {
+  async updateNickname(id: number, nickname: string): Promise<NicknameDto> {
     const updateResult = await this.UserRepository.createQueryBuilder()
       .update(UserEntity)
       .set({
@@ -85,6 +86,6 @@ export class UserService {
     if (!updateResult.affected) {
       throw new NotFoundException('업데이트할 유저가 존재하지 않습니다.');
     }
-    return 'test';
+    return { nickname: nickname };
   }
 }

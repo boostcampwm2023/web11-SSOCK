@@ -17,6 +17,7 @@ import {
 } from '@nestjs/swagger';
 import { UserService } from './user.service';
 import { ResInfoDto } from './dto/response/res-info.dto';
+import { NicknameDto } from './dto/nickname.dto';
 
 @ApiTags('User API')
 @Controller('user')
@@ -60,19 +61,20 @@ export class UserController {
   @UseGuards(JWTGuard)
   @ApiBearerAuth('jwt-token')
   @Put('/nickname')
-  @ApiBody({ type: String })
+  @ApiBody({ type: NicknameDto })
   @ApiOperation({
-    summary: '사용자 닉네임 변 경 API',
+    summary: '사용자 닉네임 변경 API',
     description: '사용자가 닉네임을 변경합니다'
   })
   @ApiResponse({
     status: 200,
-    type: String
+    description: '변경된 닉네임',
+    type: NicknameDto
   })
   async updateNickname(
     @Req() req: any,
     @Body() nickname: string
-  ): Promise<string> {
+  ): Promise<NicknameDto> {
     const result = this.userService.updateNickname(req.id, nickname);
     return result;
   }
