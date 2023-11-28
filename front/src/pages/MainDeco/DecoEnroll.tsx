@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { NavigateFunction, useNavigate, useParams } from 'react-router-dom';
+import { NavigateFunction, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import theme from '../../utils/theme';
 
@@ -127,7 +127,7 @@ const DecoEnroll = (props: NaviProps) => {
   const [isFocus, setIsFocus] = useState(true);
   const closeRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
-  const { user } = useParams();
+
 
   return (
     <>
