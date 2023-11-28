@@ -10,28 +10,22 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ReqCreateMessageDto } from './dto/request/req-create-message.dto';
 import { MessageEntity } from './entity/message.entity';
-import { UserEntity } from '../auth/entity/user.entity';
 import { ResCreateMessageDto } from './dto/response/res-create-message.dto';
 import { MessageDto } from './dto/message.dto';
-import { SnowballEntity } from '../snowball/entity/snowball.entity';
 import { ReqUpdateMessageDecorationDto } from './dto/request/req-update-message-decoration.dto';
 import { ReqUpdateMessageLocationDto } from './dto/request/req-update-message-location.dto';
 
 @Injectable()
 export class MessageService {
   constructor(
-    @InjectRepository(UserEntity)
-    private readonly userRepository: Repository<UserEntity>,
     @InjectRepository(MessageEntity)
-    private readonly messageRepository: Repository<MessageEntity>,
-    @InjectRepository(SnowballEntity)
-    private readonly snowballRepository: Repository<SnowballEntity>
+    private readonly messageRepository: Repository<MessageEntity>
   ) {}
   async createMessage(
     createMessageDto: ReqCreateMessageDto,
+    user_id: number,
     snowball_id: number
   ): Promise<ResCreateMessageDto> {
-    const user_id = await this.getUserId(snowball_id);
     const messageEntity = this.messageRepository.create({
       user_id: user_id,
       snowball_id: snowball_id,
@@ -79,21 +73,13 @@ export class MessageService {
 
   async getAllMessages(user_id: number): Promise<MessageDto[]> {
     //To Do: query builder로 개선하기
-    const user = await this.userRepository.findOne({
-      where: { id: user_id },
-      relations: {
-        snowballs: {
-          messages: true
-        }
-      }
+    const messages: MessageEntity[] = await this.messageRepository.find({
+      where: { user_id: user_id, is_deleted: false }
     });
 
-    if (!user) {
+    if (!messages) {
       throw new NotFoundException(`User with id ${user_id} not found`);
     }
-    const messages: MessageEntity[] = user.snowballs
-      .flatMap(snowball => snowball.messages)
-      .filter(message => !message.is_deleted);
     const messagesDto: MessageDto[] = messages.map(message => {
       const {
         id,
@@ -118,6 +104,7 @@ export class MessageService {
         location
       };
     });
+    // const messagesDto: MessageDto[] = plainToClass(MessageDto, messages);
     return messagesDto;
   }
 
@@ -142,13 +129,6 @@ export class MessageService {
       ...message,
       opened: date
     };
-  }
-
-  async getUserId(snowball_id: number): Promise<number> {
-    const snowball = await this.snowballRepository.findOne({
-      where: { id: snowball_id }
-    });
-    return snowball.user_id;
   }
 
   async updateMessageDecoration(
@@ -195,5 +175,9 @@ export class MessageService {
       throw new InternalServerErrorException('서버측 오류');
     }
     return updateResult.raw[0] as MessageDto;
+  }
+
+  async getMessageCount(user_pk: number): Promise<number> {
+    return this.messageRepository.count({ where: { user: { id: user_pk } } });
   }
 }

@@ -3,15 +3,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { MessageController } from './message.controller';
 import { MessageService } from './message.service';
 import { MessageEntity } from './entity/message.entity';
-import { UserEntity } from '../auth/entity/user.entity';
-import { SnowballEntity } from '../snowball/entity/snowball.entity';
-import { AuthModule } from '../auth/auth.module';
+import { JWTGuard } from '../auth/auth.guard';
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([UserEntity, SnowballEntity, MessageEntity]),
-    AuthModule
-  ],
+  imports: [TypeOrmModule.forFeature([MessageEntity])],
   controllers: [MessageController],
-  providers: [MessageService]
+  providers: [MessageService, JWTGuard],
+  exports: [MessageService, TypeOrmModule]
 })
 export class MessageModule {}

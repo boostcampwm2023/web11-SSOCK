@@ -1,0 +1,64 @@
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { UserEntity } from './entity/user.entity';
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
+import { ResInfoDto } from './dto/response/res-info.dto';
+import { UserDto } from './dto/user.dto';
+import { SnowballService } from '../snowball/snowball.service';
+
+@Injectable()
+export class UserService {
+  constructor(
+    private readonly snowballService: SnowballService,
+    @InjectRepository(UserEntity)
+    private readonly UserRepository: Repository<UserEntity>
+  ) {}
+
+  async getUserPk(user: any): Promise<number> {
+    const exisitingUser = await this.UserRepository.findOne({
+      where: { user_id: user.id }
+    });
+    if (exisitingUser) {
+      return exisitingUser.id;
+    } else {
+      throw new NotFoundException('해당 유저를 찾을 수 없습니다.');
+    }
+  }
+
+  async createUserInfo(user: any): Promise<ResInfoDto> {
+    const userDto: UserDto = await this.createUserDto(
+      user.id,
+      user.name,
+      user.user_id
+    );
+    const mainSnowballDto =
+      await this.snowballService.getMainSnowballDto(userDto);
+
+    const resInfoDto: ResInfoDto = {
+      user: userDto,
+      main_snowball: mainSnowballDto
+    };
+
+    return resInfoDto;
+  }
+
+  async createUserDto(
+    id: number,
+    username: string,
+    user_id: string
+  ): Promise<UserDto> {
+    const { snowball_count, message_count, snowball_list, main_snowball_id } =
+      await this.snowballService.getSnowballInfo(id);
+
+    const userDto: UserDto = {
+      id: id,
+      name: username,
+      user_id: user_id,
+      snowball_count: snowball_count,
+      main_snowball_id: main_snowball_id,
+      snowball_list: snowball_list,
+      message_count: message_count
+    };
+    return userDto;
+  }
+}

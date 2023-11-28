@@ -36,7 +36,7 @@ import { ReqUpdateMessageLocationDto } from './dto/request/req-update-message-lo
 export class MessageController {
   constructor(private readonly messageService: MessageService) {}
 
-  @Post('/:snowball_id')
+  @Post('/:user_id/:snowball_id')
   @HttpCode(201)
   @ApiOperation({
     summary: '메세지 생성 API',
@@ -53,11 +53,13 @@ export class MessageController {
     description: 'Insert Fail'
   })
   async createMessage(
+    @Param('user_id') user_id: number,
     @Param('snowball_id') snowball_id: number,
     @Body() createMessageDto: ReqCreateMessageDto
   ): Promise<ResCreateMessageDto> {
     const resCreateMessage = await this.messageService.createMessage(
       createMessageDto,
+      user_id,
       snowball_id
     );
     return resCreateMessage;

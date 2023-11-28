@@ -20,9 +20,11 @@ export class JWTGuard implements CanActivate {
     }
     try {
       const payload = await this.jwtService.verify(token, {
-        secret: process.env.JWT_SECRET
+        secret: process.env.JWT_ACCESS_SECRET
       });
-      request['id'] = payload.user_pk;
+      request['id'] = payload.id;
+      request['name'] = payload.name;
+      request['user_id'] = payload.user_id;
     } catch {
       throw new UnauthorizedException();
     }

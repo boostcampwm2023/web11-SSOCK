@@ -7,10 +7,20 @@ import { ReqUpdateSnowballDto } from './dto/request/req-update-snowball.dto';
 import { SnowballDto } from './dto/snowball.dto';
 import { ResUpdateSnowballDto } from './dto/response/res-update-snowball.dto';
 import { UpdateMainDecoDto } from './dto/update-main-decoration.dto';
+import { UserDto } from '../user/dto/user.dto';
+import { MessageService } from '../message/message.service';
+
+export interface SnowballInfo {
+  snowball_count: number;
+  message_count: number;
+  snowball_list: number[];
+  main_snowball_id: number | null;
+}
 
 @Injectable()
 export class SnowballService {
   constructor(
+    private readonly messageService: MessageService,
     @InjectRepository(SnowballEntity)
     private readonly snowballRepository: Repository<SnowballEntity>
   ) {}
@@ -119,5 +129,36 @@ export class SnowballService {
     }
 
     return updateMainDecoDto;
+  }
+
+  async getMainSnowballDto(userDto: UserDto): Promise<SnowballDto | null> {
+    if (!userDto.main_snowball_id) {
+      return null;
+    } else {
+      return await this.getSnowball(userDto.main_snowball_id);
+    }
+  }
+
+  async getSnowballInfo(user_pk: number): Promise<SnowballInfo> {
+    const snowballs = await this.snowballRepository.findAndCount({
+      where: { user_id: user_pk }
+    });
+
+    if (snowballs[0].length > 0) {
+      const snowball_list = snowballs[0].map(snowball => snowball.id);
+      return {
+        snowball_count: snowballs[1],
+        message_count: await this.messageService.getMessageCount(user_pk),
+        snowball_list,
+        main_snowball_id: snowballs[0][0].id
+      };
+    } else {
+      return {
+        snowball_count: 0,
+        message_count: 0,
+        snowball_list: [],
+        main_snowball_id: null
+      };
+    }
   }
 }

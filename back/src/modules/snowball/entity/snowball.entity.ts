@@ -7,7 +7,7 @@ import {
   OneToMany,
   JoinColumn
 } from 'typeorm';
-import { UserEntity } from '../../auth/entity/user.entity';
+import { UserEntity } from '../../user/entity/user.entity';
 import { MessageEntity } from '../../message/entity/message.entity';
 
 @Entity({ name: 'snowball' })

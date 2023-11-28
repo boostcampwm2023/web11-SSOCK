@@ -15,7 +15,7 @@ export class UserDto {
   @IsString()
   @IsNotEmpty()
   @ApiProperty({ type: String, description: 'Oauth에서 주는 값' })
-  readonly auth_id: string;
+  readonly user_id: string;
 
   @IsNumber()
   @IsNotEmpty()
