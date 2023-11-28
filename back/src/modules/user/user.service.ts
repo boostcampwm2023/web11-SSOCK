@@ -7,6 +7,12 @@ import { UserDto } from './dto/user.dto';
 import { SnowballService } from '../snowball/snowball.service';
 import { NicknameDto } from './dto/nickname.dto';
 
+interface userData {
+  id: number;
+  name: string;
+  user_id: string;
+}
+
 @Injectable()
 export class UserService {
   constructor(
@@ -15,12 +21,12 @@ export class UserService {
     private readonly userRepository: Repository<UserEntity>
   ) {}
 
-  async getUserPk(user: any): Promise<number> {
+  async getUserData(user_id: string): Promise<userData> {
     const exisitingUser = await this.userRepository.findOne({
-      where: { user_id: user.id }
+      where: { user_id: user_id }
     });
     if (exisitingUser) {
-      return exisitingUser.id;
+      return {id:exisitingUser.id, name:exisitingUser.username, user_id:exisitingUser.user_id};
     } else {
       throw new NotFoundException('해당 유저를 찾을 수 없습니다.');
     }
@@ -76,18 +82,18 @@ export class UserService {
     return userDto;
   }
 
-  async updateNickname(id: number, nickname: string): Promise<NicknameDto> {
+  async updateNickname(id: number, nicknameDto: NicknameDto): Promise<NicknameDto> {
     const updateResult = await this.userRepository
       .createQueryBuilder()
       .update(UserEntity)
       .set({
-        nickname: `${nickname}`
+        nickname:nicknameDto.nickname
       })
       .where('id = :id', { id: id })
       .execute();
     if (!updateResult.affected) {
       throw new NotFoundException('업데이트할 유저가 존재하지 않습니다.');
     }
-    return { nickname: nickname };
+    return nicknameDto;
   }
 }

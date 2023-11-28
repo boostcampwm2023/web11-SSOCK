@@ -53,8 +53,8 @@ export class UserController {
   async createVisitInfo(
     @Param('user_id') user_id: string
   ): Promise<ResInfoDto> {
-    const user_pk = this.userService.getUserPk(user_id);
-    const result = this.userService.createUserInfo(user_pk);
+    const userData = await this.userService.getUserData(user_id);
+    const result = this.userService.createUserInfo(userData);
     return result;
   }
 
@@ -73,9 +73,9 @@ export class UserController {
   })
   async updateNickname(
     @Req() req: any,
-    @Body() nickname: string
+    @Body() nicknameDto: NicknameDto
   ): Promise<NicknameDto> {
-    const result = this.userService.updateNickname(req.id, nickname);
+    const result = this.userService.updateNickname(req.id, nicknameDto);
     return result;
   }
 }

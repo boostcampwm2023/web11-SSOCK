@@ -92,6 +92,8 @@ export class SnowballService {
     const resSnowball: SnowballDto = {
       id: snowball.id,
       title: snowball.title,
+      main_decoration_id: snowball.main_decoration_id,
+      main_decoration_color: snowball.main_decoration_color,
       is_message_private: snowball.message_private ? true : false,
       message_list: snowball.messages.map(message => ({
         id: message.id,
@@ -103,9 +105,7 @@ export class SnowballService {
         created: message.created,
         letter_id: message.letter_id,
         location: message.location
-      })),
-      main_decoration_id: snowball.main_decoration_id,
-      main_decoration_color: snowball.main_decoration_color
+      }))
     };
 
     return resSnowball;
