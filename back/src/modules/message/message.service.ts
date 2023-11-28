@@ -14,6 +14,7 @@ import { ResCreateMessageDto } from './dto/response/res-create-message.dto';
 import { MessageDto } from './dto/message.dto';
 import { ReqUpdateMessageDecorationDto } from './dto/request/req-update-message-decoration.dto';
 import { ReqUpdateMessageLocationDto } from './dto/request/req-update-message-location.dto';
+import { plainToClass } from '@nestjs/class-transformer';
 
 @Injectable()
 export class MessageService {
@@ -81,31 +82,7 @@ export class MessageService {
     if (!messages) {
       throw new NotFoundException(`User with id ${user_id} not found`);
     }
-    const messagesDto: MessageDto[] = messages.map(message => {
-      const {
-        id,
-        decoration_id,
-        decoration_color,
-        letter_id,
-        content,
-        sender,
-        opened,
-        created,
-        location
-      } = message;
-      return {
-        id,
-        decoration_id,
-        decoration_color,
-        letter_id,
-        content,
-        sender,
-        opened,
-        created,
-        location
-      };
-    });
-    // const messagesDto: MessageDto[] = plainToClass(MessageDto, messages);
+    const messagesDto: MessageDto[] = plainToClass(MessageDto, messages);
     return messagesDto;
   }
 
