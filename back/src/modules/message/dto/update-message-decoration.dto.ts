@@ -1,8 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNumber, IsNotEmpty, IsHexColor } from 'class-validator';
+import { IsNumber, IsNotEmpty, IsHexColor, Min } from 'class-validator';
 
 export class UpdateMessageDecorationDto {
   @IsNumber()
+  @Min(1)
   @IsNotEmpty()
   @ApiProperty({ type: Number, description: '장식 id' })
   readonly decoration_id: number;
