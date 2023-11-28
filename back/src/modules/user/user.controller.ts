@@ -1,10 +1,19 @@
-import { Controller, Get, UseGuards, Param, Req } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Body,
+  UseGuards,
+  Param,
+  Req,
+  Put
+} from '@nestjs/common';
 import { JWTGuard } from '../auth/auth.guard';
 import {
   ApiTags,
   ApiOperation,
   ApiResponse,
-  ApiBearerAuth
+  ApiBearerAuth,
+  ApiBody
 } from '@nestjs/swagger';
 import { UserService } from './user.service';
 import { ResInfoDto } from './dto/response/res-info.dto';
@@ -45,6 +54,26 @@ export class UserController {
   ): Promise<ResInfoDto> {
     const user_pk = this.userService.getUserPk(user_id);
     const result = this.userService.createUserInfo(user_pk);
+    return result;
+  }
+
+  @UseGuards(JWTGuard)
+  @ApiBearerAuth('jwt-token')
+  @Put('/nickname')
+  @ApiBody({ type: String })
+  @ApiOperation({
+    summary: '사용자 닉네임 변 경 API',
+    description: '사용자가 닉네임을 변경합니다'
+  })
+  @ApiResponse({
+    status: 200,
+    type: String
+  })
+  async updateNickname(
+    @Req() req: any,
+    @Body() nickname: string
+  ): Promise<string> {
+    const result = this.userService.updateNickname(req.id, nickname);
     return result;
   }
 }

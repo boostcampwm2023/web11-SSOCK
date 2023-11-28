@@ -36,6 +36,7 @@ export class AuthService {
     const newUser: UserEntity = this.UserRepository.create({
       user_id: user.user_id,
       username: user.name,
+      nickname: null,
       provider: user.provider,
       created_at: new Date()
     });

@@ -25,6 +25,17 @@ export class UserService {
     }
   }
 
+  async getUserNickname(id: number): Promise<string> {
+    const exisitingUser = await this.UserRepository.findOne({
+      where: { id: id }
+    });
+    if (exisitingUser) {
+      return exisitingUser.nickname;
+    } else {
+      throw new NotFoundException('해당 유저를 찾을 수 없습니다.');
+    }
+  }
+
   async createUserInfo(user: any): Promise<ResInfoDto> {
     const userDto: UserDto = await this.createUserDto(
       user.id,
@@ -49,10 +60,11 @@ export class UserService {
   ): Promise<UserDto> {
     const { snowball_count, message_count, snowball_list, main_snowball_id } =
       await this.snowballService.getSnowballInfo(id);
-
+    const nickname = await this.getUserNickname(id);
     const userDto: UserDto = {
       id: id,
-      name: username,
+      username: username,
+      nickname: nickname,
       user_id: user_id,
       snowball_count: snowball_count,
       main_snowball_id: main_snowball_id,
@@ -60,5 +72,19 @@ export class UserService {
       message_count: message_count
     };
     return userDto;
+  }
+
+  async updateNickname(id: number, nickname: string): Promise<string> {
+    const updateResult = await this.UserRepository.createQueryBuilder()
+      .update(UserEntity)
+      .set({
+        nickname: nickname
+      })
+      .where('id = :id', { id: id })
+      .execute();
+    if (!updateResult.affected) {
+      throw new NotFoundException('업데이트할 유저가 존재하지 않습니다.');
+    }
+    return 'test';
   }
 }

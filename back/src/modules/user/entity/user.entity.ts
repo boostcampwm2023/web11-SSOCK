@@ -21,6 +21,9 @@ export class UserEntity {
   @Column({ length: 16 })
   username: string;
 
+  @Column({ length: 16, default: null })
+  nickname: string | null;
+
   @Column({ length: 16 })
   provider: string;
 
