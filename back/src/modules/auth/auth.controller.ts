@@ -39,7 +39,8 @@ export class AuthController {
   })
   async googleLoginCallback(@Req() req: any, @Res() res: any): Promise<void> {
     const payload: payload = await this.authService.getUserInfo(req.user);
-    const { accessToken, refreshToken } = this.authService.generateJwtToken(payload);
+    const { accessToken, refreshToken } =
+      this.authService.generateJwtToken(payload);
     res.cookie('access_token', accessToken, {
       httpOnly: true,
       maxAge: parseInt(`${process.env.JWT_ACCESS_AGE}`)
@@ -81,7 +82,8 @@ export class AuthController {
   })
   async naverLoginCallBack(@Req() req: any, @Res() res: any): Promise<void> {
     const payload: payload = await this.authService.getUserInfo(req.user);
-    const { accessToken, refreshToken } = this.authService.generateJwtToken(payload);
+    const { accessToken, refreshToken } =
+      this.authService.generateJwtToken(payload);
     res.cookie('access_token', accessToken, {
       httpOnly: true,
       maxAge: parseInt(`${process.env.JWT_ACCESS_AGE}`)
@@ -124,7 +126,8 @@ export class AuthController {
   async kakaoLoginCallBack(@Req() req: any, @Res() res: any): Promise<void> {
     const payload: payload = await this.authService.getUserInfo(req.user);
     // To DO: refresh token db에 저장 & 클라이언트에는 index만 저장?
-    const { accessToken, refreshToken } = this.authService.generateJwtToken(payload);
+    const { accessToken, refreshToken } =
+      this.authService.generateJwtToken(payload);
     res.cookie('access_token', accessToken, {
       httpOnly: true,
       maxAge: parseInt(`${process.env.JWT_ACCESS_AGE}`)

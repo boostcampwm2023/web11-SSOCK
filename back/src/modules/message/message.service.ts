@@ -123,7 +123,7 @@ export class MessageService {
       })
       .where('id = :id', { id: message_id })
       .execute();
-      console.log(updateResult);
+    console.log(updateResult);
     if (!updateResult.affected) {
       throw new NotFoundException('업데이트할 메시지가 존재하지 않습니다.');
     } else if (updateResult.affected > 1) {
@@ -156,5 +156,12 @@ export class MessageService {
 
   async getMessageCount(user_pk: number): Promise<number> {
     return this.messageRepository.count({ where: { user: { id: user_pk } } });
+  }
+
+  async getMessageList(snowball_id: number): Promise<MessageEntity[]> {
+    const messages = await this.messageRepository.find({
+      where: { snowball_id: snowball_id }
+    });
+    return messages;
   }
 }

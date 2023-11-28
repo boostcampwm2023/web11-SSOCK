@@ -18,7 +18,6 @@ export class SnowballEntity {
   @Column()
   user_id: number;
 
-  // 10글자
   @Column({ length: 10 })
   title: string;
 
