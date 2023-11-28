@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import theme from '../../utils/theme';
 import { useState, useContext } from 'react';
-import { NicknameContext } from '../../pages/MainDeco/NicknameProvider';
+import { SnowballNameContext } from '../../pages/MainDeco/SnowballNameProvider';
 
 
 interface MakeButtonProps {
@@ -42,11 +42,11 @@ const StyledAlert = styled.div`
 `;
 
 const MakeButton = (props: ButtonProps) => {
-  const { nickname } = useContext(NicknameContext);
+  const { snowballName } = useContext(SnowballNameContext);
   const [alert, setAlert] = useState(false);
 
   const ClickedMake = () => {
-    if (nickname === '') {
+    if (snowballName === '') {
       setAlert(true);
       return;
     }
