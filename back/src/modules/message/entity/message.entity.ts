@@ -29,21 +29,19 @@ export class MessageEntity {
   @Column()
   letter_id: number;
 
-  // 500자
-  @Column({ type: 'text' })
+  @Column({ length: 500 })
   content: string;
 
-  // 16자
   @Column({ length: 16 })
   sender: string;
 
-  @Column({ type: 'boolean', default: false })
+  @Column({ default: false })
   is_deleted: boolean;
 
-  @Column({ nullable: false })
+  @Column()
   location: number;
 
-  @CreateDateColumn({ nullable: true, default: null })
+  @CreateDateColumn({ default: null })
   opened: Date | null;
 
   @CreateDateColumn()

@@ -1,5 +1,13 @@
+import { Length } from '@nestjs/class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsNumber, IsDate } from 'class-validator';
+import {
+  IsString,
+  IsNumber,
+  IsDate,
+  IsHexColor,
+  Min,
+  Max
+} from 'class-validator';
 
 export class MessageDto {
   @IsNumber()
@@ -7,22 +15,27 @@ export class MessageDto {
   readonly id: number;
 
   @IsNumber()
-  @ApiProperty({ type: Number, description: '데코레이션 ID' })
+  @Min(1)
+  @ApiProperty({ type: Number, description: '장식 id' })
   readonly decoration_id: number;
 
-  @IsString()
-  @ApiProperty({ type: String, description: '데코레이션 색상' })
+  @IsHexColor()
+  @ApiProperty({ type: String, description: '장식 색상' })
   readonly decoration_color: string;
 
   @IsNumber()
+  @Min(1)
+  @Max(3)
   @ApiProperty({ type: Number, description: '편지지 종류' })
   readonly letter_id: number;
 
   @IsString()
+  @Length(1, 500)
   @ApiProperty({ type: String, description: '메시지 내용' })
   readonly content: string;
 
   @IsString()
+  @Length(1, 16)
   @ApiProperty({ type: String, description: '보낸이' })
   readonly sender: string;
 
@@ -35,6 +48,8 @@ export class MessageDto {
   readonly created: Date;
 
   @IsNumber()
-  @ApiProperty({ type: Number, description: '위치값' })
+  @Min(1)
+  @Max(72)
+  @ApiProperty({ type: Number, description: '메세지 위치' })
   readonly location: number;
 }
