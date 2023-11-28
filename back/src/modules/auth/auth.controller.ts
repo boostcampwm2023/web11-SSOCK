@@ -43,9 +43,10 @@ export class AuthController {
       this.authService.generateJwtToken(payload);
     res.setHeader('Authorization', `Bearer  ${accessToken}`);
     // To DO: refresh token db에 저장 & 클라이언트에는 index만 저장?
+    console.log(process.env.JWT_ACCESS_AGE);
     res.cookie('refresh_token', refreshToken, {
       httpOnly: true,
-      maxAge: `${process.env.JWT_REFRESH_AGE}`
+      maxAge: parseInt(`${process.env.JWT_REFRESH_AGE}`)
     });
     res.redirect(`${process.env.OAUTH_REDIRECT_URL}`);
   }
@@ -86,7 +87,7 @@ export class AuthController {
     // To DO: refresh token db에 저장 & 클라이언트에는 index만 저장?
     res.cookie('refresh_token', refreshToken, {
       httpOnly: true,
-      maxAge: `${process.env.JWT_REFRESH_AGE}`
+      maxAge: parseInt(`${process.env.JWT_REFRESH_AGE}`)
     });
     res.redirect(`${process.env.OAUTH_REDIRECT_URL}`);
   }
@@ -127,7 +128,7 @@ export class AuthController {
     // To DO: refresh token db에 저장 & 클라이언트에는 index만 저장?
     res.cookie('refresh_token', refreshToken, {
       httpOnly: true,
-      maxAge: `${process.env.JWT_REFRESH_AGE}`
+      maxAge: parseInt(`${process.env.JWT_REFRESH_AGE}`)
     });
     res.redirect(`${process.env.OAUTH_REDIRECT_URL}`);
   }

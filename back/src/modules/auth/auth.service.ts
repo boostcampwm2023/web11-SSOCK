@@ -49,12 +49,12 @@ export class AuthService {
     refreshToken: string;
   } {
     const accessToken = this.jwtService.sign(payload, {
-      expiresIn: `${process.env.JWT_ACCESS_AGE}`,
+      expiresIn: parseInt(`${process.env.JWT_ACCESS_AGE}`),
       secret: `${process.env.JWT_ACCESS_SECRET}`
     });
 
     const refreshToken = this.jwtService.sign(payload, {
-      expiresIn: `${process.env.JWT_REFRESH_AGE}`,
+      expiresIn: parseInt(`${process.env.JWT_REFRESH_AGE}`),
       secret: `${process.env.JWT_REFRESH_SECRET}`
     });
     return { accessToken, refreshToken };
