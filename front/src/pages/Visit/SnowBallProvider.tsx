@@ -2,50 +2,67 @@ import React, { useState, createContext } from 'react';
 import mockData from '../../mockdata.json';
 
 interface SnowBallContextType {
-  data: SnowBallData;
-  setData: React.Dispatch<React.SetStateAction<SnowBallData>>;
+  snowBallData: SnowBallData;
+  setSnowBallData: React.Dispatch<React.SetStateAction<SnowBallData>>;
+  userData: UserData;
+  setUserData: React.Dispatch<React.SetStateAction<UserData>>;
+}
+
+interface UserData {
+  id: number;
+  main_snowball_id: number;
+  message_count: number;
+  nickname: string;
+  snowball_count: number;
+  snowball_list: Array<number>;
+  user_id: string;
+  username: string;
 }
 
 interface SnowBallData {
-  user_id: string;
-  user_name: string;
-  provider: string;
-  created_at: string;
-  snowball: Array<SnowBall>;
-}
-
-interface SnowBall {
   title: string;
-  private: boolean;
-  main_deco_id: number;
-  created_at: string;
-  message: Array<Message>;
+  id: number;
+  is_message_private: boolean;
+  main_decoration_color: string;
+  main_decoration_id: number;
+  message_list: Array<Message>;
 }
-
 interface Message {
-  message_id: number;
-  deco_id: number;
-  deco_color: string;
-  letter_id: number;
   content: string;
+  created: string;
+  decoration_color: string;
+  decoration_id: number;
+  id: number;
+  is_deleted: boolean;
+  letter_id: number;
+  location: number;
+  opened: boolean | null;
   sender: string;
-  created_at: string;
+  snowball_id: number;
+  user_id: number;
 }
 
 const SnowBallContext = createContext<SnowBallContextType>({
-  data: mockData,
-  setData: () => {}
+  snowBallData: mockData.snowball_data,
+  setSnowBallData: () => {},
+  userData: mockData.user_data,
+  setUserData: () => {}
 });
 
 const SnowBallProvider: React.FC<{ children: React.ReactNode }> = ({
   children
 }) => {
-  const [data, setData] = useState<SnowBallData>(mockData);
+  const [snowBallData, setSnowBallData] = useState<SnowBallData>(
+    mockData.snowball_data
+  );
+  const [userData, setUserData] = useState<UserData>(mockData.user_data);
   return (
     <SnowBallContext.Provider
       value={{
-        data,
-        setData
+        snowBallData,
+        setSnowBallData,
+        userData,
+        setUserData
       }}
     >
       {children}
@@ -54,3 +71,4 @@ const SnowBallProvider: React.FC<{ children: React.ReactNode }> = ({
 };
 
 export { SnowBallContext, SnowBallProvider };
+export type { SnowBallData, UserData };

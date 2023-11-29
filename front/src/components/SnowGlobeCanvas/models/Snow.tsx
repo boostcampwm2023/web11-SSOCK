@@ -12,6 +12,7 @@ interface SnowProps {
 }
 
 const Snow: React.FC<SnowProps> = ({
+  radius,
   centerPosition,
   rangeRadius,
   model,

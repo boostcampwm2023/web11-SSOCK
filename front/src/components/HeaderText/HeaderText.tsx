@@ -5,6 +5,7 @@ import { SnowBallContext } from '../../pages/Visit/SnowBallProvider';
 
 interface HeaderProps {
   Ref: React.RefObject<HTMLDivElement> | null;
+  userName: string;
 }
 
 const StyledHeader = styled.div`
@@ -36,11 +37,9 @@ const StyledUser = styled.span`
 `;
 
 const HeaderText = (props: HeaderProps) => {
-  const { data } = useContext(SnowBallContext);
-
   return (
     <StyledHeader ref={props ? props.Ref : null}>
-      <StyledUser>{data.user_name}</StyledUser> 님의 스노우볼
+      <StyledUser>{props.userName}</StyledUser> 님의 스노우볼
     </StyledHeader>
   );
 };
