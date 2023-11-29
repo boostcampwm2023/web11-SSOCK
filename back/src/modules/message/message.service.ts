@@ -29,6 +29,8 @@ export class MessageService {
   ): Promise<ResCreateMessageDto> {
     if (!(await this.isInsertAllowed(snowball_id)))
       throw new ConflictException('메세지 갯수가 30개를 초과했습니다');
+
+    const location = await this.findLocation(user_id);
     const messageEntity = this.messageRepository.create({
       user_id: user_id,
       snowball_id: snowball_id,
@@ -36,7 +38,7 @@ export class MessageService {
       content: createMessageDto.content,
       decoration_id: createMessageDto.decoration_id,
       decoration_color: createMessageDto.decoration_color,
-      location: await this.findLocation(user_id),
+      location: location,
       letter_id: createMessageDto.letter_id,
       opened: null
       // is_deleted랑 created는 자동으로 설정
@@ -47,7 +49,8 @@ export class MessageService {
     // 이 부분에서 필터링 로직을 작성
     const resCreateMessage: ResCreateMessageDto = {
       sender: createMessageDto.sender,
-      content: createMessageDto.content
+      content: createMessageDto.content,
+      location: location
     };
 
     return resCreateMessage;
@@ -197,14 +200,23 @@ export class MessageService {
     return messages;
   }
   async findLocation(user_id: number): Promise<number> {
-    const message = await this.messageRepository.findOne({
-      where: { user_id: user_id },
-      select: ['location'],
-      order: {
-        location: 'ASC'
+    const findLocations = this.messageRepository
+      .createQueryBuilder('message')
+      .select('location')
+      .where('user_id = :user_id', { user_id })
+      .andWhere('is_deleted = false');
+    const locations = await findLocations.getRawMany();
+
+    let firstEmptyLocation: number | null = null;
+    for (let i = 1; i <= 30; i++) {
+      const exists = locations.some(result => result.location === i);
+      if (!exists) {
+        firstEmptyLocation = i;
+        break;
       }
-    });
-    console.log(message);
-    return message.location;
+    }
+    if (firstEmptyLocation === null)
+      throw new ConflictException('location에 빈자리가 없습니다');
+    return firstEmptyLocation;
   }
 }

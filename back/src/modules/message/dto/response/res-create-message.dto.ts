@@ -1,4 +1,11 @@
-import { IsString, IsNotEmpty, Length } from '@nestjs/class-validator';
+import {
+  IsString,
+  IsNotEmpty,
+  Length,
+  IsNumber,
+  Min,
+  Max
+} from '@nestjs/class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class ResCreateMessageDto {
@@ -16,4 +23,10 @@ export class ResCreateMessageDto {
   @IsNotEmpty()
   @ApiProperty({ type: String, description: '필터링된 메세지 내용' })
   readonly content: string;
+
+  @IsNumber()
+  @Min(1)
+  @Max(72)
+  @ApiProperty({ type: Number, description: '메세지 위치' })
+  readonly location: number;
 }
