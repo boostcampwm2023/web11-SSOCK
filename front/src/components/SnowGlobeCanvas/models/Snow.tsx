@@ -14,7 +14,8 @@ interface SnowProps {
 const Snow: React.FC<SnowProps> = ({
   centerPosition,
   rangeRadius,
-  model
+  model,
+  radius
 }) => {
   const snowRef = useRef<THREE.Mesh>(null);
   const position = new THREE.Vector3(
