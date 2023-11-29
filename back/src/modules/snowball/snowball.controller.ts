@@ -24,6 +24,7 @@ import { SnowballDto } from './dto/snowball.dto';
 import { ResUpdateSnowballDto } from './dto/response/res-update-snowball.dto';
 import { JWTGuard } from '../auth/auth.guard';
 import { UpdateMainDecoDto } from './dto/update-main-decoration.dto';
+import { SnowballValidationPipe } from './snowball.validation.pipe';
 
 @ApiTags('Snowball API')
 @Controller('snowball')
@@ -69,7 +70,7 @@ export class SnowballController {
   })
   @ApiBody({ type: ReqUpdateSnowballDto })
   updateSnowball(
-    @Param('snowball_id') snowball_id: number,
+    @Param('snowball_id', SnowballValidationPipe) snowball_id: number,
     @Body() updateSnowballDto: ReqUpdateSnowballDto
   ) {
     const snowball = this.snowballService.updateSnowball(
@@ -90,7 +91,9 @@ export class SnowballController {
     summary: '스노우볼 조회 API',
     description: '스노우볼의 정보를 조회합니다.'
   })
-  async getSnowball(@Param('snowball_id') snowball_id: number) {
+  async getSnowball(
+    @Param('snowball_id', SnowballValidationPipe) snowball_id: number
+  ) {
     const snowball = await this.snowballService.getSnowball(snowball_id);
     return snowball;
   }
@@ -109,7 +112,7 @@ export class SnowballController {
   })
   @ApiBody({ type: UpdateMainDecoDto })
   async updateMainDecoration(
-    @Param('snowball_id') snowball_id: number,
+    @Param('snowball_id', SnowballValidationPipe) snowball_id: number,
     @Body() updateMainDecoDto: UpdateMainDecoDto
   ) {
     const snowball = await this.snowballService.updateMainDecoration(

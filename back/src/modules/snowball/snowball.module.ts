@@ -7,6 +7,7 @@ import { SnowballEntity } from './entity/snowball.entity';
 import { JWTGuard } from '../auth/auth.guard';
 import { MessageEntity } from '../message/entity/message.entity';
 import { MessageService } from '../message/message.service';
+import { SnowballValidationPipe } from './snowball.validation.pipe';
 
 @Module({
   imports: [
@@ -14,7 +15,12 @@ import { MessageService } from '../message/message.service';
     MessageModule
   ],
   controllers: [SnowballController],
-  providers: [SnowballService, MessageService, JWTGuard],
+  providers: [
+    SnowballService,
+    MessageService,
+    JWTGuard,
+    SnowballValidationPipe
+  ],
   exports: [SnowballService, MessageService, TypeOrmModule]
 })
 export class SnowballModule {}

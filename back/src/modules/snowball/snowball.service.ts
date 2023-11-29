@@ -25,6 +25,12 @@ export class SnowballService {
     private readonly snowballRepository: Repository<SnowballEntity>
   ) {}
 
+  async isValidSnowball(snowball_id: number): Promise<boolean> {
+    return await this.snowballRepository.exist({
+      where: { id: snowball_id }
+    });
+  }
+
   async createSnowball(
     userid: number,
     createSnowballDto: ReqCreateSnowballDto
