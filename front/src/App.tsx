@@ -1,8 +1,18 @@
 import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
 import GlobalStyles from './GlobalStyles';
 import { IsLogin, HasSnowball } from './router';
-import { Intro, Nickname, Snowball, Main, Visit, Deco, Wrong, MainDeco } from './pages';
+import {
+  Intro,
+  Nickname,
+  Snowball,
+  Main,
+  Visit,
+  Deco,
+  Wrong,
+  MainDeco
+} from './pages';
 import { Song } from './components';
+import { SnowBallProvider } from './pages/Visit/SnowBallProvider';
 import theme from './utils/theme';
 import styled from 'styled-components';
 
@@ -34,7 +44,14 @@ const App = () => {
             <Route path="/" element={<Intro />} />
 
             <Route path="/visit/:user" element={<Outlet />}>
-              <Route path="" element={<Visit />} />
+              <Route
+                path=""
+                element={
+                  <SnowBallProvider>
+                    <Visit />
+                  </SnowBallProvider>
+                }
+              />
               <Route path="deco" element={<Deco />} />
             </Route>
 
