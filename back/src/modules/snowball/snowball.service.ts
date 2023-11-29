@@ -128,11 +128,14 @@ export class SnowballService {
     return updateMainDecoDto;
   }
 
-  async getMainSnowballDto(userDto: UserDto): Promise<SnowballDto | null> {
+  async getMainSnowballDto(
+    userDto: UserDto,
+    hasToken: boolean
+  ): Promise<SnowballDto | null> {
     if (!userDto.main_snowball_id) {
       return null;
     } else {
-      return await this.getSnowball(userDto.main_snowball_id, true);
+      return await this.getSnowball(userDto.main_snowball_id, hasToken);
     }
   }
 

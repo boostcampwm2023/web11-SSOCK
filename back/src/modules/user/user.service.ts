@@ -47,14 +47,16 @@ export class UserService {
     }
   }
 
-  async createUserInfo(user: any): Promise<ResInfoDto> {
+  async createUserInfo(user: any, hasToken: boolean): Promise<ResInfoDto> {
     const userDto: UserDto = await this.createUserDto(
       user.id,
       user.name,
       user.user_id
     );
-    const mainSnowballDto =
-      await this.snowballService.getMainSnowballDto(userDto);
+    const mainSnowballDto = await this.snowballService.getMainSnowballDto(
+      userDto,
+      hasToken
+    );
 
     const resInfoDto: ResInfoDto = {
       user: userDto,

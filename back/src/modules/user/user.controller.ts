@@ -36,7 +36,7 @@ export class UserController {
     type: ResInfoDto
   })
   async createUserInfo(@Req() req: any): Promise<ResInfoDto> {
-    const result = this.userService.createUserInfo(req);
+    const result = this.userService.createUserInfo(req, true);
     return result;
   }
 
@@ -54,7 +54,7 @@ export class UserController {
     @Param('user_id') user_id: string
   ): Promise<ResInfoDto> {
     const userData = await this.userService.getUserData(user_id);
-    const result = this.userService.createUserInfo(userData);
+    const result = this.userService.createUserInfo(userData, false);
     return result;
   }
 
