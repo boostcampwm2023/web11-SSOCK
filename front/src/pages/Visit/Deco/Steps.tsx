@@ -1,12 +1,13 @@
 import { useState, useRef, useEffect, useContext } from 'react';
 import styled from 'styled-components';
 import theme from '../../../utils/theme';
-import { HeaderText, StepButton, PostButton } from '../../../components';
+import { HeaderText, StepButton } from '../../../components';
 import DecoEnroll from './DecoEnroll';
 import DecoBox from './DecoBox';
 import { DecoContext } from './DecoProvider';
 import MsgBox from './MsgBox';
 import { SnowBallContext } from '../SnowBallProvider';
+import PostButton from './PostButton';
 
 const StateBar = styled.div`
   display: flex;

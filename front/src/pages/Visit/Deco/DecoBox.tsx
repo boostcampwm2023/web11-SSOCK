@@ -33,22 +33,34 @@ const DecoImgs = (folder: string) => {
   const { setDecoID, setLetterID } = useContext(DecoContext);
 
   return folder === 'Deco'
-    ? DECO.map(({ img }, index) => (
-        <StyledBox key={img}>
-          <StyledImg
-            src={`/models/img/${folder}/${img}`}
-            alt="deco"
-            onClick={() => setDecoID(index)}
-          />
-        </StyledBox>
-      ))
-    : MSG_COLOR.map(({ color }, index) => (
-        <StyledColorBox
-          key={color}
-          color={color}
-          onClick={() => setLetterID(index)}
-        />
-      ));
+    ? DECO.map(({ img }, index) => {
+        if (index > 0)
+          return (
+            <StyledBox key={img}>
+              <StyledImg
+                src={`/models/img/${folder}/${img}`}
+                alt="deco"
+                onClick={() => {
+                  console.log(index);
+                  setDecoID(index);
+                }}
+              />
+            </StyledBox>
+          );
+      })
+    : MSG_COLOR.map(({ color }, index) => {
+        if (index > 0)
+          return (
+            <StyledColorBox
+              key={color}
+              color={color}
+              onClick={() => {
+                console.log('setLetter', index);
+                setLetterID(index);
+              }}
+            />
+          );
+      });
 };
 
 const DecoBox = (props: DecoProps) => {

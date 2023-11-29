@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import theme from '../../utils/theme';
-import mock from '../../mockdata.json'; // temporary
 import { useContext, useState } from 'react';
 import { DecoContext } from '../../pages/Visit/Deco/DecoProvider';
 

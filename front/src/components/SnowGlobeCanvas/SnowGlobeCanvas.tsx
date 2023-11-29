@@ -41,9 +41,9 @@ const SnowGlobeCanvas = () => {
     return (
       <Models.Deco
         key={index}
-        id={message.id}
+        id={message.decoration_id}
         scale={1}
-        position={getDecoPoisition(index)}
+        position={getDecoPoisition(message.location)}
         message={message.content}
         color={message.decoration_color}
         sender={message.sender}

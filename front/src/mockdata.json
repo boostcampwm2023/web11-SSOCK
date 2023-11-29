@@ -1,49 +1,20 @@
 {
   "snowball_data": {
     "id": 1,
-    "title": "string",
-    "main_decoration_id": 0,
+    "title": "title",
+    "main_decoration_id": 1,
     "main_decoration_color": "#FFFFFF",
     "is_message_private": true,
-    "message_list": [
-      {
-        "id": 1,
-        "user_id": 1,
-        "snowball_id": 1,
-        "decoration_id": 1,
-        "decoration_color": "#FFFFFF",
-        "letter_id": 1,
-        "content": "test",
-        "sender": "test",
-        "is_deleted": false,
-        "location": 1,
-        "opened": null,
-        "created": "2023-11-29T10:57:00.370Z"
-      },
-      {
-        "id": 2,
-        "user_id": 1,
-        "snowball_id": 1,
-        "decoration_id": 1,
-        "decoration_color": "#FF00FF",
-        "letter_id": 2,
-        "content": "test",
-        "sender": "test",
-        "is_deleted": false,
-        "location": 2,
-        "opened": null,
-        "created": "2023-11-29T10:57:00.370Z"
-      }
-    ]
+    "message_list": []
   },
   "user_data": {
     "id": 1,
-    "username": "송현우",
-    "nickname": "test",
-    "user_id": "111634878460880992241",
-    "snowball_count": 2,
+    "username": "default",
+    "nickname": "default",
+    "user_id": "00000",
+    "snowball_count": 1,
     "main_snowball_id": 1,
-    "snowball_list": [1, 2],
-    "message_count": 1
+    "snowball_list": [],
+    "message_count": 0
   }
 }
