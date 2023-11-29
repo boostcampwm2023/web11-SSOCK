@@ -6,6 +6,7 @@ import { DecoContext } from './DecoProvider';
 
 const MainModel = () => {
   const { step, mainDecoID, mainColor, bottomID } = useContext(DecoContext);
+  const doneStep = -1;
   const selectColor = 1;
   const selectBottomColor = 3;
 
@@ -17,7 +18,7 @@ const MainModel = () => {
       : MAIN[0].fileName;
   const deco = useGLTF(fileName).scene.clone();
 
-  if (step > selectBottomColor) return <></>;
+  if (step > selectBottomColor || step === doneStep) return <></>;
 
   if (step <= selectColor) {
     deco.scale.set(0.8, 0.8, 0.8);

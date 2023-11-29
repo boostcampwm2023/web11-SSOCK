@@ -66,7 +66,7 @@ const ButtonWrap = styled.div`
 
 const StyledNavButton = styled.button`
   height: 3rem;
-  width: 66%;
+  width: 100%;
   height: 4rem;
   border-radius: 1rem;
   display: flex;
@@ -91,7 +91,7 @@ const StyledImgIcon = styled.img`
 `;
 
 const EmptyDiv = styled.div`
-  width: 3rem;
+  width: 1rem;
 `;
 
 const CloseNav = (
