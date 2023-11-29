@@ -85,7 +85,6 @@ export class MessageService {
   }
 
   async getAllMessages(user_id: number): Promise<MessageDto[]> {
-    //To Do: query builder로 개선하기
     const messages: MessageEntity[] = await this.messageRepository.find({
       where: { user_id: user_id, is_deleted: false }
     });
@@ -134,7 +133,6 @@ export class MessageService {
       })
       .where('id = :id', { id: message_id })
       .execute();
-    console.log(updateResult);
     if (!updateResult.affected) {
       throw new NotFoundException('업데이트할 메시지가 존재하지 않습니다.');
     } else if (updateResult.affected > 1) {
@@ -171,9 +169,20 @@ export class MessageService {
     });
   }
 
-  async getMessageList(snowball_id: number): Promise<MessageEntity[]> {
+  async getMessageList(snowball_id: number): Promise<MessageDto[]> {
     const messages = await this.messageRepository.find({
-      where: { snowball_id: snowball_id, is_deleted: false }
+      where: { snowball_id: snowball_id, is_deleted: false },
+      select: [
+        'id',
+        'decoration_id',
+        'decoration_color',
+        'letter_id',
+        'content',
+        'sender',
+        'opened',
+        'created',
+        'location'
+      ]
     });
     return messages;
   }
