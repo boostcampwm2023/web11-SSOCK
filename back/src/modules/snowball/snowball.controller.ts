@@ -26,12 +26,12 @@ import { JWTGuard } from '../auth/auth.guard';
 import { UpdateMainDecoDto } from './dto/update-main-decoration.dto';
 
 @ApiTags('Snowball API')
-@UseGuards(JWTGuard)
-@ApiBearerAuth('jwt-token')
 @Controller('snowball')
 export class SnowballController {
   constructor(private readonly snowballService: SnowballService) {}
 
+  @UseGuards(JWTGuard)
+  @ApiBearerAuth('jwt-token')
   @Post()
   @HttpCode(201)
   @ApiOperation({
@@ -54,6 +54,8 @@ export class SnowballController {
     return snowball;
   }
 
+  @UseGuards(JWTGuard)
+  @ApiBearerAuth('jwt-token')
   @Put('/:snowball_id')
   @HttpCode(200)
   @ApiResponse({
@@ -93,6 +95,8 @@ export class SnowballController {
     return snowball;
   }
 
+  @UseGuards(JWTGuard)
+  @ApiBearerAuth('jwt-token')
   @Put('/:snowball_id/decoration')
   @ApiResponse({
     status: 200,

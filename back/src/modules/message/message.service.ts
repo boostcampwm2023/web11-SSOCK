@@ -171,9 +171,20 @@ export class MessageService {
     });
   }
 
-  async getMessageList(snowball_id: number): Promise<MessageEntity[]> {
+  async getMessageList(snowball_id: number): Promise<MessageDto[]> {
     const messages = await this.messageRepository.find({
-      where: { snowball_id: snowball_id, is_deleted: false }
+      where: { snowball_id: snowball_id, is_deleted: false },
+      select: [
+        'id',
+        'decoration_id',
+        'decoration_color',
+        'letter_id',
+        'content',
+        'sender',
+        'opened',
+        'created',
+        'location'
+      ]
     });
     return messages;
   }
