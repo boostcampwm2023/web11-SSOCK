@@ -16,7 +16,6 @@ const StyledWrong = styled.div`
   padding: 10%;
   color: white;
   text-align: center;
-  border: 1px solid yellow;
   width: 100%;
 `;
 
