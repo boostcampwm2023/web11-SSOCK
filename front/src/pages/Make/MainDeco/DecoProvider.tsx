@@ -13,6 +13,8 @@ interface DecoContextType {
   setBottomID: React.Dispatch<React.SetStateAction<number>>;
   bottomColor: string;
   setBottomColor: React.Dispatch<React.SetStateAction<string>>;
+  letterID: number;
+  setLetterID: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const DecoContext = createContext<DecoContextType>({
@@ -27,7 +29,9 @@ const DecoContext = createContext<DecoContextType>({
   bottomID: 0,
   setBottomID: () => {},
   bottomColor: '',
-  setBottomColor: () => {}
+  setBottomColor: () => {},
+  letterID: 0,
+  setLetterID: () => {}
 });
 
 const DecoProvider: React.FC<{ children: React.ReactNode }> = ({
@@ -39,6 +43,7 @@ const DecoProvider: React.FC<{ children: React.ReactNode }> = ({
   const [mainColor, setMainColor] = useState<string>('#ff0000');
   const [bottomID, setBottomID] = useState<number>(0);
   const [bottomColor, setBottomColor] = useState<string>('');
+  const [letterID, setLetterID] = useState<number>(0);
 
   return (
     <DecoContext.Provider
@@ -54,7 +59,9 @@ const DecoProvider: React.FC<{ children: React.ReactNode }> = ({
         bottomID,
         setBottomID,
         bottomColor,
-        setBottomColor
+        setBottomColor,
+        letterID,
+        setLetterID
       }}
     >
       {children}
