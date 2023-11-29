@@ -85,7 +85,7 @@ const InputSnowball = () => {
         <StyledTextArea
           rows={1}
           onChange={wordLength}
-          placeholder="편지를 작성해주세요."
+          placeholder="스노우볼 제목을 지어주세요."
         />
       </StyledInputBox>
 
