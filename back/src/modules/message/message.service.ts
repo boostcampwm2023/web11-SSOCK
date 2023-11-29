@@ -27,6 +27,8 @@ export class MessageService {
     user_id: number,
     snowball_id: number
   ): Promise<ResCreateMessageDto> {
+    if (!(await this.isInsertAllowed(snowball_id)))
+      throw new ConflictException('메세지 갯수가 30개를 초과했습니다');
     const messageEntity = this.messageRepository.create({
       user_id: user_id,
       snowball_id: snowball_id,
@@ -49,6 +51,15 @@ export class MessageService {
 
     return resCreateMessage;
   }
+
+  async isInsertAllowed(snowball_id: number): Promise<boolean> {
+    const messageCount = await this.messageRepository.count({
+      where: { snowball_id: snowball_id, is_deleted: false }
+    });
+    if (messageCount >= 30) return false;
+    else return true;
+  }
+
   async deleteMessage(user_id: number, message_id: number): Promise<void> {
     try {
       const message = await this.messageRepository.findOne({
@@ -155,7 +166,9 @@ export class MessageService {
   }
 
   async getMessageCount(user_pk: number): Promise<number> {
-    return this.messageRepository.count({ where: { user: { id: user_pk } } });
+    return this.messageRepository.count({
+      where: { user_id: user_pk, is_deleted: false }
+    });
   }
 
   async getMessageList(snowball_id: number): Promise<MessageEntity[]> {
