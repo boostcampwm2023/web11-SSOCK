@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import theme from '../../utils/theme';
 import { useContext, useState } from 'react';
-import { SnowballNameContext } from '../../pages/MainDeco/SnowballNameProvider';
+import { SnowballNameContext } from '../../pages/Make/MainDeco/SnowballNameProvider';
 
 const StyledLetterBox = styled.div`
   width: 80%;

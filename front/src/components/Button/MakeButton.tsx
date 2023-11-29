@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import theme from '../../utils/theme';
 import { useState, useContext } from 'react';
-import { SnowballNameContext } from '../../pages/MainDeco/SnowballNameProvider';
+import { SnowballNameContext } from '../../pages/Make/MainDeco/SnowballNameProvider';
 
 interface MakeButtonProps {
   color: string;

@@ -1,13 +1,12 @@
-import React from 'react';
 import { useContext } from 'react';
 import { useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
 import { MAIN } from '../../../constants/deco';
-import { MainContext } from './MainProvider';
+import { DecoContext } from './DecoProvider';
 
 const MainModel = () => {
-  const { mainID, color } = useContext(MainContext);
-  const mainDeco = useGLTF(MAIN[mainID].fileName).scene.clone();
+  const { mainDecoID, color } = useContext(DecoContext);
+  const mainDeco = useGLTF(MAIN[mainDecoID].fileName).scene.clone();
 
   mainDeco.scale.set(1, 1, 1);
   mainDeco.position.set(0, 0, 0);

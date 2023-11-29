@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import styled from 'styled-components';
-import theme from '../../utils/theme';
-import { DECO, MSG_COLOR } from '../../constants/deco';
+import theme from '../../../utils/theme';
+import { DECO, MSG_COLOR } from '../../../constants/deco';
 import { DecoContext } from './DecoProvider';
 
 interface DecoProps {

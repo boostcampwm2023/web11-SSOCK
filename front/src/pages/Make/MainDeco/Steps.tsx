@@ -1,11 +1,11 @@
 import { useState, useRef, useEffect, useContext } from 'react';
 import styled from 'styled-components';
-import theme from '../../utils/theme';
-import { HeaderText, StepButton, MakeButton } from '../../components';
+import theme from '../../../utils/theme';
+import { HeaderText, StepButton, MakeButton } from '../../../components';
 import DecoEnroll from './DecoEnroll';
 import DecoBox from './DecoBox';
 import { DecoContext } from './DecoProvider';
-import { InputSnowball } from '../../components/Input';
+import { InputSnowball } from '../../../components/Input';
 
 const StateBar = styled.div`
   display: flex;

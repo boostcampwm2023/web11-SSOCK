@@ -14,6 +14,7 @@ const SnowballNameProvider: React.FC<{ children: React.ReactNode }> = ({
   children
 }) => {
   const [snowballName, setSnowballName] = useState<string>('');
+
   return (
     <SnowballNameContext.Provider value={{ snowballName, setSnowballName }}>
       {children}
