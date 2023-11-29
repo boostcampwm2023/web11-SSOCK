@@ -3,3 +3,4 @@ export { Visit, Deco } from './Visit';
 export { Nickname, Snowball } from './Make';
 export { Main } from './Main';
 export { Wrong } from './Wrong';
+export { MainDeco } from './MainDeco';

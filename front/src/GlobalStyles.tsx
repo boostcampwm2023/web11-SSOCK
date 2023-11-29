@@ -37,6 +37,10 @@ const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
     font-family: 'KingSejongInstitute';
     white-space: nowrap;
+    // scroll-bar display none
+    &::-webkit-scrollbar {
+      display: none;
+    }
     overflow: hidden;
   }
 
