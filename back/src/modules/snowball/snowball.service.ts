@@ -78,21 +78,29 @@ export class SnowballService {
     return resUpdateSnowballDto;
   }
 
-  async getSnowball(snowball_id: number): Promise<SnowballDto> | null {
+  async getSnowball(
+    snowball_id: number,
+    hasToken: boolean
+  ): Promise<SnowballDto> | null {
     const snowball = await this.snowballRepository.findOne({
       where: { id: snowball_id }
     });
     if (!snowball) {
       return null;
     }
+    const is_message_private = snowball.message_private ? true : false;
+    const is_private_contents: boolean = !hasToken && is_message_private;
 
     const resSnowball: SnowballDto = {
       id: snowball.id,
       title: snowball.title,
       main_decoration_id: snowball.main_decoration_id,
       main_decoration_color: snowball.main_decoration_color,
-      is_message_private: snowball.message_private ? true : false,
-      message_list: await this.messageService.getMessageList(snowball.id)
+      is_message_private: is_message_private,
+      message_list: await this.messageService.getMessageList(
+        snowball.id,
+        is_private_contents
+      )
     };
 
     return resSnowball;
@@ -124,7 +132,7 @@ export class SnowballService {
     if (!userDto.main_snowball_id) {
       return null;
     } else {
-      return await this.getSnowball(userDto.main_snowball_id);
+      return await this.getSnowball(userDto.main_snowball_id, true);
     }
   }
 

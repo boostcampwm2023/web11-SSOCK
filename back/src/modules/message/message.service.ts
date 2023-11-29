@@ -169,7 +169,10 @@ export class MessageService {
     });
   }
 
-  async getMessageList(snowball_id: number): Promise<MessageDto[]> {
+  async getMessageList(
+    snowball_id: number,
+    is_private_contents: boolean
+  ): Promise<MessageDto[]> {
     const messages = await this.messageRepository.find({
       where: { snowball_id: snowball_id, is_deleted: false },
       select: [
@@ -184,6 +187,12 @@ export class MessageService {
         'location'
       ]
     });
+    if (is_private_contents) {
+      messages.map(message => {
+        message.content = '비공개 메세지';
+        message.sender = '비공개 발신자';
+      });
+    }
     return messages;
   }
 }

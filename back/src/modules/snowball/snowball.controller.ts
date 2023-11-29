@@ -22,7 +22,8 @@ import { ReqCreateSnowballDto } from './dto/request/req-create-snowball.dto';
 import { ReqUpdateSnowballDto } from './dto/request/req-update-snowball.dto';
 import { SnowballDto } from './dto/snowball.dto';
 import { ResUpdateSnowballDto } from './dto/response/res-update-snowball.dto';
-import { JWTGuard } from '../auth/auth.guard';
+import { JWTGuard } from 'src/common/guards/jwt.guard';
+import { hasJWTGuard } from 'src/common/guards/hasJwt.guard';
 import { UpdateMainDecoDto } from './dto/update-main-decoration.dto';
 
 @ApiTags('Snowball API')
@@ -80,6 +81,8 @@ export class SnowballController {
   }
 
   @Get('/:snowball_id')
+  @UseGuards(hasJWTGuard)
+  @ApiBearerAuth('jwt-token')
   @HttpCode(200)
   @ApiResponse({
     status: 200,
@@ -90,8 +93,14 @@ export class SnowballController {
     summary: '스노우볼 조회 API',
     description: '스노우볼의 정보를 조회합니다.'
   })
-  async getSnowball(@Param('snowball_id') snowball_id: number) {
-    const snowball = await this.snowballService.getSnowball(snowball_id);
+  async getSnowball(
+    @Req() req: any,
+    @Param('snowball_id') snowball_id: number
+  ) {
+    const snowball = await this.snowballService.getSnowball(
+      snowball_id,
+      req.hasToken
+    );
     return snowball;
   }
 

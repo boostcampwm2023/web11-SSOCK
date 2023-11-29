@@ -3,7 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { MessageController } from './message.controller';
 import { MessageService } from './message.service';
 import { MessageEntity } from './entity/message.entity';
-import { JWTGuard } from '../auth/auth.guard';
+import { JWTGuard } from '../../common/guards/jwt.guard';
 @Module({
   imports: [TypeOrmModule.forFeature([MessageEntity])],
   controllers: [MessageController],

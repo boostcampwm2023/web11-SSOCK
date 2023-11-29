@@ -7,7 +7,7 @@ import {
   Req,
   Put
 } from '@nestjs/common';
-import { JWTGuard } from '../auth/auth.guard';
+import { JWTGuard } from '../../common/guards/jwt.guard';
 import {
   ApiTags,
   ApiOperation,

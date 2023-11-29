@@ -27,7 +27,7 @@ import {
 } from '@nestjs/swagger';
 import { ResCreateMessageDto } from './dto/response/res-create-message.dto';
 import { MessageDto } from './dto/message.dto';
-import { JWTGuard } from '../auth/auth.guard';
+import { JWTGuard } from 'src/common/guards/jwt.guard';
 import { UpdateMessageDecorationDto } from './dto/update-message-decoration.dto';
 import { UpdateMessageLocationDto } from './dto/update-message-location.dto';
 @ApiTags('Message API')

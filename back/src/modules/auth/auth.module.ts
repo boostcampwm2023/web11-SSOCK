@@ -7,7 +7,7 @@ import { PassportModule } from '@nestjs/passport';
 import { AuthService } from './auth.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserEntity } from '../user/entity/user.entity';
-import { JWTGuard } from './auth.guard';
+import { JWTGuard } from '../../common/guards/jwt.guard';
 import { JwtModule } from '@nestjs/jwt';
 
 @Module({
