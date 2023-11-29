@@ -3,13 +3,15 @@ import {
   IsNotEmpty,
   IsBoolean,
   IsNumber,
-  IsHexColor
+  IsHexColor,
+  Length
 } from '@nestjs/class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class ReqCreateSnowballDto {
   @IsString()
   @IsNotEmpty()
+  @Length(1, 10)
   @ApiProperty({ type: String, description: '스노우볼 제목' })
   readonly title: string;
 
