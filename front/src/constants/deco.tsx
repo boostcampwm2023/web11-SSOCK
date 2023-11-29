@@ -20,17 +20,12 @@ export const MAIN = [
   {
     name: '턱스',
     fileName: '/models/tux.glb',
-    img: 'tux'
+    img: 'tux.png'
   },
   {
     name: '트리',
     fileName: '/models/tree.glb',
-    img: 'tree'
-  },
-  {
-    name: '뭐야',
-    fileName: '/models/emissiontest.glb',
-    img: 'tree'
+    img: 'tree.png'
   }
 ];
 
