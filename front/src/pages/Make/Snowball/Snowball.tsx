@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import theme from '../../../utils/theme';
 import mock from '../../../mockdata.json'; // temporary
@@ -51,8 +52,13 @@ const StyledButtonBox = styled.div`
 `;
 
 const Snowball = () => {
+  const navigate = useNavigate();
   const userName = mock.user_name;
-  const [make, setMake] = useState(true);
+  const [make, setMake] = useState(false);
+
+  useEffect(() => {
+    make ? navigate('/make/maindeco') : null;
+  }, [make, navigate]);
 
   return (
     <>

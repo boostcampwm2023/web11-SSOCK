@@ -5,3 +5,4 @@ export { InputSnowball } from './Input';
 export { HeaderText } from './HeaderText';
 export { Prev } from './Prev';
 export { Msg } from './Msg';
+export { UIContainer } from './UIContainer';
