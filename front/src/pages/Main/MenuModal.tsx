@@ -48,7 +48,7 @@ const Logout = (navigate: NavigateFunction) => {
 };
 
 const MenuModal = (props: ModalProps) => {
-  const userName = mock.user_name;
+  const userName = mock.user_data.nickname;
   const navigate = useNavigate();
 
   return (

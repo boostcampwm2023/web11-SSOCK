@@ -51,7 +51,7 @@ const StyledButtonBox = styled.div`
 `;
 
 const Snowball = () => {
-  const userName = mock.user_name;
+  const userName = mock.user_data.nickname;
   const [make, setMake] = useState(true);
 
   return (

@@ -112,7 +112,7 @@ const MainButtonBox = (props: MainButtonBoxProps) => {
     <>
       {!screen ? (
         <>
-          <HeaderText Ref={headerRef} />
+          <HeaderText Ref={headerRef} userName="test" />
 
           <StyledMenu
             ref={menuRef}
