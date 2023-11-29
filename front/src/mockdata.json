@@ -19,6 +19,20 @@
         "location": 1,
         "opened": null,
         "created": "2023-11-29T10:57:00.370Z"
+      },
+      {
+        "id": 2,
+        "user_id": 1,
+        "snowball_id": 1,
+        "decoration_id": 1,
+        "decoration_color": "#FF00FF",
+        "letter_id": 2,
+        "content": "test",
+        "sender": "test",
+        "is_deleted": false,
+        "location": 2,
+        "opened": null,
+        "created": "2023-11-29T10:57:00.370Z"
       }
     ]
   },

@@ -12,7 +12,6 @@ import {
   MainDeco
 } from './pages';
 import { Song } from './components';
-import { SnowBallProvider } from './pages/Visit/SnowBallProvider';
 import theme from './utils/theme';
 import styled from 'styled-components';
 
@@ -44,14 +43,7 @@ const App = () => {
             <Route path="/" element={<Intro />} />
 
             <Route path="/visit/:user" element={<Outlet />}>
-              <Route
-                path=""
-                element={
-                  <SnowBallProvider>
-                    <Visit />
-                  </SnowBallProvider>
-                }
-              />
+              <Route path="" element={<Visit />} />
               <Route path="deco" element={<Deco />} />
             </Route>
 

@@ -33,7 +33,7 @@ const VisitHeader = () => {
 
   return (
     <Container>
-      <HeaderText Ref={null} userName={userData.username} />
+      <HeaderText Ref={null} userName={userData.nickname} />
       <StyledLetter>
         <StyledLetterImg src={'/icons/letter.svg'} />
         {userData.message_count}개의 편지
