@@ -89,7 +89,7 @@ export class SnowballService {
       return null;
     }
     const is_message_private = snowball.message_private ? true : false;
-    const is_private_contents: boolean = !hasToken && is_message_private;
+    const is_private_contents = !hasToken && is_message_private;
 
     const resSnowball: SnowballDto = {
       id: snowball.id,
@@ -141,13 +141,14 @@ export class SnowballService {
       where: { user_id: user_pk }
     });
 
-    if (snowballs[0].length > 0) {
-      const snowball_list = snowballs[0].map(snowball => snowball.id);
+    const [items = [], count = 0] = snowballs;
+    if (count > 0) {
+      const snowball_list = items.map(snowball => snowball.id);
       return {
-        snowball_count: snowballs[1],
+        snowball_count: count,
         message_count: await this.messageService.getMessageCount(user_pk),
         snowball_list,
-        main_snowball_id: snowballs[0][0].id
+        main_snowball_id: items[0].id
       };
     } else {
       return {

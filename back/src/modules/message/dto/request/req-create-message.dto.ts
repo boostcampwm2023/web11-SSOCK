@@ -36,13 +36,6 @@ export class ReqCreateMessageDto {
 
   @IsNumber()
   @Min(1)
-  @Max(72)
-  @IsNotEmpty()
-  @ApiProperty({ type: Number, description: '장식 위치', example: 1 })
-  readonly location: number;
-
-  @IsNumber()
-  @Min(1)
   @Max(3)
   @IsNotEmpty()
   @ApiProperty({ type: Number, description: '편지지 종류', example: 1 })

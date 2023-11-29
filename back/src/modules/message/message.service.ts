@@ -36,17 +36,18 @@ export class MessageService {
       content: createMessageDto.content,
       decoration_id: createMessageDto.decoration_id,
       decoration_color: createMessageDto.decoration_color,
-      location: createMessageDto.location,
+      location: await this.findLocation(user_id),
       letter_id: createMessageDto.letter_id,
       opened: null
       // is_deleted랑 created는 자동으로 설정
     });
-    const savedMessage = await this.messageRepository.save(messageEntity);
-
+    const savedMessage = await this.messageRepository.insert(messageEntity);
+    if (!savedMessage.raw.affectedRows)
+      throw new InternalServerErrorException('insert fail');
     // 이 부분에서 필터링 로직을 작성
     const resCreateMessage: ResCreateMessageDto = {
-      sender: savedMessage.sender,
-      content: savedMessage.content
+      sender: createMessageDto.sender,
+      content: createMessageDto.content
     };
 
     return resCreateMessage;
@@ -88,7 +89,7 @@ export class MessageService {
     const messages: MessageEntity[] = await this.messageRepository.find({
       where: { user_id: user_id, is_deleted: false }
     });
-
+    // To Do: 인터셉터
     if (!messages) {
       throw new NotFoundException(`User with id ${user_id} not found`);
     }
@@ -100,7 +101,7 @@ export class MessageService {
     const message = await this.messageRepository.findOne({
       where: { id: message_id }
     });
-    console.log(message);
+    // 커스텀 데코레이터로
     if (!message) {
       throw new NotFoundException(
         `${message_id}번 메시지를 찾을 수 없었습니다.`
@@ -194,5 +195,16 @@ export class MessageService {
       });
     }
     return messages;
+  }
+  async findLocation(user_id: number): Promise<number> {
+    const message = await this.messageRepository.findOne({
+      where: { user_id: user_id },
+      select: ['location'],
+      order: {
+        location: 'ASC'
+      }
+    });
+    console.log(message);
+    return message.location;
   }
 }

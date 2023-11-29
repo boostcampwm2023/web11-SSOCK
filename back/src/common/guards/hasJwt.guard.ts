@@ -1,10 +1,9 @@
 import { CanActivate, ExecutionContext, Injectable, Req } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
 
 @Injectable()
 export class hasJWTGuard implements CanActivate {
-  constructor(private readonly jwtService: JwtService) {}
+  constructor() {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
@@ -22,3 +21,5 @@ export class hasJWTGuard implements CanActivate {
     return type === 'Bearer' ? token : undefined;
   }
 }
+
+// 인터셉터, class-trasformer로 변경
