@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import theme from '../../utils/theme';
 import { useContext, useState } from 'react';
-import { SnowballNameContext } from '../../pages/Make/MainDeco/SnowballNameProvider';
+import { DecoContext } from '../../pages/Make/MainDeco/DecoProvider';
 
 const StyledLetterBox = styled.div`
   width: 80%;
@@ -67,7 +67,7 @@ const StyledTextArea = styled.textarea`
 
 const InputSnowball = () => {
   const [wordCount, setWordCount] = useState(0);
-  const { setSnowballName } = useContext(SnowballNameContext);
+  const { setSnowballName } = useContext(DecoContext);
   const maxNameCount = 10;
 
   const wordLength = (e: React.ChangeEvent<HTMLTextAreaElement>) => {

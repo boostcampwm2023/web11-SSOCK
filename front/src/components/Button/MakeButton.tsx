@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import theme from '../../utils/theme';
 import { useState, useContext } from 'react';
-import { SnowballNameContext } from '../../pages/Make/MainDeco/SnowballNameProvider';
+import { DecoContext } from '../../pages/Make/MainDeco/DecoProvider';
 
 interface MakeButtonProps {
   color: string;
@@ -41,7 +41,7 @@ const StyledAlert = styled.div`
 `;
 
 const MakeButton = (props: ButtonProps) => {
-  const { snowballName } = useContext(SnowballNameContext);
+  const { snowballName } = useContext(DecoContext);
   const [alert, setAlert] = useState(false);
 
   const ClickedMake = () => {

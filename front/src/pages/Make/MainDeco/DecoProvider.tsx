@@ -1,53 +1,53 @@
 import React, { useState, createContext } from 'react';
 
 interface DecoContextType {
+  snowballName: string;
+  setSnowballName: React.Dispatch<React.SetStateAction<string>>;
   mainDecoID: number;
   setMainDecoID: React.Dispatch<React.SetStateAction<number>>;
-  color: string;
-  setColor: React.Dispatch<React.SetStateAction<string>>;
-  letterID: number;
-  setLetterID: React.Dispatch<React.SetStateAction<number>>;
-  content: string;
-  setContent: React.Dispatch<React.SetStateAction<string>>;
-  sender: string;
-  setSender: React.Dispatch<React.SetStateAction<string>>;
+  mainColor: string;
+  setMainColor: React.Dispatch<React.SetStateAction<string>>;
+  bottomID: number;
+  setBottomID: React.Dispatch<React.SetStateAction<number>>;
+  bottomColor: string;
+  setBottomColor: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const DecoContext = createContext<DecoContextType>({
+  snowballName: '',
+  setSnowballName: () => {},
   mainDecoID: 0,
   setMainDecoID: () => {},
-  color: '#ff0000',
-  setColor: () => {},
-  letterID: 0,
-  setLetterID: () => {},
-  content: '',
-  setContent: () => {},
-  sender: '',
-  setSender: () => {}
+  mainColor: '#ff0000',
+  setMainColor: () => {},
+  bottomID: 0,
+  setBottomID: () => {},
+  bottomColor: '',
+  setBottomColor: () => {}
 });
 
 const DecoProvider: React.FC<{ children: React.ReactNode }> = ({
   children
 }) => {
+  const [snowballName, setSnowballName] = useState<string>('');
   const [mainDecoID, setMainDecoID] = useState<number>(0);
-  const [color, setColor] = useState<string>('#ff0000');
-  const [letterID, setLetterID] = useState<number>(0);
-  const [content, setContent] = useState<string>('');
-  const [sender, setSender] = useState<string>('');
+  const [mainColor, setMainColor] = useState<string>('#ff0000');
+  const [bottomID, setBottomID] = useState<number>(0);
+  const [bottomColor, setBottomColor] = useState<string>('');
 
   return (
     <DecoContext.Provider
       value={{
+        snowballName,
+        setSnowballName,
         mainDecoID,
         setMainDecoID,
-        color,
-        setColor,
-        letterID,
-        setLetterID,
-        content,
-        setContent,
-        sender,
-        setSender
+        mainColor,
+        setMainColor,
+        bottomID,
+        setBottomID,
+        bottomColor,
+        setBottomColor
       }}
     >
       {children}
