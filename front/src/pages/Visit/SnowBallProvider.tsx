@@ -1,5 +1,7 @@
-import React, { useState, createContext } from 'react';
+import React, { useState, createContext, useEffect } from 'react';
 import mockData from '../../mockdata.json';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
+import axios from 'axios';
 
 interface SnowBallContextType {
   snowBallData: SnowBallData;
@@ -56,6 +58,21 @@ const SnowBallProvider: React.FC<{ children: React.ReactNode }> = ({
     mockData.snowball_data
   );
   const [userData, setUserData] = useState<UserData>(mockData.user_data);
+  const navigate = useNavigate();
+
+  const { user } = useParams();
+  useEffect(() => {
+    axios(`/api/user/${user}`)
+      .then(res => {
+        setSnowBallData(res.data.main_snowball as SnowBallData);
+        setUserData(res.data.user as UserData);
+      })
+      .catch(e => {
+        console.log(e);
+        navigate('*');
+      });
+  }, []);
+
   return (
     <SnowBallContext.Provider
       value={{

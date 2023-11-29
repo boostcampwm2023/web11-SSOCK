@@ -3,6 +3,7 @@ import { DecoContext } from './DecoProvider';
 import { MSG_COLOR } from '../../../constants/deco';
 import { Msg } from '../../../components';
 import styled from 'styled-components';
+import { SnowBallContext } from '../SnowBallProvider';
 
 interface MsgBoxProps {
   isInput: boolean;
@@ -19,9 +20,11 @@ const MsgContainer = styled.div`
 
 const MsgBox = ({ isInput }: MsgBoxProps) => {
   const { letterID } = useContext(DecoContext);
+  const { userData } = useContext(SnowBallContext);
   return (
     <MsgContainer>
       <Msg
+        to={userData.nickname}
         key={1}
         color={MSG_COLOR[letterID].color}
         isInput={isInput}

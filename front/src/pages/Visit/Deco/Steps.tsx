@@ -6,6 +6,7 @@ import DecoEnroll from './DecoEnroll';
 import DecoBox from './DecoBox';
 import { DecoContext } from './DecoProvider';
 import MsgBox from './MsgBox';
+import { SnowBallContext } from '../SnowBallProvider';
 
 const StateBar = styled.div`
   display: flex;
@@ -92,7 +93,7 @@ const Steps = () => {
   const [step, setStep] = useState(0);
   const [lastBox, setLastBox] = useState(false);
   const { setColor } = useContext(DecoContext);
-
+  const { userData } = useContext(SnowBallContext);
   const doneStep = -1;
   const selectDeco = 0;
   const selectColor = 1;
@@ -181,7 +182,7 @@ const Steps = () => {
   return (
     <>
       <StyledTopWrap>
-        <HeaderText Ref={null} />
+        <HeaderText Ref={null} userName={userData.nickname} />
 
         {step === writeMsg || step === doneStep ? null : (
           <StateBar>{renderStateBoxes()}</StateBar>

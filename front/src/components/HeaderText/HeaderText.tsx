@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 import theme from '../../utils/theme';
-import { useContext } from 'react';
-import { SnowBallContext } from '../../pages/Visit/SnowBallProvider';
 
 interface HeaderProps {
   Ref: React.RefObject<HTMLDivElement> | null;
