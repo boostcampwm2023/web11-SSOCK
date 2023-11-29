@@ -27,7 +27,7 @@ export class SnowballEntity {
   @Column()
   main_decoration_id: number;
 
-  @Column()
+  @Column({ type: 'char', length: 7 })
   main_decoration_color: string;
 
   @CreateDateColumn({ nullable: true, default: null })

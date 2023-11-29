@@ -23,7 +23,7 @@ export class MessageEntity {
   @Column()
   decoration_id: number;
 
-  @Column({ length: 7 })
+  @Column({ type: 'char', length: 7 })
   decoration_color: string;
 
   @Column()
