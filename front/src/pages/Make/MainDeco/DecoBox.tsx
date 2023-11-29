@@ -1,11 +1,11 @@
 import { useContext } from 'react';
 import styled from 'styled-components';
 import theme from '../../../utils/theme';
-import { DECO, MSG_COLOR } from '../../../constants/deco';
+import { MAIN, BOTTOM } from '../../../constants/deco';
 import { DecoContext } from './DecoProvider';
 
 interface DecoProps {
-  deco: 'Deco' | 'MsgColor';
+  deco: 'Main' | 'Bottom';
 }
 
 const StyledBox = styled.div`
@@ -25,29 +25,27 @@ const StyledImg = styled.img`
   width: 100%;
 `;
 
-const StyledColorBox = styled(StyledBox)`
-  background-color: ${props => props.color};
-`;
-
 const DecoImgs = (folder: string) => {
-  const { setDecoID, setLetterID } = useContext(DecoContext);
+  const { setMainDecoID, setBottomID } = useContext(DecoContext);
 
-  return folder === 'Deco'
-    ? DECO.map(({ img }, index) => (
+  return folder === 'Main'
+    ? MAIN.map(({ img }, index) => (
         <StyledBox key={img}>
           <StyledImg
             src={`/models/img/${folder}/${img}`}
             alt="deco"
-            onClick={() => setDecoID(index)}
+            onClick={() => setMainDecoID(index)}
           />
         </StyledBox>
       ))
-    : MSG_COLOR.map(({ color }, index) => (
-        <StyledColorBox
-          key={color}
-          color={color}
-          onClick={() => setLetterID(index)}
-        />
+    : BOTTOM.map(({ img }, index) => (
+        <StyledBox key={img}>
+          <StyledImg
+            src={`/models/img/${folder}/${img}`}
+            alt="deco"
+            onClick={() => setBottomID(index)}
+          />
+        </StyledBox>
       ));
 };
 

@@ -1,14 +1,18 @@
-import { UIContainer } from '../../../components';
+import { Prev, UIContainer } from '../../../components';
 import Steps from './Steps';
-import { SnowballNameProvider } from './SnowballNameProvider';
+import { DecoProvider } from './DecoProvider';
+import MakeSnowballCanvas from './MakeSnowballCanvas';
 
 const MainDeco = () => {
   return (
-    <SnowballNameProvider>
+    <DecoProvider>
+      <MakeSnowballCanvas />
+
       <UIContainer>
         <Steps />
       </UIContainer>
-    </SnowballNameProvider>
+      <Prev set={null} />
+    </DecoProvider>
   );
 };
 

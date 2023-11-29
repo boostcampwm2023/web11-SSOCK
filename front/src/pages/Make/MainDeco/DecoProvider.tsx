@@ -1,6 +1,8 @@
 import React, { useState, createContext } from 'react';
 
 interface DecoContextType {
+  step: number;
+  setStep: React.Dispatch<React.SetStateAction<number>>;
   snowballName: string;
   setSnowballName: React.Dispatch<React.SetStateAction<string>>;
   mainDecoID: number;
@@ -14,6 +16,8 @@ interface DecoContextType {
 }
 
 const DecoContext = createContext<DecoContextType>({
+  step: 0,
+  setStep: () => {},
   snowballName: '',
   setSnowballName: () => {},
   mainDecoID: 0,
@@ -29,6 +33,7 @@ const DecoContext = createContext<DecoContextType>({
 const DecoProvider: React.FC<{ children: React.ReactNode }> = ({
   children
 }) => {
+  const [step, setStep] = useState<number>(0);
   const [snowballName, setSnowballName] = useState<string>('');
   const [mainDecoID, setMainDecoID] = useState<number>(0);
   const [mainColor, setMainColor] = useState<string>('#ff0000');
@@ -38,6 +43,8 @@ const DecoProvider: React.FC<{ children: React.ReactNode }> = ({
   return (
     <DecoContext.Provider
       value={{
+        step,
+        setStep,
         snowballName,
         setSnowballName,
         mainDecoID,
