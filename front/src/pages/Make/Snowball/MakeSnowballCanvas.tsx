@@ -1,7 +1,7 @@
-import styled from 'styled-components';
 import { Canvas } from '@react-three/fiber';
-import DecoModel from './DecoModel';
 import { OrbitControls } from '@react-three/drei';
+import styled from 'styled-components';
+import MainModel from './MainModel';
 
 const CanvasContainer = styled.div`
   position: absolute;
@@ -9,7 +9,7 @@ const CanvasContainer = styled.div`
   height: 100%;
 `;
 
-const DecoCavnas = () => {
+const MainSnowballCavnas = () => {
   return (
     <CanvasContainer>
       <Canvas camera={{ position: [5, 0, 0] }}>
@@ -20,10 +20,10 @@ const DecoCavnas = () => {
           intensity={5}
           color={'#e2bb83'}
         />
-        <DecoModel />
+        <MainModel />
       </Canvas>
     </CanvasContainer>
   );
 };
 
-export default DecoCavnas;
+export default MainSnowballCavnas;
