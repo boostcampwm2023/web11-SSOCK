@@ -1,7 +1,6 @@
 import { Controller, Get, Req, Res, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
-import { ResInfoDto } from '../user/dto/response/res-info.dto';
 import { AuthService } from './auth.service';
 import { payload } from './auth.service';
 
@@ -29,8 +28,7 @@ export class AuthController {
   @UseGuards(AuthGuard('google'))
   @ApiResponse({
     status: 200,
-    description: 'Google 로그인 성공 및 Info 반환',
-    type: ResInfoDto
+    description: 'Google 로그인 성공'
   })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   @ApiResponse({
@@ -72,8 +70,7 @@ export class AuthController {
   @UseGuards(AuthGuard('naver'))
   @ApiResponse({
     status: 200,
-    description: 'Naver 로그인 성공 및 Info 반환',
-    type: ResInfoDto
+    description: 'Naver 로그인 성공'
   })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   @ApiResponse({
@@ -115,8 +112,7 @@ export class AuthController {
   @UseGuards(AuthGuard('kakao'))
   @ApiResponse({
     status: 200,
-    description: 'Kakao 로그인 성공 및 Info 반환',
-    type: ResInfoDto
+    description: 'Kakao 로그인 성공'
   })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   @ApiResponse({
