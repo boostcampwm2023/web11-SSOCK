@@ -105,8 +105,8 @@ const Steps = () => {
   const selectBottom = 2;
   const selectBottomColor = 3;
   const writeSnowball = 4;
+  const lastConfirm = 5;
 
-  //const decoId = useRef<string | null>(null);
   const selectDecoBox = useRef<HTMLDivElement>(null);
 
   const [isDecoBoxClicked, setIsDecoBoxClicked] = useState(false);
@@ -190,13 +190,13 @@ const Steps = () => {
       <StyledTopWrap>
         <HeaderText Ref={null} userName="빋는사람" />
 
-        {step === writeSnowball || step === doneStep ? null : (
+        {step === lastConfirm || step === doneStep ? null : (
           <StateBar>{renderStateBoxes()}</StateBar>
         )}
       </StyledTopWrap>
 
       <StyledBody>
-        {step === writeSnowball ? <InputSnowball></InputSnowball> : null}
+        {step === writeSnowball ? <InputSnowball /> : null}
       </StyledBody>
 
       <StyledBottomWrap>
@@ -213,7 +213,7 @@ const Steps = () => {
             />
           )}
 
-          {step >= writeSnowball || step === doneStep ? (
+          {step >= lastConfirm || step === doneStep ? (
             <div></div>
           ) : (
             <StepButton
@@ -265,10 +265,7 @@ const Steps = () => {
       </StyledBottomWrap>
 
       {step === doneStep && lastBox === true ? (
-        <DecoEnroll
-          visible={[step, setStep]}
-          view={[lastBox, setLastBox]}
-        ></DecoEnroll>
+        <DecoEnroll visible={[step, setStep]} view={[lastBox, setLastBox]} />
       ) : null}
     </>
   );
