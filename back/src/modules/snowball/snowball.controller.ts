@@ -26,7 +26,7 @@ import { ResUpdateSnowballDto } from './dto/response/res-update-snowball.dto';
 import { JWTGuard } from 'src/common/guards/jwt.guard';
 import { UpdateMainDecoDto } from './dto/update-main-decoration.dto';
 import { JWTRequest } from '../../common/interface/request.interface';
-import { JWTToRequestInterceptor } from '../../common/interceptors/jwtRequest.interceptor';
+import { hasJWTInterceptor } from '../../common/interceptors/hasJwt.interceptor';
 
 @ApiTags('Snowball API')
 @Controller('snowball')
@@ -84,9 +84,8 @@ export class SnowballController {
     return snowball;
   }
 
-  // 인터셉터 두개로 분리
   @Get('/:snowball_id')
-  @UseInterceptors(JWTToRequestInterceptor)
+  @UseInterceptors(hasJWTInterceptor)
   @HttpCode(200)
   @ApiResponse({
     status: 200,

@@ -14,7 +14,6 @@ export class JWTGuard implements CanActivate {
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
-    console.log(request);
     const token = this.extractAccessToken(request);
     if (!token) {
       throw new UnauthorizedException();
@@ -33,9 +32,8 @@ export class JWTGuard implements CanActivate {
 
   private extractAccessToken(@Req() req: Request): string | undefined {
     const cookieHeader = req.headers.cookie;
-    console.log(cookieHeader);
     if (!cookieHeader) {
-      return undefined;
+      throw new UnauthorizedException();
     }
 
     const cookies = cookieHeader.split(';').map(cookie => cookie.trim());
