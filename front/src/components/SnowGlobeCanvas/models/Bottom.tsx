@@ -1,17 +1,25 @@
 import React from 'react';
 import { useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
+import { BOTTOM } from '../../../constants/deco';
 
 interface BottomProps {
   scale: number;
   position: THREE.Vector3;
+  bottomID: number;
+  title: string;
+  color: THREE.Color;
 }
 
-const Bottom: React.FC<BottomProps> = ({ scale, position }) => {
-  const bottom = useGLTF('/models/bottom2.glb').scene.clone();
-  const title = '오승엽의 스노우볼👻';
+const Bottom: React.FC<BottomProps> = ({
+  scale,
+  position,
+  bottomID,
+  title,
+  color
+}) => {
+  const bottom = useGLTF(BOTTOM[bottomID].fileName).scene.clone();
   const nameTag = bottom.getObjectByName('nameTag') as THREE.Mesh;
-
   if (nameTag) {
     const canvas = document.createElement('canvas');
     const context = canvas.getContext('2d');
@@ -34,9 +42,13 @@ const Bottom: React.FC<BottomProps> = ({ scale, position }) => {
       context.fillText(title, canvas.width / 2 - textWidth / 2, 1024 / 8, 1024);
     }
     const nameTexture = new THREE.CanvasTexture(canvas);
-    console.log(nameTag);
     material.map = nameTexture;
     material.bumpMap = nameTexture;
+  }
+  const mainColor = bottom.getObjectByName('mainColor') as THREE.Mesh;
+  if (mainColor) {
+    const material = mainColor.material as THREE.MeshStandardMaterial;
+    material.color = color;
   }
 
   bottom.scale.set(scale, scale, scale);

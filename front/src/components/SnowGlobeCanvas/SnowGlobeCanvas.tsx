@@ -16,17 +16,13 @@ const CanvasBox = styled.div`
   width: 100%;
   height: 100%;
   background-color: ${theme.colors['--primary-black']};
-  //background-image: radial-gradient(#000000, transparent 80%, #adadad);
-  //background-image: url('./img/back4.png');
-  //background-size: 100%;
 `;
 
 const SnowGlobeCanvas = () => {
   const isClicked = useRef<boolean>(false);
   const glassRadius = 7;
   const glassPosition = new THREE.Vector3(0, glassRadius / 2, 0);
-  const { snowBallData } = useContext(SnowBallContext);
-  console.log(snowBallData, 'canvas render');
+  const { snowBallData } = useContext(SnowBallContext); //컴포넌트인데 useContext사용해도 되나???
   const snows = Array.from({ length: 100 }, (_, i) => (
     <Models.Snow
       key={i}
@@ -95,7 +91,13 @@ const SnowGlobeCanvas = () => {
             scale={1}
             position={new THREE.Vector3(0, 10, 0)}
           />
-          <Models.Bottom scale={1} position={new THREE.Vector3(0, 0, 0)} />
+          <Models.Bottom
+            bottomID={1}
+            scale={1}
+            position={new THREE.Vector3(0, 0, 0)}
+            title={'default'}
+            color={new THREE.Color('red')}
+          />
           {snows}
           {decos}
         </Canvas>

@@ -33,16 +33,52 @@ export const MAIN = [
 
 export const MSG_COLOR = [
   {
-    color: '#FF0000'
+    color: '#860A35'
+  },
+  {
+    color: '#860A35'
+  },
+  {
+    color: '#AF2655'
   },
   {
     color: '#FF0000'
+  },
+  {
+    color: '#EE9322'
+  },
+  {
+    color: '#ffae00'
+  },
+  {
+    color: '#FFB000'
+  },
+  {
+    color: '#618264'
   },
   {
     color: '#1f831f'
   },
   {
-    color: '#ffae00'
+    color: '#016A70'
+  },
+  {
+    color: '#22668D'
+  },
+  {
+    color: '#0E21A0'
+  },
+  {
+    color: '#313866'
+  },
+  {
+    color: '#504099'
+  },
+  {
+    color: '#974EC3'
+  },
+  {
+    color: '#9F0D7F'
   }
 ];
 
@@ -56,5 +92,15 @@ export const BOTTOM = [
     name: '받침대1',
     fileName: '/models/bottom1.glb',
     img: 'bottom1.png'
+  },
+  {
+    name: '받침대2',
+    fileName: '/models/bottom2.glb',
+    img: '/img/bottom2.png'
+  },
+  {
+    name: '받침대3',
+    fileName: '/models/bottom3.glb',
+    img: 'bottom3.png'
   }
 ];

@@ -7,7 +7,6 @@ const MainDeco = () => {
   return (
     <DecoProvider>
       <MakeSnowballCanvas />
-
       <UIContainer>
         <Steps />
       </UIContainer>
