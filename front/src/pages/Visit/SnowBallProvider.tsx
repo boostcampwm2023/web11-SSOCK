@@ -30,16 +30,16 @@ interface SnowBallData {
   message_list: Array<Message>;
 }
 interface Message {
-  content: string;
+  content: string | undefined;
   created: string;
   decoration_color: string;
   decoration_id: number;
   id: number;
   is_deleted: boolean;
-  letter_id: number;
+  letter_id: number | undefined;
   location: number;
   opened: boolean | null;
-  sender: string;
+  sender: string | undefined;
   snowball_id: number;
   user_id: number;
 }
