@@ -5,7 +5,6 @@ import { MessageModule } from '../message/message.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { SnowballEntity } from './entity/snowball.entity';
 import { JWTGuard } from '../../common/guards/jwt.guard';
-import { hasJWTGuard } from 'src/common/guards/hasJwt.guard';
 import { MessageEntity } from '../message/entity/message.entity';
 import { MessageService } from '../message/message.service';
 
@@ -15,7 +14,7 @@ import { MessageService } from '../message/message.service';
     MessageModule
   ],
   controllers: [SnowballController],
-  providers: [SnowballService, MessageService, JWTGuard, hasJWTGuard],
+  providers: [SnowballService, MessageService, JWTGuard],
   exports: [SnowballService, MessageService, TypeOrmModule]
 })
 export class SnowballModule {}

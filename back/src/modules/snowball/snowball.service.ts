@@ -58,6 +58,16 @@ export class SnowballService {
     return combinedSnowballDto;
   }
 
+  async doesSnowballExist(snowball_id: number): Promise<boolean> {
+    const snowball = await this.snowballRepository.count({
+      where: { id: snowball_id }
+    });
+    if (!snowball) {
+      throw new NotFoundException('업데이트할 스노우볼이 존재하지 않습니다.');
+    }
+    return true;
+  }
+
   async updateSnowball(
     updateSnowballDto: ReqUpdateSnowballDto,
     snowball_id: number,
@@ -65,13 +75,7 @@ export class SnowballService {
   ): Promise<ResUpdateSnowballDto> {
     const { title, is_message_private } = updateSnowballDto;
 
-    //스노우볼 존재 여부 exception 나눠주기 위해 쿼리문 추가
-    const snowball = await this.snowballRepository.count({
-      where: { id: snowball_id }
-    });
-    if (!snowball) {
-      throw new NotFoundException('업데이트할 스노우볼이 존재하지 않습니다.');
-    }
+    await this.doesSnowballExist(snowball_id);
 
     const updateResult = await this.snowballRepository
       .createQueryBuilder()
@@ -111,12 +115,7 @@ export class SnowballService {
     const is_private_contents = !hasToken && is_message_private;
 
     const resSnowball: SnowballDto = {
-      id: snowball.id,
-      title: snowball.title,
-      main_decoration_id: snowball.main_decoration_id,
-      main_decoration_color: snowball.main_decoration_color,
-      bottom_decoration_id: snowball.bottom_decoration_id,
-      bottom_decoration_color: snowball.bottom_decoration_color,
+      ...snowball,
       is_message_private: is_message_private,
       message_list: await this.messageService.getMessageList(
         snowball.id,

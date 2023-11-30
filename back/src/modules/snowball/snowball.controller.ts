@@ -7,7 +7,8 @@ import {
   Get,
   HttpCode,
   UseGuards,
-  Req
+  Req,
+  UseInterceptors
 } from '@nestjs/common';
 import { SnowballService } from './snowball.service';
 import {
@@ -23,12 +24,9 @@ import { ReqUpdateSnowballDto } from './dto/request/req-update-snowball.dto';
 import { SnowballDto } from './dto/snowball.dto';
 import { ResUpdateSnowballDto } from './dto/response/res-update-snowball.dto';
 import { JWTGuard } from 'src/common/guards/jwt.guard';
-import { hasJWTGuard } from 'src/common/guards/hasJwt.guard';
 import { UpdateMainDecoDto } from './dto/update-main-decoration.dto';
-import {
-  JWTRequest,
-  hasTokenRequest
-} from '../../common/interface/request.interface';
+import { JWTRequest } from '../../common/interface/request.interface';
+import { JWTToRequestInterceptor } from 'src/common/interceptors/JwtRequest.interceptor';
 
 @ApiTags('Snowball API')
 @Controller('snowball')
@@ -87,7 +85,7 @@ export class SnowballController {
   }
 
   @Get('/:snowball_id')
-  @UseGuards(hasJWTGuard)
+  @UseInterceptors(JWTToRequestInterceptor)
   @ApiBearerAuth('jwt-token')
   @HttpCode(200)
   @ApiResponse({
@@ -100,7 +98,7 @@ export class SnowballController {
     description: '스노우볼의 정보를 조회합니다.'
   })
   async getSnowball(
-    @Req() req: hasTokenRequest,
+    @Req() req: JWTRequest,
     @Param('snowball_id') snowball_id: number
   ) {
     const snowball = await this.snowballService.getSnowball(

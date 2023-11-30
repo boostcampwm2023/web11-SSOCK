@@ -6,8 +6,6 @@ export interface JWTRequest extends Request {
     name: string;
     user_id: string;
   };
-}
 
-export interface hasTokenRequest extends Request {
-  hasToken: boolean;
+  hasToken?: boolean;
 }
