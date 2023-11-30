@@ -7,10 +7,15 @@ import { SnowballEntity } from './entity/snowball.entity';
 import { JWTGuard } from '../../common/guards/jwt.guard';
 import { MessageEntity } from '../message/entity/message.entity';
 import { MessageService } from '../message/message.service';
+import { DecorationPrefixEntity } from './entity/decoration-prefix.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([SnowballEntity, MessageEntity]),
+    TypeOrmModule.forFeature([
+      SnowballEntity,
+      MessageEntity,
+      DecorationPrefixEntity
+    ]),
     MessageModule
   ],
   controllers: [SnowballController],

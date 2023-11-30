@@ -84,9 +84,9 @@ export class SnowballController {
     return snowball;
   }
 
+  // 인터셉터 두개로 분리
   @Get('/:snowball_id')
   @UseInterceptors(JWTToRequestInterceptor)
-  @ApiBearerAuth('jwt-token')
   @HttpCode(200)
   @ApiResponse({
     status: 200,

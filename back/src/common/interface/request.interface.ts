@@ -9,3 +9,4 @@ export interface JWTRequest extends Request {
 
   hasToken?: boolean;
 }
+// 분리
