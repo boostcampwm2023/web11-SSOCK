@@ -51,10 +51,10 @@ export const MSG_COLOR = [
     color: '#ffae00'
   },
   {
-    color: '#FFB000'
+    color: '#c8cf5c'
   },
   {
-    color: '#618264'
+    color: '#95af54'
   },
   {
     color: '#1f831f'
@@ -86,21 +86,21 @@ export const BOTTOM = [
   {
     name: '받침대',
     fileName: '/models/bottom.glb',
-    img: 'bottom.png'
+    img: '/models/img/Bottom/bottom1.png'
   },
   {
     name: '받침대1',
     fileName: '/models/bottom1.glb',
-    img: 'bottom1.png'
+    img: '/models/img/Bottom/bottom1.png'
   },
   {
     name: '받침대2',
     fileName: '/models/bottom2.glb',
-    img: '/img/bottom2.png'
+    img: '/models/img/Bottom/bottom2.png'
   },
   {
     name: '받침대3',
     fileName: '/models/bottom3.glb',
-    img: 'bottom3.png'
+    img: '/models/img/Bottom/bottom3.png'
   }
 ];
