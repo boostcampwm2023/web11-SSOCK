@@ -188,7 +188,7 @@ const Steps = () => {
   return (
     <>
       <StyledTopWrap>
-        <HeaderText Ref={null} userName="빋는사람" />
+        <HeaderText Ref={null} userName="받는사람" />
 
         {step === lastConfirm || step === doneStep ? null : (
           <StateBar>{renderStateBoxes()}</StateBar>
