@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
 import GlobalStyles from './GlobalStyles';
-import { IsLogin, HasSnowball } from './router';
+import { IsLogin } from './router';
 import {
   Intro,
   Nickname,
@@ -34,7 +34,6 @@ const Outer = styled.div`
 `;
 
 const App = () => {
-  console.log('cookie: ', document.cookie);
   return (
     <>
       <GlobalStyles />
@@ -53,9 +52,7 @@ const App = () => {
               path="/make"
               element={
                 <IsLogin>
-                  <HasSnowball>
                     <Outlet />
-                  </HasSnowball>
                 </IsLogin>
               }
             >
