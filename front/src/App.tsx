@@ -33,6 +33,7 @@ const Outer = styled.div`
 `;
 
 const App = () => {
+  console.log('cookie: ', document.cookie);
   return (
     <>
       <GlobalStyles />
