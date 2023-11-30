@@ -30,6 +30,7 @@ import { MessageDto } from './dto/message.dto';
 import { JWTGuard } from 'src/common/guards/jwt.guard';
 import { UpdateMessageDecorationDto } from './dto/update-message-decoration.dto';
 import { UpdateMessageLocationDto } from './dto/update-message-location.dto';
+import { JWTRequest } from 'src/common/interface/request.interface';
 @ApiTags('Message API')
 @Controller('message')
 export class MessageController {
@@ -83,10 +84,10 @@ export class MessageController {
     description: '로그인이 필요합니다.'
   })
   async deleteMessage(
-    @Req() req: any,
+    @Req() req: JWTRequest,
     @Param('message_id') message_id: number
   ) {
-    await this.messageService.deleteMessage(req.id, message_id);
+    await this.messageService.deleteMessage(req.user.id, message_id);
   }
 
   @UseGuards(JWTGuard)
@@ -106,8 +107,8 @@ export class MessageController {
     status: 500,
     description: 'Find Fail'
   })
-  async getAllMessages(@Req() req: any): Promise<MessageDto[]> {
-    const messages = await this.messageService.getAllMessages(req.id);
+  async getAllMessages(@Req() req: JWTRequest): Promise<MessageDto[]> {
+    const messages = await this.messageService.getAllMessages(req.user.id);
     return messages;
   }
 

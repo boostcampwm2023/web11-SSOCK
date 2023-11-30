@@ -18,6 +18,7 @@ import {
 import { UserService } from './user.service';
 import { ResInfoDto } from './dto/response/res-info.dto';
 import { NicknameDto } from './dto/nickname.dto';
+import { JWTRequest } from 'src/common/interface/request.interface';
 
 @ApiTags('User API')
 @Controller('user')
@@ -35,8 +36,8 @@ export class UserController {
     status: 200,
     type: ResInfoDto
   })
-  async createUserInfo(@Req() req: any): Promise<ResInfoDto> {
-    const result = this.userService.createUserInfo(req, true);
+  async createUserInfo(@Req() req: JWTRequest): Promise<ResInfoDto> {
+    const result = this.userService.createUserInfo(req.user, true);
     return result;
   }
 
@@ -72,10 +73,10 @@ export class UserController {
     type: NicknameDto
   })
   async updateNickname(
-    @Req() req: any,
+    @Req() req: JWTRequest,
     @Body() nicknameDto: NicknameDto
   ): Promise<NicknameDto> {
-    const result = this.userService.updateNickname(req.id, nicknameDto);
+    const result = this.userService.updateNickname(req.user.id, nicknameDto);
     return result;
   }
 }

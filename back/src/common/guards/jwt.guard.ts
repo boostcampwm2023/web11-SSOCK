@@ -23,9 +23,7 @@ export class JWTGuard implements CanActivate {
         secret: process.env.JWT_ACCESS_SECRET
       });
 
-      request['id'] = payload.id;
-      request['name'] = payload.name;
-      request['user_id'] = payload.user_id;
+      request['user'] = payload;
     } catch {
       throw new UnauthorizedException();
     }
