@@ -15,6 +15,7 @@ import { MessageDto } from './dto/message.dto';
 import { plainToClass } from '@nestjs/class-transformer';
 import { UpdateMessageDecorationDto } from './dto/update-message-decoration.dto';
 import { UpdateMessageLocationDto } from './dto/update-message-location.dto';
+import { PrivateMessageDto } from './dto/private-message.dto';
 
 @Injectable()
 export class MessageService {
@@ -176,7 +177,7 @@ export class MessageService {
   async getMessageList(
     snowball_id: number,
     is_private_contents: boolean
-  ): Promise<MessageDto[]> {
+  ): Promise<MessageDto[] | PrivateMessageDto[]> {
     const messages = await this.messageRepository.find({
       where: { snowball_id: snowball_id, is_deleted: false },
       select: [
@@ -192,13 +193,16 @@ export class MessageService {
       ]
     });
     if (is_private_contents) {
-      messages.map(message => {
-        message.content = '비공개 메세지';
-        message.sender = '비공개 발신자';
+      const privateMessages = messages.map(message => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { letter_id, content, sender, ...rest } = message;
+        return rest;
       });
+      return plainToClass(PrivateMessageDto, privateMessages);
     }
-    return messages;
+    return plainToClass(MessageDto, messages);
   }
+
   async findLocation(user_id: number): Promise<number> {
     const findLocations = this.messageRepository
       .createQueryBuilder('message')
