@@ -1,6 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import theme from '../../utils/theme';
 
@@ -9,7 +7,7 @@ interface LoginProps {
 }
 
 interface SocialLogin {
-  social: '카카오' | '네이버' | '구글';
+  social: 'kakao' | 'naver' | 'google';
 }
 
 const StyledBody = styled.div`
@@ -65,9 +63,9 @@ const StyledLogin = styled.button<SocialLogin>`
   align-items: center;
   justify-content: center;
   background-color: ${props =>
-    props.social === '카카오'
+    props.social === 'kakao'
       ? '#FEE500'
-      : props.social === '네이버'
+      : props.social === 'naver'
       ? '#00C73C'
       : 'white'};
 `;
@@ -102,41 +100,22 @@ const closeLogin = (
   }
 };
 
-const validLogin = (
-  props: SocialLogin,
-  setValid: React.Dispatch<React.SetStateAction<boolean>>
-) => {
-  axios
-    .get('/api/auth/google')
-    .then(res => {
-      console.log(res);
-    })
-    .catch(e => console.log(e));
-  console.log(props);
-  setValid(true);
+const validLogin = (props: SocialLogin) => {
+  window.open(`/api/auth/${props.social}`, '_self');
 };
 
 const LoginUI = (props: SocialLogin) => {
-  const [valid, setValid] = useState(false);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    valid ? navigate('/make') : null;
-  }, [valid, navigate]);
-
   return (
-    <StyledLogin
-      social={props.social}
-      onClick={() => validLogin(props, setValid)}
-    >
-      {props.social === '카카오' ? (
-        <StyledLogo src={'/socialLogin/kakao.svg'} />
-      ) : props.social === '네이버' ? (
-        <StyledLogo src={'/socialLogin/naver.svg'} />
+    <StyledLogin social={props.social} onClick={() => validLogin(props)}>
+      <StyledLogo src={`/socialLogin/${props.social}.svg`} />
+      {props.social === 'kakao' ? (
+        <StyledSocial>카카오</StyledSocial>
+      ) : props.social === 'naver' ? (
+        <StyledSocial>네이버</StyledSocial>
       ) : (
-        <StyledLogo src={'/socialLogin/google.svg'} />
+        <StyledSocial>구글</StyledSocial>
       )}
-      <StyledSocial>{props.social}</StyledSocial>로 시작하기
+      로 시작하기
     </StyledLogin>
   );
 };
@@ -150,9 +129,9 @@ const LoginBox = (props: LoginProps) => {
       <StyledBody onClick={() => closeLogin(props, closeRef, setIsFocus)} />
       {isFocus ? (
         <StyledLoginBox ref={closeRef}>
-          <LoginUI social={'카카오'} />
-          <LoginUI social={'네이버'} />
-          <LoginUI social={'구글'} />
+          <LoginUI social={'kakao'} />
+          <LoginUI social={'naver'} />
+          <LoginUI social={'google'} />
         </StyledLoginBox>
       ) : null}
     </>
