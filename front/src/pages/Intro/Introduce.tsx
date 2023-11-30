@@ -91,8 +91,8 @@ const Introduce = (props: IntroduceProps) => {
     <StyledIntroduce ref={closeRef}>
       <StyledText>
         안녕하세요 저희는 쏙입니다. <br /> <br />
-        국민은행 <br /> 942902-00-180129
-        <br /> 계좌주 : 오승엽 <br /> 후원시 찬우 제로투 or 슬릭백 10초
+        스타 100개 달성 시 <br />
+        찬우 제로투 or 슬릭백 10초
       </StyledText>
       <StyledClosed onClick={() => closeIntroduce(props, closeRef)}>
         닫기
