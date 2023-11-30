@@ -23,7 +23,7 @@ export class NaverAuthStrategy extends PassportStrategy(Strategy, 'naver') {
     try {
       console.log(profile);
       const user = {
-        id: profile.id,
+        user_id: profile.id,
         name: profile.name,
         provider: profile.provider,
         accessToken,
