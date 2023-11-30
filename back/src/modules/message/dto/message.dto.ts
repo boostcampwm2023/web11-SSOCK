@@ -25,7 +25,6 @@ export class MessageDto {
 
   @IsNumber()
   @Min(1)
-  @Max(3)
   @ApiProperty({ type: Number, description: '편지지 종류' })
   readonly letter_id: number;
 
