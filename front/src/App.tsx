@@ -52,7 +52,7 @@ const App = () => {
               path="/make"
               element={
                 <IsLogin>
-                    <Outlet />
+                  <Outlet />
                 </IsLogin>
               }
             >
