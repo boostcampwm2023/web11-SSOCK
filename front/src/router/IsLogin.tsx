@@ -9,7 +9,9 @@ const IsLogin: React.FC<{ children: ReactNode }> = ({ children }) => {
   useEffect(() => {
     if (url === '') {
       axios
-        .get('/api/user')
+        .get('/api/user', {
+          withCredentials: true
+        })
         .then(res => {
           if (res.status === 200) {
             const data = res.data;

@@ -46,7 +46,6 @@ const MainSnowballCavnas = () => {
           title={snowballName}
           color={new THREE.Color(bottomColor)}
         />
-        {/* <MainModel /> */}
       </Canvas>
     </CanvasContainer>
   );
