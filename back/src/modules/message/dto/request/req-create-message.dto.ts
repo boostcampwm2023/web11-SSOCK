@@ -4,8 +4,7 @@ import {
   IsNumber,
   IsHexColor,
   Length,
-  Min,
-  Max
+  Min
 } from '@nestjs/class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
@@ -36,7 +35,6 @@ export class ReqCreateMessageDto {
 
   @IsNumber()
   @Min(1)
-  @Max(3)
   @IsNotEmpty()
   @ApiProperty({ type: Number, description: '편지지 종류', example: 1 })
   readonly letter_id: number;
