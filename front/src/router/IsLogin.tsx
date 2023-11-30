@@ -6,11 +6,16 @@ const IsLogin: React.FC<{ children: ReactNode }> = ({ children }) => {
   const navigate = useNavigate();
   const [url, setUrl] = React.useState<string>('');
 
+  // const cookieToken = import.meta.env.VITE_APP_COOKIE_TOKEN;
+
   useEffect(() => {
     if (url === '') {
       axios
         .get('/api/user', {
-          withCredentials: true
+          withCredentials: true // axios 쿠키 값 전달
+          // headers: {
+          //   Authorization: `Bearer ${cookieToken}` // temporary
+          // }
         })
         .then(res => {
           if (res.status === 200) {
