@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import theme from '../../utils/theme';
+import theme from '../../../utils/theme';
 
 interface NaviProps {
   visible: [number, React.Dispatch<React.SetStateAction<number>>];
@@ -66,7 +66,7 @@ const ButtonWrap = styled.div`
 
 const StyledNavButton = styled.button`
   height: 3rem;
-  width: 66%;
+  width: 100%;
   height: 4rem;
   border-radius: 1rem;
   display: flex;
@@ -91,7 +91,7 @@ const StyledImgIcon = styled.img`
 `;
 
 const EmptyDiv = styled.div`
-  width: 3rem;
+  width: 1rem;
 `;
 
 const CloseNav = (
@@ -128,13 +128,10 @@ const DecoEnroll = (props: NaviProps) => {
   const closeRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
-
   return (
     <>
       <StyledBody
-        onClick={() =>
-          CloseNav(props, closeRef, setIsFocus, navigate, 'close')
-        }
+        onClick={() => CloseNav(props, closeRef, setIsFocus, navigate, 'close')}
       />
 
       {isFocus ? (

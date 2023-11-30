@@ -1,11 +1,15 @@
 import { useState, useRef, useEffect, useContext } from 'react';
 import styled from 'styled-components';
-import theme from '../../utils/theme';
-import { HeaderText, StepButton, MakeButton } from '../../components';
+import theme from '../../../utils/theme';
+import {
+  InputSnowball,
+  HeaderText,
+  StepButton,
+  MakeButton
+} from '../../../components';
 import DecoEnroll from './DecoEnroll';
 import DecoBox from './DecoBox';
 import { DecoContext } from './DecoProvider';
-import { InputSnowball } from '../../components/Input';
 
 const StateBar = styled.div`
   display: flex;
@@ -90,9 +94,9 @@ const StyledBottomWrap = styled.div`
 `;
 
 const Steps = () => {
-  const [step, setStep] = useState(0);
   const [lastBox, setLastBox] = useState(false);
-  const { setColor } = useContext(DecoContext);
+  const { step, setStep, setMainColor, setBottomColor } =
+    useContext(DecoContext);
 
   const doneStep = -1;
   const selectDeco = 0;
@@ -223,22 +227,22 @@ const Steps = () => {
 
         <SelectDecoBox ref={selectDecoBox}>
           <SelectDeco>
-            {step === selectDeco ? <DecoBox deco={'Deco'} /> : null}
+            {step === selectDeco ? <DecoBox deco={'Main'} /> : null}
             {step === selectColor ? (
               <>
                 <ColorInput
                   value={'#ff0000'}
-                  onChange={e => setColor(e.target.value)}
+                  onChange={e => setMainColor(e.target.value)}
                 />
                 <p>장식 색상을 선택해주세요</p>
               </>
             ) : null}
-            {step === selectBottom ? <DecoBox deco={'Deco'} /> : null}
+            {step === selectBottom ? <DecoBox deco={'Bottom'} /> : null}
             {step === selectBottomColor ? (
               <>
                 <ColorInput
                   value={'#ff0000'}
-                  onChange={e => setColor(e.target.value)}
+                  onChange={e => setBottomColor(e.target.value)}
                 />
                 <p>받침대 색상을 선택해주세요</p>
               </>

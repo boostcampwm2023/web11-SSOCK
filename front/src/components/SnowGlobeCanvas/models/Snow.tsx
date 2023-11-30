@@ -15,8 +15,7 @@ const Snow: React.FC<SnowProps> = ({
   radius,
   centerPosition,
   rangeRadius,
-  model,
-  radius
+  model
 }) => {
   const snowRef = useRef<THREE.Mesh>(null);
   const position = new THREE.Vector3(

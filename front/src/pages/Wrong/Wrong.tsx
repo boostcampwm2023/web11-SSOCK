@@ -6,7 +6,7 @@ const StyledWrong = styled.div`
   font: ${theme.font['--normal-title-font']};
   position: absolute;
   top: 20%;
-  font-size: 60px;
+  font-size: 50px;
   background: linear-gradient(
       0deg,
       ${theme.colors['--primary-green-primary']} 50%,
@@ -16,6 +16,7 @@ const StyledWrong = styled.div`
   padding: 10%;
   color: white;
   text-align: center;
+  width: 100%;
 `;
 
 const Wrong = () => {
@@ -30,7 +31,9 @@ const Wrong = () => {
       WRONG!
       <br />
       <br />
-      Redirect to main page.
+      Redirect to
+      <br />
+      main page.
     </StyledWrong>
   );
 };

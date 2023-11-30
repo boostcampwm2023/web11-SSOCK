@@ -27,12 +27,7 @@ export const MAIN = [
   {
     name: '트리',
     fileName: '/models/tree.glb',
-    img: 'tree'
-  },
-  {
-    name: '뭐야',
-    fileName: '/models/emissiontest.glb',
-    img: 'tree'
+    img: 'tree.png'
   }
 ];
 
@@ -48,5 +43,18 @@ export const MSG_COLOR = [
   },
   {
     color: '#ffae00'
+  }
+];
+
+export const BOTTOM = [
+  {
+    name: '받침대',
+    fileName: '/models/bottom.glb',
+    img: 'bottom.png'
+  },
+  {
+    name: '받침대1',
+    fileName: '/models/bottom1.glb',
+    img: 'bottom1.png'
   }
 ];
