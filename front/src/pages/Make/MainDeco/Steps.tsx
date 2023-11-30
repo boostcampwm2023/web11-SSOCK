@@ -94,9 +94,9 @@ const StyledBottomWrap = styled.div`
 `;
 
 const Steps = () => {
+  const [step, setStep] = useState<number>(0);
   const [lastBox, setLastBox] = useState(false);
-  const { step, setStep, setMainColor, setBottomColor } =
-    useContext(DecoContext);
+  const { setMainColor, setBottomColor } = useContext(DecoContext);
 
   const doneStep = -1;
   const selectDeco = 0;
@@ -232,7 +232,9 @@ const Steps = () => {
               <>
                 <ColorInput
                   value={'#ff0000'}
-                  onChange={e => setMainColor(e.target.value)}
+                  onChange={e => {
+                    setMainColor(e.target.value);
+                  }}
                 />
                 <p>장식 색상을 선택해주세요</p>
               </>

@@ -1,8 +1,6 @@
 import React, { useState, createContext } from 'react';
 
 interface DecoContextType {
-  step: number;
-  setStep: React.Dispatch<React.SetStateAction<number>>;
   snowballName: string;
   setSnowballName: React.Dispatch<React.SetStateAction<string>>;
   mainDecoID: number;
@@ -18,38 +16,33 @@ interface DecoContextType {
 }
 
 const DecoContext = createContext<DecoContextType>({
-  step: 0,
-  setStep: () => {},
   snowballName: '',
   setSnowballName: () => {},
-  mainDecoID: 0,
+  mainDecoID: 1,
   setMainDecoID: () => {},
   mainColor: '#ff0000',
   setMainColor: () => {},
-  bottomID: 0,
+  bottomID: 1,
   setBottomID: () => {},
-  bottomColor: '',
+  bottomColor: '#ff0000',
   setBottomColor: () => {},
-  letterID: 0,
+  letterID: 1,
   setLetterID: () => {}
 });
 
 const DecoProvider: React.FC<{ children: React.ReactNode }> = ({
   children
 }) => {
-  const [step, setStep] = useState<number>(0);
-  const [snowballName, setSnowballName] = useState<string>('');
-  const [mainDecoID, setMainDecoID] = useState<number>(0);
+  const [snowballName, setSnowballName] = useState<string>('default');
+  const [mainDecoID, setMainDecoID] = useState<number>(1);
   const [mainColor, setMainColor] = useState<string>('#ff0000');
-  const [bottomID, setBottomID] = useState<number>(0);
-  const [bottomColor, setBottomColor] = useState<string>('');
-  const [letterID, setLetterID] = useState<number>(0);
+  const [bottomID, setBottomID] = useState<number>(1);
+  const [bottomColor, setBottomColor] = useState<string>('#ff0000');
+  const [letterID, setLetterID] = useState<number>(1);
 
   return (
     <DecoContext.Provider
       value={{
-        step,
-        setStep,
         snowballName,
         setSnowballName,
         mainDecoID,

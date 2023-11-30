@@ -29,24 +29,30 @@ const DecoImgs = (folder: string) => {
   const { setMainDecoID, setBottomID } = useContext(DecoContext);
 
   return folder === 'Main'
-    ? MAIN.map(({ img }, index) => (
-        <StyledBox key={img}>
-          <StyledImg
-            src={`/models/img/${folder}/${img}`}
-            alt="deco"
-            onClick={() => setMainDecoID(index)}
-          />
-        </StyledBox>
-      ))
-    : BOTTOM.map(({ img }, index) => (
-        <StyledBox key={img}>
-          <StyledImg
-            src={`/models/img/${folder}/${img}`}
-            alt="deco"
-            onClick={() => setBottomID(index)}
-          />
-        </StyledBox>
-      ));
+    ? MAIN.map(({ img }, index) => {
+        if (index > 0)
+          return (
+            <StyledBox key={img}>
+              <StyledImg
+                src={img}
+                alt={`mainDeco${index}`}
+                onClick={() => setMainDecoID(index)}
+              />
+            </StyledBox>
+          );
+      })
+    : BOTTOM.map(({ img }, index) => {
+        if (index > 0)
+          return (
+            <StyledBox key={img}>
+              <StyledImg
+                src={img}
+                alt={`bottomDeco${index}`}
+                onClick={() => setBottomID(index)}
+              />
+            </StyledBox>
+          );
+      });
 };
 
 const DecoBox = (props: DecoProps) => {
