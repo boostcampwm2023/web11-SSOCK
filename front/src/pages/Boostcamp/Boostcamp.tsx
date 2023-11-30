@@ -56,14 +56,12 @@ const BoostcampProjectText = styled.p`
   font-family: ${theme.font['--normal-introduce-font']};
 `;
 
-
-
 const updateFlakes = (ctx: CanvasRenderingContext2D, flakes: Flake[]) => {
   ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
   ctx.fillStyle = 'hsla(242, 95%, 3%, 1)';
   ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
 
-  flakes.forEach((flake) => {
+  flakes.forEach(flake => {
     flake.t += 0.05;
     flake.t = flake.t >= Math.PI * 2 ? 0 : flake.t;
     flake.y += flake.sp;
@@ -76,7 +74,7 @@ const updateFlakes = (ctx: CanvasRenderingContext2D, flakes: Flake[]) => {
   });
 
   requestAnimationFrame(() => updateFlakes(ctx, flakes));
-}
+};
 
 class Flake {
   x: number;
@@ -94,8 +92,15 @@ class Flake {
     this.t = Math.random() * (Math.PI * 2);
   }
 
-  draw (ctx: CanvasRenderingContext2D) {
-    const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.sz + 8);
+  draw(ctx: CanvasRenderingContext2D) {
+    const gradient = ctx.createRadialGradient(
+      this.x,
+      this.y,
+      0,
+      this.x,
+      this.y,
+      this.sz + 8
+    );
     gradient.addColorStop(0, 'hsla(255,255%,255%,1)');
     gradient.addColorStop(1, 'hsla(255,255%,255%,0)');
     ctx.fillStyle = gradient;
@@ -107,8 +112,6 @@ class Flake {
 
 const Boostcamp = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-
-  
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -129,27 +132,32 @@ const Boostcamp = () => {
 
   return (
     <BoostcampWrapper>
-      <canvas style={{ pointerEvents: 'none', position: 'absolute'}} ref={canvasRef} />
+      <canvas
+        style={{ pointerEvents: 'none', position: 'absolute' }}
+        ref={canvasRef}
+      />
       <BoostcampDiv>
-        
-
         <BoostcampProject>
           <BoostcampProjectImage src="/img/tempThumbnail.png" />
           <BoostcampProjectTitle>내 마음 속 스노우볼</BoostcampProjectTitle>
-          <BoostcampProjectText>내 마음 속 스노우볼을 꾸며보세요 !!</BoostcampProjectText>
+          <BoostcampProjectText>
+            내 마음 속 스노우볼을 꾸며보세요 !!
+          </BoostcampProjectText>
         </BoostcampProject>
         <BoostcampProject>
           <BoostcampProjectImage src="/img/tempThumbnail.png" />
           <BoostcampProjectTitle>내 마음 속 스노우볼</BoostcampProjectTitle>
-          <BoostcampProjectText>내 마음 속 스노우볼을 꾸며보세요 !!</BoostcampProjectText>
+          <BoostcampProjectText>
+            내 마음 속 스노우볼을 꾸며보세요 !!
+          </BoostcampProjectText>
         </BoostcampProject>
         <BoostcampProject>
           <BoostcampProjectImage src="/img/tempThumbnail.png" />
           <BoostcampProjectTitle>내 마음 속 스노우볼</BoostcampProjectTitle>
-          <BoostcampProjectText>내 마음 속 스노우볼을 꾸며보세요 !!</BoostcampProjectText>
+          <BoostcampProjectText>
+            내 마음 속 스노우볼을 꾸며보세요 !!
+          </BoostcampProjectText>
         </BoostcampProject>
-
-
       </BoostcampDiv>
     </BoostcampWrapper>
   );
