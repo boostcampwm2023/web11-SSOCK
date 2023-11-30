@@ -26,7 +26,7 @@ import { ResUpdateSnowballDto } from './dto/response/res-update-snowball.dto';
 import { JWTGuard } from 'src/common/guards/jwt.guard';
 import { UpdateMainDecoDto } from './dto/update-main-decoration.dto';
 import { JWTRequest } from '../../common/interface/request.interface';
-import { JWTToRequestInterceptor } from 'src/common/interceptors/JwtRequest.interceptor';
+import { JWTToRequestInterceptor } from '../../common/interceptors/jwtRequest.interceptor';
 
 @ApiTags('Snowball API')
 @Controller('snowball')
