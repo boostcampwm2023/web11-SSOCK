@@ -21,6 +21,7 @@ const Deco = ({
   sender,
   letterID
 }: DecoProps) => {
+  console.log(id, DECO[id]);
   const deco = useGLTF(DECO[id].fileName).scene.clone();
   const target = { x: 8, z: 0 };
   const test = Math.atan2(position.z - target.z, position.x - target.x);

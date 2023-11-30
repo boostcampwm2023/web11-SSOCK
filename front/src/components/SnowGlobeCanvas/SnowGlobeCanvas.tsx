@@ -25,8 +25,8 @@ const SnowGlobeCanvas = () => {
   const isClicked = useRef<boolean>(false);
   const glassRadius = 7;
   const glassPosition = new THREE.Vector3(0, glassRadius / 2, 0);
-  const { data } = useContext(SnowBallContext);
-
+  const { snowBallData } = useContext(SnowBallContext);
+  console.log(snowBallData, 'canvas render');
   const snows = Array.from({ length: 100 }, (_, i) => (
     <Models.Snow
       key={i}
@@ -37,17 +37,17 @@ const SnowGlobeCanvas = () => {
     />
   ));
 
-  const decos = data.snowball[0].message.map((deco, index) => {
+  const decos = snowBallData.message_list.map((message, index) => {
     return (
       <Models.Deco
         key={index}
-        id={deco.deco_id}
+        id={message.decoration_id}
         scale={1}
-        position={getDecoPoisition(index)}
-        message={deco.content}
-        color={deco.deco_color}
-        sender={deco.sender}
-        letterID={deco.letter_id}
+        position={getDecoPoisition(message.location)}
+        message={message.content}
+        color={message.decoration_color}
+        sender={message.sender}
+        letterID={message.letter_id}
       />
     );
   });

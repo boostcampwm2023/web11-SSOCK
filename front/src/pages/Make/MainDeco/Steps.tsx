@@ -187,7 +187,7 @@ const Steps = () => {
   return (
     <>
       <StyledTopWrap>
-        <HeaderText Ref={null} />
+        <HeaderText Ref={null} userName="빋는사람" />
 
         {step === writeSnowball || step === doneStep ? null : (
           <StateBar>{renderStateBoxes()}</StateBar>

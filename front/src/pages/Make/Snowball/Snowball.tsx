@@ -53,7 +53,7 @@ const StyledButtonBox = styled.div`
 
 const Snowball = () => {
   const navigate = useNavigate();
-  const userName = mock.user_name;
+  const userName = mock.user_data.nickname;
   const [make, setMake] = useState(false);
 
   useEffect(() => {

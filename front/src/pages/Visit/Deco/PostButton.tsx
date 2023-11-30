@@ -1,12 +1,9 @@
 import styled from 'styled-components';
-import theme from '../../utils/theme';
+import theme from '../../../utils/theme';
 import { useContext, useState } from 'react';
-import { DecoContext } from '../../pages/Visit/Deco/DecoProvider';
-import { SnowBallContext } from '../../pages/Visit/SnowBallProvider';
-
-interface PostButtonProps {
-  color: string;
-}
+import { DecoContext } from './DecoProvider';
+import { SnowBallContext } from '../SnowBallProvider';
+import axios from 'axios';
 
 interface ButtonProps {
   text: string;
@@ -15,7 +12,9 @@ interface ButtonProps {
   visible: [number, React.Dispatch<React.SetStateAction<number>>];
 }
 
-const StyledButton = styled.button<PostButtonProps>`
+type ColorProps = Pick<ButtonProps, 'color'>;
+
+const StyledButton = styled.button<ColorProps>`
   background-color: ${props => props.color};
   font: ${theme.font['--normal-button-font']};
   border-radius: 10px;
@@ -43,29 +42,34 @@ const StyledAlert = styled.div`
 
 const PostButton = (props: ButtonProps) => {
   const { color, decoID, letterID, content, sender } = useContext(DecoContext);
-  const { data, setData } = useContext(SnowBallContext);
+  const { userData, snowBallData } = useContext(SnowBallContext);
 
   const [alert, setAlert] = useState(false);
 
   const ClickedPost = () => {
+    //여기서 axios요청
     if (content === '' || sender === '') {
       setAlert(true);
       return;
     }
+    const a = {
+      sender,
+      content,
+      decoration_id: decoID,
+      decoration_color: color,
+      location: 3,
+      letter_id: letterID
+    };
+    console.log(a);
+    axios
+      .post(`/api/message/${userData.id}/${snowBallData.id}`, a)
+      .then(res => {
+        console.log(res, 'post DONE!!!');
+      })
+      .catch(e => console.error(e));
 
     props.view[1](!props.view[0]);
     props.visible[1](-1);
-    const newData = data;
-    newData.snowball[0].message.push({
-      message_id: 0,
-      deco_id: decoID,
-      deco_color: color,
-      content: content,
-      sender: sender,
-      created_at: '2023-11-11',
-      letter_id: letterID
-    });
-    setData(newData);
   };
 
   return (

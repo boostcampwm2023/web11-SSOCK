@@ -29,14 +29,14 @@ const StyledLetterImg = styled.img`
 `;
 
 const VisitHeader = () => {
-  const { data } = useContext(SnowBallContext);
+  const { userData } = useContext(SnowBallContext);
 
   return (
     <Container>
-      <HeaderText Ref={null} />
+      <HeaderText Ref={null} userName={userData.nickname} />
       <StyledLetter>
         <StyledLetterImg src={'/icons/letter.svg'} />
-        {data.snowball[0].message.length}개의 편지
+        {userData.message_count}개의 편지
       </StyledLetter>
     </Container>
   );

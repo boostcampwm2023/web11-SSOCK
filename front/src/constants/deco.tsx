@@ -1,4 +1,5 @@
 export const DECO = [
+  { name: '선물상자', fileName: '/models/ribbonBox.glb', img: 'ribbonBox.png' },
   {
     name: '선물상자',
     fileName: '/models/ribbonBox.glb',
@@ -17,6 +18,7 @@ export const DECO = [
 ];
 
 export const MAIN = [
+  { name: '턱스', fileName: '/models/tux.glb', img: 'tux' },
   {
     name: '턱스',
     fileName: '/models/tux.glb',
@@ -30,6 +32,9 @@ export const MAIN = [
 ];
 
 export const MSG_COLOR = [
+  {
+    color: '#FF0000'
+  },
   {
     color: '#FF0000'
   },

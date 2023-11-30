@@ -22,6 +22,7 @@ const MsgBox = ({ isInput }: MsgBoxProps) => {
   return (
     <MsgContainer>
       <Msg
+        to={'받는사람'}
         key={1}
         color={MSG_COLOR[letterID].color}
         isInput={isInput}
