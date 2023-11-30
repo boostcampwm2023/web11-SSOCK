@@ -75,11 +75,13 @@ export class SnowballController {
   @ApiBody({ type: ReqUpdateSnowballDto })
   updateSnowball(
     @Param('snowball_id') snowball_id: number,
+    @Req() req: JWTRequest,
     @Body() updateSnowballDto: ReqUpdateSnowballDto
   ) {
     const snowball = this.snowballService.updateSnowball(
       updateSnowballDto,
-      snowball_id
+      snowball_id,
+      req.user.id
     );
     return snowball;
   }

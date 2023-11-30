@@ -13,6 +13,7 @@ import { ResUpdateSnowballDto } from './dto/response/res-update-snowball.dto';
 import { UpdateMainDecoDto } from './dto/update-main-decoration.dto';
 import { UserDto } from '../user/dto/user.dto';
 import { MessageService } from '../message/message.service';
+
 export interface SnowballInfo {
   snowball_count: number;
   message_count: number;
@@ -32,7 +33,7 @@ export class SnowballService {
     userid: number,
     createSnowballDto: ReqCreateSnowballDto
   ): Promise<SnowballDto> {
-    // create a new snowball if user has less than 5 snowballs
+    // 유저가 스노우볼을 5개 이상 생성할 수 없다.
     const userSnowballCount = await this.snowballRepository.count({
       where: { user_id: userid }
     });
@@ -59,9 +60,18 @@ export class SnowballService {
 
   async updateSnowball(
     updateSnowballDto: ReqUpdateSnowballDto,
-    snowball_id: number
+    snowball_id: number,
+    user_pk: number
   ): Promise<ResUpdateSnowballDto> {
     const { title, is_message_private } = updateSnowballDto;
+
+    //스노우볼 존재 여부 exception 나눠주기 위해 쿼리문 추가
+    const snowball = await this.snowballRepository.count({
+      where: { id: snowball_id }
+    });
+    if (!snowball) {
+      throw new NotFoundException('업데이트할 스노우볼이 존재하지 않습니다.');
+    }
 
     const updateResult = await this.snowballRepository
       .createQueryBuilder()
@@ -71,9 +81,10 @@ export class SnowballService {
         message_private: is_message_private ? new Date() : null
       })
       .where('id = :id', { id: snowball_id })
+      .andWhere('user_id = :user_id', { user_id: user_pk })
       .execute();
     if (!updateResult.affected) {
-      throw new NotFoundException('업데이트할 스노우볼이 존재하지 않습니다.');
+      throw new NotFoundException('스노우볼 업데이트 권한이 없습니다');
     }
 
     // Return the updated snowball
