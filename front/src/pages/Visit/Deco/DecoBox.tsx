@@ -39,7 +39,7 @@ const DecoImgs = (folder: string) => {
           return (
             <StyledBox key={img}>
               <StyledImg
-                src={`/models/img/${folder}/${img}`}
+                src={img}
                 alt="deco"
                 onClick={() => setDecoID(index)}
               />
