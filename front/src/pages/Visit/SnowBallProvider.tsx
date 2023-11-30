@@ -38,7 +38,7 @@ interface Message {
   is_deleted: boolean;
   letter_id: number | undefined;
   location: number;
-  opened: boolean | null;
+  opened: string | null;
   sender: string | undefined;
   snowball_id: number;
   user_id: number;
