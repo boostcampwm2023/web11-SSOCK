@@ -30,6 +30,12 @@ export class SnowballEntity {
   @Column({ type: 'char', length: 7 })
   main_decoration_color: string;
 
+  @Column()
+  bottom_decoration_id: number;
+
+  @Column()
+  bottom_decoration_color: string;
+
   @CreateDateColumn({ nullable: true, default: null })
   message_private: Date | null;
 
