@@ -96,7 +96,8 @@ const StyledBottomWrap = styled.div`
 const Steps = () => {
   const [step, setStep] = useState<number>(0);
   const [lastBox, setLastBox] = useState(false);
-  const { setMainColor, setBottomColor } = useContext(DecoContext);
+  const { mainColor, bottomColor, setMainColor, setBottomColor } =
+    useContext(DecoContext);
 
   const doneStep = -1;
   const selectDeco = 0;
@@ -231,7 +232,7 @@ const Steps = () => {
             {step === selectColor ? (
               <>
                 <ColorInput
-                  value={'#ff0000'}
+                  value={mainColor}
                   onChange={e => {
                     setMainColor(e.target.value);
                   }}
@@ -243,7 +244,7 @@ const Steps = () => {
             {step === selectBottomColor ? (
               <>
                 <ColorInput
-                  value={'#ff0000'}
+                  value={bottomColor}
                   onChange={e => setBottomColor(e.target.value)}
                 />
                 <p>받침대 색상을 선택해주세요</p>
