@@ -8,6 +8,7 @@ interface MyModelProps {
   id: number;
   scale: number;
   position: THREE.Vector3;
+  color: THREE.Color;
 }
 
 const fallingModel = (
@@ -32,10 +33,12 @@ const fallingModel = (
   }
 };
 
-const MainDeco = ({ id, scale, position }: MyModelProps) => {
+const MainDeco = ({ id, scale, position, color }: MyModelProps) => {
   const deco = useGLTF(MAIN[id].fileName).scene.clone();
   const speedRef = useRef(new THREE.Vector3(0, -0.01, 0));
 
+  //run build error 해결용 consol
+  console.log(color);
   deco.name = MAIN[id].name;
   deco.scale.set(scale, scale, scale);
   deco.position.set(position.x, position.y, position.z);
