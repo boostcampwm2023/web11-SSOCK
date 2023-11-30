@@ -17,7 +17,7 @@ import {
   ApiOperation,
   ApiCreatedResponse,
   ApiResponse,
-  ApiBearerAuth
+  ApiCookieAuth
 } from '@nestjs/swagger';
 import { ReqCreateSnowballDto } from './dto/request/req-create-snowball.dto';
 import { ReqUpdateSnowballDto } from './dto/request/req-update-snowball.dto';
@@ -34,7 +34,7 @@ export class SnowballController {
   constructor(private readonly snowballService: SnowballService) {}
 
   @UseGuards(JWTGuard)
-  @ApiBearerAuth('jwt-token')
+  @ApiCookieAuth('access_token')
   @Post()
   @HttpCode(201)
   @ApiOperation({
@@ -58,7 +58,7 @@ export class SnowballController {
   }
 
   @UseGuards(JWTGuard)
-  @ApiBearerAuth('jwt-token')
+  @ApiCookieAuth('access_token')
   @Put('/:snowball_id')
   @HttpCode(200)
   @ApiResponse({
@@ -109,7 +109,7 @@ export class SnowballController {
   }
 
   @UseGuards(JWTGuard)
-  @ApiBearerAuth('jwt-token')
+  @ApiCookieAuth('access_token')
   @Put('/:snowball_id/decoration')
   @ApiResponse({
     status: 200,

@@ -12,7 +12,7 @@ import {
   ApiTags,
   ApiOperation,
   ApiResponse,
-  ApiBearerAuth,
+  ApiCookieAuth,
   ApiBody
 } from '@nestjs/swagger';
 import { UserService } from './user.service';
@@ -26,7 +26,7 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @UseGuards(JWTGuard)
-  @ApiBearerAuth('jwt-token')
+  @ApiCookieAuth('access_token')
   @Get()
   @ApiOperation({
     summary: '사용자 유저 조회 API',
@@ -60,7 +60,7 @@ export class UserController {
   }
 
   @UseGuards(JWTGuard)
-  @ApiBearerAuth('jwt-token')
+  @ApiCookieAuth('access_token')
   @Put('/nickname')
   @ApiBody({ type: NicknameDto })
   @ApiOperation({
