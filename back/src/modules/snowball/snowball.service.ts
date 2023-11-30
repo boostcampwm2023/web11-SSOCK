@@ -1,10 +1,4 @@
-import {
-  BadRequestException,
-  Inject,
-  Injectable,
-  NotFoundException,
-  forwardRef
-} from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { SnowballEntity } from './entity/snowball.entity';
@@ -15,7 +9,6 @@ import { ResUpdateSnowballDto } from './dto/response/res-update-snowball.dto';
 import { UpdateMainDecoDto } from './dto/update-main-decoration.dto';
 import { UserDto } from '../user/dto/user.dto';
 import { MessageService } from '../message/message.service';
-import { UserService } from '../user/user.service';
 
 export interface SnowballInfo {
   snowball_count: number;
@@ -28,8 +21,6 @@ export interface SnowballInfo {
 export class SnowballService {
   constructor(
     private readonly messageService: MessageService,
-    @Inject(forwardRef(() => UserService))
-    private readonly userService: UserService,
     @InjectRepository(SnowballEntity)
     private readonly snowballRepository: Repository<SnowballEntity>
   ) {}
@@ -38,27 +29,20 @@ export class SnowballService {
     userid: number,
     createSnowballDto: ReqCreateSnowballDto
   ): Promise<SnowballDto> {
-    // 유저있는지 확인
-    const user = await this.userService.getUserData(userid.toString());
-    // create a new snowball if user has less than 5 snowballs
-    const userSnowballCount = await this.snowballRepository.count({
-      where: { user_id: user.id }
-    });
-    if (userSnowballCount >= 5) {
-      throw new BadRequestException(
-        '스노우볼은 최대 5개까지 생성할 수 있습니다.'
-      );
-    }
-
     const snowball = this.snowballRepository.create({
-      user_id: user.id,
-      ...createSnowballDto,
+      user_id: userid,
+      title: createSnowballDto.title,
+      main_decoration_color: createSnowballDto.main_decoration_color,
+      main_decoration_id: createSnowballDto.main_decoration_id,
       message_private: createSnowballDto.is_message_private ? new Date() : null
     });
     const savedSnowball = await this.snowballRepository.save(snowball);
 
     const combinedSnowballDto: SnowballDto = {
-      ...savedSnowball,
+      id: savedSnowball.id,
+      title: savedSnowball.title,
+      main_decoration_color: savedSnowball.main_decoration_color,
+      main_decoration_id: savedSnowball.main_decoration_id,
       is_message_private: savedSnowball.message_private === null ? false : true,
       message_list: []
     };

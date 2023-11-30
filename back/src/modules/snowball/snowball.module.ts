@@ -1,4 +1,4 @@
-import { Module, forwardRef } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { SnowballController } from './snowball.controller';
 import { SnowballService } from './snowball.service';
 import { MessageModule } from '../message/message.module';
@@ -8,13 +8,11 @@ import { JWTGuard } from '../../common/guards/jwt.guard';
 import { hasJWTGuard } from 'src/common/guards/hasJwt.guard';
 import { MessageEntity } from '../message/entity/message.entity';
 import { MessageService } from '../message/message.service';
-import { UserModule } from '../user/user.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([SnowballEntity, MessageEntity]),
-    MessageModule,
-    forwardRef(() => UserModule)
+    MessageModule
   ],
   controllers: [SnowballController],
   providers: [SnowballService, MessageService, JWTGuard, hasJWTGuard],
