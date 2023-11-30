@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { SnowballEntity } from './entity/snowball.entity';
@@ -9,7 +13,6 @@ import { ResUpdateSnowballDto } from './dto/response/res-update-snowball.dto';
 import { UpdateMainDecoDto } from './dto/update-main-decoration.dto';
 import { UserDto } from '../user/dto/user.dto';
 import { MessageService } from '../message/message.service';
-
 export interface SnowballInfo {
   snowball_count: number;
   message_count: number;
@@ -29,20 +32,25 @@ export class SnowballService {
     userid: number,
     createSnowballDto: ReqCreateSnowballDto
   ): Promise<SnowballDto> {
+    // create a new snowball if user has less than 5 snowballs
+    const userSnowballCount = await this.snowballRepository.count({
+      where: { user_id: userid }
+    });
+    if (userSnowballCount >= 5) {
+      throw new BadRequestException(
+        '스노우볼은 최대 5개까지 생성할 수 있습니다.'
+      );
+    }
+
     const snowball = this.snowballRepository.create({
       user_id: userid,
-      title: createSnowballDto.title,
-      main_decoration_color: createSnowballDto.main_decoration_color,
-      main_decoration_id: createSnowballDto.main_decoration_id,
+      ...createSnowballDto,
       message_private: createSnowballDto.is_message_private ? new Date() : null
     });
     const savedSnowball = await this.snowballRepository.save(snowball);
 
     const combinedSnowballDto: SnowballDto = {
-      id: savedSnowball.id,
-      title: savedSnowball.title,
-      main_decoration_color: savedSnowball.main_decoration_color,
-      main_decoration_id: savedSnowball.main_decoration_id,
+      ...savedSnowball,
       is_message_private: savedSnowball.message_private === null ? false : true,
       message_list: []
     };
@@ -96,6 +104,8 @@ export class SnowballService {
       title: snowball.title,
       main_decoration_id: snowball.main_decoration_id,
       main_decoration_color: snowball.main_decoration_color,
+      bottom_decoration_id: snowball.bottom_decoration_id,
+      bottom_decoration_color: snowball.bottom_decoration_color,
       is_message_private: is_message_private,
       message_list: await this.messageService.getMessageList(
         snowball.id,
@@ -110,14 +120,21 @@ export class SnowballService {
     updateMainDecoDto: UpdateMainDecoDto,
     snowball_id: number
   ): Promise<UpdateMainDecoDto> {
-    const { main_decoration_id, main_decoration_color } = updateMainDecoDto;
+    const {
+      main_decoration_id,
+      main_decoration_color,
+      bottom_decoration_id,
+      bottom_decoration_color
+    } = updateMainDecoDto;
 
     const updateResult = await this.snowballRepository
       .createQueryBuilder()
       .update(SnowballEntity)
       .set({
         main_decoration_id: main_decoration_id,
-        main_decoration_color: main_decoration_color
+        main_decoration_color: main_decoration_color,
+        bottom_decoration_id: bottom_decoration_id,
+        bottom_decoration_color: bottom_decoration_color
       })
       .where('id = :id', { id: snowball_id })
       .execute();
