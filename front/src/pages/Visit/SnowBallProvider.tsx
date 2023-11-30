@@ -64,7 +64,6 @@ const SnowBallProvider: React.FC<{ children: React.ReactNode }> = ({
   useEffect(() => {
     axios(`/api/user/${user}`)
       .then(res => {
-        console.log('!!!', res.data);
         setSnowBallData(res.data.main_snowball as SnowBallData);
         setUserData(res.data.user as UserData);
       })

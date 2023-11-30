@@ -41,10 +41,7 @@ const DecoImgs = (folder: string) => {
               <StyledImg
                 src={`/models/img/${folder}/${img}`}
                 alt="deco"
-                onClick={() => {
-                  console.log(index);
-                  setDecoID(index);
-                }}
+                onClick={() => setDecoID(index)}
               />
             </StyledBox>
           );
@@ -55,10 +52,7 @@ const DecoImgs = (folder: string) => {
             <StyledColorBox
               key={color}
               color={color}
-              onClick={() => {
-                console.log('setLetter', index);
-                setLetterID(index);
-              }}
+              onClick={() => setLetterID(index)}
             />
           );
       });
