@@ -90,6 +90,7 @@ const SnowGlobeCanvas = () => {
             id={0}
             scale={1}
             position={new THREE.Vector3(0, 10, 0)}
+            color={new THREE.Color(snowBallData.main_decoration_color)}
           />
           <Models.Bottom
             bottomID={1}
