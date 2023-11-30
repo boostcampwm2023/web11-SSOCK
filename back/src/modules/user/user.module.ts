@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserController } from './user.controller';
 import { UserEntity } from './entity/user.entity';
@@ -13,9 +13,10 @@ import { MessageService } from '../message/message.service';
 @Module({
   imports: [
     TypeOrmModule.forFeature([UserEntity, SnowballEntity, MessageEntity]),
-    SnowballModule
+    forwardRef(() => SnowballModule)
   ],
   controllers: [UserController],
-  providers: [UserService, JWTGuard, SnowballService, MessageService]
+  providers: [UserService, JWTGuard, SnowballService, MessageService],
+  exports: [UserService]
 })
 export class UserModule {}

@@ -1,4 +1,9 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Inject,
+  Injectable,
+  NotFoundException,
+  forwardRef
+} from '@nestjs/common';
 import { UserEntity } from './entity/user.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -16,6 +21,7 @@ interface userData {
 @Injectable()
 export class UserService {
   constructor(
+    @Inject(forwardRef(() => SnowballService))
     private readonly snowballService: SnowballService,
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>
