@@ -123,11 +123,13 @@ export class SnowballController {
   @ApiBody({ type: UpdateMainDecoDto })
   async updateMainDecoration(
     @Param('snowball_id') snowball_id: number,
-    @Body() updateMainDecoDto: UpdateMainDecoDto
+    @Body() updateMainDecoDto: UpdateMainDecoDto,
+    @Req() req: JWTRequest
   ) {
     const snowball = await this.snowballService.updateMainDecoration(
       updateMainDecoDto,
-      snowball_id
+      snowball_id,
+      req.user.id
     );
     return snowball;
   }

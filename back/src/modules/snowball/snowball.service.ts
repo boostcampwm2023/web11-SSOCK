@@ -126,30 +126,38 @@ export class SnowballService {
     return resSnowball;
   }
 
+  async doesDecorationExist(decoration_id: number): Promise<boolean> {
+    const decoration = await this.snowballRepository.count({
+      where: { id: decoration_id }
+    });
+    if (!decoration) {
+      throw new NotFoundException('업데이트할 장식이 존재하지 않습니다.');
+    }
+    return true;
+  }
+
   async updateMainDecoration(
     updateMainDecoDto: UpdateMainDecoDto,
-    snowball_id: number
+    snowball_id: number,
+    user_pk: number
   ): Promise<UpdateMainDecoDto> {
-    const {
-      main_decoration_id,
-      main_decoration_color,
-      bottom_decoration_id,
-      bottom_decoration_color
-    } = updateMainDecoDto;
+    await this.doesSnowballExist(snowball_id);
+    //포렌키 설정하면 이거 안해줘도 될거 같긴함
+    await this.doesDecorationExist(updateMainDecoDto.main_decoration_id);
+    await this.doesDecorationExist(updateMainDecoDto.bottom_decoration_id);
 
     const updateResult = await this.snowballRepository
       .createQueryBuilder()
       .update(SnowballEntity)
       .set({
-        main_decoration_id: main_decoration_id,
-        main_decoration_color: main_decoration_color,
-        bottom_decoration_id: bottom_decoration_id,
-        bottom_decoration_color: bottom_decoration_color
+        ...updateMainDecoDto
       })
       .where('id = :id', { id: snowball_id })
+      .andWhere('user_id = :user_id', { user_id: user_pk })
       .execute();
+
     if (!updateResult.affected) {
-      throw new NotFoundException('업데이트할 스노우볼이 존재하지 않습니다.');
+      throw new NotFoundException('스노우볼을 업데이트할 권한이 없습니다.');
     }
 
     return updateMainDecoDto;
