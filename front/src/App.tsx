@@ -56,8 +56,7 @@ const App = () => {
                 </IsLogin>
               }
             >
-              <Route path="" element={<></>} />
-              <Route path="nickname" element={<Nickname />} />
+              <Route path="" element={<Nickname />} />
               <Route path="snowball" element={<Snowball />} />
               <Route path="maindeco" element={<MainDeco />} />
             </Route>
