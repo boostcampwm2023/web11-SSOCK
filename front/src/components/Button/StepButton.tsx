@@ -8,7 +8,7 @@ interface ButtonColor {
 interface ButtonProps {
   text: string;
   color: string;
-  step: string;
+  step: 'increase' | 'decrease';
   view: [number, React.Dispatch<React.SetStateAction<number>>];
   disabled?: boolean;
 }
