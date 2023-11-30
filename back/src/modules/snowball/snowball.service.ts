@@ -13,6 +13,7 @@ import { ResUpdateSnowballDto } from './dto/response/res-update-snowball.dto';
 import { UpdateMainDecoDto } from './dto/update-main-decoration.dto';
 import { UserDto } from '../user/dto/user.dto';
 import { MessageService } from '../message/message.service';
+
 export interface SnowballInfo {
   snowball_count: number;
   message_count: number;
@@ -32,7 +33,7 @@ export class SnowballService {
     userid: number,
     createSnowballDto: ReqCreateSnowballDto
   ): Promise<SnowballDto> {
-    // create a new snowball if user has less than 5 snowballs
+    // 유저가 스노우볼을 5개 이상 생성할 수 없다.
     const userSnowballCount = await this.snowballRepository.count({
       where: { user_id: userid }
     });
@@ -57,11 +58,24 @@ export class SnowballService {
     return combinedSnowballDto;
   }
 
+  async doesSnowballExist(snowball_id: number): Promise<boolean> {
+    const snowball = await this.snowballRepository.count({
+      where: { id: snowball_id }
+    });
+    if (!snowball) {
+      throw new NotFoundException('업데이트할 스노우볼이 존재하지 않습니다.');
+    }
+    return true;
+  }
+
   async updateSnowball(
     updateSnowballDto: ReqUpdateSnowballDto,
-    snowball_id: number
+    snowball_id: number,
+    user_pk: number
   ): Promise<ResUpdateSnowballDto> {
     const { title, is_message_private } = updateSnowballDto;
+
+    await this.doesSnowballExist(snowball_id);
 
     const updateResult = await this.snowballRepository
       .createQueryBuilder()
@@ -71,9 +85,10 @@ export class SnowballService {
         message_private: is_message_private ? new Date() : null
       })
       .where('id = :id', { id: snowball_id })
+      .andWhere('user_id = :user_id', { user_id: user_pk })
       .execute();
     if (!updateResult.affected) {
-      throw new NotFoundException('업데이트할 스노우볼이 존재하지 않습니다.');
+      throw new NotFoundException('스노우볼 업데이트 권한이 없습니다');
     }
 
     // Return the updated snowball
@@ -100,12 +115,7 @@ export class SnowballService {
     const is_private_contents = !hasToken && is_message_private;
 
     const resSnowball: SnowballDto = {
-      id: snowball.id,
-      title: snowball.title,
-      main_decoration_id: snowball.main_decoration_id,
-      main_decoration_color: snowball.main_decoration_color,
-      bottom_decoration_id: snowball.bottom_decoration_id,
-      bottom_decoration_color: snowball.bottom_decoration_color,
+      ...snowball,
       is_message_private: is_message_private,
       message_list: await this.messageService.getMessageList(
         snowball.id,
@@ -116,30 +126,38 @@ export class SnowballService {
     return resSnowball;
   }
 
+  async doesDecorationExist(decoration_id: number): Promise<boolean> {
+    const decoration = await this.snowballRepository.count({
+      where: { id: decoration_id }
+    });
+    if (!decoration) {
+      throw new NotFoundException('업데이트할 장식이 존재하지 않습니다.');
+    }
+    return true;
+  }
+
   async updateMainDecoration(
     updateMainDecoDto: UpdateMainDecoDto,
-    snowball_id: number
+    snowball_id: number,
+    user_pk: number
   ): Promise<UpdateMainDecoDto> {
-    const {
-      main_decoration_id,
-      main_decoration_color,
-      bottom_decoration_id,
-      bottom_decoration_color
-    } = updateMainDecoDto;
+    await this.doesSnowballExist(snowball_id);
+    //포렌키 설정하면 이거 안해줘도 될거 같긴함
+    await this.doesDecorationExist(updateMainDecoDto.main_decoration_id);
+    await this.doesDecorationExist(updateMainDecoDto.bottom_decoration_id);
 
     const updateResult = await this.snowballRepository
       .createQueryBuilder()
       .update(SnowballEntity)
       .set({
-        main_decoration_id: main_decoration_id,
-        main_decoration_color: main_decoration_color,
-        bottom_decoration_id: bottom_decoration_id,
-        bottom_decoration_color: bottom_decoration_color
+        ...updateMainDecoDto
       })
       .where('id = :id', { id: snowball_id })
+      .andWhere('user_id = :user_id', { user_id: user_pk })
       .execute();
+
     if (!updateResult.affected) {
-      throw new NotFoundException('업데이트할 스노우볼이 존재하지 않습니다.');
+      throw new NotFoundException('스노우볼을 업데이트할 권한이 없습니다.');
     }
 
     return updateMainDecoDto;
