@@ -59,7 +59,6 @@ const PostButton = (props: ButtonProps) => {
       decoration_color: color,
       letter_id: letterID
     };
-    console.log(a);
     axios
       .post(`/api/message/${userData.id}/${snowBallData.id}`, a)
       .then(res => {

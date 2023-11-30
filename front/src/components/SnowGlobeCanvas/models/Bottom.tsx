@@ -26,7 +26,7 @@ const Bottom: React.FC<BottomProps> = ({
     const material = nameTag.material as THREE.MeshStandardMaterial;
     canvas.width = 1024;
     canvas.height = 1024;
-    console.log(canvas, context);
+
     if (context) {
       context.fillStyle = '#ffffff';
       context.fillRect(0, 0, 1024, 1024);
@@ -38,7 +38,6 @@ const Bottom: React.FC<BottomProps> = ({
         context.font = 'Bold 50px KingSejongInstitute';
       }
       textWidth = context.measureText(title).width;
-      console.log(textWidth);
       context.fillText(title, canvas.width / 2 - textWidth / 2, 1024 / 8, 1024);
     }
     const nameTexture = new THREE.CanvasTexture(canvas);
