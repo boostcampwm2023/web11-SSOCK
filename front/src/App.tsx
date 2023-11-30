@@ -9,7 +9,8 @@ import {
   Visit,
   Deco,
   Wrong,
-  MainDeco
+  MainDeco,
+  Boostcamp
 } from './pages';
 import { Song } from './components';
 import theme from './utils/theme';
@@ -72,6 +73,7 @@ const App = () => {
               }
             />
 
+            <Route path="/boostcamp" element={<Boostcamp />} />
             <Route path="*" element={<Wrong />} />
           </Routes>
         </BrowserRouter>
