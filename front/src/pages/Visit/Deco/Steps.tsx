@@ -50,6 +50,7 @@ const SelectDeco = styled.div`
   justify-content: center;
   flex: 1 0 0;
   gap: 1rem;
+  min-width: min-content;
 `;
 
 const ColorInput = styled.input.attrs({
@@ -76,6 +77,7 @@ const StyledTopWrap = styled.div`
   gap: 1rem;
   flex-direction: column;
 `;
+
 const StyledBody = styled.div`
   flex: 1 1 auto;
   display: flex;
@@ -85,6 +87,7 @@ const StyledBody = styled.div`
     pointer-events: all;
   }
 `;
+
 const StyledBottomWrap = styled.div`
   display: flex;
   flex-direction: column;

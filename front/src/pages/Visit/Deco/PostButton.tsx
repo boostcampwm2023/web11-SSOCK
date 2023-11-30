@@ -57,7 +57,6 @@ const PostButton = (props: ButtonProps) => {
       content,
       decoration_id: decoID,
       decoration_color: color,
-      location: 3,
       letter_id: letterID
     };
     console.log(a);
