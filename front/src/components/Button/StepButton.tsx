@@ -1,5 +1,7 @@
+import { useContext } from 'react';
 import styled from 'styled-components';
 import theme from '../../utils/theme';
+import { DecoContext } from '../../pages/Make/MainDeco/DecoProvider';
 
 interface ButtonColor {
   color: string;
@@ -8,7 +10,7 @@ interface ButtonColor {
 interface ButtonProps {
   text: string;
   color: string;
-  step: 'increase' | 'decrease';
+  step: 'increase' | 'decrease' | 'done';
   view: [number, React.Dispatch<React.SetStateAction<number>>];
   disabled?: boolean;
 }
@@ -26,11 +28,15 @@ const StyledButton = styled.button<ButtonColor>`
 `;
 
 const StepButton = (props: ButtonProps) => {
+  const { snowballName } = useContext(DecoContext);
+
   const ClickStep = () => {
     if (props.step === 'increase') {
       props.view[1](props.view[0] + 1);
     } else if (props.step === 'decrease') {
       props.view[1](props.view[0] - 1);
+    } else {
+      snowballName === 'default' ? props.view[1](404) : props.view[1](200);
     }
   };
 

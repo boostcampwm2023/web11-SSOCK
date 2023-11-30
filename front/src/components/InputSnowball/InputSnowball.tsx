@@ -13,7 +13,6 @@ const StyledLetterBox = styled.div`
   padding: 1.5rem;
   gap: 1rem;
   background-color: ${theme.colors['--primary-red-primary']};
-  margin: 1rem;
 `;
 
 const StyledLetterPerson = styled.div`

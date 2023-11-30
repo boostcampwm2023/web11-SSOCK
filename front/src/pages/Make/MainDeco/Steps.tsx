@@ -11,6 +11,15 @@ import DecoEnroll from './DecoEnroll';
 import DecoBox from './DecoBox';
 import { DecoContext } from './DecoProvider';
 
+const StyledTopWrap = styled.div`
+  display: flex;
+  height: 10rem;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-direction: column;
+`;
+
 const StateBar = styled.div`
   display: flex;
   justify-content: center;
@@ -23,6 +32,24 @@ const StateBox = styled.div`
   height: 2rem;
   background-color: ${props => props.color};
   transition: background-color 0.5s ease-in-out;
+`;
+
+const StyledBottomWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const StyledAlertBox = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+const StyledAlert = styled.div`
+  color: ${theme.colors['--white-primary']};
+  padding: 1rem;
+  font: ${theme.font['--normal-introduce-font']};
+  background-color: ${theme.colors['--primary-green-primary']};
+  border-radius: 2rem;
 `;
 
 const StyledButtonWrap = styled.div`
@@ -70,32 +97,10 @@ const ButtonBox = styled.div`
   justify-content: center;
 `;
 
-const StyledTopWrap = styled.div`
-  display: flex;
-  height: 10rem;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  flex-direction: column;
-`;
-const StyledBody = styled.div`
-  flex: 1 1 auto;
-  display: flex;
-  justify-content: center;
-  overflow-y: hidden;
-  pointer-events: none;
-  * {
-    pointer-events: all;
-  }
-`;
-const StyledBottomWrap = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
 const Steps = () => {
   const [step, setStep] = useState<number>(0);
   const [lastBox, setLastBox] = useState(false);
+  const [alert, setAlert] = useState<number>(0);
   const { mainColor, bottomColor, setMainColor, setBottomColor } =
     useContext(DecoContext);
 
@@ -106,6 +111,9 @@ const Steps = () => {
   const selectBottomColor = 3;
   const writeSnowball = 4;
   const lastConfirm = 5;
+
+  const error = 404;
+  const good = 200;
 
   const selectDecoBox = useRef<HTMLDivElement>(null);
 
@@ -172,6 +180,10 @@ const Steps = () => {
     };
   }, [isDecoBoxClicked]);
 
+  useEffect(() => {
+    if (alert === good) setStep(step + 1);
+  }, [alert]);
+
   const renderStateBoxes = () => {
     const boxes = [];
     for (let i = 0; i <= step; i++) {
@@ -195,14 +207,19 @@ const Steps = () => {
         )}
       </StyledTopWrap>
 
-      <StyledBody>
-        {step === writeSnowball ? <InputSnowball /> : null}
-      </StyledBody>
-
       <StyledBottomWrap>
+        <StyledAlertBox>
+          {alert === error ? (
+            <StyledAlert>스노우볼 이름을 입력해주세요!</StyledAlert>
+          ) : null}
+          {step === lastConfirm ? (
+            <StyledAlert>🎅최종 확인 해주세요🎄</StyledAlert>
+          ) : null}
+        </StyledAlertBox>
+
         <StyledButtonWrap>
           {step <= selectDeco ? (
-            <div></div>
+            <div />
           ) : (
             <StepButton
               text="< 이전"
@@ -214,7 +231,15 @@ const Steps = () => {
           )}
 
           {step >= lastConfirm || step === doneStep ? (
-            <div></div>
+            <div />
+          ) : step === writeSnowball ? (
+            <StepButton
+              text="다음 >"
+              step="done"
+              color={theme.colors['--primary-red-primary']}
+              view={[alert, setAlert]}
+              disabled={false}
+            />
           ) : (
             <StepButton
               text="다음 >"
@@ -250,7 +275,8 @@ const Steps = () => {
                 <p>받침대 색상을 선택해주세요</p>
               </>
             ) : null}
-            {step === writeSnowball ? (
+            {step === writeSnowball ? <InputSnowball /> : null}
+            {step === lastConfirm ? (
               <ButtonBox>
                 <MakeButton
                   text="스노우볼 만들기"
