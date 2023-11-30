@@ -9,7 +9,8 @@ async function bootstrap() {
   app.useGlobalPipes(
     new ValidationPipe({
       forbidNonWhitelisted: true,
-      forbidUnknownValues: true
+      forbidUnknownValues: true,
+      whitelist: true
     })
   );
   setupSwagger(app);

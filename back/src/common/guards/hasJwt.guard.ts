@@ -22,4 +22,4 @@ export class hasJWTGuard implements CanActivate {
   }
 }
 
-// 인터셉터, class-trasformer로 변경
+// 커스텀데코레이터, class-trasformer로 변경
