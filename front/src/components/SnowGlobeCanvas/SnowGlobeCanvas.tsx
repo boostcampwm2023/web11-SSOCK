@@ -40,10 +40,10 @@ const SnowGlobeCanvas = () => {
         id={message.decoration_id}
         scale={1}
         position={getDecoPoisition(message.location)}
-        message={message.content}
+        message={message.content ?? '비공개메시지입니다'}
         color={message.decoration_color}
-        sender={message.sender}
-        letterID={message.letter_id}
+        sender={message.sender ?? '비공개'}
+        letterID={message.letter_id ?? 0}
       />
     );
   });
