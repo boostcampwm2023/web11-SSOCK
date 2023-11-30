@@ -1,4 +1,4 @@
-import Request from 'express';
+import { Request } from 'express';
 
 export interface JWTRequest extends Request {
   user: {
@@ -6,4 +6,8 @@ export interface JWTRequest extends Request {
     name: string;
     user_id: string;
   };
+}
+
+export interface hasTokenRequest extends Request {
+  hasToken: boolean;
 }
