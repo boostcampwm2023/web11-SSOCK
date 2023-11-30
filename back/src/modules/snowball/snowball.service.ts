@@ -13,6 +13,7 @@ import { ResUpdateSnowballDto } from './dto/response/res-update-snowball.dto';
 import { UpdateMainDecoDto } from './dto/update-main-decoration.dto';
 import { UserDto } from '../user/dto/user.dto';
 import { MessageService } from '../message/message.service';
+import { DecorationPrefixEntity } from './entity/decoration-prefix.entity';
 
 export interface SnowballInfo {
   snowball_count: number;
@@ -26,16 +27,18 @@ export class SnowballService {
   constructor(
     private readonly messageService: MessageService,
     @InjectRepository(SnowballEntity)
-    private readonly snowballRepository: Repository<SnowballEntity>
+    private readonly snowballRepository: Repository<SnowballEntity>,
+    @InjectRepository(DecorationPrefixEntity)
+    private readonly snowballDecoRepository: Repository<DecorationPrefixEntity>
   ) {}
 
   async createSnowball(
-    userid: number,
+    user_id: number,
     createSnowballDto: ReqCreateSnowballDto
   ): Promise<SnowballDto> {
     // 유저가 스노우볼을 5개 이상 생성할 수 없다.
     const userSnowballCount = await this.snowballRepository.count({
-      where: { user_id: userid }
+      where: { user_id: user_id }
     });
     if (userSnowballCount >= 5) {
       throw new BadRequestException(
@@ -44,7 +47,7 @@ export class SnowballService {
     }
 
     const snowball = this.snowballRepository.create({
-      user_id: userid,
+      user_id: user_id,
       ...createSnowballDto,
       message_private: createSnowballDto.is_message_private ? new Date() : null
     });
@@ -58,8 +61,9 @@ export class SnowballService {
     return combinedSnowballDto;
   }
 
+  // To Do: 조회 성능 테스트 필요
   async doesSnowballExist(snowball_id: number): Promise<boolean> {
-    const snowball = await this.snowballRepository.count({
+    const snowball = await this.snowballRepository.findOne({
       where: { id: snowball_id }
     });
     if (!snowball) {
@@ -127,7 +131,7 @@ export class SnowballService {
   }
 
   async doesDecorationExist(decoration_id: number): Promise<boolean> {
-    const decoration = await this.snowballRepository.count({
+    const decoration = await this.snowballDecoRepository.findOne({
       where: { id: decoration_id }
     });
     if (!decoration) {
@@ -142,7 +146,6 @@ export class SnowballService {
     user_pk: number
   ): Promise<UpdateMainDecoDto> {
     await this.doesSnowballExist(snowball_id);
-    //포렌키 설정하면 이거 안해줘도 될거 같긴함
     await this.doesDecorationExist(updateMainDecoDto.main_decoration_id);
     await this.doesDecorationExist(updateMainDecoDto.bottom_decoration_id);
 

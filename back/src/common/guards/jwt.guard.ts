@@ -5,7 +5,7 @@ import {
   Req,
   UnauthorizedException
 } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
+import { JwtService, TokenExpiredError } from '@nestjs/jwt';
 import { Request } from 'express';
 
 @Injectable()
@@ -14,7 +14,7 @@ export class JWTGuard implements CanActivate {
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
-    const token = this.extractTokenFromHeader(request);
+    const token = this.extractAccessToken(request);
     if (!token) {
       throw new UnauthorizedException();
     }
@@ -30,8 +30,21 @@ export class JWTGuard implements CanActivate {
     return true;
   }
 
-  private extractTokenFromHeader(@Req() req: Request): string | undefined {
-    const [type, token] = req.headers.authorization?.split(' ') ?? [];
-    return type === 'Bearer' ? token : undefined;
+  private extractAccessToken(@Req() req: Request): string | undefined {
+    const cookieHeader = req.headers.cookie;
+    if (!cookieHeader) {
+      throw new UnauthorizedException();
+    }
+
+    const cookies = cookieHeader.split(';').map(cookie => cookie.trim());
+    const accessToken = cookies.find(cookie =>
+      cookie.startsWith(`access_token=`)
+    );
+
+    if (accessToken) {
+      return accessToken.split('=')[1];
+    } else {
+      throw new TokenExpiredError('Token expired', new Date());
+    }
   }
 }

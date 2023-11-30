@@ -17,13 +17,13 @@ import {
   ApiTags,
   ApiOperation,
   ApiResponse,
-  ApiBearerAuth,
   ApiNotFoundResponse,
   ApiConflictResponse,
   ApiBadRequestResponse,
   ApiInternalServerErrorResponse,
   ApiGoneResponse,
-  ApiUnauthorizedResponse
+  ApiUnauthorizedResponse,
+  ApiCookieAuth
 } from '@nestjs/swagger';
 import { ResCreateMessageDto } from './dto/response/res-create-message.dto';
 import { MessageDto } from './dto/message.dto';
@@ -66,7 +66,7 @@ export class MessageController {
   }
 
   @UseGuards(JWTGuard)
-  @ApiBearerAuth('jwt-token')
+  @ApiCookieAuth('access_token')
   @Delete(':message_id')
   @HttpCode(204)
   @ApiOperation({
@@ -91,7 +91,7 @@ export class MessageController {
   }
 
   @UseGuards(JWTGuard)
-  @ApiBearerAuth('jwt-token')
+  @ApiCookieAuth('access_token')
   @Get('/')
   @HttpCode(200)
   @ApiOperation({
@@ -113,7 +113,7 @@ export class MessageController {
   }
 
   @UseGuards(JWTGuard)
-  @ApiBearerAuth('jwt-token')
+  @ApiCookieAuth('access_token')
   @Put('/:message_id/open')
   @HttpCode(200)
   @ApiOperation({
@@ -143,7 +143,7 @@ export class MessageController {
   }
 
   @UseGuards(JWTGuard)
-  @ApiBearerAuth('jwt-token')
+  @ApiCookieAuth('access_token')
   @Put('/:message_id/decoration')
   @ApiOperation({
     summary: '메세지 장식 변경',
@@ -173,7 +173,7 @@ export class MessageController {
   }
 
   @UseGuards(JWTGuard)
-  @ApiBearerAuth('jwt-token')
+  @ApiCookieAuth('access_token')
   @Put('/:message_id/location')
   @ApiOperation({
     summary: '메세지 위치 변경',

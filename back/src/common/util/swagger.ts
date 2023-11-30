@@ -28,16 +28,7 @@ export function setupSwagger(app: INestApplication): void {
         }
       }
     })
-    .addBearerAuth(
-      {
-        type: 'http',
-        scheme: 'bearer',
-        bearerFormat: 'JWT',
-        name: 'JWT',
-        in: 'header'
-      },
-      'jwt-token'
-    )
+    .addCookieAuth('access_token')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document, {

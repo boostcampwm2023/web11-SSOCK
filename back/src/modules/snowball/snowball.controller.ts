@@ -17,7 +17,7 @@ import {
   ApiOperation,
   ApiCreatedResponse,
   ApiResponse,
-  ApiBearerAuth
+  ApiCookieAuth
 } from '@nestjs/swagger';
 import { ReqCreateSnowballDto } from './dto/request/req-create-snowball.dto';
 import { ReqUpdateSnowballDto } from './dto/request/req-update-snowball.dto';
@@ -26,7 +26,7 @@ import { ResUpdateSnowballDto } from './dto/response/res-update-snowball.dto';
 import { JWTGuard } from 'src/common/guards/jwt.guard';
 import { UpdateMainDecoDto } from './dto/update-main-decoration.dto';
 import { JWTRequest } from '../../common/interface/request.interface';
-import { JWTToRequestInterceptor } from '../../common/interceptors/jwtRequest.interceptor';
+import { hasJWTInterceptor } from '../../common/interceptors/hasJwt.interceptor';
 
 @ApiTags('Snowball API')
 @Controller('snowball')
@@ -34,7 +34,7 @@ export class SnowballController {
   constructor(private readonly snowballService: SnowballService) {}
 
   @UseGuards(JWTGuard)
-  @ApiBearerAuth('jwt-token')
+  @ApiCookieAuth('access_token')
   @Post()
   @HttpCode(201)
   @ApiOperation({
@@ -58,7 +58,7 @@ export class SnowballController {
   }
 
   @UseGuards(JWTGuard)
-  @ApiBearerAuth('jwt-token')
+  @ApiCookieAuth('access_token')
   @Put('/:snowball_id')
   @HttpCode(200)
   @ApiResponse({
@@ -85,8 +85,7 @@ export class SnowballController {
   }
 
   @Get('/:snowball_id')
-  @UseInterceptors(JWTToRequestInterceptor)
-  @ApiBearerAuth('jwt-token')
+  @UseInterceptors(hasJWTInterceptor)
   @HttpCode(200)
   @ApiResponse({
     status: 200,
@@ -109,7 +108,7 @@ export class SnowballController {
   }
 
   @UseGuards(JWTGuard)
-  @ApiBearerAuth('jwt-token')
+  @ApiCookieAuth('access_token')
   @Put('/:snowball_id/decoration')
   @ApiResponse({
     status: 200,
