@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useContext } from 'react';
 import styled from 'styled-components';
-import theme from '../../../utils/theme';
+import { theme } from '../../../utils';
 import { HeaderText, StepButton } from '../../../components';
 import DecoEnroll from './DecoEnroll';
 import DecoBox from './DecoBox';

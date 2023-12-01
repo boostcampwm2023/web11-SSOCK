@@ -1,6 +1,5 @@
 import { useRef, useEffect } from 'react';
 import styled from 'styled-components';
-import theme from '../../utils/theme';
 
 const BoostcampWrapper = styled.div`
   width: 100%;
@@ -49,11 +48,11 @@ const BoostcampProjectImage = styled.img`
 `;
 
 const BoostcampProjectTitle = styled.h1`
-  font-family: ${theme.font['--normal-title-font']};
+  font-family: ${props => props.theme.font['--normal-title-font']};
 `;
 
 const BoostcampProjectText = styled.p`
-  font-family: ${theme.font['--normal-introduce-font']};
+  font-family: ${props => props.theme.font['--normal-introduce-font']};
 `;
 
 const updateFlakes = (ctx: CanvasRenderingContext2D, flakes: Flake[]) => {

@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import theme from '../../../utils/theme';
+import { theme } from '../../../utils';
 import { Button } from '../../../components';
 
 const StyledWrap = styled.div`
@@ -13,32 +13,32 @@ const StyledWrap = styled.div`
   flex-direction: column;
   justify-content: space-between;
 
-  @media (min-width: ${theme.size['--desktop-width']}) {
-    width: ${theme.size['--desktop-width']};
+  @media (min-width: ${props => props.theme.size['--desktop-width']}) {
+    width: ${props => props.theme.size['--desktop-width']};
   }
 `;
 
 const StyledExplain = styled.div`
-  font: ${theme.font['--normal-nickname-font']};
+  font: ${props => props.theme.font['--normal-nickname-font']};
   color: white;
   padding-top: 40%;
 
-  @media (min-width: ${theme.size['--desktop-width']}) {
+  @media (min-width: ${props => props.theme.size['--desktop-width']}) {
     padding-top: 25%;
   }
 `;
 
 const StyledPink = styled.span`
-  color: ${theme.colors['--primary-redp-variant']};
+  color: ${props => props.theme.colors['--primary-redp-variant']};
 `;
 
 const StyledNickName = styled.div`
-  font: ${theme.font['--normal-login-font']};
+  font: ${props => props.theme.font['--normal-login-font']};
   color: white;
 `;
 
 const StyledInput = styled.input`
-  font: ${theme.font['--normal-nickname-input-font']};
+  font: ${props => props.theme.font['--normal-nickname-input-font']};
   margin-top: 5%;
   width: 100%;
   background-color: transparent;
@@ -47,7 +47,7 @@ const StyledInput = styled.input`
   color: white;
 
   &::placeholder {
-    color: ${theme.colors['--sub-text']};
+    color: ${props => props.theme.colors['--sub-text']};
   }
 
   &:focus {

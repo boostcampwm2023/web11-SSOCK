@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import theme from '../../utils/theme';
+import { theme } from '../../utils';
 import { Button } from '../../components';
 
 const Container = styled.div`

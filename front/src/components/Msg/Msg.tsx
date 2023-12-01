@@ -1,6 +1,5 @@
-import styled from 'styled-components';
-import theme from '../../utils/theme';
 import { useContext, useState } from 'react';
+import styled from 'styled-components';
 import { DecoContext } from '../../pages/Visit/Deco/DecoProvider';
 
 interface MsgProps {
@@ -19,7 +18,7 @@ const StyledLetterBox = styled.div<MsgColor>`
   width: 80%;
   display: flex;
   align-self: center;
-  font: ${theme.font['--normal-introduce-font']};
+  font: ${props => props.theme.font['--normal-introduce-font']};
   flex-direction: column;
   border-radius: 1rem;
   padding: 1.5rem;
@@ -34,7 +33,7 @@ const StyledLetterPerson = styled.div`
 `;
 
 const StyledTo = styled.span`
-  color: ${theme.colors['--nick-name']};
+  color: ${props => props.theme.colors['--nick-name']};
 `;
 
 const StyledLetterContent = styled.div`
@@ -50,7 +49,7 @@ const StyledFromBox = styled(StyledLetterPerson)`
 
 const StyledFrom = styled.span`
   text-align: right;
-  color: ${theme.colors['--primary-redp-variant']};
+  color: ${props => props.theme.colors['--primary-redp-variant']};
 `;
 
 const StyledInputBox = styled.div`
@@ -63,20 +62,12 @@ const StyledTextArea = styled.textarea`
   outline: none;
   border: none;
   background-color: transparent;
-  color: ${theme.colors['--white-primary']};
+  color: ${props => props.theme.colors['--white-primary']};
   font-size: 1rem;
   font-weight: 700;
   line-height: 2rem;
   white-space: pre-wrap;
   resize: none; /* 사용자가 크기를 조정하지 못하게 함 */
-
-  /* 각 줄마다 밑줄을 추가하는 배경 설정 */
-  /* background-image: linear-gradient(
-    to bottom,
-    transparent 1.9rem,
-    ${theme.colors['--white-primary']} 2rem
-  );
-  background-size: 100% 2rem; */
 
   background-attachment: local;
   background-image: repeating-linear-gradient(
@@ -86,11 +77,6 @@ const StyledTextArea = styled.textarea`
     #ccc 1.9rem,
     #00000000 2rem
   );
-  /* &::placeholder {
-    color: gray;
-    font-size: 1rem;
-    font-weight: 700;
-  } */
 
   /* 스크롤바 숨김 처리 */
   /* 크롬, 사파리, 기타 웹킷 기반 브라우저 */
@@ -110,7 +96,7 @@ const StyledFromInput = styled.input`
   outline: none;
   border: none;
   background-color: transparent;
-  color: ${theme.colors['--nick-name']};
+  color: ${props => props.theme.colors['--nick-name']};
   font-size: 1rem;
   font-weight: 700;
   pointer-events: stroke;

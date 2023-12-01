@@ -1,9 +1,8 @@
-import styled from 'styled-components';
-import theme from '../../../utils/theme';
 import { useContext, useState } from 'react';
+import axios from 'axios';
+import styled from 'styled-components';
 import { DecoContext } from './DecoProvider';
 import { SnowBallContext } from '../SnowBallProvider';
-import axios from 'axios';
 
 interface ButtonProps {
   text: string;
@@ -16,16 +15,16 @@ type ColorProps = Pick<ButtonProps, 'color'>;
 
 const StyledButton = styled.button<ColorProps>`
   background-color: ${props => props.color};
-  font: ${theme.font['--normal-button-font']};
+  font: ${props => props.theme.font['--normal-button-font']};
   border-radius: 10px;
   width: 66.6667%;
   height: 3rem;
   padding: 0.625rem;
   margin: 0.25rem;
   color: white;
-  border: 1px solid ${theme.colors['--white-primary']};
+  border: 1px solid ${props => props.theme.colors['--white-primary']};
 
-  @media (min-width: ${theme.size.maxWidth}) {
+  @media (min-width: ${props => props.theme.size.maxWidth}) {
     width: 600px;
   }
 `;
@@ -35,9 +34,9 @@ const PostButtonWrap = styled.div`
 `;
 
 const StyledAlert = styled.div`
-  color: ${theme.colors['--white-primary']};
+  color: ${props => props.theme.colors['--white-primary']};
   padding-bottom: 1rem;
-  font: ${theme.font['--normal-introduce-font']};
+  font: ${props => props.theme.font['--normal-introduce-font']};
 `;
 
 const PostButton = (props: ButtonProps) => {

@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import theme from '../../../utils/theme';
-import mock from '../../../mockdata.json'; // temporary
+import { theme } from '../../../utils';
 import { SnowGlobeCanvas, Button } from '../../../components';
+import mock from '../../../mockdata.json'; // temporary
 
 const StyledHeader = styled.div`
   position: absolute;
@@ -20,12 +20,12 @@ const StyledHeader = styled.div`
 `;
 
 const StyledName = styled.span`
-  font: ${theme.font['--normal-nickname-font']};
-  color: ${theme.colors['--nick-name']};
+  font: ${props => props.theme.font['--normal-nickname-font']};
+  color: ${props => props.theme.colors['--nick-name']};
 `;
 
 const StyledWelcome = styled.div`
-  font: ${theme.font['--normal-title-font']};
+  font: ${props => props.theme.font['--normal-title-font']};
 `;
 
 const StyledBottom = styled.div`
@@ -35,13 +35,13 @@ const StyledBottom = styled.div`
   white-space: nowrap;
   text-align: center;
   transform: translate(-50%, 0);
-  font: ${theme.font['--normal-introduce-font']};
+  font: ${props => props.theme.font['--normal-introduce-font']};
   color: white;
   text-shadow: -1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black;
 `;
 
 const StyledBall = styled.span`
-  color: ${theme.colors['--blue-blue-dark-10']};
+  color: ${props => props.theme.colors['--blue-blue-dark-10']};
 `;
 
 const StyledButtonBox = styled.div`

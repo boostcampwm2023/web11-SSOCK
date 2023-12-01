@@ -1,6 +1,5 @@
 import { useContext } from 'react';
 import styled from 'styled-components';
-import theme from '../../utils/theme';
 import { DecoContext } from '../../pages/Make/MainDeco/DecoProvider';
 
 interface ButtonColor {
@@ -17,13 +16,13 @@ interface ButtonProps {
 
 const StyledButton = styled.button<ButtonColor>`
   background-color: ${props => props.color};
-  font: ${theme.font['--normal-button-font']};
+  font: ${props => props.theme.font['--normal-button-font']};
   border-radius: 50px;
   height: 3rem;
   padding: 0.625rem;
   margin: 0.25rem;
   color: white;
-  border: 1px solid ${theme.colors['--white-primary']};
+  border: 1px solid ${props => props.theme.colors['--white-primary']};
   cursor: pointer;
 `;
 

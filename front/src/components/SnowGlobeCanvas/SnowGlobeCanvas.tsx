@@ -1,21 +1,19 @@
 import { useContext, useRef } from 'react';
 import { OrbitControls } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
-import * as THREE from 'three';
 import styled from 'styled-components';
+import * as THREE from 'three';
 import { getDecoPoisition } from '../../utils';
 import * as Models from './models/index';
 import { Prev } from '../Prev';
 import { PrevProvider } from './PrevProvider';
 import { SnowBallContext } from '../../pages/Visit/SnowBallProvider';
-import theme from '../../utils/theme';
 
 const CanvasBox = styled.div`
   position: absolute;
-
   width: 100%;
   height: 100%;
-  background-color: ${theme.colors['--primary-black']};
+  background-color: ${props => props.theme.colors['--primary-black']};
 `;
 
 const SnowGlobeCanvas = () => {

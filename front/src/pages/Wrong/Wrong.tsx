@@ -1,16 +1,15 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import theme from '../../utils/theme';
 
 const StyledWrong = styled.div`
-  font: ${theme.font['--normal-title-font']};
+  font: ${props => props.theme.font['--normal-title-font']};
   position: absolute;
   top: 20%;
   font-size: 50px;
   background: linear-gradient(
       0deg,
-      ${theme.colors['--primary-green-primary']} 50%,
-      ${theme.colors['--primary-red-primary']} 0
+      ${props => props.theme.colors['--primary-green-primary']} 50%,
+      ${props => props.theme.colors['--primary-red-primary']} 0
     )
     0 0/4px 50px;
   padding: 10%;

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import theme from '../../utils/theme';
+import { theme } from '../../utils';
 import { Button } from '../../components';
 import Introduce from './Introduce';
 import LoginBox from './LoginBox';
