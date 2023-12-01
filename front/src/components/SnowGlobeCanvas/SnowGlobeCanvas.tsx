@@ -23,6 +23,7 @@ const SnowGlobeCanvas = () => {
   const glassRadius = 7;
   const glassPosition = new THREE.Vector3(0, glassRadius / 2, 0);
   const { snowBallData } = useContext(SnowBallContext); //컴포넌트인데 useContext사용해도 되나???
+  console.log(snowBallData, '!!!');
   const snows = Array.from({ length: 100 }, (_, i) => (
     <Models.Snow
       key={i}
@@ -87,17 +88,17 @@ const SnowGlobeCanvas = () => {
             opacity={0.08}
           />
           <Models.MainDeco
-            id={0}
+            id={snowBallData.main_decoration_id}
             scale={1}
             position={new THREE.Vector3(0, 10, 0)}
             color={new THREE.Color(snowBallData.main_decoration_color)}
           />
           <Models.Bottom
-            bottomID={1}
+            bottomID={snowBallData.bottom_decoration_id}
             scale={1}
             position={new THREE.Vector3(0, 0, 0)}
-            title={'default'}
-            color={new THREE.Color('red')}
+            title={snowBallData.title}
+            color={new THREE.Color(snowBallData.bottom_decoration_color)}
           />
           {snows}
           {decos}

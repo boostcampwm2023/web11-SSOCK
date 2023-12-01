@@ -4,6 +4,8 @@
     "title": "title",
     "main_decoration_id": 1,
     "main_decoration_color": "#FFFFFF",
+    "bottom_decoration_id": 1,
+    "bottom_decoration_color": "#FFFFFF",
     "is_message_private": true,
     "message_list": []
   },

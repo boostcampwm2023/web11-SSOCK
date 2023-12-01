@@ -27,6 +27,8 @@ interface SnowBallData {
   is_message_private: boolean;
   main_decoration_color: string;
   main_decoration_id: number;
+  bottom_decoration_color: string;
+  bottom_decoration_id: number;
   message_list: Array<Message>;
 }
 interface Message {
@@ -64,10 +66,8 @@ const SnowBallProvider: React.FC<{ children: React.ReactNode }> = ({
   useEffect(() => {
     axios(`/api/user/${user}`)
       .then(res => {
-        console.log(res.data);
         setSnowBallData(res.data.main_snowball as SnowBallData);
         setUserData(res.data.user as UserData);
-        console.log(userData, '!!!!!!!!!');
       })
       .catch(e => {
         //없는 유저 조회시 wrong page로 보내버리기
