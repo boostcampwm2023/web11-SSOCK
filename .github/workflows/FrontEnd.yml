@@ -22,7 +22,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '18'
-          
+        
       - name: Check Node v
         run: node -v
 
@@ -33,7 +33,6 @@ jobs:
       - name: Generate build
         working-directory: ./front
         run: npm run build
-
 
       - name: Configure AWS credentials 
         uses: aws-actions/configure-aws-credentials@v1 
