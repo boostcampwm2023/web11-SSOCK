@@ -41,7 +41,7 @@ export class UserController {
     return result;
   }
 
-  @Get('/:user_id')
+  @Get('/:auth_id')
   @ApiOperation({
     summary: '방문자 유저 조회 API',
     description: '방문자가 접속한 유저의 정보를 반환합니다'
@@ -52,9 +52,9 @@ export class UserController {
     type: ResInfoDto
   })
   async createVisitInfo(
-    @Param('user_id') user_id: string
+    @Param('auth_id') auth_id: string
   ): Promise<ResInfoDto> {
-    const userData = await this.userService.getUserData(user_id);
+    const userData = await this.userService.getUserData(auth_id);
     const result = this.userService.createUserInfo(userData, false);
     return result;
   }

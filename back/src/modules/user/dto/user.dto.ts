@@ -30,7 +30,7 @@ export class UserDto {
   @Length(1, 45)
   @IsNotEmpty()
   @ApiProperty({ type: String, description: 'Oauth에서 주는 값' })
-  readonly user_id: string;
+  readonly auth_id: string;
 
   @IsNumber()
   @IsPositive()

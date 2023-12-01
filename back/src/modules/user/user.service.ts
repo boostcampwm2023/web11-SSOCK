@@ -10,7 +10,7 @@ import { NicknameDto } from './dto/nickname.dto';
 interface userData {
   id: number;
   name: string;
-  user_id: string;
+  auth_id: string;
 }
 
 @Injectable()
@@ -21,15 +21,15 @@ export class UserService {
     private readonly userRepository: Repository<UserEntity>
   ) {}
 
-  async getUserData(user_id: string): Promise<userData> {
+  async getUserData(auth_id: string): Promise<userData> {
     const exisitingUser = await this.userRepository.findOne({
-      where: { user_id: user_id }
+      where: { auth_id: auth_id }
     });
     if (exisitingUser) {
       return {
         id: exisitingUser.id,
         name: exisitingUser.username,
-        user_id: exisitingUser.user_id
+        auth_id: exisitingUser.auth_id
       };
     } else {
       throw new NotFoundException('해당 유저를 찾을 수 없습니다.');
@@ -51,7 +51,7 @@ export class UserService {
     const userDto: UserDto = await this.createUserDto(
       user.id,
       user.name,
-      user.user_id
+      user.auth_id
     );
     const mainSnowballDto = await this.snowballService.getMainSnowballDto(
       userDto,
@@ -69,7 +69,7 @@ export class UserService {
   async createUserDto(
     id: number,
     username: string,
-    user_id: string
+    auth_id: string
   ): Promise<UserDto> {
     const { snowball_count, message_count, snowball_list, main_snowball_id } =
       await this.snowballService.getSnowballInfo(id);
@@ -79,7 +79,7 @@ export class UserService {
       id: id,
       username: username,
       nickname: nickname,
-      user_id: user_id,
+      auth_id: auth_id,
       snowball_count: snowball_count,
       main_snowball_id: main_snowball_id,
       snowball_list: snowball_list,

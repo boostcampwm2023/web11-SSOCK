@@ -168,9 +168,9 @@ export class MessageService {
     return updateMessageLocationDto;
   }
 
-  async getMessageCount(user_pk: number): Promise<number> {
+  async getMessageCount(user_id: number): Promise<number> {
     return this.messageRepository.count({
-      where: { user_id: user_pk, is_deleted: false }
+      where: { user_id: user_id, is_deleted: false }
     });
   }
 
