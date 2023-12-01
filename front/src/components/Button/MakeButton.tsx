@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import theme from '../../utils/theme';
 import { useState, useContext } from 'react';
 import { DecoContext } from '../../pages/Make/MainDeco/DecoProvider';
+import axios from 'axios';
 
 interface MakeButtonProps {
   color: string;
@@ -41,7 +42,8 @@ const StyledAlert = styled.div`
 `;
 
 const MakeButton = (props: ButtonProps) => {
-  const { snowballName } = useContext(DecoContext);
+  const { snowballName, mainDecoID, mainColor, bottomID, bottomColor } =
+    useContext(DecoContext);
   const [alert, setAlert] = useState(false);
 
   const ClickedMake = () => {
@@ -49,6 +51,20 @@ const MakeButton = (props: ButtonProps) => {
       setAlert(true);
       return;
     }
+
+    const a = {
+      title: snowballName,
+      main_decoration_id: mainDecoID,
+      main_decoration_color: mainColor,
+      bottom_decoration_id: bottomID,
+      bottom_decoration_color: bottomColor,
+      is_message_private: false
+    };
+
+    axios.post('/api/snowball', a, { withCredentials: true }).then(res => {
+      console.log(res);
+    });
+
     props.view[1](!props.view[0]);
     props.visible[1](-1);
   };
