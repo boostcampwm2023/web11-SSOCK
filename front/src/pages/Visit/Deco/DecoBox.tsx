@@ -1,6 +1,5 @@
 import { useContext } from 'react';
 import styled from 'styled-components';
-import theme from '../../../utils/theme';
 import { DECO, MSG_COLOR } from '../../../constants/deco';
 import { DecoContext } from './DecoProvider';
 
@@ -11,7 +10,7 @@ interface DecoProps {
 const StyledBox = styled.div`
   border-radius: 100%;
   border: 2px solid white;
-  background-color: ${theme.colors['--black-primary']};
+  background-color: ${props => props.theme.colors['--black-primary']};
   width: 7rem;
   height: 7rem;
   cursor: pointer;

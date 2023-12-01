@@ -1,6 +1,5 @@
 import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
-import theme from '../../utils/theme';
 
 interface LoginProps {
   view: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
@@ -19,7 +18,7 @@ const StyledBody = styled.div`
 `;
 
 const StyledLoginBox = styled.div`
-  background-color: ${theme.colors['--primary-black']};
+  background-color: ${props => props.theme.colors['--primary-black']};
   display: flex;
   padding: 1.5rem;
   flex-direction: column;
@@ -56,7 +55,7 @@ const StyledLoginBox = styled.div`
 `;
 
 const StyledLogin = styled.button<SocialLogin>`
-  font: ${theme.font['--normal-login-font']};
+  font: ${props => props.theme.font['--normal-login-font']};
   height: 3rem;
   border-radius: 1rem;
   display: flex;

@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import theme from '../../utils/theme';
 
 interface HeaderProps {
   Ref: React.RefObject<HTMLDivElement> | null;
@@ -7,7 +6,7 @@ interface HeaderProps {
 }
 
 const StyledHeader = styled.div`
-  font: ${theme.font['--normal-main-header-font']};
+  font: ${props => props.theme.font['--normal-main-header-font']};
   text-shadow: -1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black;
 
   white-space: nowrap;
@@ -30,7 +29,7 @@ const StyledHeader = styled.div`
 `;
 
 const StyledUser = styled.span`
-  color: ${theme.colors['--nick-name']};
+  color: ${props => props.theme.colors['--nick-name']};
   font-size: 1.5rem;
 `;
 

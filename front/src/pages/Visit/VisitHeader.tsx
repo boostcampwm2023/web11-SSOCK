@@ -1,7 +1,6 @@
-import styled from 'styled-components';
-import theme from '../../utils/theme';
-import { HeaderText } from '../../components';
 import { useContext } from 'react';
+import styled from 'styled-components';
+import { HeaderText } from '../../components';
 import { SnowBallContext } from './SnowBallProvider';
 
 const Container = styled.div`
@@ -15,7 +14,7 @@ const Container = styled.div`
 `;
 
 const StyledLetter = styled.div`
-  font: ${theme.font['--normal-main-header-font']};
+  font: ${props => props.theme.font['--normal-main-header-font']};
   font-size: 1.25rem;
   gap: 0.5rem;
   display: flex;

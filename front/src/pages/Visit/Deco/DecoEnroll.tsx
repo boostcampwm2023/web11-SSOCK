@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { NavigateFunction, useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import theme from '../../../utils/theme';
+import { theme } from '../../../utils';
 
 interface NaviProps {
   visible: [number, React.Dispatch<React.SetStateAction<number>>];
@@ -18,7 +18,7 @@ const StyledBody = styled.div`
 `;
 
 const StyledNaviBox = styled.div`
-  background-color: ${theme.colors['--primary-black']};
+  background-color: ${props => props.theme.colors['--primary-black']};
   position: absolute;
   bottom: 0;
   display: flex;
@@ -72,9 +72,9 @@ const StyledNavButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  color: ${theme.colors['--white-primary']};
+  color: ${props => props.theme.colors['--white-primary']};
   background-color: ${props => props.color};
-  border: 1px solid ${theme.colors['--white-primary']};
+  border: 1px solid ${props => props.theme.colors['--white-primary']};
 `;
 
 const StyeldButtonText = styled.div`
@@ -82,7 +82,7 @@ const StyeldButtonText = styled.div`
   height: 100%;
   display: flex;
   align-items: center;
-  font: ${theme.font['--normal-button-font']};
+  font: ${props => props.theme.font['--normal-button-font']};
   justify-content: center;
 `;
 

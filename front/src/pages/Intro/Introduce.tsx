@@ -1,5 +1,4 @@
 import { useRef } from 'react';
-import theme from '../../utils/theme';
 import styled from 'styled-components';
 
 interface IntroduceProps {
@@ -11,17 +10,17 @@ const StyledIntroduce = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: ${theme.colors['--primary-yellow']};
+  background-color: ${props => props.theme.colors['--primary-yellow']};
   border-radius: 1.5rem;
   width: 80%;
   height: 60%;
   text-align: center;
-  color: ${theme.colors['--black-primary']};
+  color: ${props => props.theme.colors['--black-primary']};
   display: flex;
   flex-direction: column;
   animation: fadein 0.7s;
 
-  @media (min-width: ${theme.size['--desktop-width']}) {
+  @media (min-width: ${props => props.theme.size['--desktop-width']}) {
     width: 600px;
   }
 
@@ -52,7 +51,7 @@ const StyledText = styled.div`
   align-items: center;
   overflow: auto;
   word-break: keep-all;
-  font: ${theme.font['--normal-introduce-font']};
+  font: ${props => props.theme.font['--normal-introduce-font']};
   * {
     pointer-events: all;
   }
@@ -63,7 +62,7 @@ const StyledClosed = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  font: ${theme.font['--normal-button-font']};
+  font: ${props => props.theme.font['--normal-button-font']};
   font-size: 0.875rem;
   line-height: normal;
 `;

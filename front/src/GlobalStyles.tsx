@@ -1,6 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
-import theme from './utils/theme';
+import { theme } from './utils';
 
 const GlobalStyles = createGlobalStyle` 
   ${reset}
@@ -37,7 +37,6 @@ const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
     font-family: 'KingSejongInstitute';
     white-space: nowrap;
-    // scroll-bar display none
     &::-webkit-scrollbar {
       display: none;
     }

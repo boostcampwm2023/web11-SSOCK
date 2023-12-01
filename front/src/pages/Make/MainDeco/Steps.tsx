@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useContext } from 'react';
 import styled from 'styled-components';
-import theme from '../../../utils/theme';
+import { theme } from '../../../utils';
 import {
   InputSnowball,
   HeaderText,
@@ -45,10 +45,10 @@ const StyledAlertBox = styled.div`
 `;
 
 const StyledAlert = styled.div`
-  color: ${theme.colors['--white-primary']};
+  color: ${props => props.theme.colors['--white-primary']};
   padding: 1rem;
-  font: ${theme.font['--normal-introduce-font']};
-  background-color: ${theme.colors['--primary-green-primary']};
+  font: ${props => props.theme.font['--normal-introduce-font']};
+  background-color: ${props => props.theme.colors['--primary-green-primary']};
   border-radius: 2rem;
 `;
 

@@ -1,8 +1,6 @@
 import styled from 'styled-components';
-import theme from '../../utils/theme';
-import { SnowGlobeCanvas } from '../../../src/components';
+import { SnowGlobeCanvas, UIContainer } from '../../../src/components';
 import IntroButtonBox from './IntroButtonBox';
-import { UIContainer } from '../../components/UIContainer';
 
 const TitleDiv = styled.div`
   display: flex;
@@ -11,8 +9,8 @@ const TitleDiv = styled.div`
   width: 100%;
   height: 10rem;
   text-align: center;
-  color: ${theme.colors['--primary-yellow']};
-  font: ${theme.font['--normal-title-font']};
+  color: ${props => props.theme.colors['--primary-yellow']};
+  font: ${props => props.theme.font['--normal-title-font']};
 `;
 
 const Intro = () => {

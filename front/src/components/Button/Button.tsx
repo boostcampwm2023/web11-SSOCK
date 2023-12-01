@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import theme from '../../utils/theme';
 
 interface ButtonColor {
   color: string;
@@ -14,14 +13,14 @@ interface ButtonProps {
 
 const StyledButton = styled.button<ButtonColor>`
   background-color: ${props => props.color};
-  font: ${theme.font['--normal-button-font']};
+  font: ${props => props.theme.font['--normal-button-font']};
   border-radius: 10px;
   width: 66.6667%;
   height: 3rem;
   padding: 0.625rem;
   margin: 0.25rem;
   color: white;
-  border: 1px solid ${theme.colors['--white-primary']};
+  border: 1px solid ${props => props.theme.colors['--white-primary']};
 `;
 
 const Button = (props: ButtonProps) => {
