@@ -52,7 +52,7 @@ const MakeButton = (props: ButtonProps) => {
       return;
     }
 
-    const a = {
+    const snowballInfo = {
       title: snowballName,
       main_decoration_id: mainDecoID,
       main_decoration_color: mainColor,
@@ -61,9 +61,11 @@ const MakeButton = (props: ButtonProps) => {
       is_message_private: false
     };
 
-    axios.post('/api/snowball', a, { withCredentials: true }).then(res => {
-      console.log(res);
-    });
+    axios
+      .post('/api/snowball', snowballInfo, { withCredentials: true })
+      .then(res => {
+        console.log(res);
+      });
 
     props.view[1](!props.view[0]);
     props.visible[1](-1);
