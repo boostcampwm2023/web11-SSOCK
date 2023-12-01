@@ -57,7 +57,7 @@ const Snowball = () => {
   const [make, setMake] = useState(false);
 
   useEffect(() => {
-    make ? navigate('/make/maindeco') : null;
+    make ? navigate('/maindeco') : null;
   }, [make, navigate]);
 
   return (
