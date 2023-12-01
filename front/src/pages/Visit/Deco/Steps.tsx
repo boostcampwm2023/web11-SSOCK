@@ -96,7 +96,7 @@ const StyledBottomWrap = styled.div`
 const Steps = () => {
   const [step, setStep] = useState(0);
   const [lastBox, setLastBox] = useState(false);
-  const { setColor } = useContext(DecoContext);
+  const { color, setColor } = useContext(DecoContext);
   const { userData } = useContext(SnowBallContext);
   const doneStep = -1;
   const selectDeco = 0;
@@ -229,7 +229,7 @@ const Steps = () => {
             {step === selectColor ? (
               <>
                 <ColorInput
-                  value={'#ff0000'}
+                  value={color}
                   onChange={e => setColor(e.target.value)}
                 />
                 <p>장식 색상을 선택해주세요</p>
