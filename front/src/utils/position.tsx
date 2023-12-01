@@ -2,6 +2,7 @@ import * as THREE from 'three';
 
 const getDecoPoisition = (n: number): THREE.Vector3 => {
   const positions = [
+    [0, 0],
     [1.5, -0.5],
     [0.5, 1.5],
     [-1.5, 0.5],
