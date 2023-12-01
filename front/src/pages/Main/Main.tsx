@@ -9,17 +9,6 @@ const StyledLeft = styled.img`
   position: fixed;
   top: 50%;
   height: 4rem;
-
-  @keyframes fadeInUp1 {
-    from {
-      opacity: 1;
-      transform: translate(0, 0);
-    }
-    to {
-      opacity: 0;
-      transform: translate(0, -100%);
-    }
-  }
 `;
 
 const StyledRight = styled(StyledLeft)`

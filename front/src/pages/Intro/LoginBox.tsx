@@ -30,28 +30,6 @@ const StyledLoginBox = styled.div`
   animation: fadeInUp 0.5s forwards;
   pointer-events: all;
   z-index: 1;
-
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translate(0, 100%);
-    }
-    to {
-      opacity: 1;
-      transform: translate(0, 0);
-    }
-  }
-
-  @keyframes fadeOutDown {
-    from {
-      opacity: 1;
-      transform: translate(0, 0);
-    }
-    to {
-      opacity: 0;
-      transform: translate(0, 100%);
-    }
-  }
 `;
 
 const StyledLogin = styled.button<SocialLogin>`
