@@ -3,17 +3,20 @@ import { DecoProvider } from './DecoProvider';
 import Steps from './Steps';
 import DecoCavnas from './DecoCanvas/DecoCanvas';
 import { UIContainer } from '../../../components/UIContainer';
+import { SnowBallProvider } from '../SnowBallProvider';
 
 const Deco = () => {
   return (
     <>
       <DecoProvider>
-        <DecoCavnas />
+        <SnowBallProvider>
+          <DecoCavnas />
 
-        <UIContainer>
-          <Steps />
-        </UIContainer>
-        <Prev set={null} />
+          <UIContainer>
+            <Steps />
+          </UIContainer>
+          <Prev set={null} />
+        </SnowBallProvider>
       </DecoProvider>
     </>
   );
