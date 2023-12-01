@@ -8,7 +8,8 @@ import {
   HttpCode,
   UseGuards,
   Req,
-  UseInterceptors
+  UseInterceptors,
+  NotFoundException
 } from '@nestjs/common';
 import { SnowballService } from './snowball.service';
 import {
@@ -104,6 +105,7 @@ export class SnowballController {
       snowball_id,
       req.hasToken
     );
+    if (!snowball) throw new NotFoundException('스노우볼을 찾을 수 없습니다.');
     return snowball;
   }
 
