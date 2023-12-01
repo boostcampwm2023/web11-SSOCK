@@ -1,5 +1,7 @@
 import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
+import styled, { ThemeProvider } from 'styled-components';
 import GlobalStyles from './GlobalStyles';
+import { theme } from './utils';
 import { IsLogin } from './router';
 import {
   Intro,
@@ -13,8 +15,6 @@ import {
   Boostcamp
 } from './pages';
 import { Song } from './components';
-import theme from './utils/theme';
-import styled from 'styled-components';
 
 const Outer = styled.div`
   position: relative;
@@ -37,45 +37,47 @@ const App = () => {
   return (
     <>
       <GlobalStyles />
-      <Outer>
-        <Song />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Intro />} />
+      <ThemeProvider theme={theme}>
+        <Outer>
+          <Song />
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Intro />} />
 
-            <Route path="/visit/:user" element={<Outlet />}>
-              <Route path="" element={<Visit />} />
-              <Route path="deco" element={<Deco />} />
-            </Route>
+              <Route path="/visit/:user" element={<Outlet />}>
+                <Route path="" element={<Visit />} />
+                <Route path="deco" element={<Deco />} />
+              </Route>
 
-            <Route
-              path="/make"
-              element={
-                <IsLogin>
-                  <Outlet />
-                </IsLogin>
-              }
-            >
-              <Route path="" element={<Nickname />} />
-              <Route path="snowball" element={<Snowball />} />
-            </Route>
+              <Route
+                path="/make"
+                element={
+                  <IsLogin>
+                    <Outlet />
+                  </IsLogin>
+                }
+              >
+                <Route path="" element={<Nickname />} />
+                <Route path="snowball" element={<Snowball />} />
+              </Route>
 
-            <Route path="/maindeco" element={<MainDeco />} />
+              <Route path="/maindeco" element={<MainDeco />} />
 
-            <Route
-              path="/main"
-              element={
-                <IsLogin>
-                  <Main />
-                </IsLogin>
-              }
-            />
+              <Route
+                path="/main"
+                element={
+                  <IsLogin>
+                    <Main />
+                  </IsLogin>
+                }
+              />
 
-            <Route path="/boostcamp" element={<Boostcamp />} />
-            <Route path="*" element={<Wrong />} />
-          </Routes>
-        </BrowserRouter>
-      </Outer>
+              <Route path="/boostcamp" element={<Boostcamp />} />
+              <Route path="*" element={<Wrong />} />
+            </Routes>
+          </BrowserRouter>
+        </Outer>
+      </ThemeProvider>
     </>
   );
 };

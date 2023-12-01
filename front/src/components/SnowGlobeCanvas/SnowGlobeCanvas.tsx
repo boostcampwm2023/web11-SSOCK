@@ -3,7 +3,7 @@ import { OrbitControls } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import * as THREE from 'three';
 import styled from 'styled-components';
-import { getDecoPoisition } from '../../utils/position';
+import { getDecoPoisition } from '../../utils';
 import * as Models from './models/index';
 import { Prev } from '../Prev';
 import { PrevProvider } from './PrevProvider';
