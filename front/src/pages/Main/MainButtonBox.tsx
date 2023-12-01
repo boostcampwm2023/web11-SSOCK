@@ -8,51 +8,18 @@ const StyledMenu = styled.img`
   position: fixed;
   top: 3.5rem;
   right: 0.8rem;
-
-  @keyframes fadeInUp1 {
-    from {
-      opacity: 1;
-      transform: translate(0, 0);
-    }
-    to {
-      opacity: 0;
-      transform: translate(0, -100%);
-    }
-  }
 `;
 
 const StyledScreen = styled.img`
   position: absolute;
   bottom: 2rem;
   margin-left: 0.8rem;
-
-  @keyframes fadeInDown {
-    from {
-      opacity: 1;
-      transform: translate(0, 0);
-    }
-    to {
-      opacity: 0;
-      transform: translate(0, 2rem);
-    }
-  }
 `;
 
 const StyledShareLink = styled.img`
   position: absolute;
   bottom: 2rem;
   right: 0.8rem;
-
-  @keyframes fadeInDown {
-    from {
-      opacity: 1;
-      transform: translate(0, 0);
-    }
-    to {
-      opacity: 0;
-      transform: translate(0, 2rem);
-    }
-  }
 `;
 
 const screenTime = (
@@ -60,19 +27,12 @@ const screenTime = (
   refs: Array<React.RefObject<HTMLDivElement>>
 ) => {
   const bottoms = 2;
-  const topFirst = 0;
 
   refs.forEach((ref, idx) => {
     if (ref.current) {
       ref.current.style.setProperty(
         'animation',
-        `${
-          idx >= bottoms
-            ? 'fadeInDown'
-            : idx === topFirst
-            ? 'fadeInUp1'
-            : 'fadeInUp1'
-        } 1s forwards`
+        `${idx >= bottoms ? 'fadeOutDown' : 'fadeOutUp'} 1s forwards`
       );
     }
   });

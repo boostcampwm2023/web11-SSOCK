@@ -18,28 +18,10 @@ const StyledIntroduce = styled.div`
   color: ${props => props.theme.colors['--black-primary']};
   display: flex;
   flex-direction: column;
-  animation: fadein 0.7s;
+  animation: fadeIn 0.7s;
 
   @media (min-width: ${props => props.theme.size['--desktop-width']}) {
     width: 600px;
-  }
-
-  @keyframes fadein {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-
-  @keyframes fadeout {
-    from {
-      opacity: 1;
-    }
-    to {
-      opacity: 0;
-    }
   }
 `;
 
@@ -80,7 +62,7 @@ const closeIntroduce = (
 
   if (closeRef.current) {
     closeRef.current.addEventListener('animationend', onAnimationEnd);
-    closeRef.current.style.setProperty('animation', 'fadeout 0.5s forwards');
+    closeRef.current.style.setProperty('animation', 'fadeOut 0.5s forwards');
   }
 };
 

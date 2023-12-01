@@ -15,17 +15,6 @@ const StyledHeader = styled.div`
   display: flex;
   justify-content: center;
   text-align: center;
-
-  @keyframes fadeInUp1 {
-    from {
-      opacity: 1;
-      transform: translate(0, 0);
-    }
-    to {
-      opacity: 0;
-      transform: translate(0, -100%);
-    }
-  }
 `;
 
 const StyledUser = styled.span`
