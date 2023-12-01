@@ -4,7 +4,7 @@ export interface JWTRequest extends Request {
   user: {
     id: number;
     name: string;
-    user_id: string;
+    auth_id: string;
   };
 
   hasToken?: boolean;

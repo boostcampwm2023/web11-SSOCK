@@ -31,10 +31,15 @@ import { JWTGuard } from 'src/common/guards/jwt.guard';
 import { UpdateMessageDecorationDto } from './dto/update-message-decoration.dto';
 import { UpdateMessageLocationDto } from './dto/update-message-location.dto';
 import { JWTRequest } from 'src/common/interface/request.interface';
+import { ClovaService } from './summary.service';
+import { ClovaContentDto } from './dto/clova-content.dto';
 @ApiTags('Message API')
 @Controller('message')
 export class MessageController {
-  constructor(private readonly messageService: MessageService) {}
+  constructor(
+    private readonly messageService: MessageService,
+    private readonly clovaService: ClovaService
+  ) {}
 
   @Post('/:user_id/:snowball_id')
   @HttpCode(201)
@@ -203,5 +208,16 @@ export class MessageController {
       message_id,
       updateMessageLocationDto
     );
+  }
+
+  // Test
+  @Post('/summarize')
+  async summarize(@Body() clovaDto: ClovaContentDto): Promise<string> {
+    return this.clovaService.summarize(clovaDto);
+  }
+
+  @Post('/analyze')
+  async analyze(@Body() clovaDto: ClovaContentDto): Promise<string> {
+    return this.clovaService.analyze(clovaDto);
   }
 }

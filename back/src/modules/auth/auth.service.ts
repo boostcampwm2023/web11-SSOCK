@@ -7,7 +7,7 @@ import { Repository } from 'typeorm';
 export interface payload {
   id: number;
   name: string;
-  user_id: string;
+  auth_id: string;
 }
 @Injectable()
 export class AuthService {
@@ -19,13 +19,13 @@ export class AuthService {
 
   async getUserInfo(user: any): Promise<payload> {
     const exisitingUser = await this.UserRepository.findOne({
-      where: { user_id: user.user_id }
+      where: { auth_id: user.auth_id }
     });
     if (exisitingUser) {
       return {
         id: exisitingUser.id,
         name: exisitingUser.username,
-        user_id: exisitingUser.user_id
+        auth_id: exisitingUser.auth_id
       };
     } else {
       return await this.signUp(user);
@@ -34,7 +34,7 @@ export class AuthService {
 
   async signUp(user: any): Promise<payload> {
     const newUser: UserEntity = this.UserRepository.create({
-      user_id: user.user_id,
+      auth_id: user.auth_id,
       username: user.name,
       nickname: null,
       provider: user.provider,
@@ -42,7 +42,7 @@ export class AuthService {
     });
     const saveduser = await this.UserRepository.insert(newUser);
     const id = saveduser.identifiers.pop().id;
-    return { id: id, name: user.name, user_id: user.user_id };
+    return { id: id, name: user.name, auth_id: user.auth_id };
   }
 
   generateJwtToken(payload: payload): {

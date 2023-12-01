@@ -10,13 +10,13 @@ import { SnowballEntity } from '../../snowball/entity/snowball.entity';
 import { MessageEntity } from 'src/modules/message/entity/message.entity';
 
 @Entity({ name: 'user' })
-@Index(['user_id'], { unique: true })
+@Index(['auth_id'], { unique: true })
 export class UserEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column({ length: 45 })
-  user_id: string;
+  auth_id: string;
 
   @Column({ length: 16 })
   username: string;

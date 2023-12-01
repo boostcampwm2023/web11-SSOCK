@@ -75,7 +75,7 @@ export class SnowballService {
   async updateSnowball(
     updateSnowballDto: ReqUpdateSnowballDto,
     snowball_id: number,
-    user_pk: number
+    user_id: number
   ): Promise<ResUpdateSnowballDto> {
     const { title, is_message_private } = updateSnowballDto;
 
@@ -89,7 +89,7 @@ export class SnowballService {
         message_private: is_message_private ? new Date() : null
       })
       .where('id = :id', { id: snowball_id })
-      .andWhere('user_id = :user_id', { user_id: user_pk })
+      .andWhere('user_id = :user_id', { user_id: user_id })
       .execute();
     if (!updateResult.affected) {
       throw new NotFoundException('스노우볼 업데이트 권한이 없습니다');
@@ -143,7 +143,7 @@ export class SnowballService {
   async updateMainDecoration(
     updateMainDecoDto: UpdateMainDecoDto,
     snowball_id: number,
-    user_pk: number
+    user_id: number
   ): Promise<UpdateMainDecoDto> {
     await this.doesSnowballExist(snowball_id);
     await this.doesDecorationExist(updateMainDecoDto.main_decoration_id);
@@ -156,7 +156,7 @@ export class SnowballService {
         ...updateMainDecoDto
       })
       .where('id = :id', { id: snowball_id })
-      .andWhere('user_id = :user_id', { user_id: user_pk })
+      .andWhere('user_id = :user_id', { user_id: user_id })
       .execute();
 
     if (!updateResult.affected) {
@@ -177,9 +177,9 @@ export class SnowballService {
     }
   }
 
-  async getSnowballInfo(user_pk: number): Promise<SnowballInfo> {
+  async getSnowballInfo(user_id: number): Promise<SnowballInfo> {
     const snowballs = await this.snowballRepository.findAndCount({
-      where: { user_id: user_pk }
+      where: { user_id: user_id }
     });
 
     const [items = [], count = 0] = snowballs;
@@ -187,7 +187,7 @@ export class SnowballService {
       const snowball_list = items.map(snowball => snowball.id);
       return {
         snowball_count: count,
-        message_count: await this.messageService.getMessageCount(user_pk),
+        message_count: await this.messageService.getMessageCount(user_id),
         snowball_list,
         main_snowball_id: items[0].id
       };

@@ -4,10 +4,11 @@ import { MessageController } from './message.controller';
 import { MessageService } from './message.service';
 import { MessageEntity } from './entity/message.entity';
 import { JWTGuard } from '../../common/guards/jwt.guard';
+import { ClovaService } from './summary.service';
 @Module({
   imports: [TypeOrmModule.forFeature([MessageEntity])],
   controllers: [MessageController],
-  providers: [MessageService, JWTGuard],
+  providers: [MessageService, ClovaService, JWTGuard],
   exports: [MessageService, TypeOrmModule]
 })
 export class MessageModule {}

@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "@nestjs/class-validator": "^0.13.4",
+    "axios": "^1.6.2",
     "express-basic-auth": "^1.2.1"
   }
 }
