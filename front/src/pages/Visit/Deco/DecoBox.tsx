@@ -19,6 +19,7 @@ const StyledBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  min-width: min-content;
 `;
 
 const StyledImg = styled.img`
@@ -33,22 +34,28 @@ const DecoImgs = (folder: string) => {
   const { setDecoID, setLetterID } = useContext(DecoContext);
 
   return folder === 'Deco'
-    ? DECO.map(({ img }, index) => (
-        <StyledBox key={img}>
-          <StyledImg
-            src={`/modelsPng/${folder}/${img}`}
-            alt="deco"
-            onClick={() => setDecoID(index)}
-          ></StyledImg>
-        </StyledBox>
-      ))
-    : MSG_COLOR.map(({ color }, index) => (
-        <StyledColorBox
-          key={color}
-          color={color}
-          onClick={() => setLetterID(index)}
-        ></StyledColorBox>
-      ));
+    ? DECO.map(({ img }, index) => {
+        if (index > 0)
+          return (
+            <StyledBox key={img}>
+              <StyledImg
+                src={img}
+                alt="deco"
+                onClick={() => setDecoID(index)}
+              />
+            </StyledBox>
+          );
+      })
+    : MSG_COLOR.map(({ color }, index) => {
+        if (index > 0)
+          return (
+            <StyledColorBox
+              key={color}
+              color={color}
+              onClick={() => setLetterID(index)}
+            />
+          );
+      });
 };
 
 const DecoBox = (props: DecoProps) => {

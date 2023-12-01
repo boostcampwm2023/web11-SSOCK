@@ -95,15 +95,13 @@ const screenTime = (
 interface MainButtonBoxProps {
   leftArrow: React.RefObject<HTMLImageElement>;
   rightArrow: React.RefObject<HTMLImageElement>;
-};
+}
 
-const MainButtonBox = (props :MainButtonBoxProps) => {
+const MainButtonBox = (props: MainButtonBoxProps) => {
   const headerRef = useRef<HTMLDivElement>(null);
   const menuRef = useRef<HTMLImageElement>(null);
   const screenRef = useRef<HTMLImageElement>(null);
   const shareLinkRef = useRef<HTMLImageElement>(null);
-
-
 
   const [menuModal, setMenuModal] = useState(false);
   const [list, setList] = useState(false);
@@ -114,18 +112,18 @@ const MainButtonBox = (props :MainButtonBoxProps) => {
     <>
       {!screen ? (
         <>
-          <HeaderText Ref={headerRef} />
+          <HeaderText Ref={headerRef} userName="test" />
 
           <StyledMenu
             ref={menuRef}
-            src={'/buttons/menu.svg'}
+            src={'/icons/menu.svg'}
             onClick={() => setMenuModal(true)}
           />
           {menuModal ? <MenuModal set={setMenuModal} list={setList} /> : null}
 
           <StyledScreen
             ref={screenRef}
-            src={'/buttons/screen.svg'}
+            src={'/icons/screen.svg'}
             onClick={() =>
               screenTime(setScreen, [
                 headerRef,
@@ -133,14 +131,14 @@ const MainButtonBox = (props :MainButtonBoxProps) => {
                 screenRef,
                 shareLinkRef,
                 props.leftArrow,
-                props.rightArrow,
+                props.rightArrow
               ])
             }
           />
 
           <StyledShareLink
             ref={shareLinkRef}
-            src={'/buttons/shareLink.svg'}
+            src={'/icons/shareLink.svg'}
             onClick={() => setShareLink(true)}
           />
           {shareLink ? <div>shareLink</div> : null}

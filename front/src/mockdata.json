@@ -1,77 +1,22 @@
 {
-  "user_id": "abc",
-  "user_name": "서민아",
-  "provider": "kakao",
-  "created_at": "2023-07-13",
-  "snowball": [
-    {
-      "title": "테스트용 스노우볼",
-      "private": false,
-      "main_deco_id": 0,
-      "created_at": "2023-11-10",
-      "message": [
-        {
-          "letter_id": 0,
-          "message_id": 1,
-          "deco_id": 1,
-          "deco_color": "#00ff00",
-          "content": "낭만을 찾아서....떠나는 여행....",
-          "sender": "김찬우",
-          "created_at": "2023-11-11"
-        },
-        {
-          "letter_id": 0,
-          "message_id": 2,
-          "deco_id": 0,
-          "deco_color": "#0000ff",
-          "content": "시스템 가동 준비완료",
-          "sender": "오승엽",
-          "created_at": "2023-11-12"
-        },
-        {
-          "letter_id": 1,
-          "message_id": 3,
-          "deco_id": 1,
-          "deco_color": "#ff9900",
-          "content": "행복은 습관이다. 계속 유지해봐!",
-          "sender": "송현우",
-          "created_at": "2023-11-13"
-        },
-        {
-          "letter_id": 2,
-          "message_id": 4,
-          "deco_id": 0,
-          "deco_color": "#993399",
-          "content": "고통은 성장의 한 부분이야!🤶",
-          "sender": "최진수",
-          "created_at": "2023-11-14"
-        },
-        {
-          "letter_id": 0,
-          "message_id": 5,
-          "deco_id": 1,
-          "deco_color": "#ff0000",
-          "content": "핫핫핫핫핫~~!",
-          "sender": "호눅스",
-          "created_at": "2023-11-15"
-        },
-        {
-          "letter_id": 1,
-          "message_id": 6,
-          "deco_id": 0,
-          "deco_color": "#00ff00",
-          "content": "안녕하세요 여러분 저는 크롱입니다.",
-          "sender": "크롱",
-          "created_at": "2023-11-16"
-        }
-      ]
-    },
-    {
-      "title": "내 두번째 스노우볼",
-      "private": false,
-      "main_deco_id": 0,
-      "created_at": "2023-11-11",
-      "message": []
-    }
-  ]
+  "snowball_data": {
+    "id": 1,
+    "title": "title",
+    "main_decoration_id": 1,
+    "main_decoration_color": "#FFFFFF",
+    "bottom_decoration_id": 1,
+    "bottom_decoration_color": "#FFFFFF",
+    "is_message_private": true,
+    "message_list": []
+  },
+  "user_data": {
+    "id": 1,
+    "username": "default",
+    "nickname": "default",
+    "user_id": "00000",
+    "snowball_count": 1,
+    "main_snowball_id": 1,
+    "snowball_list": [],
+    "message_count": 0
+  }
 }

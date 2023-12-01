@@ -18,13 +18,13 @@ const TitleDiv = styled.div`
 const Intro = () => {
   return (
     <>
-        <SnowGlobeCanvas />
-        <UIContainer>
-          <TitleDiv>
-            <span>스노우볼 속 내마음</span>
-          </TitleDiv>
-          <IntroButtonBox />
-        </UIContainer>
+      <SnowGlobeCanvas />
+      <UIContainer>
+        <TitleDiv>
+          <span>스노우볼 속 내마음</span>
+        </TitleDiv>
+        <IntroButtonBox />
+      </UIContainer>
     </>
   );
 };

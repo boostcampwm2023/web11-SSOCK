@@ -13,8 +13,8 @@ const DecoCavnas = () => {
   return (
     <CanvasContainer>
       <Canvas camera={{ position: [5, 0, 0] }}>
-        <OrbitControls></OrbitControls>
-        <ambientLight intensity={1} position={[5, 5, 0]}></ambientLight>
+        <OrbitControls />
+        <ambientLight intensity={1} position={[5, 5, 0]} />
         <directionalLight
           position={[5, 7, 3]}
           intensity={5}

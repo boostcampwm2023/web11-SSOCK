@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import theme from '../../utils/theme';
-import mock from '../../mockdata.json'; // temporary
 import { useContext, useState } from 'react';
 import { DecoContext } from '../../pages/Visit/Deco/DecoProvider';
 
@@ -9,6 +8,7 @@ interface MsgProps {
   isInput: boolean;
   content: string;
   sender: string;
+  to: string;
 }
 
 interface MsgColor {
@@ -117,7 +117,6 @@ const StyledFromInput = styled.input`
 `;
 
 const Msg = (props: MsgProps) => {
-  const userName = mock.user_name;
   const [wordCount, setWordCount] = useState(0);
   const { setContent, setSender } = useContext(DecoContext);
   const maxWordCount = 500;
@@ -136,7 +135,7 @@ const Msg = (props: MsgProps) => {
   return (
     <StyledLetterBox color={props.color}>
       <StyledLetterPerson>
-        To. <StyledTo>{userName}</StyledTo>
+        To. <StyledTo>{props.to}</StyledTo>
       </StyledLetterPerson>
 
       {props.isInput ? (
@@ -172,7 +171,7 @@ const Msg = (props: MsgProps) => {
           )}
         </StyledFrom>
 
-        {props.sender === '' ? `${wordCount} / 500` : null}
+        {props.isInput && props.sender === '' ? `${wordCount} / 500` : null}
       </StyledFromBox>
     </StyledLetterBox>
   );

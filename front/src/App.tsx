@@ -1,7 +1,17 @@
 import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
 import GlobalStyles from './GlobalStyles';
-import { IsLogin, HasSnowball } from './router';
-import { Intro, Nickname, Snowball, Main, Visit, Deco, Wrong } from './pages';
+import { IsLogin } from './router';
+import {
+  Intro,
+  Nickname,
+  Snowball,
+  Main,
+  Visit,
+  Deco,
+  Wrong,
+  MainDeco,
+  Boostcamp
+} from './pages';
 import { Song } from './components';
 import theme from './utils/theme';
 import styled from 'styled-components';
@@ -12,15 +22,11 @@ const Outer = styled.div`
   left: 50%;
   transform: translateX(-50%);
 
-  width: 100vw;
-  height: 100vh;
-  overflow-y: hidden;
-
-  ::-webkit-scrollbar {
+  width: 100%;
+  height: 100%;
+  /* ::-webkit-scrollbar {
     display: none;
-  }
-
-  overflow: hidden;
+  } */
 
   @media (min-width: ${theme.size['--desktop-min-width']}) {
     width: ${theme.size['--desktop-width']};
@@ -46,15 +52,15 @@ const App = () => {
               path="/make"
               element={
                 <IsLogin>
-                  <HasSnowball>
-                    <Outlet />
-                  </HasSnowball>
+                  <Outlet />
                 </IsLogin>
               }
             >
               <Route path="" element={<Nickname />} />
               <Route path="snowball" element={<Snowball />} />
             </Route>
+
+            <Route path="/maindeco" element={<MainDeco />} />
 
             <Route
               path="/main"
@@ -65,6 +71,7 @@ const App = () => {
               }
             />
 
+            <Route path="/boostcamp" element={<Boostcamp />} />
             <Route path="*" element={<Wrong />} />
           </Routes>
         </BrowserRouter>

@@ -37,17 +37,30 @@ const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
     font-family: 'KingSejongInstitute';
     white-space: nowrap;
+    // scroll-bar display none
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    overflow: hidden;
+  }
+
+  html {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
   }
 
   body {
-    margin: 0;
+    margin:0;
     padding: 0;
-    font-size: 1rem;
+    width: 100%;
+    height: 100%;
   }
-
+  
   #root {
     width: 100%;
-    height: 100vh;
+    height: 100%;
+    display: grid;
     background-color: ${theme.colors['--primary-black']};
     margin: auto;
   }

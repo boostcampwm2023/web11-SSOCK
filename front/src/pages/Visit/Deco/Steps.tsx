@@ -1,11 +1,13 @@
 import { useState, useRef, useEffect, useContext } from 'react';
 import styled from 'styled-components';
 import theme from '../../../utils/theme';
-import { HeaderText, StepButton, PostButton } from '../../../components';
+import { HeaderText, StepButton } from '../../../components';
 import DecoEnroll from './DecoEnroll';
 import DecoBox from './DecoBox';
 import { DecoContext } from './DecoProvider';
 import MsgBox from './MsgBox';
+import { SnowBallContext } from '../SnowBallProvider';
+import PostButton from './PostButton';
 
 const StateBar = styled.div`
   display: flex;
@@ -48,6 +50,7 @@ const SelectDeco = styled.div`
   justify-content: center;
   flex: 1 0 0;
   gap: 1rem;
+  min-width: min-content;
 `;
 
 const ColorInput = styled.input.attrs({
@@ -74,6 +77,7 @@ const StyledTopWrap = styled.div`
   gap: 1rem;
   flex-direction: column;
 `;
+
 const StyledBody = styled.div`
   flex: 1 1 auto;
   display: flex;
@@ -83,6 +87,7 @@ const StyledBody = styled.div`
     pointer-events: all;
   }
 `;
+
 const StyledBottomWrap = styled.div`
   display: flex;
   flex-direction: column;
@@ -91,8 +96,8 @@ const StyledBottomWrap = styled.div`
 const Steps = () => {
   const [step, setStep] = useState(0);
   const [lastBox, setLastBox] = useState(false);
-  const { setColor } = useContext(DecoContext);
-
+  const { color, setColor } = useContext(DecoContext);
+  const { userData } = useContext(SnowBallContext);
   const doneStep = -1;
   const selectDeco = 0;
   const selectColor = 1;
@@ -181,7 +186,7 @@ const Steps = () => {
   return (
     <>
       <StyledTopWrap>
-        <HeaderText Ref={null} />
+        <HeaderText Ref={null} userName={userData.nickname} />
 
         {step === writeMsg || step === doneStep ? null : (
           <StateBar>{renderStateBoxes()}</StateBar>
@@ -224,12 +229,12 @@ const Steps = () => {
             {step === selectColor ? (
               <>
                 <ColorInput
-                  value={'#ff0000'}
+                  value={color}
                   onChange={e => setColor(e.target.value)}
                 />
                 <p>장식 색상을 선택해주세요</p>
               </>
-            ) : null}{' '}
+            ) : null}
             {step === writeMsg ? (
               <ButtonBox>
                 <PostButton
