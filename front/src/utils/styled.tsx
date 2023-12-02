@@ -20,7 +20,7 @@ const Container = styled.div`
 
 const LongButton = styled.button`
   font: ${theme.font['--normal-button-font']};
-  border-radius: 10px;
+  border-radius: 0.625rem;
   width: 66.6667%;
   height: 3rem;
   padding: 0.625rem;

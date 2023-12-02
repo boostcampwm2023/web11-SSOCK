@@ -30,20 +30,22 @@ const Bottom: React.FC<BottomProps> = ({
     if (context) {
       context.fillStyle = '#ffffff';
       context.fillRect(0, 0, 1024, 1024);
-      context.font = 'Bold 100px KingSejongInstitute';
+      context.font = 'Bold 6.25rem KingSejongInstitute';
       context.fillStyle = '#131313';
       context.textBaseline = 'middle';
-      let textWidth = context.measureText(title).width;
+
+      const textWidth = context.measureText(title).width;
       if (textWidth > 1000) {
-        context.font = 'Bold 50px KingSejongInstitute';
+        context.font = 'Bold 3.125rem KingSejongInstitute';
       }
-      textWidth = context.measureText(title).width;
       context.fillText(title, canvas.width / 2 - textWidth / 2, 1024 / 8, 1024);
     }
+
     const nameTexture = new THREE.CanvasTexture(canvas);
     material.map = nameTexture;
     material.bumpMap = nameTexture;
   }
+
   const mainColor = bottom.getObjectByName('mainColor') as THREE.Mesh;
   if (mainColor) {
     const material = mainColor.material as THREE.MeshStandardMaterial;
