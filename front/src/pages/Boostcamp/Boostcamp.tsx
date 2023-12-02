@@ -1,79 +1,6 @@
 import { useRef, useEffect } from 'react';
 import styled from 'styled-components';
-
-const BoostcampWrapper = styled.div`
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  position: absolute;
-  justify-content: center;
-  display: flex;
-  align-items: center;
-`;
-
-const BoostcampDiv = styled.div`
-  position: absolute;
-  width: 80%;
-  height: 90%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(255, 255, 255, 0.5);
-  border-radius: 20px;
-  padding: 5%;
-  gap: 1.5rem;
-`;
-
-const BoostcampProject = styled.div`
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  gap: 1%;
-  width: 90%;
-  height: 150px;
-  background-color: #fff;
-  opacity: 0.8;
-  border-radius: 20px;
-  padding: 1%;
-`;
-
-const BoostcampProjectImage = styled.img`
-  width: 100px;
-  height: 100px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 20px;
-`;
-
-const BoostcampProjectTitle = styled.h1`
-  font-family: ${props => props.theme.font['--normal-title-font']};
-`;
-
-const BoostcampProjectText = styled.p`
-  font-family: ${props => props.theme.font['--normal-introduce-font']};
-`;
-
-const updateFlakes = (ctx: CanvasRenderingContext2D, flakes: Flake[]) => {
-  ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-  ctx.fillStyle = 'hsla(242, 95%, 3%, 1)';
-  ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
-
-  flakes.forEach(flake => {
-    flake.t += 0.05;
-    flake.t = flake.t >= Math.PI * 2 ? 0 : flake.t;
-    flake.y += flake.sp;
-    flake.x += Math.sin(flake.t * 1) * (flake.sz * 0.3);
-
-    if (flake.y > window.innerHeight + 50) flake.y = -10 - Math.random() * 20;
-    if (flake.x > window.innerWidth + 20) flake.x = -20;
-    if (flake.x < -20) flake.x = window.innerWidth + 20;
-    flake.draw(ctx);
-  });
-
-  requestAnimationFrame(() => updateFlakes(ctx, flakes));
-};
+import BoostcampProject from './BoostcampProject';
 
 class Flake {
   x: number;
@@ -109,6 +36,50 @@ class Flake {
   }
 }
 
+const BoostcampWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+`;
+
+const BoostcampDiv = styled.div`
+  position: absolute;
+  width: 80%;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 1.25rem;
+  padding: 5%;
+  gap: 1.5rem;
+`;
+
+const updateFlakes = (ctx: CanvasRenderingContext2D, flakes: Flake[]) => {
+  ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+  ctx.fillStyle = 'hsla(242, 95%, 3%, 1)';
+  ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+
+  flakes.forEach(flake => {
+    flake.t += 0.05;
+    flake.t = flake.t >= Math.PI * 2 ? 0 : flake.t;
+    flake.y += flake.sp;
+    flake.x += Math.sin(flake.t * 1) * (flake.sz * 0.3);
+
+    if (flake.y > window.innerHeight + 50) flake.y = -10 - Math.random() * 20;
+    if (flake.x > window.innerWidth + 20) flake.x = -20;
+    if (flake.x < -20) flake.x = window.innerWidth + 20;
+    flake.draw(ctx);
+  });
+
+  requestAnimationFrame(() => updateFlakes(ctx, flakes));
+};
+
 const Boostcamp = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -136,27 +107,23 @@ const Boostcamp = () => {
         ref={canvasRef}
       />
       <BoostcampDiv>
-        <BoostcampProject>
-          <BoostcampProjectImage src="/img/tempThumbnail.png" />
-          <BoostcampProjectTitle>내 마음 속 스노우볼</BoostcampProjectTitle>
-          <BoostcampProjectText>
-            내 마음 속 스노우볼을 꾸며보세요 !!
-          </BoostcampProjectText>
-        </BoostcampProject>
-        <BoostcampProject>
-          <BoostcampProjectImage src="/img/tempThumbnail.png" />
-          <BoostcampProjectTitle>내 마음 속 스노우볼</BoostcampProjectTitle>
-          <BoostcampProjectText>
-            내 마음 속 스노우볼을 꾸며보세요 !!
-          </BoostcampProjectText>
-        </BoostcampProject>
-        <BoostcampProject>
-          <BoostcampProjectImage src="/img/tempThumbnail.png" />
-          <BoostcampProjectTitle>내 마음 속 스노우볼</BoostcampProjectTitle>
-          <BoostcampProjectText>
-            내 마음 속 스노우볼을 꾸며보세요 !!
-          </BoostcampProjectText>
-        </BoostcampProject>
+        <BoostcampProject
+          img={'/img/tempThumbnail.png'}
+          title={'내 마음 속 스노우볼'}
+          text={'내 마음 속 스노우볼을 꾸며보세요 !!'}
+        />
+
+        <BoostcampProject
+          img={'/img/tempThumbnail.png'}
+          title={'내 마음 속 스노우볼'}
+          text={'내 마음 속 스노우볼을 꾸며보세요 !!'}
+        />
+
+        <BoostcampProject
+          img={'/img/tempThumbnail.png'}
+          title={'내 마음 속 스노우볼'}
+          text={'내 마음 속 스노우볼을 꾸며보세요 !!'}
+        />
       </BoostcampDiv>
     </BoostcampWrapper>
   );
