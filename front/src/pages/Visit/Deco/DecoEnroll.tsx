@@ -133,7 +133,7 @@ const DecoEnroll = (props: NaviProps) => {
                 CloseNav(props, closeRef, setIsFocus, navigate, user, 'close')
               }
             >
-              <StyeldButtonText>닫기</StyeldButtonText>
+              <StyeldButtonText>전송한 선물 확인하기</StyeldButtonText>
             </StyledNavButton>
           </ButtonWrap>
         </StyledNaviBox>
