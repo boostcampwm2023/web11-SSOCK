@@ -55,7 +55,7 @@ const Snowball = () => {
   return (
     <>
       {make ? (
-        <MainDeco />
+        <MainDeco set={setMake} />
       ) : (
         <>
           <SnowGlobeCanvas />
