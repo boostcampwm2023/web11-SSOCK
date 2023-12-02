@@ -1,21 +1,12 @@
 import React, { useState, useRef } from 'react';
 import { NavigateFunction, useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { theme } from '../../../utils';
+import { theme, BlurBody } from '../../../utils';
 
 interface NaviProps {
   visible: [number, React.Dispatch<React.SetStateAction<number>>];
   view: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
 }
-
-const StyledBody = styled.div`
-  position: fixed;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(217, 217, 217, 0.2);
-  pointer-events: all;
-`;
 
 const StyledNaviBox = styled.div`
   background-color: ${props => props.theme.colors['--primary-black']};
@@ -43,8 +34,7 @@ const ButtonWrap = styled.div`
 `;
 
 const StyledNavButton = styled.button`
-  height: 3rem;
-  width: 66%;
+  width: 100%;
   height: 4rem;
   border-radius: 1rem;
   display: flex;
@@ -60,8 +50,8 @@ const StyeldButtonText = styled.div`
   height: 100%;
   display: flex;
   align-items: center;
-  font: ${props => props.theme.font['--normal-button-font']};
   justify-content: center;
+  font: ${props => props.theme.font['--normal-button-font']};
 `;
 
 const StyledImgIcon = styled.img`
@@ -69,7 +59,7 @@ const StyledImgIcon = styled.img`
 `;
 
 const EmptyDiv = styled.div`
-  width: 3rem;
+  width: 1rem;
 `;
 
 const CloseNav = (
@@ -103,14 +93,14 @@ const CloseNav = (
 };
 
 const DecoEnroll = (props: NaviProps) => {
-  const [isFocus, setIsFocus] = useState(true);
-  const closeRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
   const { user } = useParams();
+  const [isFocus, setIsFocus] = useState(true);
+  const closeRef = useRef<HTMLDivElement>(null);
 
   return (
     <>
-      <StyledBody
+      <BlurBody
         onClick={() =>
           CloseNav(props, closeRef, setIsFocus, navigate, user, 'close')
         }

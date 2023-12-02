@@ -1,9 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { SnowGlobeCanvas } from '../../components';
+import { SnowGlobeCanvas, UIContainer } from '../../components';
 import MainButtonBox from './MainButtonBox';
-import { UIContainer } from '../../components/UIContainer';
 
 const StyledLeft = styled.img`
   position: fixed;

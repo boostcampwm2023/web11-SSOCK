@@ -1,6 +1,7 @@
 import { useContext, useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+import { LongButton } from '../../../utils';
 import { DecoContext } from './DecoProvider';
 import { SnowBallContext } from '../SnowBallProvider';
 
@@ -13,20 +14,8 @@ interface ButtonProps {
 
 type ColorProps = Pick<ButtonProps, 'color'>;
 
-const StyledButton = styled.button<ColorProps>`
+const StyledButton = styled(LongButton)<ColorProps>`
   background-color: ${props => props.color};
-  font: ${props => props.theme.font['--normal-button-font']};
-  border-radius: 10px;
-  width: 66.6667%;
-  height: 3rem;
-  padding: 0.625rem;
-  margin: 0.25rem;
-  color: white;
-  border: 1px solid ${props => props.theme.colors['--white-primary']};
-
-  @media (min-width: ${props => props.theme.size.maxWidth}) {
-    width: 600px;
-  }
 `;
 
 const PostButtonWrap = styled.div`

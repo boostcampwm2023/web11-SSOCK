@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
+import { BlurBody } from '../../utils';
 
 interface LoginProps {
   view: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
@@ -9,22 +10,14 @@ interface SocialLogin {
   social: 'kakao' | 'naver' | 'google';
 }
 
-const StyledBody = styled.div`
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(217, 217, 217, 0.1);
-  pointer-events: all;
-`;
-
 const StyledLoginBox = styled.div`
   background-color: ${props => props.theme.colors['--primary-black']};
   display: flex;
-  padding: 1.5rem;
   flex-direction: column;
   gap: 1.5rem;
   width: 100%;
   height: 18rem;
+  padding: 1.5rem;
   border-top-left-radius: 1rem;
   border-top-right-radius: 1rem;
   animation: fadeInUp 0.5s forwards;
@@ -103,7 +96,7 @@ const LoginBox = (props: LoginProps) => {
 
   return (
     <>
-      <StyledBody onClick={() => closeLogin(props, closeRef, setIsFocus)} />
+      <BlurBody onClick={() => closeLogin(props, closeRef, setIsFocus)} />
       {isFocus ? (
         <StyledLoginBox ref={closeRef}>
           <LoginUI social={'kakao'} />

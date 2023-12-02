@@ -1,17 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import styled from 'styled-components';
-import { theme } from '../../utils';
+import { theme, Container } from '../../utils';
 import { Button } from '../../components';
-
-const Container = styled.div`
-  width: 100%;
-  height: 10rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
 
 const VisitBottom = () => {
   const navigate = useNavigate();

@@ -1,17 +1,8 @@
 import { useContext } from 'react';
 import styled from 'styled-components';
+import { Container } from '../../utils';
 import { HeaderText } from '../../components';
 import { SnowBallContext } from './SnowBallProvider';
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 10rem;
-  gap: 1rem;
-  align-items: center;
-  justify-content: center;
-`;
 
 const StyledLetter = styled.div`
   font: ${props => props.theme.font['--normal-main-header-font']};

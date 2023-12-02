@@ -1,21 +1,16 @@
+import { useContext } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
-import styled from 'styled-components';
-import { DecoContext } from './DecoProvider';
-import { useContext } from 'react';
-import * as Models from '../../../components/SnowGlobeCanvas/models';
 import * as THREE from 'three';
-
-const CanvasContainer = styled.div`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-`;
+import * as Models from '../../../components/SnowGlobeCanvas/models';
+import { CanvasContainer } from '../../../utils/styled';
+import { DecoContext } from './DecoProvider';
 
 const MainSnowballCavnas = () => {
   const { snowballName, mainDecoID, mainColor, bottomID, bottomColor } =
     useContext(DecoContext);
   const glassRadius = 7;
+
   return (
     <CanvasContainer>
       <Canvas camera={{ position: [25, 0, 0] }}>

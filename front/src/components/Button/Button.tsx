@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { LongButton } from '../../utils';
 
 interface ButtonColor {
   color: string;
@@ -11,16 +12,8 @@ interface ButtonProps {
   disabled?: boolean;
 }
 
-const StyledButton = styled.button<ButtonColor>`
+const StyledButton = styled(LongButton)<ButtonColor>`
   background-color: ${props => props.color};
-  font: ${props => props.theme.font['--normal-button-font']};
-  border-radius: 10px;
-  width: 66.6667%;
-  height: 3rem;
-  padding: 0.625rem;
-  margin: 0.25rem;
-  color: white;
-  border: 1px solid ${props => props.theme.colors['--white-primary']};
 `;
 
 const Button = (props: ButtonProps) => {

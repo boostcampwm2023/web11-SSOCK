@@ -1,7 +1,8 @@
 import { useState, useContext } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-import { DecoContext } from '../../pages/Make/MainDeco/DecoProvider';
+import { LongButton } from '../../../utils';
+import { DecoContext } from './DecoProvider';
 
 interface MakeButtonProps {
   color: string;
@@ -14,23 +15,11 @@ interface ButtonProps {
   visible: [number, React.Dispatch<React.SetStateAction<number>>];
 }
 
-const StyledButton = styled.button<MakeButtonProps>`
+const StyledButton = styled(LongButton)<MakeButtonProps>`
   background-color: ${props => props.color};
-  font: ${props => props.theme.font['--normal-button-font']};
-  border-radius: 10px;
-  width: 66.6667%;
-  height: 3rem;
-  padding: 0.625rem;
-  margin: 0.25rem;
-  color: white;
-  border: 1px solid ${props => props.theme.colors['--white-primary']};
-
-  @media (min-width: ${props => props.theme.size.maxWidth}) {
-    width: 600px;
-  }
 `;
 
-const PostButtonWrap = styled.div`
+const MakeButtonWrap = styled.div`
   width: 100%;
 `;
 
@@ -72,14 +61,14 @@ const MakeButton = (props: ButtonProps) => {
 
   return (
     <>
-      <PostButtonWrap>
+      <MakeButtonWrap>
         {alert ? (
           <StyledAlert>스노우볼 이름을 입력해주세요 !</StyledAlert>
         ) : null}
         <StyledButton color={props.color} onClick={ClickedMake}>
           {props.text}
         </StyledButton>
-      </PostButtonWrap>
+      </MakeButtonWrap>
     </>
   );
 };

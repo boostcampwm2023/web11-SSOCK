@@ -11,11 +11,8 @@ const StyledHeader = styled.div`
   left: 50%;
   transform: translate(-50%, 0);
   color: white;
-  font-family: 'Pretendard-Regular';
+  font: ${props => props.theme.font['--normal-nickname-input-font']};
   font-size: 20px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
   text-align: center;
 `;
 
