@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import styled from 'styled-components';
 import { theme } from '../../../utils';
 import { SnowGlobeCanvas, Button } from '../../../components';
+import { MainDeco } from './MainDeco';
 import mock from '../../../mockdata.json'; // temporary
 
 const StyledHeader = styled.div`
@@ -49,37 +49,38 @@ const StyledButtonBox = styled.div`
 `;
 
 const Snowball = () => {
-  const navigate = useNavigate();
   const userName = mock.user_data.nickname;
   const [make, setMake] = useState(false);
 
-  useEffect(() => {
-    make ? navigate('/maindeco') : null;
-  }, [make, navigate]);
-
   return (
     <>
-      <SnowGlobeCanvas />
-      <StyledHeader>
-        <StyledName>{userName}</StyledName>&nbsp;님
-        <StyledWelcome>환영합니다 :&#41;</StyledWelcome>
-      </StyledHeader>
+      {make ? (
+        <MainDeco />
+      ) : (
+        <>
+          <SnowGlobeCanvas />
+          <StyledHeader>
+            <StyledName>{userName}</StyledName>&nbsp;님
+            <StyledWelcome>환영합니다 :&#41;</StyledWelcome>
+          </StyledHeader>
 
-      <StyledBottom>
-        아직 <StyledBall>스노우볼</StyledBall>이 없군요!
-        <br />
-        스노우볼은 소중한 마음을 주고 받는
-        <br />
-        예쁜 선물 상자가 될 거예요.
-      </StyledBottom>
+          <StyledBottom>
+            아직 <StyledBall>스노우볼</StyledBall>이 없군요!
+            <br />
+            스노우볼은 소중한 마음을 주고 받는
+            <br />
+            예쁜 선물 상자가 될 거예요.
+          </StyledBottom>
 
-      <StyledButtonBox>
-        <Button
-          text={'스노우볼 만들기'}
-          color={theme.colors['--primary-red-primary']}
-          view={[make, setMake]}
-        />
-      </StyledButtonBox>
+          <StyledButtonBox>
+            <Button
+              text={'스노우볼 만들기'}
+              color={theme.colors['--primary-red-primary']}
+              view={[make, setMake]}
+            />
+          </StyledButtonBox>
+        </>
+      )}
     </>
   );
 };

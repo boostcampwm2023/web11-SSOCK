@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import styled from 'styled-components';
-import { MAIN, BOTTOM } from '../../../constants/deco';
+import { MAIN, BOTTOM } from '../../../../constants/deco';
 import { DecoContext } from './DecoProvider';
 
 interface DecoProps {
