@@ -11,7 +11,6 @@ import {
   Visit,
   Deco,
   Wrong,
-  MainDeco,
   Boostcamp
 } from './pages';
 import { Song } from './components';
@@ -59,7 +58,6 @@ const App = () => {
               >
                 <Route path="" element={<Nickname />} />
                 <Route path="snowball" element={<Snowball />} />
-                <Route path="maindeco" element={<MainDeco />} />
               </Route>
 
               <Route

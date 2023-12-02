@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { DecoContext } from './DecoProvider';
-import { MSG_COLOR } from '../../../constants/deco';
-import { Msg } from '../../../components';
+import { MSG_COLOR } from '../../../../constants/deco';
+import { Msg } from '../../../../components';
 import styled from 'styled-components';
 
 interface MsgBoxProps {
