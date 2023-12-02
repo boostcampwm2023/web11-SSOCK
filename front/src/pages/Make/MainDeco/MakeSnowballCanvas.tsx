@@ -3,7 +3,7 @@ import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import * as THREE from 'three';
 import * as Models from '../../../components/SnowGlobeCanvas/models';
-import { CanvasContainer } from '../../../utils/styled';
+import { CanvasContainer } from '../../../utils';
 import { DecoContext } from './DecoProvider';
 
 const MainSnowballCavnas = () => {
