@@ -4,6 +4,10 @@ import MenuModal from './MenuModal';
 import ListMsg from './ListMsg';
 import { HeaderText } from '../../components';
 
+const StyledHeader = styled.div`
+  padding-top: 4.2rem;
+`;
+
 const StyledMenu = styled.img`
   position: fixed;
   top: 3.5rem;
@@ -72,7 +76,9 @@ const MainButtonBox = (props: MainButtonBoxProps) => {
     <>
       {!screen ? (
         <>
-          <HeaderText Ref={headerRef} userName="test" />
+          <StyledHeader>
+            <HeaderText Ref={headerRef} userName="test" />
+          </StyledHeader>
 
           <StyledMenu
             ref={menuRef}
