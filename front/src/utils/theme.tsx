@@ -12,6 +12,8 @@ const colors = {
 };
 
 const font = {
+  '--text-shadow':
+    '-1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black',
   '--normal-title-font': 'normal normal 400 2rem/normal "KingSejongInstitute"',
   '--normal-introduce-font':
     'normal normal 400 1.125rem/150% "KingSejongInstitute"',
