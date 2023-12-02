@@ -1,12 +1,9 @@
 import { useState, useRef } from 'react';
 import styled from 'styled-components';
+import { Container } from '../../utils';
+import { HeaderText } from '../../components';
 import MenuModal from './MenuModal';
 import ListMsg from './ListMsg';
-import { HeaderText } from '../../components';
-
-const StyledHeader = styled.div`
-  padding-top: 4.2rem;
-`;
 
 const StyledMenu = styled.img`
   position: fixed;
@@ -76,9 +73,9 @@ const MainButtonBox = (props: MainButtonBoxProps) => {
     <>
       {!screen ? (
         <>
-          <StyledHeader>
+          <Container>
             <HeaderText Ref={headerRef} userName="test" />
-          </StyledHeader>
+          </Container>
 
           <StyledMenu
             ref={menuRef}
