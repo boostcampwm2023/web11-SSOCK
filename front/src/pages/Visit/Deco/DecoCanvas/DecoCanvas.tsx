@@ -1,13 +1,7 @@
-import styled from 'styled-components';
 import { Canvas } from '@react-three/fiber';
-import DecoModel from './DecoModel';
 import { OrbitControls } from '@react-three/drei';
-
-const CanvasContainer = styled.div`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-`;
+import { CanvasContainer } from '../../../../utils';
+import DecoModel from './DecoModel';
 
 const DecoCavnas = () => {
   return (

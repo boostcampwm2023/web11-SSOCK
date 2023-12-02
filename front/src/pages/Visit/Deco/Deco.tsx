@@ -1,8 +1,7 @@
-import { Prev } from '../../../components';
+import { Prev, UIContainer } from '../../../components';
 import { DecoProvider } from './DecoProvider';
 import Steps from './Steps';
 import DecoCavnas from './DecoCanvas/DecoCanvas';
-import { UIContainer } from '../../../components/UIContainer';
 import { SnowBallProvider } from '../SnowBallProvider';
 
 const Deco = () => {
@@ -15,6 +14,7 @@ const Deco = () => {
           <UIContainer>
             <Steps />
           </UIContainer>
+
           <Prev set={null} />
         </SnowBallProvider>
       </DecoProvider>

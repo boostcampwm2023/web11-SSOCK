@@ -1,6 +1,6 @@
 import { useContext } from 'react';
-import { MessageContext } from './MessageProvider';
 import { Msg } from '../../components';
+import { MessageContext } from './MessageProvider';
 import { SnowBallContext } from './SnowBallProvider';
 
 const VisitBody = () => {

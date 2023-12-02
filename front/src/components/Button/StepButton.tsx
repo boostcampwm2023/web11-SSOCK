@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import styled from 'styled-components';
+import { LongButton } from '../../utils';
 import { DecoContext } from '../../pages/Make/MainDeco/DecoProvider';
 
 interface ButtonColor {
@@ -14,16 +15,10 @@ interface ButtonProps {
   disabled?: boolean;
 }
 
-const StyledButton = styled.button<ButtonColor>`
+const StyledButton = styled(LongButton)<ButtonColor>`
   background-color: ${props => props.color};
-  font: ${props => props.theme.font['--normal-button-font']};
-  border-radius: 50px;
-  height: 3rem;
-  padding: 0.625rem;
-  margin: 0.25rem;
-  color: white;
-  border: 1px solid ${props => props.theme.colors['--white-primary']};
-  cursor: pointer;
+  border-radius: 3.125rem;
+  width: auto;
 `;
 
 const StepButton = (props: ButtonProps) => {

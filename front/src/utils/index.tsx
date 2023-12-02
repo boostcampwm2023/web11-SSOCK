@@ -1,3 +1,3 @@
 export { default as theme } from './theme';
-// export { Outer } from './styled';
+export { CanvasContainer, Container, LongButton, BlurBody } from './styled';
 export { default as getDecoPoisition } from './position';

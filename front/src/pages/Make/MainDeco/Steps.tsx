@@ -1,24 +1,11 @@
 import { useState, useRef, useEffect, useContext } from 'react';
 import styled from 'styled-components';
-import { theme } from '../../../utils';
-import {
-  InputSnowball,
-  HeaderText,
-  StepButton,
-  MakeButton
-} from '../../../components';
-import DecoEnroll from './DecoEnroll';
+import { theme, Container } from '../../../utils';
+import { InputSnowball, HeaderText, StepButton } from '../../../components';
+import MakeButton from './MakeButton';
 import DecoBox from './DecoBox';
+import DecoEnroll from './DecoEnroll';
 import { DecoContext } from './DecoProvider';
-
-const StyledTopWrap = styled.div`
-  display: flex;
-  height: 10rem;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  flex-direction: column;
-`;
 
 const StateBar = styled.div`
   display: flex;
@@ -39,12 +26,12 @@ const StyledBottomWrap = styled.div`
   flex-direction: column;
 `;
 
-const StyledAlertBox = styled.div`
+const StyledWarningBox = styled.div`
   display: flex;
   justify-content: center;
 `;
 
-const StyledAlert = styled.div`
+const StyledWarning = styled.div`
   color: ${props => props.theme.colors['--white-primary']};
   padding: 1rem;
   font: ${props => props.theme.font['--normal-introduce-font']};
@@ -101,6 +88,10 @@ const Steps = () => {
   const [step, setStep] = useState<number>(0);
   const [lastBox, setLastBox] = useState(false);
   const [alert, setAlert] = useState<number>(0);
+  const [isDecoBoxClicked, setIsDecoBoxClicked] = useState(false);
+  const [startClickedX, setStartClickedX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
+
   const { mainColor, bottomColor, setMainColor, setBottomColor } =
     useContext(DecoContext);
 
@@ -116,10 +107,6 @@ const Steps = () => {
   const good = 200;
 
   const selectDecoBox = useRef<HTMLDivElement>(null);
-
-  const [isDecoBoxClicked, setIsDecoBoxClicked] = useState(false);
-  const [startClickedX, setStartClickedX] = useState(0);
-  const [scrollLeft, setScrollLeft] = useState(0);
 
   const mouseDown = (event: MouseEvent) => {
     setIsDecoBoxClicked(true);
@@ -187,11 +174,11 @@ const Steps = () => {
   const renderStateBoxes = () => {
     const boxes = [];
     for (let i = 0; i <= step; i++) {
-      const progressColor = theme.colors['--primary-green-primary']; // Progress color
+      const progressColor = theme.colors['--primary-green-primary'];
       boxes.push(<StateBox key={i} color={progressColor}></StateBox>);
     }
-    for (let i = step + 1; i < 5; i++) {
-      const progressColor = theme.colors['--primary-red-primary']; // Progress color
+    for (let i = step + 1; i < lastConfirm; i++) {
+      const progressColor = theme.colors['--primary-red-primary'];
       boxes.push(<StateBox key={i} color={progressColor}></StateBox>);
     }
     return boxes;
@@ -199,23 +186,23 @@ const Steps = () => {
 
   return (
     <>
-      <StyledTopWrap>
+      <Container>
         <HeaderText Ref={null} userName="받는사람" />
 
         {step === lastConfirm || step === doneStep ? null : (
           <StateBar>{renderStateBoxes()}</StateBar>
         )}
-      </StyledTopWrap>
+      </Container>
 
       <StyledBottomWrap>
-        <StyledAlertBox>
+        <StyledWarningBox>
           {alert === error ? (
-            <StyledAlert>스노우볼 이름을 입력해주세요!</StyledAlert>
+            <StyledWarning>스노우볼 이름을 입력해주세요!</StyledWarning>
           ) : null}
           {step === lastConfirm ? (
-            <StyledAlert>🎅최종 확인 해주세요🎄</StyledAlert>
+            <StyledWarning>🎅최종 확인 해주세요🎄</StyledWarning>
           ) : null}
-        </StyledAlertBox>
+        </StyledWarningBox>
 
         <StyledButtonWrap>
           {step <= selectDeco ? (

@@ -1,26 +1,18 @@
 import { useContext, useRef } from 'react';
 import { OrbitControls } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
-import styled from 'styled-components';
 import * as THREE from 'three';
-import { getDecoPoisition } from '../../utils';
+import { CanvasContainer, getDecoPoisition } from '../../utils';
 import * as Models from './models/index';
 import { Prev } from '../Prev';
 import { PrevProvider } from './PrevProvider';
 import { SnowBallContext } from '../../pages/Visit/SnowBallProvider';
 
-const CanvasBox = styled.div`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-color: ${props => props.theme.colors['--primary-black']};
-`;
-
 const SnowGlobeCanvas = () => {
   const isClicked = useRef<boolean>(false);
   const glassRadius = 7;
   const glassPosition = new THREE.Vector3(0, glassRadius / 2, 0);
-  const { snowBallData } = useContext(SnowBallContext); //컴포넌트인데 useContext사용해도 되나???
+  const { snowBallData } = useContext(SnowBallContext);
   console.log(snowBallData, '!!!');
   const snows = Array.from({ length: 100 }, (_, i) => (
     <Models.Snow
@@ -49,7 +41,7 @@ const SnowGlobeCanvas = () => {
 
   return (
     <PrevProvider>
-      <CanvasBox>
+      <CanvasContainer>
         <Canvas camera={{ position: [15, 10, 0] }} shadows={true}>
           <OrbitControls
             enablePan={true}
@@ -101,7 +93,7 @@ const SnowGlobeCanvas = () => {
           {snows}
           {decos}
         </Canvas>
-      </CanvasBox>
+      </CanvasContainer>
 
       <Prev set={'Canvas'} />
     </PrevProvider>
