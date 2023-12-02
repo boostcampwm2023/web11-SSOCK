@@ -13,11 +13,9 @@ const StyledModal = styled.div`
   top: 4%;
   right: 0;
   width: 40%;
-  background-color: ${props => props.theme.colors['--sub-text']};
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
-  box-shadow: 0 14px 28px rgba(255, 255, 255, 0.25),
-    0 10px 10px rgba(255, 255, 255, 0.22);
+  background-color: rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0.625rem 1.25rem rgba(255, 255, 255, 0.25),
+    0 0.625rem 1.25rem rgba(255, 255, 255, 0.25);
   font: ${props => props.theme.font['--normal-main-header-font']};
   color: white;
 `;
@@ -29,11 +27,13 @@ const StyledSection = styled.div`
 `;
 
 const StyledUser = styled(StyledSection)`
-  font-size: 18px;
+  font-size: 1.125rem;
 `;
 
 const StyledLogout = styled(StyledSection)`
   color: ${props => props.theme.colors['--primary-red-primary']};
+  font-family: 'Pretendard-Regular';
+  font-weight: bold;
 `;
 
 const StyledClosed = styled(StyledSection)`
