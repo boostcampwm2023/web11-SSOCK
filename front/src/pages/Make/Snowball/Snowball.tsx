@@ -34,7 +34,7 @@ const StyledBottom = styled.div`
   transform: translate(-50%, 0);
   font: ${props => props.theme.font['--normal-introduce-font']};
   color: white;
-  text-shadow: -1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black;
+  text-shadow: ${props => props.theme.font['--text-shadow']};
 `;
 
 const StyledBall = styled.span`

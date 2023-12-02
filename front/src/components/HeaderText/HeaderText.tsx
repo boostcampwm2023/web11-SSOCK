@@ -7,7 +7,7 @@ interface HeaderProps {
 
 const StyledHeader = styled.div`
   font: ${props => props.theme.font['--normal-main-header-font']};
-  text-shadow: -1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black;
+  text-shadow: ${props => props.theme.font['--text-shadow']};
 
   white-space: nowrap;
   color: white;
