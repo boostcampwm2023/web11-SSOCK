@@ -5,13 +5,13 @@ const StyledWrong = styled.div`
   font: ${props => props.theme.font['--normal-title-font']};
   position: absolute;
   top: 20%;
-  font-size: 50px;
+  font-size: 3.125rem;
   background: linear-gradient(
       0deg,
       ${props => props.theme.colors['--primary-green-primary']} 50%,
       ${props => props.theme.colors['--primary-red-primary']} 0
     )
-    0 0/4px 50px;
+    0 0/0.25rem 3.125rem;
   padding: 10%;
   color: white;
   text-align: center;

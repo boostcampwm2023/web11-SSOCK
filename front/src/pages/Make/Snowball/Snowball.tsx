@@ -12,7 +12,7 @@ const StyledHeader = styled.div`
   transform: translate(-50%, 0);
   color: white;
   font: ${props => props.theme.font['--normal-nickname-input-font']};
-  font-size: 20px;
+  font-size: 1.25rem;
   text-align: center;
 `;
 

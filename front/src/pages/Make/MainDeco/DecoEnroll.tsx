@@ -19,8 +19,8 @@ const StyledNaviBox = styled.div`
   height: 35%;
   padding: 2% 5%;
   padding-bottom: 5%;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
+  border-top-left-radius: 1.25rem;
+  border-top-right-radius: 1.25rem;
   animation: fadeInUp 0.5s forwards;
 
   pointer-events: all;
