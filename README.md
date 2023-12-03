@@ -6,18 +6,18 @@
 - 롤링페이퍼처럼 여러사람이 한 곳에 메시지를 작성 하는 아이디어📄
 
 ## SSOCK 팀
-<table align="center">
-  <th>J034</th>
-  <th>J064</th>
-  <th>J082</th>
-  <th>J074</th>
-  <th>J160</th>
+<table align="center" width="100%">
+  <th width="20%">J034</th>
+  <th width="20%">J064</th>
+  <th width="20%">J082</th>
+  <th width="20%">J074</th>
+  <th width="20%">J160</th>
   <tr>
-    <td><img src="https://avatars.githubusercontent.com/u/98443541?v=5" width="140" height="140"/></td>
-    <td><img src="https://avatars.githubusercontent.com/u/96722691?v=5" width="140" height="140"/></td>
-    <td><img src="https://avatars.githubusercontent.com/u/62386148?v=5" width="140" height="140"/></td>
-    <td><img src="https://avatars.githubusercontent.com/u/83938394?v=5" width="140" height="140"/></td>
-    <td><img src="https://avatars.githubusercontent.com/u/33882299?v=5" width="140" height="140"/></td>
+    <td><img src="https://avatars.githubusercontent.com/u/98443541?v=5"/></td>
+    <td><img src="https://avatars.githubusercontent.com/u/96722691?v=5"/></td>
+    <td><img src="https://avatars.githubusercontent.com/u/62386148?v=5"/></td>
+    <td><img src="https://avatars.githubusercontent.com/u/83938394?v=5"/></td>
+    <td><img src="https://avatars.githubusercontent.com/u/33882299?v=5"/></td>
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/kcwww">김찬우</a>
