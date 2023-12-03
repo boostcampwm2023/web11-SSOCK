@@ -1,22 +1,51 @@
 {
   "snowball_data": {
     "id": 1,
-    "title": "title",
+    "title": "스노우볼 속 내마음❤️",
     "main_decoration_id": 1,
-    "main_decoration_color": "#FFFFFF",
-    "bottom_decoration_id": 1,
-    "bottom_decoration_color": "#FFFFFF",
-    "is_message_private": true,
-    "message_list": []
+    "main_decoration_color": "#ff0000",
+    "bottom_decoration_id": 2,
+    "bottom_decoration_color": "#ff0000",
+    "is_message_private": false,
+    "message_list": [
+      {
+        "content": "안녕 나는 민수야\n 올 한해도 수고 많았어^^",
+        "created": "0",
+        "decoration_color": "#ff0000",
+        "decoration_id": 1,
+        "id": 1,
+        "is_deleted": false,
+        "letter_id": 3,
+        "location": 1,
+        "opened": null,
+        "sender": "박민수",
+        "snowball_id": 1,
+        "user_id": 1
+      },
+      {
+        "content": "메리크리스마스~\n 내년에도 사이좋게 지내자!!.",
+        "created": "0",
+        "decoration_color": "#00ff00",
+        "decoration_id": 2,
+        "id": 2,
+        "is_deleted": false,
+        "letter_id": 5,
+        "location": 2,
+        "opened": null,
+        "sender": "김찬우",
+        "snowball_id": 1,
+        "user_id": 1
+      }
+    ]
   },
   "user_data": {
     "id": 1,
-    "username": "default",
-    "nickname": "default",
+    "username": "김부캠",
+    "nickname": "김부캠",
     "user_id": "00000",
     "snowball_count": 1,
     "main_snowball_id": 1,
-    "snowball_list": [],
-    "message_count": 0
+    "snowball_list": [1],
+    "message_count": 5
   }
 }
