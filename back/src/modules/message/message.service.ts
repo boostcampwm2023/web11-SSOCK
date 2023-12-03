@@ -12,10 +12,9 @@ import { ReqCreateMessageDto } from './dto/request/req-create-message.dto';
 import { MessageEntity } from './entity/message.entity';
 import { ResCreateMessageDto } from './dto/response/res-create-message.dto';
 import { MessageDto } from './dto/message.dto';
-import { plainToClass } from '@nestjs/class-transformer';
 import { UpdateMessageDecorationDto } from './dto/update-message-decoration.dto';
 import { UpdateMessageLocationDto } from './dto/update-message-location.dto';
-import { PrivateMessageDto } from './dto/private-message.dto';
+import { plainToInstance, instanceToPlain } from 'class-transformer';
 
 @Injectable()
 export class MessageService {
@@ -96,7 +95,7 @@ export class MessageService {
     if (!messages) {
       throw new NotFoundException(`User with id ${user_id} not found`);
     }
-    const messagesDto: MessageDto[] = plainToClass(MessageDto, messages);
+    const messagesDto: MessageDto[] = plainToInstance(MessageDto, messages);
     return messagesDto;
   }
 
@@ -175,31 +174,20 @@ export class MessageService {
 
   async getMessageList(
     snowball_id: number,
-    is_private_contents: boolean
-  ): Promise<MessageDto[] | PrivateMessageDto[]> {
-    const messages = await this.messageRepository.find({
-      where: { snowball_id: snowball_id, is_deleted: false },
-      select: [
-        'id',
-        'decoration_id',
-        'decoration_color',
-        'letter_id',
-        'content',
-        'sender',
-        'opened',
-        'created',
-        'location'
-      ]
+    groups: string
+  ): Promise<MessageDto[]> {
+    const messageEntities = await this.messageRepository.find({
+      where: { snowball_id: snowball_id, is_deleted: false }
     });
-    if (is_private_contents) {
-      const privateMessages = messages.map(message => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { letter_id, content, sender, ...rest } = message;
-        return rest;
-      });
-      return plainToClass(PrivateMessageDto, privateMessages);
-    }
-    return plainToClass(MessageDto, messages);
+
+    const messageDtos = messageEntities.map(entity =>
+      plainToInstance(MessageDto, instanceToPlain(entity), {
+        groups: [groups],
+        exposeUnsetFields: false
+      })
+    );
+    console.log(messageDtos);
+    return messageDtos;
   }
 
   async findLocation(user_id: number): Promise<number> {
