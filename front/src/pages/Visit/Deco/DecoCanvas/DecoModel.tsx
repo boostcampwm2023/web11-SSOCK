@@ -3,6 +3,7 @@ import * as THREE from 'three';
 import { DECO } from '../../../../constants/deco';
 import { DecoContext } from '../DecoProvider';
 import { useContext } from 'react';
+import { makeColorChangedMaterial } from '../../../../utils/meshUtils';
 
 const DecoModel = () => {
   const { decoID, color } = useContext(DecoContext);
@@ -16,9 +17,7 @@ const DecoModel = () => {
         return;
       }
       if (child.name === 'Main') {
-        const newMaterial = child.material.clone();
-        newMaterial.color = new THREE.Color(color);
-        child.material = newMaterial;
+        child.material = makeColorChangedMaterial(child, color);
       }
     }
   });

@@ -1,4 +1,3 @@
-import { useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
 
 const makeColorChangedMaterial = (mesh: THREE.Mesh, color: string) => {
