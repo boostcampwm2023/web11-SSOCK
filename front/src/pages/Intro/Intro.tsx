@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { SnowGlobeCanvas, UIContainer } from '../../../src/components';
 import IntroButtonBox from './IntroButtonBox';
+import { MessageProvider } from '../Visit/MessageProvider';
 
 const TitleDiv = styled.div`
   display: flex;
@@ -16,13 +17,15 @@ const TitleDiv = styled.div`
 const Intro = () => {
   return (
     <>
-      <SnowGlobeCanvas />
-      <UIContainer>
-        <TitleDiv>
-          <span>스노우볼 속 내마음</span>
-        </TitleDiv>
-        <IntroButtonBox />
-      </UIContainer>
+      <MessageProvider>
+        <SnowGlobeCanvas />
+        <UIContainer>
+          <TitleDiv>
+            <span>스노우볼 속 내마음</span>
+          </TitleDiv>
+          <IntroButtonBox />
+        </UIContainer>
+      </MessageProvider>
     </>
   );
 };
