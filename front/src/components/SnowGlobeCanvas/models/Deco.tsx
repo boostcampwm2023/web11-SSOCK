@@ -1,6 +1,7 @@
 import { useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
 import { DECO, MSG_COLOR } from '../../../constants/deco';
+import * as MeshUtils from '../../../utils/meshUtils';
 
 interface DecoProps {
   id: number;
@@ -34,15 +35,9 @@ const Deco = ({
       child.userData.sender = sender;
       child.userData.color = color;
       child.userData.letterColor = MSG_COLOR[letterID].color;
-
       child.castShadow = true;
-      if (child.name === 'Sub') {
-        return;
-      }
       if (child.name === 'Main') {
-        const newMaterial = child.material.clone();
-        newMaterial.color = new THREE.Color(color);
-        child.material = newMaterial;
+        child.material = MeshUtils.makeColorChangedMaterial(child, color);
       }
     }
   });

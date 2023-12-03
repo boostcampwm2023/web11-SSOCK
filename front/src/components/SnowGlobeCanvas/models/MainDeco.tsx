@@ -37,7 +37,7 @@ const MainDeco = ({ id, scale, position, color }: MyModelProps) => {
   const deco = useGLTF(MAIN[id].fileName).scene.clone();
   const speedRef = useRef(new THREE.Vector3(0, -0.01, 0));
 
-  //run build error 해결용 consol
+  //run build error 해결용 console model업데이트 후 색상 적용해야됨
   console.log(color);
   deco.name = MAIN[id].name;
   deco.scale.set(scale, scale, scale);
