@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { SnowGlobeCanvas, UIContainer } from '../../../src/components';
 import IntroButtonBox from './IntroButtonBox';
 import { MessageProvider } from '../Visit/MessageProvider';
+import MsgBox from './MsgBox';
 
 const TitleDiv = styled.div`
   display: flex;
@@ -23,6 +24,7 @@ const Intro = () => {
           <TitleDiv>
             <span>스노우볼 속 내마음</span>
           </TitleDiv>
+          <MsgBox />
           <IntroButtonBox />
         </UIContainer>
       </MessageProvider>
