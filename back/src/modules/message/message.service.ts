@@ -186,7 +186,6 @@ export class MessageService {
         exposeUnsetFields: false
       })
     );
-    console.log(messageDtos);
     return messageDtos;
   }
 

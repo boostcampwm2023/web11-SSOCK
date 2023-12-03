@@ -25,19 +25,19 @@ export class MessageDto {
   @ApiProperty({ type: String, description: '장식 색상' })
   readonly decoration_color: string;
 
-  @Transform(value => undefined)
+  @Transform(value => undefined, { groups: ['private'] })
   @IsNumber()
   @Min(1)
   @ApiProperty({ type: Number, description: '편지지 종류' })
   readonly letter_id: number;
 
-  @Transform(value => undefined)
+  @Transform(value => undefined, { groups: ['private'] })
   @IsString()
   @Length(1, 500)
   @ApiProperty({ type: String, description: '메시지 내용' })
   readonly content: string;
 
-  @Transform(value => undefined)
+  @Transform(value => undefined, { groups: ['private'] })
   @IsString()
   @Length(1, 16)
   @ApiProperty({ type: String, description: '보낸이' })
