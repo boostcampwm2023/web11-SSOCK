@@ -93,7 +93,6 @@ export class MessageService {
     const messages: MessageEntity[] = await this.messageRepository.find({
       where: { user_id: user_id, is_deleted: false }
     });
-    // To Do: 인터셉터
     if (!messages) {
       throw new NotFoundException(`User with id ${user_id} not found`);
     }
@@ -105,7 +104,6 @@ export class MessageService {
     const message = await this.messageRepository.findOne({
       where: { id: message_id }
     });
-    // 커스텀 데코레이터로
     if (!message) {
       throw new NotFoundException(
         `${message_id}번 메시지를 찾을 수 없었습니다.`
@@ -124,6 +122,7 @@ export class MessageService {
     };
   }
 
+  // To Do: prefix 조회
   async updateMessageDecoration(
     message_id: number,
     updateMessageDecorationDto: UpdateMessageDecorationDto

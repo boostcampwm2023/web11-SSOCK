@@ -31,7 +31,7 @@ import { JWTGuard } from 'src/common/guards/jwt.guard';
 import { UpdateMessageDecorationDto } from './dto/update-message-decoration.dto';
 import { UpdateMessageLocationDto } from './dto/update-message-location.dto';
 import { JWTRequest } from 'src/common/interface/request.interface';
-import { ClovaService } from './summary.service';
+import { ClovaService } from './clova.service';
 import { ClovaContentDto } from './dto/clova-content.dto';
 @ApiTags('Message API')
 @Controller('message')
