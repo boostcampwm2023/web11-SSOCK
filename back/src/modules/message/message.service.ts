@@ -95,33 +95,34 @@ export class MessageService {
     }
     const messageDtos = messageEntities.map(entity =>
       plainToInstance(MessageDto, instanceToPlain(entity), {
-        groups: ['public'],
-        exposeUnsetFields: false
+        groups: ['public']
       })
     );
     return messageDtos;
   }
 
   async openMessage(message_id: number): Promise<MessageDto> {
-    const message = await this.messageRepository.findOne({
-      where: { id: message_id }
+    const messageEntity = await this.messageRepository.findOne({
+      where: { id: message_id, is_deleted: false }
     });
-    if (!message) {
+    if (!messageEntity) {
       throw new NotFoundException(
         `${message_id}번 메시지를 찾을 수 없었습니다.`
       );
     }
-    if (message.opened !== null) {
+    if (messageEntity.opened !== null) {
       throw new ConflictException(
         `${message_id}번 메시지는 이미 열려있습니다.`
       );
     }
     const date = new Date();
     await this.messageRepository.update(message_id, { opened: date });
-    return {
-      ...message,
-      opened: date
-    };
+    const messageDto = plainToInstance(
+      MessageDto,
+      instanceToPlain(messageEntity),
+      { groups: ['public'] }
+    );
+    return messageDto;
   }
 
   // To Do: prefix 조회
