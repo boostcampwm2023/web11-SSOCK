@@ -30,7 +30,8 @@ const StyledAlert = styled.div`
 
 const PostButton = (props: ButtonProps) => {
   const { color, decoID, letterID, content, sender } = useContext(DecoContext);
-  const { userData, snowBallData } = useContext(SnowBallContext);
+  const { userData, snowBallData, setSnowBallData } =
+    useContext(SnowBallContext);
 
   const [alert, setAlert] = useState(false);
 
@@ -47,10 +48,13 @@ const PostButton = (props: ButtonProps) => {
       decoration_color: color,
       letter_id: letterID
     };
+    console.log('asdfasdf', snowBallData.id, a);
     axios
       .post(`/api/message/${userData.id}/${snowBallData.id}`, a)
-      .then(res => {
-        console.log(res, 'post DONE!!!');
+      .then(() => {
+        axios.get(`/api/snowball/${snowBallData.id}`).then(res => {
+          setSnowBallData(res.data);
+        });
       })
       .catch(e => console.error(e));
 

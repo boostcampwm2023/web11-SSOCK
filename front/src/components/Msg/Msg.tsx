@@ -108,7 +108,7 @@ const StyledFromInput = styled.input`
 
 const Msg = (props: MsgProps) => {
   const [wordCount, setWordCount] = useState(0);
-  const { setContent, setSender } = useContext(DecoContext);
+  const { content, sender, setContent, setSender } = useContext(DecoContext);
   const maxWordCount = 500;
 
   const wordLength = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -118,6 +118,7 @@ const Msg = (props: MsgProps) => {
     if (text.value.length > maxWordCount) {
       text.value = text.value.substring(0, maxWordCount);
     }
+    console.log('changed', text.value, content);
     setContent(text.value);
     setWordCount(text.value.length);
   };
@@ -132,6 +133,7 @@ const Msg = (props: MsgProps) => {
         <StyledInputBox>
           <StyledTextArea
             rows={1}
+            value={content}
             onChange={wordLength}
             placeholder="편지를 작성해주세요."
           />
@@ -145,6 +147,7 @@ const Msg = (props: MsgProps) => {
           From.
           {props.isInput ? (
             <StyledFromInput
+              value={sender}
               placeholder="이름입력"
               onFocus={e => {
                 e.target.value = '';

@@ -43,7 +43,8 @@ const VisitBody = () => {
               }
               const nextSnowBallID =
                 userData.snowball_list[
-                  (nowSnowBallID - 1) % userData.snowball_count
+                  (nowSnowBallID + userData.snowball_count - 1) %
+                    userData.snowball_count
                 ];
               axios(`/api/snowball/${nextSnowBallID}`)
                 .then(res => {
