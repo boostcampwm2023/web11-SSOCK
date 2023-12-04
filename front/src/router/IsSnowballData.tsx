@@ -13,13 +13,13 @@ import axios from 'axios';
 //   document.cookie = `${cookieName}=${cookieValue}; expires=${expire.toUTCString()}; secure=${secure}; path=/`;
 // };
 
-const IsLogin: React.FC<{ children: ReactNode }> = ({ children }) => {
+const IsSnowballData: React.FC<{ children: ReactNode }> = ({ children }) => {
   const navigate = useNavigate();
   const [url, setUrl] = React.useState<string>('');
   const maxSnowball = 5;
 
   useEffect(() => {
-    // saveCookie();
+    //saveCookie();
     if (url === '') {
       axios
         .get('/api/user', {
@@ -28,23 +28,22 @@ const IsLogin: React.FC<{ children: ReactNode }> = ({ children }) => {
         .then(res => {
           if (res.status === 200) {
             const data = res.data;
-
             if (data.user.nickname === null) {
               setUrl('/make');
-            }
-            else if (data.user.nickname !== null && data.main_snowball === null) {
+            } else if (
+              data.user.nickname !== null &&
+              data.main_snowball === null
+            ) {
               setUrl('/make/snowball');
-            }
-            else if (data.user.snowball_count >= maxSnowball) {
+            } else if (data.user.snowball_count >= maxSnowball) {
               setUrl('/main');
-            }
-            else {
-              setUrl('/main');
+            } else {
+              setUrl('/make/snowball');
             }
           }
         })
         .catch(err => {
-          console.error(err);
+          console.log(err);
           navigate('*');
         });
     }
@@ -54,4 +53,4 @@ const IsLogin: React.FC<{ children: ReactNode }> = ({ children }) => {
   return <>{children}</>;
 };
 
-export default IsLogin;
+export default IsSnowballData;

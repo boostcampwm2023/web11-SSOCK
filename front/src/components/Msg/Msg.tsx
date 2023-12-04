@@ -106,7 +106,7 @@ const StyledFromInput = styled.input`
   pointer-events: stroke;
 `;
 
-const Msg = (props: MsgProps) => {
+const Msg = (props: MsgProps): JSX.Element => {
   const [wordCount, setWordCount] = useState(0);
   const { content, sender, setContent, setSender } = useContext(DecoContext);
   const maxWordCount = 500;

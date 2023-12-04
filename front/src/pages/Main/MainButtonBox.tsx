@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import { Container } from '../../utils';
 import { HeaderText } from '../../components';
 import MenuModal from './MenuModal';
-import ListMsg from './ListMsg';
+import ListMsgs from './ListMsgs';
+import axios from 'axios';
 
 const StyledMenu = styled.img`
   position: fixed;
@@ -67,7 +68,26 @@ const MainButtonBox = (props: MainButtonBoxProps) => {
   const [menuModal, setMenuModal] = useState(false);
   const [list, setList] = useState(false);
   const [screen, setScreen] = useState(false);
-  const [shareLink, setShareLink] = useState(false);
+
+  const shareLink = () => {
+    axios.get('/api/user', { withCredentials: true }).then(res => {
+      const user = res.data.user.auth_id;
+
+      const url = `https://www.mysnowball.kr/visit/${user}`;
+      if (navigator.share === undefined) {
+        navigator.clipboard.writeText(url);
+      } else {
+        navigator.share({
+          title: '내 마음 속 스노우볼',
+          text: '내 스노우 볼을 꾸며줘 !',
+          url: url
+        });
+      }
+
+    });
+
+
+  };
 
   return (
     <>
@@ -102,11 +122,10 @@ const MainButtonBox = (props: MainButtonBoxProps) => {
           <StyledShareLink
             ref={shareLinkRef}
             src={'/icons/shareLink.svg'}
-            onClick={() => setShareLink(true)}
+            onClick={shareLink}
           />
-          {shareLink ? <div>shareLink</div> : null}
 
-          {list ? <ListMsg set={setList} /> : null}
+          {list ? <ListMsgs set={setList} /> : null}
         </>
       ) : null}
     </>

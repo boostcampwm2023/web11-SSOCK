@@ -13,6 +13,7 @@ const SnowGlobeCanvas = () => {
   const glassRadius = 7;
   const glassPosition = new THREE.Vector3(0, glassRadius / 2, 0);
   const { snowBallData } = useContext(SnowBallContext);
+
   const snows = Array.from({ length: 100 }, (_, i) => (
     <Models.Snow
       key={i}

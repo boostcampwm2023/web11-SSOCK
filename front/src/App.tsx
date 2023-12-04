@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components';
 import GlobalStyles from './GlobalStyles';
 import { theme } from './utils';
-import { IsLogin } from './router';
+import { IsLogin, IsSnowballData } from './router';
 import * as Pages from './pages';
 import { Song } from './components';
 import { SnowBallProvider } from './pages/Visit/SnowBallProvider';
@@ -11,15 +11,10 @@ import { DecoProvider } from './pages/Visit/Deco/DecoProvider';
 
 const Outer = styled.div`
   position: relative;
-
   left: 50%;
   transform: translateX(-50%);
-
   width: 100%;
   height: 100%;
-  /* ::-webkit-scrollbar {
-    display: none;
-  } */
 
   @media (min-width: ${theme.size['--desktop-min-width']}) {
     width: ${theme.size['--desktop-width']};
@@ -56,9 +51,9 @@ const App = () => {
               <Route
                 path="/make"
                 element={
-                  <IsLogin>
+                  <IsSnowballData>
                     <Outlet />
-                  </IsLogin>
+                  </IsSnowballData>
                 }
               >
                 <Route path="" element={<Pages.Nickname />} />
