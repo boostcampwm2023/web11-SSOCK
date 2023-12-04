@@ -17,6 +17,7 @@ import { UpdateMessageLocationDto } from './dto/update-message-location.dto';
 import { plainToInstance, instanceToPlain } from 'class-transformer';
 import { LetterEntity } from './entity/letter.entity';
 import { DecorationPrefixEntity } from '../snowball/entity/decoration-prefix.entity';
+import { ResClovaSentiment } from './clova.service';
 
 @Injectable()
 export class MessageService {
@@ -30,6 +31,7 @@ export class MessageService {
   ) {}
   async createMessage(
     createMessageDto: ReqCreateMessageDto,
+    resClovaSentiment: ResClovaSentiment,
     snowball_id: number
   ): Promise<ResCreateMessageDto> {
     this.isInsertAllowed(snowball_id);
@@ -42,6 +44,7 @@ export class MessageService {
       snowball_id: snowball_id,
       location: location,
       opened: null,
+      ...resClovaSentiment,
       ...createMessageDto
       // is_deleted랑 created는 자동으로 설정
     });
@@ -51,6 +54,7 @@ export class MessageService {
 
     const resCreateMessage = {
       ...createMessageDto,
+      ...resClovaSentiment,
       location: location
     };
 
@@ -154,7 +158,7 @@ export class MessageService {
         decoration_id,
         decoration_color
       })
-      .where('id = :id', { id: message_id })
+      .where('id = :id', { id: message_id, is_deleted: false })
       .execute();
     if (!updateResult.affected) {
       throw new NotFoundException('업데이트할 메시지가 존재하지 않습니다.');
@@ -178,7 +182,6 @@ export class MessageService {
     message_id: number,
     updateMessageLocationDto: UpdateMessageLocationDto
   ): Promise<UpdateMessageLocationDto> {
-    //TODO: location이 available 한지 확인 해야함
     const { location } = updateMessageLocationDto;
     const updateResult = await this.messageRepository
       .createQueryBuilder()
@@ -186,12 +189,12 @@ export class MessageService {
       .set({
         location
       })
-      .where('id = :id', { id: message_id })
+      .where('id = :id', { id: message_id, is_deleted: false })
       .execute();
     if (!updateResult.affected) {
-      throw new NotFoundException('업데이트할 메시지가 존재하지 않습니다.');
+      throw new NotFoundException('업데이트를 실패했습니다');
     } else if (updateResult.affected > 1) {
-      throw new InternalServerErrorException('서버측 오류');
+      throw new InternalServerErrorException('데이터 중복 오류');
     }
     return updateMessageLocationDto;
   }

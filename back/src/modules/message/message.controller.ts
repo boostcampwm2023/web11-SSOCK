@@ -32,7 +32,6 @@ import { UpdateMessageDecorationDto } from './dto/update-message-decoration.dto'
 import { UpdateMessageLocationDto } from './dto/update-message-location.dto';
 import { JWTRequest } from 'src/common/interface/request.interface';
 import { ClovaService } from './clova.service';
-import { ClovaContentDto } from './dto/clova-content.dto';
 @ApiTags('Message API')
 @Controller('message')
 export class MessageController {
@@ -61,8 +60,12 @@ export class MessageController {
     @Param('snowball_id') snowball_id: number,
     @Body() createMessageDto: ReqCreateMessageDto
   ): Promise<ResCreateMessageDto> {
+    const resClovaSentiment = await this.clovaService.analyze(
+      createMessageDto.content
+    );
     const resCreateMessage = await this.messageService.createMessage(
       createMessageDto,
+      resClovaSentiment,
       snowball_id
     );
     return resCreateMessage;
@@ -206,16 +209,5 @@ export class MessageController {
       message_id,
       updateMessageLocationDto
     );
-  }
-
-  // Test
-  @Post('/summarize')
-  async summarize(@Body() clovaDto: ClovaContentDto): Promise<string> {
-    return this.clovaService.summarize(clovaDto);
-  }
-
-  @Post('/analyze')
-  async analyze(@Body() clovaDto: ClovaContentDto): Promise<string> {
-    return this.clovaService.analyze(clovaDto);
   }
 }

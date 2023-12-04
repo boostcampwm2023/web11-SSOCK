@@ -16,7 +16,7 @@ export class ResCreateMessageDto {
   @IsNotEmpty()
   @ApiProperty({
     type: String,
-    description: '필터링된 익명 사용자 닉네임(From)'
+    description: '익명 사용자 닉네임(From)'
   })
   readonly sender: string;
 
@@ -24,7 +24,7 @@ export class ResCreateMessageDto {
   @IsString()
   @Length(1, 500)
   @IsNotEmpty()
-  @ApiProperty({ type: String, description: '필터링된 메세지 내용' })
+  @ApiProperty({ type: String, description: '메세지 내용' })
   readonly content: string;
 
   @Expose()
@@ -33,4 +33,20 @@ export class ResCreateMessageDto {
   @Max(72)
   @ApiProperty({ type: Number, description: '메세지 위치' })
   readonly location: number;
+
+  @Expose()
+  @IsString()
+  @Length(1, 8)
+  @IsNotEmpty()
+  @ApiProperty({
+    type: String,
+    description: '메세지에서 추출한 감정'
+  })
+  readonly sentiment: string;
+
+  @Expose()
+  @IsNumber()
+  @IsNotEmpty()
+  @ApiProperty({ type: Number, description: '신뢰도' })
+  readonly confidence: number;
 }

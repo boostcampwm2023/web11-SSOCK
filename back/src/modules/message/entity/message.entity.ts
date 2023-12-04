@@ -42,6 +42,12 @@ export class MessageEntity {
   @Column()
   location: number;
 
+  @Column({ length: 8 })
+  sentiment: string;
+
+  @Column()
+  confidence: number;
+
   @CreateDateColumn({ default: null })
   opened: Date | null;
 

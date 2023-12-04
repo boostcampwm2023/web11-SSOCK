@@ -1,6 +1,10 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import axios from 'axios';
-import { ClovaContentDto } from './dto/clova-content.dto';
+
+export interface ResClovaSentiment {
+  sentiment: string;
+  confidence: number;
+}
 
 @Injectable()
 export class ClovaService {
@@ -13,8 +17,7 @@ export class ClovaService {
   private readonly clovaSentimentClientID = `${process.env.CLOVA_SENTIMENT_CLIENT_ID}`;
   private readonly clovaSentimentSecret = `${process.env.CLOVA_SENTIMENT_SECRET}`;
 
-  async summarize(clovaDto: ClovaContentDto): Promise<string> {
-    const content = clovaDto.content;
+  async summarize(content: string): Promise<string> {
     const data = {
       document: {
         content: content
@@ -42,8 +45,7 @@ export class ClovaService {
     }
   }
 
-  async analyze(clovaDto: ClovaContentDto): Promise<string> {
-    const content = clovaDto.content;
+  async analyze(content: string): Promise<ResClovaSentiment> {
     const data = {
       content: content
     };
@@ -56,7 +58,12 @@ export class ClovaService {
       const response = await axios.post(this.clovaSentimentApiUrl, data, {
         headers
       });
-      return response.data;
+      const sentiment = response.data.document.sentiment;
+      const confidence = response.data.document.confidence[sentiment];
+      return {
+        sentiment: sentiment,
+        confidence: confidence
+      };
     } catch (error) {
       console.error('Error calling Clova Sentiment API:', error.message);
       throw new InternalServerErrorException('Failed to analyze text');
