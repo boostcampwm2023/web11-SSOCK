@@ -84,10 +84,14 @@ const Nickname = () => {
     if (nicknameRef.current.value.length <= 8) {
       setLenWarning(false);
       axios
-        .put('/api/user/nickname', { nickname: nicknameRef.current.value })
-        .then(res =>
-          res.status === 200 ? navigate('/make/snowball') : setError(true)
+        .put(
+          '/api/user/nickname',
+          { nickname: nicknameRef.current.value },
+          { withCredentials: true }
         )
+        .then(res => {
+          res.status === 200 ? navigate('/make/snowball') : setError(true);
+        })
         .catch(() => setError(true));
     } else {
       setError(false);
