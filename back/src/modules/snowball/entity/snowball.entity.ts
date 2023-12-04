@@ -39,7 +39,7 @@ export class SnowballEntity {
   bottom_decoration_color: string;
 
   @CreateDateColumn({ nullable: true, default: null })
-  message_private: Date | null;
+  is_message_private: Date | null;
 
   @ManyToOne(() => UserEntity, user => user.snowballs)
   @JoinColumn({ name: 'user_id' })

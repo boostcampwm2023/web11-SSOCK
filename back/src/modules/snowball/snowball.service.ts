@@ -48,9 +48,10 @@ export class SnowballService {
       user_id: user_id,
       ...createSnowballDto
     });
+
     const savedSnowballEntity = await this.snowballRepository.save(snowball);
     const savedSnowball = instanceToPlain(savedSnowballEntity);
-
+    console.log(savedSnowball);
     const combinedSnowballDto = {
       ...savedSnowball,
       message_list: []
@@ -92,7 +93,7 @@ export class SnowballService {
       .update(SnowballEntity)
       .set({
         title,
-        message_private: is_message_private ? new Date() : null
+        is_message_private: is_message_private ? new Date() : null
       })
       .where('id = :id', { id: snowball_id })
       .andWhere('user_id = :user_id', { user_id: user_id })
@@ -119,7 +120,8 @@ export class SnowballService {
       return null;
     }
 
-    const is_private_contents = !hasToken && snowball.message_private !== null;
+    const is_private_contents =
+      !hasToken && snowball.is_message_private !== null;
 
     const resSnowball = {
       ...snowball,
