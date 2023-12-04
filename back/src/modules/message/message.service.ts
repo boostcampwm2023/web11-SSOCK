@@ -15,12 +15,15 @@ import { MessageDto } from './dto/message.dto';
 import { UpdateMessageDecorationDto } from './dto/update-message-decoration.dto';
 import { UpdateMessageLocationDto } from './dto/update-message-location.dto';
 import { plainToInstance, instanceToPlain } from 'class-transformer';
+import { LetterEntity } from './entity/letter.entity';
 
 @Injectable()
 export class MessageService {
   constructor(
     @InjectRepository(MessageEntity)
-    private readonly messageRepository: Repository<MessageEntity>
+    private readonly messageRepository: Repository<MessageEntity>,
+    @InjectRepository(LetterEntity)
+    private readonly letterRepository: Repository<LetterEntity>
   ) {}
   async createMessage(
     createMessageDto: ReqCreateMessageDto,
@@ -28,6 +31,8 @@ export class MessageService {
   ): Promise<ResCreateMessageDto> {
     if (!(await this.isInsertAllowed(snowball_id)))
       throw new ConflictException('메세지 갯수가 30개를 초과했습니다');
+    if (!(await this.hasLetterId(createMessageDto.letter_id)))
+      throw new NotFoundException('해당 letter_id가 존재하지 않습니다');
 
     const user_id = await this.findUserId(snowball_id);
     const location = await this.findLocation(snowball_id);
@@ -58,6 +63,14 @@ export class MessageService {
       where: { snowball_id: snowball_id, is_deleted: false }
     });
     if (messageCount >= 30) return false;
+    else return true;
+  }
+
+  async hasLetterId(letter_id: number): Promise<boolean> {
+    const letter = await this.letterRepository.findOne({
+      where: { id: letter_id, active: true }
+    });
+    if (!letter) return false;
     else return true;
   }
 
@@ -125,7 +138,6 @@ export class MessageService {
     return messageDto;
   }
 
-  // To Do: prefix 조회
   async updateMessageDecoration(
     message_id: number,
     updateMessageDecorationDto: UpdateMessageDecorationDto
