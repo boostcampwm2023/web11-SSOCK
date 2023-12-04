@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
-import { Msg } from '../../components';
+import { Msg } from '@components';
 import { MessageContext } from './MessageProvider';
 import { SnowBallContext, SnowBallData } from './SnowBallProvider';
 

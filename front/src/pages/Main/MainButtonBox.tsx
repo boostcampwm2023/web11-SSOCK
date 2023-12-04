@@ -1,10 +1,10 @@
 import { useState, useRef } from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
-import { Container } from '../../utils';
-import { HeaderText } from '../../components';
+import { Container } from '@utils';
+import { HeaderText } from '@components';
 import MenuModal from './MenuModal';
 import ListMsgs from './ListMsgs';
-import axios from 'axios';
 
 const StyledMenu = styled.img`
   position: fixed;

@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { SnowGlobeCanvas, UIContainer } from '../../components';
+import { SnowGlobeCanvas, UIContainer } from '@components';
 import MainButtonBox from './MainButtonBox';
 
 const StyledLeft = styled.img`

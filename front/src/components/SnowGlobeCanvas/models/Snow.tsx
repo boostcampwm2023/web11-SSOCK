@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
-import { makeColorChangedMaterial } from '../../../utils/meshUtils';
+import { makeColorChangedMaterial } from '@utils/meshUtils';
 
 interface SnowProps {
   radius: number;

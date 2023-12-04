@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { NavigateFunction, useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { theme, BlurBody } from '../../../utils';
+import { theme, BlurBody } from '@utils';
 
 interface NaviProps {
   visible: [number, React.Dispatch<React.SetStateAction<number>>];

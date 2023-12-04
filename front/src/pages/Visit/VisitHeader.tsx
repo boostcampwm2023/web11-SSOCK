@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import styled from 'styled-components';
-import { Container } from '../../utils';
-import { HeaderText } from '../../components';
+import { Container } from '@utils';
+import { HeaderText } from '@components';
 import { SnowBallContext } from './SnowBallProvider';
 
 const StyledLetter = styled.div`

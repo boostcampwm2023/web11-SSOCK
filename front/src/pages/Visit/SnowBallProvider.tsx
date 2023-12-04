@@ -1,7 +1,7 @@
 import React, { useState, createContext, useEffect } from 'react';
-import mockData from '../../mockdata.json';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
+import mockData from '@mock';
 
 interface SnowBallContextType {
   snowBallData: SnowBallData;

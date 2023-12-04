@@ -1,4 +1,4 @@
-import { SnowGlobeCanvas, UIContainer } from '../../components';
+import { SnowGlobeCanvas, UIContainer } from '@components';
 import VisitHeader from './VisitHeader';
 import VisitBody from './VisitBody';
 import VisitBottom from './VisitBottom';

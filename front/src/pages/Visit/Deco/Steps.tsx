@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useContext } from 'react';
 import styled from 'styled-components';
-import { theme, Container } from '../../../utils';
-import { HeaderText, StepButton } from '../../../components';
+import { theme, Container } from '@utils';
+import { HeaderText, StepButton } from '@components';
 import DecoBox from './DecoBox';
 import MsgBox from './MsgBox';
 import DecoEnroll from './DecoEnroll';

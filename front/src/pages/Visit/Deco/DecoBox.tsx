@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import styled from 'styled-components';
-import { DECO, MSG_COLOR } from '../../../constants/deco';
+import { DECO, MSG_COLOR } from '@constants';
 import { DecoContext } from './DecoProvider';
 
 interface DecoProps {

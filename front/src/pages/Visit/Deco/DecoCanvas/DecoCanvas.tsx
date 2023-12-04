@@ -1,6 +1,6 @@
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
-import { CanvasContainer } from '../../../../utils';
+import { CanvasContainer } from '@utils';
 import DecoModel from './DecoModel';
 
 const DecoCavnas = () => {

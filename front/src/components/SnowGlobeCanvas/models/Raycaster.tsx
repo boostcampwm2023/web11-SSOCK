@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useContext } from 'react';
 import { useThree, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
-import { MessageContext } from '../../../pages/Visit/MessageProvider';
+import { MessageContext } from '@pages/Visit/MessageProvider';
 import { PrevContext } from '../PrevProvider';
 
 interface RaycasterProps {

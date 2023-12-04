@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { SnowGlobeCanvas, UIContainer } from '../../../src/components';
+import { SnowGlobeCanvas, UIContainer } from '@components';
 import IntroButtonBox from './IntroButtonBox';
 import MsgBox from './MsgBox';
 import { MessageProvider } from '../Visit/MessageProvider';

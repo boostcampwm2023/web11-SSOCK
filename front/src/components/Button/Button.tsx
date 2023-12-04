@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { LongButton } from '../../utils';
+import { LongButton } from '@utils';
 
 interface ButtonColor {
   color: string;

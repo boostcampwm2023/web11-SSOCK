@@ -1,8 +1,8 @@
 import { useContext } from 'react';
-import { DecoContext } from './DecoProvider';
-import { MSG_COLOR } from '../../../../constants/deco';
-import { Msg } from '../../../../components';
 import styled from 'styled-components';
+import { Msg } from '@components';
+import { MSG_COLOR } from '@constants';
+import { DecoContext } from './DecoProvider';
 
 interface MsgBoxProps {
   isInput: boolean;
