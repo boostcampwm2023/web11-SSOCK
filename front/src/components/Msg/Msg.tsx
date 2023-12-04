@@ -19,7 +19,7 @@ const StyledLetterBox = styled.div<MsgColor>`
   display: flex;
   align-self: center;
   font: ${props => props.theme.font['--normal-introduce-font']};
-  text-shadow: -1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black;
+  text-shadow: ${props => props.theme.font['--text-shadow']};
   flex-direction: column;
   border-radius: 1rem;
   padding: 1.5rem;
@@ -100,7 +100,7 @@ const StyledFromInput = styled.input`
   border: none;
   background-color: transparent;
   color: ${props => props.theme.colors['--nick-name']};
-  text-shadow: -1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black;
+  text-shadow: ${props => props.theme.font['--text-shadow']};
   font-size: 1rem;
   font-weight: 700;
   pointer-events: stroke;
