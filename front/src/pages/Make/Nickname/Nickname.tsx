@@ -36,6 +36,7 @@ const StyledPink = styled.span`
 const StyledNickName = styled.div`
   font: ${props => props.theme.font['--normal-login-font']};
   color: white;
+  padding-top: 5%;
 `;
 
 const StyledInput = styled.input`
@@ -56,43 +57,43 @@ const StyledInput = styled.input`
   }
 `;
 
+const StyledWarnText = styled.div`
+  font: ${props => props.theme.font['--normal-nickname-font']};
+  font-size: 1.5rem;
+  color: ${props => props.theme.colors['--blue-blue-dark-10']};
+  text-align: center;
+`;
+
 const StyledButtonBox = styled.div`
   display: flex;
   justify-content: center;
-  padding-top: 10%;
+  padding-top: 5%;
 `;
-
-const validNickname = (
-  nicknameRef: React.RefObject<HTMLInputElement>,
-  setStartNickname: React.Dispatch<React.SetStateAction<boolean>>
-) => {
-  if (nicknameRef.current && nicknameRef.current.value.length >= 2)
-    setStartNickname(true);
-};
 
 const Nickname = () => {
   const navigate = useNavigate();
   const [nickname, setNickname] = useState(false);
-  const [startNickname, setStartNickname] = useState(false);
+  const [error, setError] = useState(false);
+  const [lenWarning, setLenWarning] = useState(false);
   const nicknameRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
+    if (!nickname && nicknameRef.current?.value) setNickname(true);
     if (!nickname || !nicknameRef.current?.value) return;
+
     if (nicknameRef.current.value.length <= 8) {
+      setLenWarning(false);
       axios
-        .post('/api/snowball', { nickname: nicknameRef.current.value })
-        .then(res => {
-          if (res.status === 200) {
-            navigate('/make/snowball');
-          }
-        })
-        .catch(() => {
-          alert('다시 시도해주십시오.');
-        });
+        .put('/api/user/nickname', { nickname: nicknameRef.current.value })
+        .then(res =>
+          res.status === 200 ? navigate('/make/snowball') : setError(true)
+        )
+        .catch(() => setError(true));
     } else {
-      alert('8글자 이하로 설정 가능합니다.');
+      setError(false);
+      setLenWarning(true);
     }
-  }, [nickname, navigate]);
+  }, [nickname, error, lenWarning, navigate]);
 
   return (
     <StyledWrap>
@@ -104,19 +105,23 @@ const Nickname = () => {
 
       <div>
         <StyledNickName>닉네임</StyledNickName>
-        <StyledInput
-          ref={nicknameRef}
-          placeholder="ex) 라온이"
-          onChange={() => validNickname(nicknameRef, setStartNickname)}
-        />
+        <StyledInput ref={nicknameRef} placeholder="ex) 라온이" />
       </div>
+
+      <StyledWarnText>
+        {error
+          ? '다시 시도해주십시오.'
+          : lenWarning
+          ? '8글자 이하로 설정 가능합니다.'
+          : ' '}
+      </StyledWarnText>
 
       <StyledButtonBox>
         <Button
           text={'시작하기'}
           color={theme.colors['--primary-red-primary']}
           view={[nickname, setNickname]}
-          disabled={!startNickname}
+          disabled={false}
         />
       </StyledButtonBox>
     </StyledWrap>
