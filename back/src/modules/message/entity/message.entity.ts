@@ -8,13 +8,14 @@ import {
 } from 'typeorm';
 import { SnowballEntity } from 'src/modules/snowball/entity/snowball.entity';
 import { UserEntity } from 'src/modules/user/entity/user.entity';
-
-@Entity({ synchronize: true, name: 'message' })
+import { Exclude } from 'class-transformer';
+@Entity({ name: 'message' })
 export class MessageEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
+  @Exclude()
   user_id: number;
 
   @Column()

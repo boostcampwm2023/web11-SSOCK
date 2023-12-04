@@ -8,10 +8,8 @@ import {
   Length,
   Min
 } from '@nestjs/class-validator';
-//import { Type } from '@nestjs/class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
-import { MessageDto } from '../../message/dto/message.dto';
-import { PrivateMessageDto } from 'src/modules/message/dto/private-message.dto';
+import { MessageDto } from 'src/modules/message/dto/message.dto';
 
 export class SnowballDto {
   @IsString()
@@ -64,8 +62,8 @@ export class SnowballDto {
 
   @ValidateNested({ each: true })
   @ApiProperty({
-    type: [MessageDto, PrivateMessageDto],
+    type: [MessageDto],
     description: '스노우볼 속 메시지 리스트'
   })
-  readonly message_list: MessageDto[] | PrivateMessageDto[];
+  readonly message_list: MessageDto[];
 }
