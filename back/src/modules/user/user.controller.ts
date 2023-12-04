@@ -76,7 +76,7 @@ export class UserController {
     type: NicknameDto
   })
   async updateNickname(
-    @Req() req: any,
+    @Req() req: JWTRequest,
     @Body() nicknameDto: NicknameDto
   ): Promise<NicknameDto> {
     const result = this.userService.updateNickname(req, nicknameDto);
