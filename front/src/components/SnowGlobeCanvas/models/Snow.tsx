@@ -30,7 +30,7 @@ const fallingAnimate = (
   centerPosition: THREE.Vector3,
   radius: number
 ) => {
-  if (target.position.y <= 0) {
+  if (target.position.y <= -1) {
     randomizePosition(target, centerPosition, radius);
     const newScale = 0.2 + Math.random() * 0.5;
     target.scale.set(newScale, newScale, newScale);

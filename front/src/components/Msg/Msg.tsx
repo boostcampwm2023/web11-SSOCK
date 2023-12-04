@@ -25,7 +25,8 @@ const StyledLetterBox = styled.div<MsgColor>`
   padding: 1.5rem;
   gap: 1rem;
   background-color: ${props => props.color + '80'};
-  margin: 1rem;
+  margin: 1rem auto;
+  pointer-events: all;
 `;
 
 const StyledLetterPerson = styled.div`
