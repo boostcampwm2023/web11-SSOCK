@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Msg } from '../../components';
+import { ListMsg } from '../../components';
 import { Prev } from '../../components';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
@@ -40,13 +40,13 @@ interface MsgResponse {
   letter_id: number;
 };
 
-const ListMsg = (props: ListMsgProps) => {
+const ListMsgs = (props: ListMsgProps) => {
   const [messages, setMessages] = useState<Array<MsgResponse>>([]);
 
   useEffect(() => {
     axios.get('/api/message').then(res => {
       console.log(res.data);
-      setMessages(res.data); // 받은 어레이 저장
+      setMessages(res.data);
     });
   }, []);
 
@@ -58,13 +58,13 @@ const ListMsg = (props: ListMsgProps) => {
         <StyledListWrap>
           {messages.map((msg, idx) => {
             return (
-              <Msg
+              <ListMsg
                 key={idx}
-                color={MSG_COLOR[msg.letter_id].color} // 여기
-                isInput={false}
+                color={MSG_COLOR[msg.letter_id].color}
                 content={msg.content}
                 sender={msg.sender}
-                to={msg.to}
+                to={msg.to} // 요게 지금 없음
+                messageId={msg.id}
               />
             );
           })}
@@ -74,4 +74,4 @@ const ListMsg = (props: ListMsgProps) => {
   );
 };
 
-export default ListMsg;
+export default ListMsgs;
