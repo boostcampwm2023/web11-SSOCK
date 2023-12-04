@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useContext } from 'react';
 import styled from 'styled-components';
-import { theme, Container } from '../../../../utils';
-import { InputSnowball, HeaderText, StepButton } from '../../../../components';
+import { theme, Container } from '@utils';
+import { InputSnowball, HeaderText, StepButton } from '@components';
 import MakeButton from './MakeButton';
 import DecoBox from './DecoBox';
 import DecoEnroll from './DecoEnroll';

@@ -1,13 +1,13 @@
 import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components';
 import GlobalStyles from './GlobalStyles';
-import { theme } from './utils';
+import { theme } from '@utils';
+import * as Pages from '@pages';
+import { Song } from '@components';
 import { IsLogin, IsSnowballData } from './router';
-import * as Pages from './pages';
-import { Song } from './components';
-import { SnowBallProvider } from './pages/Visit/SnowBallProvider';
-import { MessageProvider } from './pages/Visit/MessageProvider';
-import { DecoProvider } from './pages/Visit/Deco/DecoProvider';
+import { SnowBallProvider } from '@pages/Visit/SnowBallProvider';
+import { MessageProvider } from '@pages/Visit/MessageProvider';
+import { DecoProvider } from '@pages/Visit/Deco/DecoProvider';
 
 const Outer = styled.div`
   position: relative;

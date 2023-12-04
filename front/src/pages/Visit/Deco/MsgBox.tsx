@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import styled from 'styled-components';
-import { MSG_COLOR } from '../../../constants/deco';
-import { Msg } from '../../../components';
+import { Msg } from '@components';
+import { MSG_COLOR } from '@constants';
 import { DecoContext } from './DecoProvider';
 import { SnowBallContext } from '../SnowBallProvider';
 

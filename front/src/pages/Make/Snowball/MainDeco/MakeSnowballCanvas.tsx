@@ -2,8 +2,8 @@ import { useContext } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import * as THREE from 'three';
-import { CanvasContainer } from '../../../../utils';
-import * as Models from '../../../../components/SnowGlobeCanvas/models';
+import { CanvasContainer } from '@utils';
+import * as Models from '@components/SnowGlobeCanvas/models';
 import { DecoContext } from './DecoProvider';
 
 const MainSnowballCavnas = () => {

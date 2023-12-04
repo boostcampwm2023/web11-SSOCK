@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { theme, Container } from '../../utils';
-import { Button } from '../../components';
+import { theme, Container } from '@utils';
+import { Button } from '@components';
 
 const VisitBottom = () => {
   const navigate = useNavigate();

@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { Msg } from '../../components';
+import { Msg } from '@components';
 import { MessageContext } from '../Visit/MessageProvider';
 import { SnowBallContext } from '../Visit/SnowBallProvider';
 

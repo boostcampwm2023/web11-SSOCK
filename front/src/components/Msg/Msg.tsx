@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 import styled from 'styled-components';
-import { DecoContext } from '../../pages/Visit/Deco/DecoProvider';
+import { DecoContext } from '@pages/Visit/Deco/DecoProvider';
 
 interface MsgProps {
   color: string;

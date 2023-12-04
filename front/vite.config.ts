@@ -21,7 +21,8 @@ export default defineConfig({
       '@components': '/src/components',
       '@constants': '/src/constants',
       '@pages': '/src/pages',
-      '@utils': '/src/utils'
+      '@utils': '/src/utils',
+      '@mock': '/src/mockdata.json'
     }
   }
 });

@@ -1,8 +1,8 @@
 import React from 'react';
 import { useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
-import { BOTTOM } from '../../../constants/deco';
-import * as MeshUtils from '../../../utils/meshUtils';
+import * as MeshUtils from '@utils/meshUtils';
+import { BOTTOM } from '@constants';
 
 interface BottomProps {
   scale: number;

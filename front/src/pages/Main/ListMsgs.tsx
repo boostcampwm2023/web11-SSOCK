@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-import { ListMsg, Prev } from '../../components';
-import { MSG_COLOR } from '../../constants/deco';
+import { ListMsg, Prev } from '@components';
+import { MSG_COLOR } from '@constants';
 
 interface ListMsgProps {
   set: React.Dispatch<React.SetStateAction<boolean>>;

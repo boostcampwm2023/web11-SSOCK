@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 import styled from 'styled-components';
-import { DecoContext } from '../../pages/Make/Snowball/MainDeco/DecoProvider';
+import { DecoContext } from '@pages/Make/Snowball/MainDeco/DecoProvider';
 
 const StyledLetterBox = styled.div`
   width: 80%;

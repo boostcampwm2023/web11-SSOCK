@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import styled from 'styled-components';
-import { LongButton } from '../../utils';
-import { DecoContext } from '../../pages/Make/Snowball/MainDeco/DecoProvider';
+import { LongButton } from '@utils';
+import { DecoContext } from '@pages/Make/Snowball/MainDeco/DecoProvider';
 
 interface ButtonColor {
   color: string;

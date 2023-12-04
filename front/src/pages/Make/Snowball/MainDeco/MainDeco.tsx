@@ -1,4 +1,4 @@
-import { Prev, UIContainer } from '../../../../components';
+import { Prev, UIContainer } from '@components';
 import Steps from './Steps';
 import { DecoProvider } from './DecoProvider';
 import MakeSnowballCanvas from './MakeSnowballCanvas';

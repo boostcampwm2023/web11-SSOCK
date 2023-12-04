@@ -2,11 +2,11 @@ import { useContext, useRef } from 'react';
 import { OrbitControls } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import * as THREE from 'three';
-import { CanvasContainer, getDecoPoisition } from '../../utils';
+import { CanvasContainer, getDecoPoisition } from '@utils';
 import * as Models from './models';
 import { Prev } from '../Prev';
+import { SnowBallContext } from '@pages/Visit/SnowBallProvider';
 import { PrevProvider } from './PrevProvider';
-import { SnowBallContext } from '../../pages/Visit/SnowBallProvider';
 
 const SnowGlobeCanvas = () => {
   const isClicked = useRef<boolean>(false);

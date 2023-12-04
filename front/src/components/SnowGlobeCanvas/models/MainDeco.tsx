@@ -2,8 +2,8 @@ import React, { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
-import { MAIN } from '../../../constants/deco';
-import { makeColorChangedMaterial } from '../../../utils/meshUtils';
+import { makeColorChangedMaterial } from '@utils/meshUtils';
+import { MAIN } from '@constants';
 
 interface MyModelProps {
   id: number;
