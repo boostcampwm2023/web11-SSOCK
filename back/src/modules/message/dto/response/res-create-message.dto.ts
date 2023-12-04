@@ -7,8 +7,10 @@ import {
   Max
 } from '@nestjs/class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { Expose } from 'class-transformer';
 
 export class ResCreateMessageDto {
+  @Expose()
   @IsString()
   @Length(1, 16)
   @IsNotEmpty()
@@ -18,12 +20,14 @@ export class ResCreateMessageDto {
   })
   readonly sender: string;
 
+  @Expose()
   @IsString()
   @Length(1, 500)
   @IsNotEmpty()
   @ApiProperty({ type: String, description: '필터링된 메세지 내용' })
   readonly content: string;
 
+  @Expose()
   @IsNumber()
   @Min(1)
   @Max(72)

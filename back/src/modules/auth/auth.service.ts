@@ -98,9 +98,7 @@ export class AuthService {
     return true;
   }
 
-  //DB에서 조회하고 맞춰보기
   async isValidRefreshToken(user: any, refreshToken: string): Promise<boolean> {
-    //PK 조회라 빠를듯
     const exisitingUser = await this.UserRepository.findOne({
       where: { id: user.id }
     });

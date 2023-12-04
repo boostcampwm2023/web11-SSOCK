@@ -24,36 +24,33 @@ export class MessageService {
   ) {}
   async createMessage(
     createMessageDto: ReqCreateMessageDto,
-    user_id: number,
     snowball_id: number
   ): Promise<ResCreateMessageDto> {
     if (!(await this.isInsertAllowed(snowball_id)))
       throw new ConflictException('메세지 갯수가 30개를 초과했습니다');
 
-    const location = await this.findLocation(user_id, snowball_id);
+    const user_id = await this.findUserId(snowball_id);
+    const location = await this.findLocation(snowball_id);
     const messageEntity = this.messageRepository.create({
       user_id: user_id,
       snowball_id: snowball_id,
-      sender: createMessageDto.sender,
-      content: createMessageDto.content,
-      decoration_id: createMessageDto.decoration_id,
-      decoration_color: createMessageDto.decoration_color,
       location: location,
-      letter_id: createMessageDto.letter_id,
-      opened: null
+      opened: null,
+      ...createMessageDto
       // is_deleted랑 created는 자동으로 설정
     });
     const savedMessage = await this.messageRepository.insert(messageEntity);
     if (!savedMessage.raw.affectedRows)
       throw new InternalServerErrorException('insert fail');
-    // 이 부분에서 필터링 로직을 작성
-    const resCreateMessage: ResCreateMessageDto = {
-      sender: createMessageDto.sender,
-      content: createMessageDto.content,
+
+    const resCreateMessage = {
+      ...createMessageDto,
       location: location
     };
 
-    return resCreateMessage;
+    return plainToInstance(ResCreateMessageDto, resCreateMessage, {
+      excludeExtraneousValues: true
+    });
   }
 
   async isInsertAllowed(snowball_id: number): Promise<boolean> {
@@ -189,12 +186,24 @@ export class MessageService {
     return messageDtos;
   }
 
-  async findLocation(user_id: number, snowball_id: number): Promise<number> {
+  async findUserId(snowball_id: number): Promise<number> {
+    const user = await this.messageRepository.findOne({
+      select: ['user_id'],
+      where: { snowball_id: snowball_id }
+    });
+
+    if (!user)
+      throw new NotFoundException(
+        '해당 스노우볼을 가지고 있는 유저가 존재하지 않습니다'
+      );
+    return user.user_id;
+  }
+
+  async findLocation(snowball_id: number): Promise<number> {
     const findLocations = this.messageRepository
       .createQueryBuilder('message')
       .select('location')
-      .where('user_id = :user_id', { user_id })
-      .andWhere('snowball_id = :snowball_id', { snowball_id })
+      .where('snowball_id = :snowball_id', { snowball_id })
       .andWhere('is_deleted = false');
     const locations = await findLocations.getRawMany();
 
