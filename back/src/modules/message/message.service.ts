@@ -64,7 +64,8 @@ export class MessageService {
   async deleteMessage(user_id: number, message_id: number): Promise<void> {
     try {
       const message = await this.messageRepository.findOne({
-        where: { id: message_id }
+        where: { id: message_id },
+        select: ['user_id', 'is_deleted']
       });
       if (message.user_id !== user_id) {
         throw new ForbiddenException(
@@ -81,7 +82,7 @@ export class MessageService {
       }
       await this.messageRepository.update(message_id, { is_deleted: true });
     } catch (err) {
-      throw new InternalServerErrorException('서버측 오류');
+      throw new InternalServerErrorException('서버 오류');
     }
   }
 
