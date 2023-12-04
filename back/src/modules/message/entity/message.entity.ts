@@ -11,7 +11,7 @@ import { SnowballEntity } from 'src/modules/snowball/entity/snowball.entity';
 import { UserEntity } from 'src/modules/user/entity/user.entity';
 import { Exclude } from 'class-transformer';
 @Entity({ name: 'message' })
-@Unique(['snowball_id', 'location'])
+@Unique(['snowball_id', 'location', 'is_deleted'])
 export class MessageEntity {
   @PrimaryGeneratedColumn()
   id: number;
