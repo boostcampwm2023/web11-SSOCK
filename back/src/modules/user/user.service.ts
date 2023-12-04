@@ -7,6 +7,7 @@ import { UserDto } from './dto/user.dto';
 import { SnowballService } from '../snowball/snowball.service';
 import { NicknameDto } from './dto/nickname.dto';
 import { plainToInstance } from 'class-transformer';
+import { JWTRequest } from 'src/common/interface/request.interface';
 
 interface userData {
   id: number;
@@ -89,30 +90,23 @@ export class UserService {
   }
 
   async updateNickname(
-    id: number,
+    req: JWTRequest,
     nicknameDto: NicknameDto
   ): Promise<NicknameDto> {
-    const queryRunner = this.dataSource.createQueryRunner();
-    await queryRunner.connect();
-    await queryRunner.startTransaction('READ COMMITTED');
     try {
-      const updateResult = await queryRunner.manager
+      const updateResult = await req.queryRunnerManager
         .createQueryBuilder()
         .update(UserEntity)
         .set({
           nickname: nicknameDto.nickname
         })
-        .where('id = :id', { id: id })
+        .where('id = :id', { id: req.user.id })
         .execute();
       if (!updateResult.affected) {
         throw new NotFoundException('업데이트할 유저가 존재하지 않습니다.');
       }
-      await queryRunner.commitTransaction();
     } catch (err) {
-      await queryRunner.rollbackTransaction();
       throw err;
-    } finally {
-      await queryRunner.release();
     }
     return nicknameDto;
   }

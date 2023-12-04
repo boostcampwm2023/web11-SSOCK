@@ -5,7 +5,8 @@ import {
   UseGuards,
   Param,
   Req,
-  Put
+  Put,
+  UseInterceptors
 } from '@nestjs/common';
 import { JWTGuard } from '../../common/guards/jwt.guard';
 import {
@@ -19,6 +20,7 @@ import { UserService } from './user.service';
 import { ResInfoDto } from './dto/response/res-info.dto';
 import { NicknameDto } from './dto/nickname.dto';
 import { JWTRequest } from 'src/common/interface/request.interface';
+import { TransactionInterceptor } from 'src/common/interceptors/transaction.interceptor';
 
 @ApiTags('User API')
 @Controller('user')
@@ -60,6 +62,7 @@ export class UserController {
   }
 
   @UseGuards(JWTGuard)
+  @UseInterceptors(TransactionInterceptor)
   @ApiCookieAuth('access_token')
   @Put('/nickname')
   @ApiBody({ type: NicknameDto })
@@ -73,10 +76,10 @@ export class UserController {
     type: NicknameDto
   })
   async updateNickname(
-    @Req() req: JWTRequest,
+    @Req() req: any,
     @Body() nicknameDto: NicknameDto
   ): Promise<NicknameDto> {
-    const result = this.userService.updateNickname(req.user.id, nicknameDto);
+    const result = this.userService.updateNickname(req, nicknameDto);
     return result;
   }
 }
