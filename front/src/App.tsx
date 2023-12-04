@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components';
 import GlobalStyles from './GlobalStyles';
 import { theme } from './utils';
-import { IsLogin } from './router';
+import { IsLogin, IsSnowballData } from './router';
 import {
   Intro,
   Nickname,
@@ -51,9 +51,9 @@ const App = () => {
               <Route
                 path="/make"
                 element={
-                  <IsLogin>
+                  <IsSnowballData>
                     <Outlet />
-                  </IsLogin>
+                  </IsSnowballData>
                 }
               >
                 <Route path="" element={<Nickname />} />

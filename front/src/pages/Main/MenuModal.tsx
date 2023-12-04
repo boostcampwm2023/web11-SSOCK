@@ -41,8 +41,8 @@ const StyledClosed = styled(StyledSection)`
 `;
 
 const Logout = (navigate: NavigateFunction) => {
-  // sessionStorage 등 정리, 로그아웃 절차 진행
-
+  // 현재 가지고 있는 쿠키값 모두 지우기
+  // logout api 호출
   navigate('/');
 };
 
