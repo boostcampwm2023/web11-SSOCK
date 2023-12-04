@@ -51,9 +51,14 @@ export class MessageService {
       ...createMessageDto
       // is_deleted랑 created는 자동으로 설정
     });
-    const savedMessage = await this.messageRepository.insert(messageEntity);
-    if (!savedMessage.raw.affectedRows)
-      throw new InternalServerErrorException('insert fail');
+    try {
+      await this.messageRepository.save(messageEntity, {
+        reload: false
+      });
+    } catch (err) {
+      console.log(err);
+      throw new InternalServerErrorException('Insert Fail');
+    }
 
     const resCreateMessage = {
       ...createMessageDto,
@@ -102,7 +107,10 @@ export class MessageService {
       if (message.is_deleted) {
         throw new GoneException(`${message_id}는 이미 삭제된 메시지입니다.`);
       }
-      await this.messageRepository.update(message_id, { is_deleted: true });
+      await this.messageRepository.save(
+        { id: message_id, is_deleted: true },
+        { reload: false }
+      );
     } catch (err) {
       throw new InternalServerErrorException('서버 오류');
     }
@@ -137,8 +145,10 @@ export class MessageService {
         `${message_id}번 메시지는 이미 열려있습니다.`
       );
     }
-    const date = new Date();
-    await this.messageRepository.update(message_id, { opened: date });
+    await this.messageRepository.save(
+      { id: message_id, opened: Date() },
+      { reload: false }
+    );
     const messageDto = plainToInstance(
       MessageDto,
       instanceToPlain(messageEntity),

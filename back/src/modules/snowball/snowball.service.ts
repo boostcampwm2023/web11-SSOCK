@@ -4,7 +4,7 @@ import {
   NotFoundException
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { DataSource, Repository } from 'typeorm';
 import { SnowballEntity } from './entity/snowball.entity';
 import { ReqCreateSnowballDto } from './dto/request/req-create-snowball.dto';
 import { ReqUpdateSnowballDto } from './dto/request/req-update-snowball.dto';
@@ -30,7 +30,8 @@ export class SnowballService {
     @InjectRepository(SnowballEntity)
     private readonly snowballRepository: Repository<SnowballEntity>,
     @InjectRepository(DecorationPrefixEntity)
-    private readonly snowballDecoRepository: Repository<DecorationPrefixEntity>
+    private readonly snowballDecoRepository: Repository<DecorationPrefixEntity>,
+    private readonly dataSource: DataSource
   ) {}
 
   async createSnowball(
@@ -51,7 +52,7 @@ export class SnowballService {
 
     const savedSnowballEntity = await this.snowballRepository.save(snowball);
     const savedSnowball = instanceToPlain(savedSnowballEntity);
-    console.log(savedSnowball);
+
     const combinedSnowballDto = {
       ...savedSnowball,
       message_list: []
@@ -85,23 +86,33 @@ export class SnowballService {
     user_id: number
   ): Promise<ResUpdateSnowballDto> {
     const { title, is_message_private } = updateSnowballDto;
-
     await this.doesSnowballExist(snowball_id);
 
-    const updateResult = await this.snowballRepository
-      .createQueryBuilder()
-      .update(SnowballEntity)
-      .set({
-        title,
-        is_message_private: is_message_private ? new Date() : null
-      })
-      .where('id = :id', { id: snowball_id })
-      .andWhere('user_id = :user_id', { user_id: user_id })
-      .execute();
-    if (!updateResult.affected) {
-      throw new NotFoundException('스노우볼 업데이트 권한이 없습니다');
-    }
+    const queryRunner = this.dataSource.createQueryRunner();
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
 
+    try {
+      const updateResult = await queryRunner.manager
+        .createQueryBuilder()
+        .update(SnowballEntity)
+        .set({
+          title,
+          is_message_private: is_message_private ? new Date() : null
+        })
+        .where('id = :id', { id: snowball_id })
+        .andWhere('user_id = :user_id', { user_id: user_id })
+        .execute();
+      if (!updateResult.affected) {
+        throw new NotFoundException('스노우볼 업데이트 실패');
+      }
+      await queryRunner.commitTransaction();
+    } catch (err) {
+      await queryRunner.rollbackTransaction();
+      throw err;
+    } finally {
+      await queryRunner.release();
+    }
     const resUpdateSnowballDto = {
       snowball_id,
       ...updateSnowballDto
@@ -155,20 +166,31 @@ export class SnowballService {
     await this.doesDecorationExist(updateMainDecoDto.main_decoration_id);
     await this.doesDecorationExist(updateMainDecoDto.bottom_decoration_id);
 
-    const updateResult = await this.snowballRepository
-      .createQueryBuilder()
-      .update(SnowballEntity)
-      .set({
-        ...updateMainDecoDto
-      })
-      .where('id = :id', { id: snowball_id })
-      .andWhere('user_id = :user_id', { user_id: user_id })
-      .execute();
+    const queryRunner = this.dataSource.createQueryRunner();
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
 
-    if (!updateResult.affected) {
-      throw new NotFoundException('스노우볼을 업데이트할 권한이 없습니다.');
+    try {
+      const updateResult = await queryRunner.manager
+        .createQueryBuilder()
+        .update(SnowballEntity)
+        .set({
+          ...updateMainDecoDto
+        })
+        .where('id = :id', { id: snowball_id })
+        .andWhere('user_id = :user_id', { user_id: user_id })
+        .execute();
+
+      if (!updateResult.affected) {
+        throw new NotFoundException('스노우볼을 업데이트 실패');
+      }
+      await queryRunner.commitTransaction();
+    } catch (err) {
+      await queryRunner.rollbackTransaction();
+      throw err;
+    } finally {
+      await queryRunner.release();
     }
-
     return updateMainDecoDto;
   }
 
