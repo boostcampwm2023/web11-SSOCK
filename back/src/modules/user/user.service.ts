@@ -6,6 +6,7 @@ import { ResInfoDto } from './dto/response/res-info.dto';
 import { UserDto } from './dto/user.dto';
 import { SnowballService } from '../snowball/snowball.service';
 import { NicknameDto } from './dto/nickname.dto';
+import { plainToInstance } from 'class-transformer';
 
 interface userData {
   id: number;
@@ -23,13 +24,13 @@ export class UserService {
 
   async getUserData(auth_id: string): Promise<userData> {
     const exisitingUser = await this.userRepository.findOne({
-      where: { auth_id: auth_id }
+      where: { auth_id: auth_id },
+      select: ['id', 'username', 'auth_id']
     });
     if (exisitingUser) {
       return {
-        id: exisitingUser.id,
-        name: exisitingUser.username,
-        auth_id: exisitingUser.auth_id
+        ...exisitingUser,
+        name: exisitingUser.username
       };
     } else {
       throw new NotFoundException('해당 유저를 찾을 수 없습니다.');
@@ -38,7 +39,8 @@ export class UserService {
 
   async getUserNickname(id: number): Promise<string> {
     const exisitingUser = await this.userRepository.findOne({
-      where: { id: id }
+      where: { id: id },
+      select: ['nickname']
     });
     if (exisitingUser) {
       return exisitingUser.nickname;
@@ -58,12 +60,14 @@ export class UserService {
       hasToken
     );
 
-    const resInfoDto: ResInfoDto = {
+    const resInfoDto = {
       user: userDto,
       main_snowball: mainSnowballDto
     };
 
-    return resInfoDto;
+    return plainToInstance(ResInfoDto, resInfoDto, {
+      enableCircularCheck: true
+    });
   }
 
   async createUserDto(
@@ -71,21 +75,16 @@ export class UserService {
     username: string,
     auth_id: string
   ): Promise<UserDto> {
-    const { snowball_count, message_count, snowball_list, main_snowball_id } =
-      await this.snowballService.getSnowballInfo(id);
+    const userInfo = await this.snowballService.getSnowballInfo(id);
     const nickname = await this.getUserNickname(id);
-    console.log(nickname);
-    const userDto: UserDto = {
+    const userDto = {
       id: id,
       username: username,
       nickname: nickname,
       auth_id: auth_id,
-      snowball_count: snowball_count,
-      main_snowball_id: main_snowball_id,
-      snowball_list: snowball_list,
-      message_count: message_count
+      ...userInfo
     };
-    return userDto;
+    return plainToInstance(UserDto, userDto);
   }
 
   async updateNickname(
