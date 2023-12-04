@@ -45,24 +45,23 @@ export class AuthService {
     return { id: id, name: user.name, auth_id: user.auth_id };
   }
 
-  generateJwtToken(payload: payload): {
-    accessToken: string;
-    refreshToken: string;
-  } {
-    const accessToken = this.generateAccessToken(payload);
-    const refreshToken = this.generateRefreshToken(payload);
+  async generateJwtToken(
+    payload: payload
+  ): Promise<{ accessToken: string; refreshToken: string }> {
+    const accessToken = await this.generateAccessToken(payload);
+    const refreshToken = await this.generateRefreshToken(payload);
     return { accessToken, refreshToken };
   }
 
-  generateAccessToken(payload: payload): string {
-    return this.jwtService.sign(payload, {
+  async generateAccessToken(payload: payload): Promise<string> {
+    return this.jwtService.signAsync(payload, {
       expiresIn: parseInt(`${process.env.JWT_ACCESS_AGE}`),
       secret: `${process.env.JWT_ACCESS_SECRET}`
     });
   }
 
-  generateRefreshToken(payload: payload): string {
-    return this.jwtService.sign(payload, {
+  async generateRefreshToken(payload: payload): Promise<string> {
+    return this.jwtService.signAsync(payload, {
       expiresIn: parseInt(`${process.env.JWT_REFRESH_AGE}`),
       secret: `${process.env.JWT_REFRESH_SECRET}`
     });
@@ -83,6 +82,7 @@ export class AuthService {
     } catch (error) {
       return false;
     }
+    return true;
   }
 
   async saveRefreshToken(user: any, refreshToken: string): Promise<boolean> {

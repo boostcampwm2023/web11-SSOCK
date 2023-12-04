@@ -38,7 +38,7 @@ export class AuthController {
   async googleLoginCallback(@Req() req: any, @Res() res: any): Promise<void> {
     const payload: payload = await this.authService.getUserInfo(req.user);
     const { accessToken, refreshToken } =
-      this.authService.generateJwtToken(payload);
+      await this.authService.generateJwtToken(payload);
     await this.authService.saveRefreshToken(payload, refreshToken);
     this.authService.setCookies(res, accessToken, refreshToken);
     res.redirect(`${process.env.OAUTH_REDIRECT_URL}`);
@@ -74,7 +74,7 @@ export class AuthController {
   async naverLoginCallBack(@Req() req: any, @Res() res: any): Promise<void> {
     const payload: payload = await this.authService.getUserInfo(req.user);
     const { accessToken, refreshToken } =
-      this.authService.generateJwtToken(payload);
+      await this.authService.generateJwtToken(payload);
     await this.authService.saveRefreshToken(payload, refreshToken);
     this.authService.setCookies(res, accessToken, refreshToken);
     res.redirect(`${process.env.OAUTH_REDIRECT_URL}`);
@@ -111,7 +111,7 @@ export class AuthController {
     const payload: payload = await this.authService.getUserInfo(req.user);
     // To DO: refresh token db에 저장 & 클라이언트에는 index만 저장?
     const { accessToken, refreshToken } =
-      this.authService.generateJwtToken(payload);
+      await this.authService.generateJwtToken(payload);
     await this.authService.saveRefreshToken(payload, refreshToken);
     this.authService.setCookies(res, accessToken, refreshToken);
     res.redirect(`${process.env.OAUTH_REDIRECT_URL}`);
@@ -130,7 +130,7 @@ export class AuthController {
     };
     // To DO: refresh token db에 저장 & 클라이언트에는 index만 저장?
     const { accessToken, refreshToken } =
-      this.authService.generateJwtToken(payload);
+      await this.authService.generateJwtToken(payload);
     await this.authService.saveRefreshToken(payload, refreshToken);
     this.authService.setCookies(res, accessToken, refreshToken);
     res.redirect(`${process.env.OAUTH_REDIRECT_URL}`);
