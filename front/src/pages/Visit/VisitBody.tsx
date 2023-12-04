@@ -1,9 +1,9 @@
 import { useContext } from 'react';
+import styled from 'styled-components';
+import axios from 'axios';
 import { Msg } from '../../components';
 import { MessageContext } from './MessageProvider';
 import { SnowBallContext, SnowBallData } from './SnowBallProvider';
-import styled from 'styled-components';
-import axios from 'axios';
 
 const MsgContainer = styled.div`
   max-height: fit-content;

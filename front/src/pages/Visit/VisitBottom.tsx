@@ -9,7 +9,7 @@ const VisitBottom = () => {
   const [write, setWrite] = useState(false);
 
   useEffect(() => {
-    write ? navigate(`./deco`) : null;
+    write ? navigate('./deco') : null;
   }, [write, user, navigate]);
 
   return (

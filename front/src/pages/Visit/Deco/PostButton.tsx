@@ -1,10 +1,10 @@
 import { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 import { LongButton } from '../../../utils';
 import { DecoContext } from './DecoProvider';
 import { SnowBallContext } from '../SnowBallProvider';
-import { useNavigate } from 'react-router-dom';
 
 interface ButtonProps {
   text: string;

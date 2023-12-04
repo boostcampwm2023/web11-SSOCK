@@ -1,7 +1,7 @@
 import { SnowGlobeCanvas, UIContainer } from '../../components';
-import VisitBottom from './VisitBottom';
 import VisitHeader from './VisitHeader';
 import VisitBody from './VisitBody';
+import VisitBottom from './VisitBottom';
 
 const Visit = () => {
   return (
