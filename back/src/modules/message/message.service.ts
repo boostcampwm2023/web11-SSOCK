@@ -15,59 +15,79 @@ import { MessageDto } from './dto/message.dto';
 import { UpdateMessageDecorationDto } from './dto/update-message-decoration.dto';
 import { UpdateMessageLocationDto } from './dto/update-message-location.dto';
 import { plainToInstance, instanceToPlain } from 'class-transformer';
+import { LetterEntity } from './entity/letter.entity';
+import { DecorationPrefixEntity } from '../snowball/entity/decoration-prefix.entity';
+import { ResClovaSentiment } from './clova.service';
+import { SnowballEntity } from '../snowball/entity/snowball.entity';
 
 @Injectable()
 export class MessageService {
   constructor(
     @InjectRepository(MessageEntity)
-    private readonly messageRepository: Repository<MessageEntity>
+    private readonly messageRepository: Repository<MessageEntity>,
+    @InjectRepository(SnowballEntity)
+    private readonly snowballRepository: Repository<SnowballEntity>,
+    @InjectRepository(LetterEntity)
+    private readonly letterRepository: Repository<LetterEntity>,
+    @InjectRepository(DecorationPrefixEntity)
+    private readonly messageDecoRepository: Repository<DecorationPrefixEntity>
   ) {}
   async createMessage(
     createMessageDto: ReqCreateMessageDto,
-    user_id: number,
+    resClovaSentiment: ResClovaSentiment,
     snowball_id: number
   ): Promise<ResCreateMessageDto> {
-    if (!(await this.isInsertAllowed(snowball_id)))
-      throw new ConflictException('메세지 갯수가 30개를 초과했습니다');
+    this.isInsertAllowed(snowball_id);
+    this.doesLetterIdExist(createMessageDto.letter_id);
 
-    const location = await this.findLocation(user_id, snowball_id);
+    const user_id = await this.findUserId(snowball_id);
+    const location = await this.findLocation(snowball_id);
     const messageEntity = this.messageRepository.create({
       user_id: user_id,
       snowball_id: snowball_id,
-      sender: createMessageDto.sender,
-      content: createMessageDto.content,
-      decoration_id: createMessageDto.decoration_id,
-      decoration_color: createMessageDto.decoration_color,
       location: location,
-      letter_id: createMessageDto.letter_id,
-      opened: null
+      opened: null,
+      ...resClovaSentiment,
+      ...createMessageDto
       // is_deleted랑 created는 자동으로 설정
     });
     const savedMessage = await this.messageRepository.insert(messageEntity);
     if (!savedMessage.raw.affectedRows)
       throw new InternalServerErrorException('insert fail');
-    // 이 부분에서 필터링 로직을 작성
-    const resCreateMessage: ResCreateMessageDto = {
-      sender: createMessageDto.sender,
-      content: createMessageDto.content,
+
+    const resCreateMessage = {
+      ...createMessageDto,
+      ...resClovaSentiment,
       location: location
     };
 
-    return resCreateMessage;
+    return plainToInstance(ResCreateMessageDto, resCreateMessage, {
+      excludeExtraneousValues: true
+    });
   }
 
   async isInsertAllowed(snowball_id: number): Promise<boolean> {
     const messageCount = await this.messageRepository.count({
       where: { snowball_id: snowball_id, is_deleted: false }
     });
-    if (messageCount >= 30) return false;
+    if (messageCount >= 30)
+      throw new ConflictException('메세지 갯수가 30개를 초과했습니다');
+    else return true;
+  }
+
+  async doesLetterIdExist(letter_id: number): Promise<boolean> {
+    const letter = await this.letterRepository.findOne({
+      where: { id: letter_id, active: true }
+    });
+    if (!letter) throw new NotFoundException('존재하지 않는 letter id입니다');
     else return true;
   }
 
   async deleteMessage(user_id: number, message_id: number): Promise<void> {
     try {
       const message = await this.messageRepository.findOne({
-        where: { id: message_id }
+        where: { id: message_id },
+        select: ['user_id', 'is_deleted']
       });
       if (message.user_id !== user_id) {
         throw new ForbiddenException(
@@ -84,49 +104,56 @@ export class MessageService {
       }
       await this.messageRepository.update(message_id, { is_deleted: true });
     } catch (err) {
-      throw new InternalServerErrorException('서버측 오류');
+      throw new InternalServerErrorException('서버 오류');
     }
   }
 
   async getAllMessages(user_id: number): Promise<MessageDto[]> {
-    const messages: MessageEntity[] = await this.messageRepository.find({
+    const messageEntities = await this.messageRepository.find({
       where: { user_id: user_id, is_deleted: false }
     });
-    if (!messages) {
+    if (!messageEntities) {
       throw new NotFoundException(`User with id ${user_id} not found`);
     }
-    const messagesDto: MessageDto[] = plainToInstance(MessageDto, messages);
-    return messagesDto;
+    const messageDtos = messageEntities.map(entity =>
+      plainToInstance(MessageDto, instanceToPlain(entity), {
+        groups: ['public']
+      })
+    );
+    return messageDtos;
   }
 
   async openMessage(message_id: number): Promise<MessageDto> {
-    const message = await this.messageRepository.findOne({
-      where: { id: message_id }
+    const messageEntity = await this.messageRepository.findOne({
+      where: { id: message_id, is_deleted: false }
     });
-    if (!message) {
+    if (!messageEntity) {
       throw new NotFoundException(
         `${message_id}번 메시지를 찾을 수 없었습니다.`
       );
     }
-    if (message.opened !== null) {
+    if (messageEntity.opened !== null) {
       throw new ConflictException(
         `${message_id}번 메시지는 이미 열려있습니다.`
       );
     }
     const date = new Date();
     await this.messageRepository.update(message_id, { opened: date });
-    return {
-      ...message,
-      opened: date
-    };
+    const messageDto = plainToInstance(
+      MessageDto,
+      instanceToPlain(messageEntity),
+      { groups: ['public'] }
+    );
+    return messageDto;
   }
 
-  // To Do: prefix 조회
   async updateMessageDecoration(
     message_id: number,
     updateMessageDecorationDto: UpdateMessageDecorationDto
   ): Promise<UpdateMessageDecorationDto> {
     const { decoration_id, decoration_color } = updateMessageDecorationDto;
+    this.doesDecorationExist(decoration_id);
+
     const updateResult = await this.messageRepository
       .createQueryBuilder()
       .update(MessageEntity)
@@ -134,21 +161,30 @@ export class MessageService {
         decoration_id,
         decoration_color
       })
-      .where('id = :id', { id: message_id })
+      .where('id = :id', { id: message_id, is_deleted: false })
       .execute();
     if (!updateResult.affected) {
       throw new NotFoundException('업데이트할 메시지가 존재하지 않습니다.');
     } else if (updateResult.affected > 1) {
-      throw new InternalServerErrorException('서버측 오류');
+      throw new InternalServerErrorException('중복 데이터 오류');
     }
     return updateMessageDecorationDto;
+  }
+
+  async doesDecorationExist(decoration_id: number): Promise<boolean> {
+    const decoration = await this.messageDecoRepository.findOne({
+      where: { id: decoration_id, active: true }
+    });
+    if (!decoration) {
+      throw new NotFoundException('업데이트할 장식이 존재하지 않습니다.');
+    }
+    return true;
   }
 
   async updateMessageLocation(
     message_id: number,
     updateMessageLocationDto: UpdateMessageLocationDto
   ): Promise<UpdateMessageLocationDto> {
-    //TODO: location이 available 한지 확인 해야함
     const { location } = updateMessageLocationDto;
     const updateResult = await this.messageRepository
       .createQueryBuilder()
@@ -156,12 +192,12 @@ export class MessageService {
       .set({
         location
       })
-      .where('id = :id', { id: message_id })
+      .where('id = :id', { id: message_id, is_deleted: false })
       .execute();
     if (!updateResult.affected) {
-      throw new NotFoundException('업데이트할 메시지가 존재하지 않습니다.');
+      throw new NotFoundException('업데이트를 실패했습니다');
     } else if (updateResult.affected > 1) {
-      throw new InternalServerErrorException('서버측 오류');
+      throw new InternalServerErrorException('데이터 중복 오류');
     }
     return updateMessageLocationDto;
   }
@@ -189,12 +225,24 @@ export class MessageService {
     return messageDtos;
   }
 
-  async findLocation(user_id: number, snowball_id: number): Promise<number> {
+  async findUserId(snowball_id: number): Promise<number> {
+    const user = await this.snowballRepository.findOne({
+      select: ['user_id'],
+      where: { id: snowball_id }
+    });
+
+    if (!user)
+      throw new NotFoundException(
+        '해당 스노우볼을 가지고 있는 유저가 존재하지 않습니다'
+      );
+    return user.user_id;
+  }
+
+  async findLocation(snowball_id: number): Promise<number> {
     const findLocations = this.messageRepository
       .createQueryBuilder('message')
       .select('location')
-      .where('user_id = :user_id', { user_id })
-      .andWhere('snowball_id = :snowball_id', { snowball_id })
+      .where('snowball_id = :snowball_id', { snowball_id })
       .andWhere('is_deleted = false');
     const locations = await findLocations.getRawMany();
 

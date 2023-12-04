@@ -34,18 +34,16 @@ export class JWTGuard implements CanActivate {
     } catch (error) {
       const refreshToken = this.extractToken(request, TokenType.REFRESH);
       if (!refreshToken) {
-        throw new UnauthorizedException();
+        throw new UnauthorizedException('Refresh Token이 없습니다.');
       }
       try {
         const payload: payload = await this.jwtService.verify(refreshToken, {
           secret: process.env.JWT_REFRESH_SECRET
         });
-        // 데베에 없으면 false 있으면 true
         const valid = await this.authService.isValidRefreshToken(
           payload,
           refreshToken
         );
-        // 데베에 refresh token이 다르거나 없으면 쿠키지워주고 에러던짐
         if (!valid) {
           response.clearCookie('access_token');
           response.clearCookie('refresh_token');

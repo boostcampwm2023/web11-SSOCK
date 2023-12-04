@@ -9,21 +9,26 @@ import {
   Min
 } from '@nestjs/class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { Expose, Transform } from 'class-transformer';
 import { MessageDto } from 'src/modules/message/dto/message.dto';
 
 export class SnowballDto {
+  @Expose()
   @IsString()
   @IsNotEmpty()
   @Length(1, 10)
   @ApiProperty({ type: String, description: '스노우볼 제목' })
   readonly title: string;
 
+  @Expose()
   @IsNotEmpty()
   @IsNumber()
   @Min(1)
   @ApiProperty({ type: Number, description: '스노우볼 id' })
   readonly id: number;
 
+  @Transform(({ value }) => (value !== null ? true : false))
+  @Expose()
   @IsBoolean()
   @IsNotEmpty()
   @ApiProperty({
@@ -32,6 +37,7 @@ export class SnowballDto {
   })
   readonly is_message_private: boolean;
 
+  @Expose()
   @IsNumber()
   @IsNotEmpty()
   @Min(1)
@@ -41,11 +47,13 @@ export class SnowballDto {
   })
   readonly main_decoration_id: number;
 
+  @Expose()
   @IsHexColor()
   @IsNotEmpty()
   @ApiProperty({ type: String, description: '스노우볼 메인 장식 색상' })
   readonly main_decoration_color: string;
 
+  @Expose()
   @IsNumber()
   @IsNotEmpty()
   @Min(1)
@@ -55,11 +63,13 @@ export class SnowballDto {
   })
   readonly bottom_decoration_id: number;
 
+  @Expose()
   @IsHexColor()
   @IsNotEmpty()
   @ApiProperty({ type: String, description: '스노우볼 하단 장식 색상' })
   readonly bottom_decoration_color: string;
 
+  @Expose()
   @ValidateNested({ each: true })
   @ApiProperty({
     type: [MessageDto],

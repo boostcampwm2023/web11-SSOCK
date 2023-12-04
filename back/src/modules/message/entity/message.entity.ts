@@ -4,12 +4,14 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   ManyToOne,
-  JoinColumn
+  JoinColumn,
+  Unique
 } from 'typeorm';
 import { SnowballEntity } from 'src/modules/snowball/entity/snowball.entity';
 import { UserEntity } from 'src/modules/user/entity/user.entity';
 import { Exclude } from 'class-transformer';
 @Entity({ name: 'message' })
+@Unique(['snowball_id', 'location', 'is_deleted'])
 export class MessageEntity {
   @PrimaryGeneratedColumn()
   id: number;
@@ -41,6 +43,12 @@ export class MessageEntity {
 
   @Column()
   location: number;
+
+  @Column({ length: 8 })
+  sentiment: string;
+
+  @Column()
+  confidence: number;
 
   @CreateDateColumn({ default: null })
   opened: Date | null;

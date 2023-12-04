@@ -14,6 +14,7 @@ import { UpdateMainDecoDto } from './dto/update-main-decoration.dto';
 import { UserDto } from '../user/dto/user.dto';
 import { MessageService } from '../message/message.service';
 import { DecorationPrefixEntity } from './entity/decoration-prefix.entity';
+import { instanceToPlain, plainToInstance } from 'class-transformer';
 
 export interface SnowballInfo {
   snowball_count: number;
@@ -36,10 +37,7 @@ export class SnowballService {
     user_id: number,
     createSnowballDto: ReqCreateSnowballDto
   ): Promise<SnowballDto> {
-    // 유저가 스노우볼을 5개 이상 생성할 수 없다.
-    const userSnowballCount = await this.snowballRepository.count({
-      where: { user_id: user_id }
-    });
+    const userSnowballCount = await this.getSnowballCount(user_id);
     if (userSnowballCount >= 5) {
       throw new BadRequestException(
         '스노우볼은 최대 5개까지 생성할 수 있습니다.'
@@ -48,17 +46,26 @@ export class SnowballService {
 
     const snowball = this.snowballRepository.create({
       user_id: user_id,
-      ...createSnowballDto,
-      message_private: createSnowballDto.is_message_private ? new Date() : null
+      ...createSnowballDto
     });
-    const savedSnowball = await this.snowballRepository.save(snowball);
 
-    const combinedSnowballDto: SnowballDto = {
+    const savedSnowballEntity = await this.snowballRepository.save(snowball);
+    const savedSnowball = instanceToPlain(savedSnowballEntity);
+    console.log(savedSnowball);
+    const combinedSnowballDto = {
       ...savedSnowball,
-      is_message_private: savedSnowball.message_private === null ? false : true,
       message_list: []
     };
-    return combinedSnowballDto;
+    return plainToInstance(SnowballDto, combinedSnowballDto, {
+      excludeExtraneousValues: true
+    });
+  }
+
+  async getSnowballCount(user_id: number): Promise<number> {
+    const snowballCount = await this.snowballRepository.count({
+      where: { user_id: user_id }
+    });
+    return snowballCount;
   }
 
   // To Do: 조회 성능 테스트 필요
@@ -86,7 +93,7 @@ export class SnowballService {
       .update(SnowballEntity)
       .set({
         title,
-        message_private: is_message_private ? new Date() : null
+        is_message_private: is_message_private ? new Date() : null
       })
       .where('id = :id', { id: snowball_id })
       .andWhere('user_id = :user_id', { user_id: user_id })
@@ -95,14 +102,11 @@ export class SnowballService {
       throw new NotFoundException('스노우볼 업데이트 권한이 없습니다');
     }
 
-    // Return the updated snowball
-    const resUpdateSnowballDto: ResUpdateSnowballDto = {
+    const resUpdateSnowballDto = {
       snowball_id,
-      title,
-      is_message_private
+      ...updateSnowballDto
     };
-
-    return resUpdateSnowballDto;
+    return plainToInstance(ResUpdateSnowballDto, resUpdateSnowballDto);
   }
 
   async getSnowball(
@@ -115,24 +119,26 @@ export class SnowballService {
     if (!snowball) {
       return null;
     }
-    const is_message_private = snowball.message_private ? true : false;
-    const is_private_contents = !hasToken && is_message_private;
 
-    const resSnowball: SnowballDto = {
+    const is_private_contents =
+      !hasToken && snowball.is_message_private !== null;
+
+    const resSnowball = {
       ...snowball,
-      is_message_private: is_message_private,
       message_list: await this.messageService.getMessageList(
         snowball.id,
         is_private_contents === true ? 'private' : 'public'
       )
     };
 
-    return resSnowball;
+    return plainToInstance(SnowballDto, resSnowball, {
+      excludeExtraneousValues: true
+    });
   }
 
   async doesDecorationExist(decoration_id: number): Promise<boolean> {
     const decoration = await this.snowballDecoRepository.findOne({
-      where: { id: decoration_id }
+      where: { id: decoration_id, active: true }
     });
     if (!decoration) {
       throw new NotFoundException('업데이트할 장식이 존재하지 않습니다.');

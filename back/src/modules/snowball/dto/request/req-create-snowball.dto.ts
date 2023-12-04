@@ -1,13 +1,15 @@
 import {
   IsString,
   IsNotEmpty,
-  IsBoolean,
   IsNumber,
   IsHexColor,
   Min,
-  Length
+  Length,
+  IsDate
 } from '@nestjs/class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { Transform } from 'class-transformer';
+import { IsOptional } from 'class-validator';
 
 export class ReqCreateSnowballDto {
   @IsString()
@@ -45,8 +47,9 @@ export class ReqCreateSnowballDto {
   })
   readonly bottom_decoration_color: string;
 
-  @IsBoolean()
-  @IsNotEmpty()
+  @IsDate()
+  @IsOptional()
+  @Transform(({ value }) => (value === true ? new Date() : null))
   @ApiProperty({
     type: Boolean,
     description: '스노우볼 속 메시지들 비공개 여부'
