@@ -37,7 +37,7 @@ export class UserService {
     }
   }
 
-  async getUserNickname(id: number): Promise<string> {
+  async getUserNickname(id: number): Promise<string> | null {
     const exisitingUser = await this.userRepository.findOne({
       where: { id: id },
       select: ['nickname']
@@ -45,9 +45,10 @@ export class UserService {
     if (exisitingUser) {
       return exisitingUser.nickname;
     } else {
-      throw new NotFoundException('해당 유저를 찾을 수 없습니다.');
+      return null;
     }
   }
+
 
   async createUserInfo(user: any, hasToken: boolean): Promise<ResInfoDto> {
     const userDto: UserDto = await this.createUserDto(
