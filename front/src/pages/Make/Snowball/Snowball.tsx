@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { theme } from '../../../utils';
 import { SnowGlobeCanvas, Button } from '../../../components';
 import { MainDeco } from './MainDeco';
-import mock from '../../../mockdata.json'; // temporary
+import mock from '../../../mockdata.json';
 
 const StyledHeader = styled.div`
   position: absolute;
