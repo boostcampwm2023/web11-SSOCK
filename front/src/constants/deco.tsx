@@ -32,12 +32,12 @@ export const MAIN = [
   {
     name: '부캠덕',
     fileName: '/models/bcduck.glb',
-    img: '/models/img/Main/tree.png'
+    img: '/models/img/Main/bcduck.png'
   },
   {
     name: '안경부캠덕',
     fileName: '/models/bcduck_glasses.glb',
-    img: '/models/img/Main/tree.png'
+    img: '/models/img/Main/lamp.gif'
   }
 ];
 
@@ -96,7 +96,7 @@ export const BOTTOM = [
   {
     name: '받침대',
     fileName: '/models/bottom.glb',
-    img: '/models/img/Bottom/bottom1.png'
+    img: '/models/img/Bottom/bottom.png'
   },
   {
     name: '받침대1',
