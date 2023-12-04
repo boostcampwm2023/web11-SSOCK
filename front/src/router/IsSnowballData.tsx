@@ -19,8 +19,8 @@ const IsSnowballData: React.FC<{ children: ReactNode }> = ({ children }) => {
   const maxSnowball = 5;
 
   useEffect(() => {
-    //saveCookie();
-    if (url === '') {
+    // saveCookie();
+    if (url === '' || url === '/make') {
       axios
         .get('/api/user', {
           withCredentials: true // axios 쿠키 값 전달
