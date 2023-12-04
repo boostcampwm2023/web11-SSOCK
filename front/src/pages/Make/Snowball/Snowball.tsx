@@ -65,9 +65,7 @@ const Snowball = () => {
           </StyledHeader>
 
           <StyledBottom>
-            아직 <StyledBall>스노우볼</StyledBall>이 없군요!
-            <br />
-            스노우볼은 소중한 마음을 주고 받는
+            <StyledBall>스노우볼</StyledBall>은 소중한 마음을 주고 받는
             <br />
             예쁜 선물 상자가 될 거예요.
           </StyledBottom>
