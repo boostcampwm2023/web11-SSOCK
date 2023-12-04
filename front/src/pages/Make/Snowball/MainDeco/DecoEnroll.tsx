@@ -108,14 +108,21 @@ const DecoEnroll = (props: NaviProps) => {
       const url = `https://www.mysnowball.kr/visit/${user}`;
       if (navigator.share === undefined) {
         navigator.clipboard.writeText(url);
+        CloseNav(props, closeRef, setIsFocus, navigate, 'root');
+        return;
       } else {
         navigator.share({
           title: '내 마음 속 스노우볼',
           text: '내 스노우 볼을 꾸며줘 !',
           url: url,
+        })
+        .then(() => {
+          CloseNav(props, closeRef, setIsFocus, navigate, 'root');
+        })
+        .catch(() => {
+          CloseNav(props, closeRef, setIsFocus, navigate, 'root')
         });
       }
-      CloseNav(props, closeRef, setIsFocus, navigate, 'root');
     });
   }
 
