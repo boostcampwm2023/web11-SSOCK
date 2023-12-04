@@ -1,11 +1,11 @@
 import {
   IsString,
   IsNotEmpty,
-  IsBoolean,
   IsNumber,
   IsHexColor,
   Min,
-  Length
+  Length,
+  IsDate
 } from '@nestjs/class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
@@ -46,8 +46,8 @@ export class ReqCreateSnowballDto {
   })
   readonly bottom_decoration_color: string;
 
-  @Transform(({ value }) => (value === 'true' ? new Date() : null))
-  @IsBoolean()
+  @Transform(({ value }) => (value === true ? new Date() : null))
+  @IsDate()
   @IsNotEmpty()
   @ApiProperty({
     type: Boolean,
