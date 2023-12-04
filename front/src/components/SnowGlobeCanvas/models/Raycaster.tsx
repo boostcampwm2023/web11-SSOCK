@@ -5,7 +5,7 @@ import { MessageContext } from '../../../pages/Visit/MessageProvider';
 import { PrevContext } from '../PrevProvider';
 
 interface RaycasterProps {
-  isClickedRef: React.MutableRefObject<boolean>; // mutable
+  isClickedRef: React.MutableRefObject<boolean>;
 }
 
 const Raycaster: React.FC<RaycasterProps> = ({ isClickedRef }) => {

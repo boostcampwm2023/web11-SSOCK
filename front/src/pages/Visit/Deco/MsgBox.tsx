@@ -1,8 +1,8 @@
 import { useContext } from 'react';
-import { DecoContext } from './DecoProvider';
+import styled from 'styled-components';
 import { MSG_COLOR } from '../../../constants/deco';
 import { Msg } from '../../../components';
-import styled from 'styled-components';
+import { DecoContext } from './DecoProvider';
 import { SnowBallContext } from '../SnowBallProvider';
 
 interface MsgBoxProps {

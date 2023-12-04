@@ -1,7 +1,6 @@
 import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei';
-
 import * as THREE from 'three';
 import { makeColorChangedMaterial } from '../../../utils/meshUtils';
 
@@ -37,19 +36,18 @@ const fallingAnimate = (
   }
   target.position.y -= speed;
 };
+
 const rotateAnimate = (target: THREE.Mesh, speed: number) => {
   target.rotation.y += speed;
 };
+
 const visibleInRange = (
   target: THREE.Mesh,
   centerPosition: THREE.Vector3,
   radius: number
 ) => {
-  if (target.position.distanceTo(centerPosition) > radius) {
-    target.visible = false;
-  } else {
-    target.visible = true;
-  }
+  target.visible =
+    target.position.distanceTo(centerPosition) > radius ? false : true;
 };
 
 const snowcolor = ['#99c9fd', '#a5bbd3', '#f1faff'];
@@ -80,6 +78,7 @@ const Snow: React.FC<SnowProps> = ({
       );
     }
   });
+
   useFrame((_, delta) => {
     const snow = snowRef.current;
     const speed = 1 * delta;

@@ -14,6 +14,13 @@ interface DecoProps {
   isOpened: boolean;
 }
 
+const DecoSet = (deco: THREE.Group<THREE.Object3DEventMap>) => {
+  const newModel = useGLTF('/models/new.glb').scene.clone().children[0];
+  newModel.position.set(0, 1.2, 0);
+  newModel.scale.set(0.1, 0.1, 0.1);
+  deco.add(newModel);
+};
+
 const Deco = ({
   scale,
   position,
@@ -32,12 +39,7 @@ const Deco = ({
   deco.scale.set(scale, scale, scale);
   deco.position.set(position.x, position.y, position.z);
 
-  if (isOpened) {
-    const newModel = useGLTF('/models/new.glb').scene.clone().children[0];
-    newModel.position.set(0, 1.2, 0);
-    newModel.scale.set(0.1, 0.1, 0.1);
-    deco.add(newModel);
-  }
+  if (isOpened) DecoSet(deco);
 
   deco.children.forEach(child => {
     if (child instanceof THREE.Mesh) {
