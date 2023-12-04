@@ -6,6 +6,8 @@ import styled from 'styled-components';
 import axios from 'axios';
 
 const MsgContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
   max-height: fit-content;
   overflow: scroll;
 `;
@@ -30,8 +32,7 @@ const VisitBody = () => {
           sender={sender}
           to={userData.nickname}
         />
-      ) : null}
-      {userData.snowball_list.length > 0 ? (
+      ) : userData.snowball_list.length > 0 ? (
         <>
           <Btn
             onClick={e => {
