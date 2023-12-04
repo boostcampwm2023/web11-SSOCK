@@ -135,4 +135,15 @@ export class AuthController {
     this.authService.setCookies(res, accessToken, refreshToken);
     res.redirect(`${process.env.OAUTH_REDIRECT_URL}`);
   }
+
+  @Get('logout')
+  @ApiResponse({
+    status: 200,
+    description: '로그아웃 성공'
+  })
+  async logout(@Res() res: any): Promise<void> {
+    res.clearCookie('access_token');
+    res.clearCookie('refresh_token');
+    res.redirect(`/`);
+  }
 }
