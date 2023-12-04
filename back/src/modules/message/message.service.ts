@@ -30,7 +30,7 @@ export class MessageService {
     if (!(await this.isInsertAllowed(snowball_id)))
       throw new ConflictException('메세지 갯수가 30개를 초과했습니다');
 
-    const location = await this.findLocation(user_id);
+    const location = await this.findLocation(user_id, snowball_id);
     const messageEntity = this.messageRepository.create({
       user_id: user_id,
       snowball_id: snowball_id,
@@ -189,11 +189,12 @@ export class MessageService {
     return messageDtos;
   }
 
-  async findLocation(user_id: number): Promise<number> {
+  async findLocation(user_id: number, snowball_id: number): Promise<number> {
     const findLocations = this.messageRepository
       .createQueryBuilder('message')
       .select('location')
       .where('user_id = :user_id', { user_id })
+      .andWhere('snowball_id = :snowball_id', { snowball_id })
       .andWhere('is_deleted = false');
     const locations = await findLocations.getRawMany();
 
