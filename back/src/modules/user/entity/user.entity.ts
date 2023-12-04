@@ -30,6 +30,9 @@ export class UserEntity {
   @CreateDateColumn()
   created_at: Date;
 
+  @Column({ length: 255, default: null })
+  refresh_token: string;
+
   @OneToMany(() => SnowballEntity, snowball => snowball.user)
   snowballs: SnowballEntity[];
 
