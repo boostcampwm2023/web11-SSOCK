@@ -81,7 +81,7 @@ const Nickname = () => {
     if (!nickname && nicknameRef.current?.value) setNickname(true);
     if (!nickname || !nicknameRef.current?.value) return;
 
-    if (nicknameRef.current.value.length <= 8) {
+    if (nicknameRef.current.value.length <= 16) {
       setLenWarning(false);
       axios
         .put(
