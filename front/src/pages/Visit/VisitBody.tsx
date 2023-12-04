@@ -6,8 +6,6 @@ import styled from 'styled-components';
 import axios from 'axios';
 
 const MsgContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
   max-height: fit-content;
   overflow: scroll;
 `;

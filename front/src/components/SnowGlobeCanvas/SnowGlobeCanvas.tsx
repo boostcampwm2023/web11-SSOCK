@@ -35,7 +35,7 @@ const SnowGlobeCanvas = () => {
         color={message.decoration_color}
         sender={message.sender ?? '비공개'}
         letterID={message.letter_id ?? 0}
-        isOpened={message.opened !== null}
+        isOpened={message.opened !== null || message.opened !== 'null'}
       />
     );
   });

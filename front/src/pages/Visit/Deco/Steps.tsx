@@ -24,9 +24,8 @@ const StateBox = styled.div`
 `;
 
 const StyledBody = styled.div`
-  flex: 1 1 auto;
-  display: flex;
-  overflow-y: hidden;
+  max-height: fit-content;
+  overflow-y: scroll;
   pointer-events: none;
   * {
     pointer-events: all;
@@ -34,6 +33,7 @@ const StyledBody = styled.div`
 `;
 
 const StyledBottomWrap = styled.div`
+  min-height: 15rem;
   display: flex;
   flex-direction: column;
 `;
