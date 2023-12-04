@@ -27,7 +27,7 @@ export class SnowballDto {
   @ApiProperty({ type: Number, description: '스노우볼 id' })
   readonly id: number;
 
-  @Transform(({ value }) => (value !== null ? true : false))
+  @Transform(({ value }) => (value === null ? true : false))
   @Expose()
   @IsBoolean()
   @IsNotEmpty()
