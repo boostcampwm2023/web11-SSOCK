@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
 import { GoogleAuthStrategy } from '../../common/strategy/google-auth.strategy';
 import { NaverAuthStrategy } from '../../common/strategy/naver-auth.strategy';
 import { KakaoAuthStrategy } from '../../common/strategy/kakao-auth.strategy';
@@ -10,6 +10,7 @@ import { UserEntity } from '../user/entity/user.entity';
 import { JWTGuard } from '../../common/guards/jwt.guard';
 import { JwtModule } from '@nestjs/jwt';
 
+@Global()
 @Module({
   imports: [TypeOrmModule.forFeature([UserEntity]), PassportModule, JwtModule],
   providers: [
@@ -20,6 +21,6 @@ import { JwtModule } from '@nestjs/jwt';
     JWTGuard
   ],
   controllers: [AuthController],
-  exports: [JWTGuard]
+  exports: [JWTGuard, AuthService]
 })
 export class AuthModule {}
