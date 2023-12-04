@@ -16,6 +16,7 @@ import { UpdateMessageDecorationDto } from './dto/update-message-decoration.dto'
 import { UpdateMessageLocationDto } from './dto/update-message-location.dto';
 import { plainToInstance, instanceToPlain } from 'class-transformer';
 import { LetterEntity } from './entity/letter.entity';
+import { DecorationPrefixEntity } from '../snowball/entity/decoration-prefix.entity';
 
 @Injectable()
 export class MessageService {
@@ -23,16 +24,16 @@ export class MessageService {
     @InjectRepository(MessageEntity)
     private readonly messageRepository: Repository<MessageEntity>,
     @InjectRepository(LetterEntity)
-    private readonly letterRepository: Repository<LetterEntity>
+    private readonly letterRepository: Repository<LetterEntity>,
+    @InjectRepository(DecorationPrefixEntity)
+    private readonly messageDecoRepository: Repository<DecorationPrefixEntity>
   ) {}
   async createMessage(
     createMessageDto: ReqCreateMessageDto,
     snowball_id: number
   ): Promise<ResCreateMessageDto> {
-    if (!(await this.isInsertAllowed(snowball_id)))
-      throw new ConflictException('메세지 갯수가 30개를 초과했습니다');
-    if (!(await this.hasLetterId(createMessageDto.letter_id)))
-      throw new NotFoundException('해당 letter_id가 존재하지 않습니다');
+    this.isInsertAllowed(snowball_id);
+    this.doesLetterIdExist(createMessageDto.letter_id);
 
     const user_id = await this.findUserId(snowball_id);
     const location = await this.findLocation(snowball_id);
@@ -62,15 +63,16 @@ export class MessageService {
     const messageCount = await this.messageRepository.count({
       where: { snowball_id: snowball_id, is_deleted: false }
     });
-    if (messageCount >= 30) return false;
+    if (messageCount >= 30)
+      throw new ConflictException('메세지 갯수가 30개를 초과했습니다');
     else return true;
   }
 
-  async hasLetterId(letter_id: number): Promise<boolean> {
+  async doesLetterIdExist(letter_id: number): Promise<boolean> {
     const letter = await this.letterRepository.findOne({
       where: { id: letter_id, active: true }
     });
-    if (!letter) return false;
+    if (!letter) throw new NotFoundException('존재하지 않는 letter id입니다');
     else return true;
   }
 
@@ -143,6 +145,8 @@ export class MessageService {
     updateMessageDecorationDto: UpdateMessageDecorationDto
   ): Promise<UpdateMessageDecorationDto> {
     const { decoration_id, decoration_color } = updateMessageDecorationDto;
+    this.doesDecorationExist(decoration_id);
+
     const updateResult = await this.messageRepository
       .createQueryBuilder()
       .update(MessageEntity)
@@ -155,9 +159,19 @@ export class MessageService {
     if (!updateResult.affected) {
       throw new NotFoundException('업데이트할 메시지가 존재하지 않습니다.');
     } else if (updateResult.affected > 1) {
-      throw new InternalServerErrorException('서버측 오류');
+      throw new InternalServerErrorException('중복 데이터 오류');
     }
     return updateMessageDecorationDto;
+  }
+
+  async doesDecorationExist(decoration_id: number): Promise<boolean> {
+    const decoration = await this.messageDecoRepository.findOne({
+      where: { id: decoration_id, active: true }
+    });
+    if (!decoration) {
+      throw new NotFoundException('업데이트할 장식이 존재하지 않습니다.');
+    }
+    return true;
   }
 
   async updateMessageLocation(

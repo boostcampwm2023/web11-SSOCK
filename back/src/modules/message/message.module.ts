@@ -6,8 +6,15 @@ import { MessageEntity } from './entity/message.entity';
 import { JWTGuard } from '../../common/guards/jwt.guard';
 import { ClovaService } from './clova.service';
 import { LetterEntity } from './entity/letter.entity';
+import { DecorationPrefixEntity } from '../snowball/entity/decoration-prefix.entity';
 @Module({
-  imports: [TypeOrmModule.forFeature([MessageEntity, LetterEntity])],
+  imports: [
+    TypeOrmModule.forFeature([
+      MessageEntity,
+      LetterEntity,
+      DecorationPrefixEntity
+    ])
+  ],
   controllers: [MessageController],
   providers: [MessageService, ClovaService, JWTGuard],
   exports: [MessageService, TypeOrmModule]

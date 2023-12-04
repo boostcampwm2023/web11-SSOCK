@@ -132,7 +132,7 @@ export class SnowballService {
 
   async doesDecorationExist(decoration_id: number): Promise<boolean> {
     const decoration = await this.snowballDecoRepository.findOne({
-      where: { id: decoration_id }
+      where: { id: decoration_id, active: true }
     });
     if (!decoration) {
       throw new NotFoundException('업데이트할 장식이 존재하지 않습니다.');
