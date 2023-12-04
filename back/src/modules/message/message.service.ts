@@ -18,12 +18,15 @@ import { plainToInstance, instanceToPlain } from 'class-transformer';
 import { LetterEntity } from './entity/letter.entity';
 import { DecorationPrefixEntity } from '../snowball/entity/decoration-prefix.entity';
 import { ResClovaSentiment } from './clova.service';
+import { SnowballEntity } from '../snowball/entity/snowball.entity';
 
 @Injectable()
 export class MessageService {
   constructor(
     @InjectRepository(MessageEntity)
     private readonly messageRepository: Repository<MessageEntity>,
+    @InjectRepository(SnowballEntity)
+    private readonly snowballRepository: Repository<SnowballEntity>,
     @InjectRepository(LetterEntity)
     private readonly letterRepository: Repository<LetterEntity>,
     @InjectRepository(DecorationPrefixEntity)
@@ -223,9 +226,9 @@ export class MessageService {
   }
 
   async findUserId(snowball_id: number): Promise<number> {
-    const user = await this.messageRepository.findOne({
+    const user = await this.snowballRepository.findOne({
       select: ['user_id'],
-      where: { snowball_id: snowball_id }
+      where: { id: snowball_id }
     });
 
     if (!user)
