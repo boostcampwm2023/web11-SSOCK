@@ -25,8 +25,8 @@ export const MAIN = [
     img: '/models/img/Main/tux.gif'
   },
   {
-    name: '트리',
-    fileName: '/models/tree.glb',
+    name: '산타',
+    fileName: '/models/santa.glb',
     img: '/models/img/Main/tree.png'
   },
   {
