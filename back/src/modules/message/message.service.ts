@@ -87,14 +87,19 @@ export class MessageService {
   }
 
   async getAllMessages(user_id: number): Promise<MessageDto[]> {
-    const messages: MessageEntity[] = await this.messageRepository.find({
+    const messageEntities = await this.messageRepository.find({
       where: { user_id: user_id, is_deleted: false }
     });
-    if (!messages) {
+    if (!messageEntities) {
       throw new NotFoundException(`User with id ${user_id} not found`);
     }
-    const messagesDto: MessageDto[] = plainToInstance(MessageDto, messages);
-    return messagesDto;
+    const messageDtos = messageEntities.map(entity =>
+      plainToInstance(MessageDto, instanceToPlain(entity), {
+        groups: ['public'],
+        exposeUnsetFields: false
+      })
+    );
+    return messageDtos;
   }
 
   async openMessage(message_id: number): Promise<MessageDto> {
