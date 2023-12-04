@@ -39,14 +39,8 @@ export class AuthController {
     const payload: payload = await this.authService.getUserInfo(req.user);
     const { accessToken, refreshToken } =
       this.authService.generateJwtToken(payload);
-    res.cookie('access_token', accessToken, {
-      httpOnly: true,
-      maxAge: parseInt(`${process.env.JWT_ACCESS_AGE}`)
-    });
-    res.cookie('refresh_token', refreshToken, {
-      httpOnly: true,
-      maxAge: parseInt(`${process.env.JWT_REFRESH_AGE}`)
-    });
+    await this.authService.saveRefreshToken(payload, refreshToken);
+    this.authService.setCookies(res, accessToken, refreshToken);
     res.redirect(`${process.env.OAUTH_REDIRECT_URL}`);
   }
 
@@ -81,14 +75,8 @@ export class AuthController {
     const payload: payload = await this.authService.getUserInfo(req.user);
     const { accessToken, refreshToken } =
       this.authService.generateJwtToken(payload);
-    res.cookie('access_token', accessToken, {
-      httpOnly: true,
-      maxAge: parseInt(`${process.env.JWT_ACCESS_AGE}`)
-    });
-    res.cookie('refresh_token', refreshToken, {
-      httpOnly: true,
-      maxAge: parseInt(`${process.env.JWT_REFRESH_AGE}`)
-    });
+    await this.authService.saveRefreshToken(payload, refreshToken);
+    this.authService.setCookies(res, accessToken, refreshToken);
     res.redirect(`${process.env.OAUTH_REDIRECT_URL}`);
   }
 
@@ -124,14 +112,27 @@ export class AuthController {
     // To DO: refresh token db에 저장 & 클라이언트에는 index만 저장?
     const { accessToken, refreshToken } =
       this.authService.generateJwtToken(payload);
-    res.cookie('access_token', accessToken, {
-      httpOnly: true,
-      maxAge: parseInt(`${process.env.JWT_ACCESS_AGE}`)
-    });
-    res.cookie('refresh_token', refreshToken, {
-      httpOnly: true,
-      maxAge: parseInt(`${process.env.JWT_REFRESH_AGE}`)
-    });
+    await this.authService.saveRefreshToken(payload, refreshToken);
+    this.authService.setCookies(res, accessToken, refreshToken);
+    res.redirect(`${process.env.OAUTH_REDIRECT_URL}`);
+  }
+
+  @Get('test')
+  @ApiResponse({
+    status: 200,
+    description: '로그인 성공'
+  })
+  async test(@Req() req: any, @Res() res: any): Promise<void> {
+    const payload: payload = {
+      id: 3,
+      name: '김부캠',
+      auth_id: '105101728749763412428'
+    };
+    // To DO: refresh token db에 저장 & 클라이언트에는 index만 저장?
+    const { accessToken, refreshToken } =
+      this.authService.generateJwtToken(payload);
+    await this.authService.saveRefreshToken(payload, refreshToken);
+    this.authService.setCookies(res, accessToken, refreshToken);
     res.redirect(`${process.env.OAUTH_REDIRECT_URL}`);
   }
 }

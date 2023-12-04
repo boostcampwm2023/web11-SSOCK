@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from '../user/entity/user.entity';
@@ -49,15 +49,67 @@ export class AuthService {
     accessToken: string;
     refreshToken: string;
   } {
-    const accessToken = this.jwtService.sign(payload, {
+    const accessToken = this.generateAccessToken(payload);
+    const refreshToken = this.generateRefreshToken(payload);
+    return { accessToken, refreshToken };
+  }
+
+  generateAccessToken(payload: payload): string {
+    return this.jwtService.sign(payload, {
       expiresIn: parseInt(`${process.env.JWT_ACCESS_AGE}`),
       secret: `${process.env.JWT_ACCESS_SECRET}`
     });
+  }
 
-    const refreshToken = this.jwtService.sign(payload, {
+  generateRefreshToken(payload: payload): string {
+    return this.jwtService.sign(payload, {
       expiresIn: parseInt(`${process.env.JWT_REFRESH_AGE}`),
       secret: `${process.env.JWT_REFRESH_SECRET}`
     });
-    return { accessToken, refreshToken };
+  }
+
+  setCookies(res: any, accessToken: string, refreshToken?: string): boolean {
+    try {
+      res.cookie('access_token', accessToken, {
+        httpOnly: true,
+        maxAge: parseInt(`${process.env.JWT_ACCESS_AGE}`)
+      });
+      if (refreshToken) {
+        res.cookie('refresh_token', refreshToken, {
+          httpOnly: true,
+          maxAge: parseInt(`${process.env.JWT_REFRESH_AGE}`)
+        });
+      }
+    } catch (error) {
+      return false;
+    }
+  }
+
+  async saveRefreshToken(user: any, refreshToken: string): Promise<boolean> {
+    try {
+      await this.UserRepository.update(
+        { id: user.id },
+        { refresh_token: refreshToken }
+      );
+    } catch (error) {
+      throw new UnauthorizedException('Refresh Token 저장 실패');
+    }
+
+    return true;
+  }
+
+  //DB에서 조회하고 맞춰보기
+  async isValidRefreshToken(user: any, refreshToken: string): Promise<boolean> {
+    //PK 조회라 빠를듯
+    const exisitingUser = await this.UserRepository.findOne({
+      where: { id: user.id }
+    });
+    if (exisitingUser && exisitingUser.refresh_token === refreshToken) {
+      return true;
+    } else {
+      throw new UnauthorizedException(
+        'Refresh Token이 데이터 베이스에 없습니다.'
+      );
+    }
   }
 }
