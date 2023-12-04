@@ -14,6 +14,7 @@ import { UpdateMainDecoDto } from './dto/update-main-decoration.dto';
 import { UserDto } from '../user/dto/user.dto';
 import { MessageService } from '../message/message.service';
 import { DecorationPrefixEntity } from './entity/decoration-prefix.entity';
+import { plainToInstance } from 'class-transformer';
 
 export interface SnowballInfo {
   snowball_count: number;
@@ -36,10 +37,7 @@ export class SnowballService {
     user_id: number,
     createSnowballDto: ReqCreateSnowballDto
   ): Promise<SnowballDto> {
-    // 유저가 스노우볼을 5개 이상 생성할 수 없다.
-    const userSnowballCount = await this.snowballRepository.count({
-      where: { user_id: user_id }
-    });
+    const userSnowballCount = await this.getSnowballCount(user_id);
     if (userSnowballCount >= 5) {
       throw new BadRequestException(
         '스노우볼은 최대 5개까지 생성할 수 있습니다.'
@@ -48,8 +46,7 @@ export class SnowballService {
 
     const snowball = this.snowballRepository.create({
       user_id: user_id,
-      ...createSnowballDto,
-      message_private: createSnowballDto.is_message_private ? new Date() : null
+      ...createSnowballDto
     });
     const savedSnowball = await this.snowballRepository.save(snowball);
 
@@ -59,6 +56,13 @@ export class SnowballService {
       message_list: []
     };
     return combinedSnowballDto;
+  }
+
+  async getSnowballCount(user_id: number): Promise<number> {
+    const snowballCount = await this.snowballRepository.count({
+      where: { user_id: user_id }
+    });
+    return snowballCount;
   }
 
   // To Do: 조회 성능 테스트 필요
@@ -95,14 +99,11 @@ export class SnowballService {
       throw new NotFoundException('스노우볼 업데이트 권한이 없습니다');
     }
 
-    // Return the updated snowball
-    const resUpdateSnowballDto: ResUpdateSnowballDto = {
+    const resUpdateSnowballDto = {
       snowball_id,
-      title,
-      is_message_private
+      ...updateSnowballDto
     };
-
-    return resUpdateSnowballDto;
+    return plainToInstance(ResUpdateSnowballDto, resUpdateSnowballDto);
   }
 
   async getSnowball(
