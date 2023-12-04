@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import styled from 'styled-components';
 import { theme } from '../../../utils';
 import { Button } from '../../../components';
@@ -71,13 +72,26 @@ const validNickname = (
 
 const Nickname = () => {
   const navigate = useNavigate();
-
-  const [nickname, setNickname] = useState(false); // 닉네임 설정유무 판단 필요(닉네임 설정하고 스노우볼은 설정 안했다던지 등등..)
+  const [nickname, setNickname] = useState(false);
   const [startNickname, setStartNickname] = useState(false);
   const nicknameRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    nickname ? navigate('/make/snowball') : null;
+    if (!nickname || !nicknameRef.current?.value) return;
+    if (nicknameRef.current.value.length <= 8) {
+      axios
+        .post('/api/snowball', { nickname: nicknameRef.current.value })
+        .then(res => {
+          if (res.status === 200) {
+            navigate('/make/snowball');
+          }
+        })
+        .catch(() => {
+          alert('다시 시도해주십시오.');
+        });
+    } else {
+      alert('8글자 이하로 설정 가능합니다.');
+    }
   }, [nickname, navigate]);
 
   return (
