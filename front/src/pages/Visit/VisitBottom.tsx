@@ -1,8 +1,7 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { theme, Container } from '../../utils';
 import { Button } from '../../components';
-import { SnowBallContext } from './SnowBallProvider';
 
 const VisitBottom = () => {
   const navigate = useNavigate();

@@ -49,7 +49,6 @@ const PostButton = (props: ButtonProps) => {
       decoration_color: color,
       letter_id: letterID
     };
-    console.log('asdfasdf', snowBallData.id, a);
     axios
       .post(`/api/message/${userData.id}/${snowBallData.id}`, a)
       .then(() => {
@@ -61,7 +60,7 @@ const PostButton = (props: ButtonProps) => {
         });
       })
       .catch(e => {
-        console.log(e);
+        console.error(e);
         alert(
           '메시지가 꽉찼어요\n다른 스노우볼을 선택해주세요!\n작성중인 메시지는 유지됩니다!'
         );

@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { Msg } from '../../components';
 import { MessageContext } from './MessageProvider';
-import { SnowBallContext, SnowBallData, UserData } from './SnowBallProvider';
+import { SnowBallContext, SnowBallData } from './SnowBallProvider';
 import styled from 'styled-components';
 import axios from 'axios';
 
@@ -10,16 +10,21 @@ const MsgContainer = styled.div`
   overflow: scroll;
 `;
 
-const Btn = styled.button`
+const LeftBtn = styled.button`
   color: white;
+  position: fixed;
+  left: 0;
+`;
+const RightBtn = styled.button`
+  color: white;
+  position: fixed;
+  right: 0;
 `;
 
 const VisitBody = () => {
   const { message, sender, color } = useContext(MessageContext); // message가 '' 비어있지 않을때
   const { userData, snowBallData, setSnowBallData } =
     useContext(SnowBallContext);
-  console.log('------------------------');
-  console.log(userData, snowBallData);
   return (
     <MsgContainer>
       {message !== '' ? (
@@ -32,8 +37,8 @@ const VisitBody = () => {
         />
       ) : userData.snowball_list.length > 0 ? (
         <>
-          <Btn
-            onClick={e => {
+          <LeftBtn
+            onClick={() => {
               const nowSnowBallID = userData.snowball_list.findIndex(
                 id => id == snowBallData.id
               );
@@ -47,7 +52,6 @@ const VisitBody = () => {
                 ];
               axios(`/api/snowball/${nextSnowBallID}`)
                 .then(res => {
-                  console.log('test', res);
                   setSnowBallData(res.data as SnowBallData);
                 })
                 .catch(e => {
@@ -56,9 +60,9 @@ const VisitBody = () => {
             }}
           >
             이전
-          </Btn>
-          <Btn
-            onClick={e => {
+          </LeftBtn>
+          <RightBtn
+            onClick={() => {
               const nowSnowBallID = userData.snowball_list.findIndex(
                 id => id == snowBallData.id
               );
@@ -71,7 +75,6 @@ const VisitBody = () => {
                 ];
               axios(`/api/snowball/${nextSnowBallID}`)
                 .then(res => {
-                  console.log('test', res);
                   setSnowBallData(res.data as SnowBallData);
                 })
                 .catch(e => {
@@ -80,7 +83,7 @@ const VisitBody = () => {
             }}
           >
             다음
-          </Btn>
+          </RightBtn>
         </>
       ) : null}
     </MsgContainer>

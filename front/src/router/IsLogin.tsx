@@ -20,14 +20,13 @@ const IsLogin: React.FC<{ children: ReactNode }> = ({ children }) => {
         .then(res => {
           if (res.status === 200) {
             const data = res.data;
-            console.log(data);
             if (data.user.nickname === null) setUrl('/make');
             else if (data.main_snowball === null) setUrl('/make/snowball');
             else navigate('/main');
           }
         })
         .catch(err => {
-          console.log(err);
+          console.error(err);
           navigate('*');
         });
     }

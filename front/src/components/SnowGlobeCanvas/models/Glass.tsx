@@ -15,7 +15,7 @@ const Glass: React.FC<GlassProps> = ({ position, radius, color, opacity }) => {
       <meshStandardMaterial
         transparent={true}
         color={color}
-        opacity={0.1}
+        opacity={opacity}
         roughness={0}
         metalness={1}
       />

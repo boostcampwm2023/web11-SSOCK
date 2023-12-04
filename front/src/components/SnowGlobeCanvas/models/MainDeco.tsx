@@ -44,7 +44,6 @@ const MainDeco = ({ id, scale, position, color }: MyModelProps) => {
   const colorPart = deco.getObjectByName('colorPart') as THREE.Mesh;
   colorPart.material = makeColorChangedMaterial(colorPart, color);
   deco.children.forEach(mesh => (mesh.castShadow = true));
-  console.log(deco);
   useFrame(() => {
     fallingModel(deco, speedRef);
   });

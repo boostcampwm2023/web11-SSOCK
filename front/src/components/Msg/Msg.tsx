@@ -118,7 +118,6 @@ const Msg = (props: MsgProps) => {
     if (text.value.length > maxWordCount) {
       text.value = text.value.substring(0, maxWordCount);
     }
-    console.log('changed', text.value, content);
     setContent(text.value);
     setWordCount(text.value.length);
   };
