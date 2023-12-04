@@ -28,6 +28,16 @@ export const MAIN = [
     name: '트리',
     fileName: '/models/tree.glb',
     img: '/models/img/Main/tree.png'
+  },
+  {
+    name: '부캠덕',
+    fileName: '/models/bcduck.glb',
+    img: '/models/img/Main/tree.png'
+  },
+  {
+    name: '안경부캠덕',
+    fileName: '/models/bcduck_glasses.glb',
+    img: '/models/img/Main/tree.png'
   }
 ];
 
