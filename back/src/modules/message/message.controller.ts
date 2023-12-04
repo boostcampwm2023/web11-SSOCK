@@ -40,7 +40,7 @@ export class MessageController {
     private readonly clovaService: ClovaService
   ) {}
 
-  @Post('/:user_id/:snowball_id')
+  @Post('/:snowball_id')
   @HttpCode(201)
   @ApiOperation({
     summary: '메세지 생성 API',
