@@ -90,7 +90,7 @@ export class SnowballService {
 
     const queryRunner = this.dataSource.createQueryRunner();
     await queryRunner.connect();
-    await queryRunner.startTransaction();
+    await queryRunner.startTransaction('READ COMMITTED');
 
     try {
       const updateResult = await queryRunner.manager
@@ -168,7 +168,7 @@ export class SnowballService {
 
     const queryRunner = this.dataSource.createQueryRunner();
     await queryRunner.connect();
-    await queryRunner.startTransaction();
+    await queryRunner.startTransaction('READ COMMITTED');
 
     try {
       const updateResult = await queryRunner.manager

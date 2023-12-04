@@ -94,7 +94,7 @@ export class UserService {
   ): Promise<NicknameDto> {
     const queryRunner = this.dataSource.createQueryRunner();
     await queryRunner.connect();
-    await queryRunner.startTransaction();
+    await queryRunner.startTransaction('READ COMMITTED');
     try {
       const updateResult = await queryRunner.manager
         .createQueryBuilder()

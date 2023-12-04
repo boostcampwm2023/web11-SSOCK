@@ -89,7 +89,7 @@ export class AuthService {
   async saveRefreshToken(user: any, refreshToken: string): Promise<boolean> {
     const queryRunner = this.dataSource.createQueryRunner();
     await queryRunner.connect();
-    await queryRunner.startTransaction();
+    await queryRunner.startTransaction('READ COMMITTED');
     try {
       const updateResult = await queryRunner.manager.update(
         UserEntity,
