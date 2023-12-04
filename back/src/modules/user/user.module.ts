@@ -9,10 +9,16 @@ import { SnowballEntity } from '../snowball/entity/snowball.entity';
 import { MessageEntity } from '../message/entity/message.entity';
 import { SnowballService } from '../snowball/snowball.service';
 import { MessageService } from '../message/message.service';
+import { LetterEntity } from '../message/entity/letter.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([UserEntity, SnowballEntity, MessageEntity]),
+    TypeOrmModule.forFeature([
+      UserEntity,
+      SnowballEntity,
+      MessageEntity,
+      LetterEntity
+    ]),
     SnowballModule
   ],
   controllers: [UserController],
