@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import { SnowGlobeCanvas, UIContainer } from '../../../src/components';
 import IntroButtonBox from './IntroButtonBox';
-import { MessageProvider } from '../Visit/MessageProvider';
 import MsgBox from './MsgBox';
+import { MessageProvider } from '../Visit/MessageProvider';
 
 const TitleDiv = styled.div`
   display: flex;

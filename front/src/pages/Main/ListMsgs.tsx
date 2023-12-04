@@ -1,8 +1,7 @@
-import styled from 'styled-components';
-import { ListMsg } from '../../components';
-import { Prev } from '../../components';
-import axios from 'axios';
 import { useEffect, useState } from 'react';
+import axios from 'axios';
+import styled from 'styled-components';
+import { ListMsg, Prev } from '../../components';
 import { MSG_COLOR } from '../../constants/deco';
 
 interface ListMsgProps {
@@ -38,7 +37,7 @@ interface MsgResponse {
   is_deleted: boolean;
   opened: string;
   letter_id: number;
-};
+}
 
 const ListMsgs = (props: ListMsgProps) => {
   const [messages, setMessages] = useState<Array<MsgResponse>>([]);

@@ -54,7 +54,6 @@ const StyledFrom = styled.span`
   color: ${props => props.theme.colors['--primary-redp-variant']};
 `;
 
-
 const StyledFromInput = styled.input`
   width: 55%;
   outline: none;
@@ -69,23 +68,25 @@ const StyledFromInput = styled.input`
 
 const StyledToWrap = styled.div``;
 
-const StyledDeleteButton = styled.button`
-`;
+const StyledDeleteButton = styled.button``;
 
 const ListMsg = (props: MsgProps): JSX.Element => {
-
   const deleteMsg = () => {
-    axios.delete(`/api/message/${props.messageId}`, {
-      withCredentials: true
-    }).then(() => {
-      // 리렌더링 구현해야함
-    });
+    axios
+      .delete(`/api/message/${props.messageId}`, {
+        withCredentials: true
+      })
+      .then(() => {
+        // 리렌더링 구현해야함
+      });
   };
 
   return (
     <StyledLetterBox color={props.color}>
       <StyledLetterPerson>
-        <StyledToWrap>To. <StyledTo>{props.to}</StyledTo></StyledToWrap>
+        <StyledToWrap>
+          To. <StyledTo>{props.to}</StyledTo>
+        </StyledToWrap>
         <StyledDeleteButton onClick={deleteMsg}>X</StyledDeleteButton>
       </StyledLetterPerson>
 

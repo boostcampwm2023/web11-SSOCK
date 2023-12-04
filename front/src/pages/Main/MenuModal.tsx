@@ -1,6 +1,6 @@
 import { useNavigate, NavigateFunction } from 'react-router-dom';
 import styled from 'styled-components';
-import mock from '../../mockdata.json'; // temporary
+import mock from '../../mockdata.json';
 
 interface ModalProps {
   set: React.Dispatch<React.SetStateAction<boolean>>;

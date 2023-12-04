@@ -1,5 +1,15 @@
 import * as THREE from 'three';
 
+interface canvasMaterialProps {
+  string: string;
+  width: number;
+  height: number;
+  positionY: number;
+  font: string;
+  fontColor: string;
+  backgGroundColor: string;
+}
+
 const makeColorChangedMaterial = (mesh: THREE.Mesh, color: string) => {
   const newMaterial = (
     mesh.material as THREE.Material
@@ -14,16 +24,6 @@ const makeColorChangedMaterial = (mesh: THREE.Mesh, color: string) => {
 
   return newMaterial;
 };
-
-interface canvasMaterialProps {
-  string: string;
-  width: number;
-  height: number;
-  positionY: number;
-  font: string;
-  fontColor: string;
-  backgGroundColor: string;
-}
 
 const makeCanvasTexture = (props: canvasMaterialProps) => {
   const canvas = document.createElement('canvas');
@@ -50,9 +50,7 @@ const makeCanvasTexture = (props: canvasMaterialProps) => {
     canvas.width
   );
 
-  const nameTexture = new THREE.CanvasTexture(canvas);
-
-  return nameTexture;
+  return new THREE.CanvasTexture(canvas);
 };
 
 export { makeColorChangedMaterial, makeCanvasTexture };
