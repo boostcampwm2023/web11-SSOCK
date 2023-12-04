@@ -14,7 +14,7 @@ import { UpdateMainDecoDto } from './dto/update-main-decoration.dto';
 import { UserDto } from '../user/dto/user.dto';
 import { MessageService } from '../message/message.service';
 import { DecorationPrefixEntity } from './entity/decoration-prefix.entity';
-import { plainToInstance } from 'class-transformer';
+import { instanceToPlain, plainToInstance } from 'class-transformer';
 
 export interface SnowballInfo {
   snowball_count: number;
@@ -48,14 +48,16 @@ export class SnowballService {
       user_id: user_id,
       ...createSnowballDto
     });
-    const savedSnowball = await this.snowballRepository.save(snowball);
+    const savedSnowballEntity = await this.snowballRepository.save(snowball);
+    const savedSnowball = instanceToPlain(savedSnowballEntity);
 
-    const combinedSnowballDto: SnowballDto = {
+    const combinedSnowballDto = {
       ...savedSnowball,
-      is_message_private: savedSnowball.message_private === null ? false : true,
       message_list: []
     };
-    return combinedSnowballDto;
+    return plainToInstance(SnowballDto, combinedSnowballDto, {
+      excludeExtraneousValues: true
+    });
   }
 
   async getSnowballCount(user_id: number): Promise<number> {
