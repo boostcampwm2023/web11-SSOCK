@@ -1,9 +1,9 @@
+import { useContext } from 'react';
 import { useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
+import { makeColorChangedMaterial } from '../../../../utils/meshUtils';
 import { DECO } from '../../../../constants/deco';
 import { DecoContext } from '../DecoProvider';
-import { useContext } from 'react';
-import { makeColorChangedMaterial } from '../../../../utils/meshUtils';
 
 const DecoModel = () => {
   const { decoID, color } = useContext(DecoContext);

@@ -1,8 +1,8 @@
 import React, { useState, useRef } from 'react';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import styled from 'styled-components';
 import { theme, BlurBody } from '../../../../utils';
-import axios from 'axios';
 
 interface NaviProps {
   visible: [number, React.Dispatch<React.SetStateAction<number>>];
@@ -92,16 +92,12 @@ const CloseNav = (
   }
 };
 
-
-
 const DecoEnroll = (props: NaviProps) => {
   const navigate = useNavigate();
   const [isFocus, setIsFocus] = useState(true);
   const closeRef = useRef<HTMLDivElement>(null);
 
-
   const shareLink = () => {
-    
     axios.get('/api/user', { withCredentials: true }).then(res => {
       const user = res.data.user.auth_id;
 
@@ -111,20 +107,21 @@ const DecoEnroll = (props: NaviProps) => {
         CloseNav(props, closeRef, setIsFocus, navigate, 'root');
         return;
       } else {
-        navigator.share({
-          title: '내 마음 속 스노우볼',
-          text: '내 스노우 볼을 꾸며줘 !',
-          url: url,
-        })
-        .then(() => {
-          CloseNav(props, closeRef, setIsFocus, navigate, 'root');
-        })
-        .catch(() => {
-          CloseNav(props, closeRef, setIsFocus, navigate, 'root')
-        });
+        navigator
+          .share({
+            title: '내 마음 속 스노우볼',
+            text: '내 스노우 볼을 꾸며줘 !',
+            url: url
+          })
+          .then(() => {
+            CloseNav(props, closeRef, setIsFocus, navigate, 'root');
+          })
+          .catch(() => {
+            CloseNav(props, closeRef, setIsFocus, navigate, 'root');
+          });
       }
     });
-  }
+  };
 
   return (
     <>
