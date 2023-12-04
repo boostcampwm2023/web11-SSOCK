@@ -3,12 +3,13 @@ import { useFrame } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
 import { MAIN } from '../../../constants/deco';
+import { makeColorChangedMaterial } from '../../../utils/meshUtils';
 
 interface MyModelProps {
   id: number;
   scale: number;
   position: THREE.Vector3;
-  color: THREE.Color;
+  color: string;
 }
 
 const fallingModel = (
@@ -37,12 +38,12 @@ const MainDeco = ({ id, scale, position, color }: MyModelProps) => {
   const deco = useGLTF(MAIN[id].fileName).scene.clone();
   const speedRef = useRef(new THREE.Vector3(0, -0.01, 0));
 
-  //run build error 해결용 console model업데이트 후 색상 적용해야됨
-  console.log(color);
   deco.name = MAIN[id].name;
   deco.scale.set(scale, scale, scale);
   deco.position.set(position.x, position.y, position.z);
-  deco.children.forEach(e => (e.castShadow = true));
+  deco.children.forEach(mesh => (mesh.castShadow = true));
+  const colorPart = deco.getObjectByName('colorPart') as THREE.Mesh;
+  colorPart.material = makeColorChangedMaterial(colorPart, color);
   useFrame(() => {
     fallingModel(deco, speedRef);
   });
