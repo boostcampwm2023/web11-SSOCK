@@ -91,10 +91,23 @@ const CloseNav = (
   }
 };
 
+
+
 const DecoEnroll = (props: NaviProps) => {
   const navigate = useNavigate();
   const [isFocus, setIsFocus] = useState(true);
   const closeRef = useRef<HTMLDivElement>(null);
+
+
+  const shareLink = () => {
+    const url = `asd`;
+    navigator.share({
+      title: 'Snowball',
+      text: 'Snowball',
+      url: url,
+    }).then(() => CloseNav(props, closeRef, setIsFocus, navigate, 'close'));
+  };
+
 
   return (
     <>
@@ -107,9 +120,7 @@ const DecoEnroll = (props: NaviProps) => {
           <ButtonWrap>
             <StyledNavButton
               color={theme.colors['--primary-red-primary']}
-              onClick={() =>
-                CloseNav(props, closeRef, setIsFocus, navigate, 'root')
-              }
+              onClick={shareLink}
             >
               <StyeldButtonText>
                 <StyledImgIcon
