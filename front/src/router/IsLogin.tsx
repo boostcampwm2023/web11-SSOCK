@@ -19,7 +19,7 @@ const IsLogin: React.FC<{ children: ReactNode }> = ({ children }) => {
   const maxSnowball = 5;
 
   useEffect(() => {
-    //saveCookie();
+    // saveCookie();
     if (url === '') {
       axios
         .get('/api/user', {
@@ -28,7 +28,7 @@ const IsLogin: React.FC<{ children: ReactNode }> = ({ children }) => {
         .then(res => {
           if (res.status === 200) {
             const data = res.data;
-            console.log(data);
+
             if (data.user.nickname === null) {
               setUrl('/make');
             }
@@ -41,11 +41,10 @@ const IsLogin: React.FC<{ children: ReactNode }> = ({ children }) => {
             else {
               setUrl('/main');
             }
-
           }
         })
         .catch(err => {
-          console.log(err);
+          console.error(err);
           navigate('*');
         });
     }

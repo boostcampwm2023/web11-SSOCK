@@ -25,8 +25,8 @@ const VisitHeader = () => {
     <Container>
       <HeaderText Ref={null} userName={userData.nickname} />
       <StyledLetter>
-        <StyledLetterImg src={'/icons/letter.svg'} />
-        {userData.message_count}개의 편지
+        <StyledLetterImg src={'/icons/letter.svg'} />총 {userData.message_count}
+        개의 편지
       </StyledLetter>
     </Container>
   );

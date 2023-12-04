@@ -25,7 +25,8 @@ const StyledLetterBox = styled.div<MsgColor>`
   padding: 1.5rem;
   gap: 1rem;
   background-color: ${props => props.color + '80'};
-  margin: 1rem;
+  margin: 1rem auto;
+  pointer-events: all;
 `;
 
 const StyledLetterPerson = styled.div`
@@ -107,7 +108,7 @@ const StyledFromInput = styled.input`
 
 const Msg = (props: MsgProps): JSX.Element => {
   const [wordCount, setWordCount] = useState(0);
-  const { setContent, setSender } = useContext(DecoContext);
+  const { content, sender, setContent, setSender } = useContext(DecoContext);
   const maxWordCount = 500;
 
   const wordLength = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -131,6 +132,7 @@ const Msg = (props: MsgProps): JSX.Element => {
         <StyledInputBox>
           <StyledTextArea
             rows={1}
+            value={content}
             onChange={wordLength}
             placeholder="편지를 작성해주세요."
           />
@@ -144,6 +146,7 @@ const Msg = (props: MsgProps): JSX.Element => {
           From.
           {props.isInput ? (
             <StyledFromInput
+              value={sender}
               placeholder="이름입력"
               onFocus={e => {
                 e.target.value = '';

@@ -3,29 +3,18 @@ import styled, { ThemeProvider } from 'styled-components';
 import GlobalStyles from './GlobalStyles';
 import { theme } from './utils';
 import { IsLogin, IsSnowballData } from './router';
-import {
-  Intro,
-  Nickname,
-  Snowball,
-  Main,
-  Visit,
-  Deco,
-  Wrong,
-  Boostcamp
-} from './pages';
+import * as Pages from './pages';
 import { Song } from './components';
+import { SnowBallProvider } from './pages/Visit/SnowBallProvider';
+import { MessageProvider } from './pages/Visit/MessageProvider';
+import { DecoProvider } from './pages/Visit/Deco/DecoProvider';
 
 const Outer = styled.div`
   position: relative;
-
   left: 50%;
   transform: translateX(-50%);
-
   width: 100%;
   height: 100%;
-  /* ::-webkit-scrollbar {
-    display: none;
-  } */
 
   @media (min-width: ${theme.size['--desktop-min-width']}) {
     width: ${theme.size['--desktop-width']};
@@ -41,11 +30,22 @@ const App = () => {
           <Song />
           <BrowserRouter>
             <Routes>
-              <Route path="/" element={<Intro />} />
+              <Route path="/" element={<Pages.Intro />} />
 
-              <Route path="/visit/:user" element={<Outlet />}>
-                <Route path="" element={<Visit />} />
-                <Route path="deco" element={<Deco />} />
+              <Route
+                path="/visit/:user"
+                element={
+                  <DecoProvider>
+                    <MessageProvider>
+                      <SnowBallProvider>
+                        <Outlet />
+                      </SnowBallProvider>
+                    </MessageProvider>
+                  </DecoProvider>
+                }
+              >
+                <Route path="" element={<Pages.Visit />} />
+                <Route path="deco" element={<Pages.Deco />} />
               </Route>
 
               <Route
@@ -56,21 +56,21 @@ const App = () => {
                   </IsSnowballData>
                 }
               >
-                <Route path="" element={<Nickname />} />
-                <Route path="snowball" element={<Snowball />} />
+                <Route path="" element={<Pages.Nickname />} />
+                <Route path="snowball" element={<Pages.Snowball />} />
               </Route>
 
               <Route
                 path="/main"
                 element={
                   <IsLogin>
-                    <Main />
+                    <Pages.Main />
                   </IsLogin>
                 }
               />
 
-              <Route path="/boostcamp" element={<Boostcamp />} />
-              <Route path="*" element={<Wrong />} />
+              <Route path="/boostcamp" element={<Pages.Boostcamp />} />
+              <Route path="*" element={<Pages.Wrong />} />
             </Routes>
           </BrowserRouter>
         </Outer>

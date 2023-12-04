@@ -8,7 +8,7 @@ interface GroundProps {
 }
 
 const Ground: React.FC<GroundProps> = ({ scale, position }) => {
-  const ground = useGLTF('/models/ground.glb').scene.clone();
+  const ground = useGLTF('/models/ground1.glb').scene.clone();
 
   ground.scale.set(scale, scale, scale);
   ground.position.set(position.x, position.y, position.z);

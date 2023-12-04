@@ -19,7 +19,7 @@ const SnowGlobeCanvas = () => {
       key={i}
       centerPosition={glassPosition}
       rangeRadius={glassRadius}
-      radius={0.3 + Math.random() * 0.7}
+      radius={0.2 + Math.random() * 0.5}
       model={Math.floor(Math.random() * 3)}
     />
   ));
@@ -35,6 +35,7 @@ const SnowGlobeCanvas = () => {
         color={message.decoration_color}
         sender={message.sender ?? '비공개'}
         letterID={message.letter_id ?? 0}
+        isOpened={message.opened !== null || message.opened !== 'null'}
       />
     );
   });
@@ -75,13 +76,13 @@ const SnowGlobeCanvas = () => {
             position={new THREE.Vector3(0, glassRadius / 2, 0)}
             color={new THREE.Color('white')}
             radius={glassRadius}
-            opacity={0.08}
+            opacity={0.1}
           />
           <Models.MainDeco
             id={snowBallData.main_decoration_id}
             scale={1}
             position={new THREE.Vector3(0, 10, 0)}
-            color={new THREE.Color(snowBallData.main_decoration_color)}
+            color={snowBallData.main_decoration_color}
           />
           <Models.Bottom
             bottomID={snowBallData.bottom_decoration_id}

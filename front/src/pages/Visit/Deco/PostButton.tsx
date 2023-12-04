@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { LongButton } from '../../../utils';
 import { DecoContext } from './DecoProvider';
 import { SnowBallContext } from '../SnowBallProvider';
+import { useNavigate } from 'react-router-dom';
 
 interface ButtonProps {
   text: string;
@@ -30,14 +31,15 @@ const StyledAlert = styled.div`
 
 const PostButton = (props: ButtonProps) => {
   const { color, decoID, letterID, content, sender } = useContext(DecoContext);
-  const { userData, snowBallData } = useContext(SnowBallContext);
-
-  const [alert, setAlert] = useState(false);
+  const { userData, snowBallData, setSnowBallData } =
+    useContext(SnowBallContext);
+  const navigate = useNavigate();
+  const [alerts, setAlerts] = useState(false);
 
   const ClickedPost = () => {
     //여기서 axios요청
     if (content === '' || sender === '') {
-      setAlert(true);
+      setAlerts(true);
       return;
     }
     const a = {
@@ -49,19 +51,29 @@ const PostButton = (props: ButtonProps) => {
     };
     axios
       .post(`/api/message/${userData.id}/${snowBallData.id}`, a)
-      .then(res => {
-        console.log(res, 'post DONE!!!');
-      })
-      .catch(e => console.error(e));
+      .then(() => {
+        axios.get(`/api/snowball/${snowBallData.id}`).then(res => {
+          setSnowBallData(res.data);
 
-    props.view[1](!props.view[0]);
-    props.visible[1](-1);
+          props.view[1](!props.view[0]);
+          props.visible[1](-1);
+        });
+      })
+      .catch(e => {
+        console.error(e);
+        alert(
+          '메시지가 꽉찼어요\n다른 스노우볼을 선택해주세요!\n작성중인 메시지는 유지됩니다!'
+        );
+        navigate('../');
+      });
   };
 
   return (
     <>
       <PostButtonWrap>
-        {alert ? <StyledAlert>내용과 이름을 입력해주세요 !</StyledAlert> : null}
+        {alerts ? (
+          <StyledAlert>내용과 이름을 입력해주세요 !</StyledAlert>
+        ) : null}
         <StyledButton color={props.color} onClick={ClickedPost}>
           {props.text}
         </StyledButton>

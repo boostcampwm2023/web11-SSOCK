@@ -11,6 +11,7 @@ interface DecoProps {
   color: string;
   sender: string;
   letterID: number;
+  isOpened: boolean;
 }
 
 const Deco = ({
@@ -20,7 +21,8 @@ const Deco = ({
   id,
   color,
   sender,
-  letterID
+  letterID,
+  isOpened
 }: DecoProps) => {
   const deco = useGLTF(DECO[id].fileName).scene.clone();
   const target = { x: 8, z: 0 };
@@ -29,6 +31,14 @@ const Deco = ({
   deco.name = DECO[id].name;
   deco.scale.set(scale, scale, scale);
   deco.position.set(position.x, position.y, position.z);
+
+  if (isOpened) {
+    const newModel = useGLTF('/models/new.glb').scene.clone().children[0];
+    newModel.position.set(0, 1.2, 0);
+    newModel.scale.set(0.1, 0.1, 0.1);
+    deco.add(newModel);
+  }
+
   deco.children.forEach(child => {
     if (child instanceof THREE.Mesh) {
       child.userData.message = message;
@@ -42,6 +52,7 @@ const Deco = ({
     }
   });
   deco.rotateY(Math.PI - test);
+
   return <primitive object={deco} />;
 };
 

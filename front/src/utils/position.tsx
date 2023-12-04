@@ -31,8 +31,8 @@ const getDecoPoisition = (n: number): THREE.Vector3 => {
     [-1.5, 2.5],
     [-2.5, -1.5],
     [1.5, -2.5],
-    [2.5, -2.5],
-    [2.5, 2.5]
+    [-2.5, -2.5],
+    [-2.5, 2.5]
   ];
   return new THREE.Vector3(positions[n][0], 0, positions[n][1]);
 };

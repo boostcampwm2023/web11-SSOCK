@@ -32,7 +32,7 @@ const MainSnowballCavnas = () => {
           id={mainDecoID}
           scale={1}
           position={new THREE.Vector3(0, 0, 0)}
-          color={new THREE.Color(mainColor)}
+          color={mainColor}
         />
         <Models.Bottom
           scale={1}
