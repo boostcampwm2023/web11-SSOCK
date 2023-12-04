@@ -118,19 +118,20 @@ export class SnowballService {
     if (!snowball) {
       return null;
     }
-    const is_message_private = snowball.message_private ? true : false;
-    const is_private_contents = !hasToken && is_message_private;
 
-    const resSnowball: SnowballDto = {
+    const is_private_contents = !hasToken && snowball.message_private !== null;
+
+    const resSnowball = {
       ...snowball,
-      is_message_private: is_message_private,
       message_list: await this.messageService.getMessageList(
         snowball.id,
         is_private_contents === true ? 'private' : 'public'
       )
     };
 
-    return resSnowball;
+    return plainToInstance(SnowballDto, resSnowball, {
+      excludeExtraneousValues: true
+    });
   }
 
   async doesDecorationExist(decoration_id: number): Promise<boolean> {
