@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { theme, BlurBody } from '../../../../utils';
+import axios from 'axios';
 
 interface NaviProps {
   visible: [number, React.Dispatch<React.SetStateAction<number>>];
@@ -100,14 +101,23 @@ const DecoEnroll = (props: NaviProps) => {
 
 
   const shareLink = () => {
-    const url = `asd`;
-    navigator.share({
-      title: 'Snowball',
-      text: 'Snowball',
-      url: url,
-    }).then(() => CloseNav(props, closeRef, setIsFocus, navigate, 'close'));
-  };
+    
+    axios.get('/api/user', { withCredentials: true }).then(res => {
+      const user = res.data.user.auth_id;
 
+      const url = `https://www.mysnowball.kr/visit/${user}`;
+      if (navigator.share === undefined) {
+        navigator.clipboard.writeText(url);
+      } else {
+        navigator.share({
+          title: '내 마음 속 스노우볼',
+          text: '내 스노우 볼을 꾸며줘 !',
+          url: url,
+        });
+      }
+      CloseNav(props, closeRef, setIsFocus, navigate, 'root');
+    });
+  }
 
   return (
     <>

@@ -28,6 +28,7 @@ const IsLogin: React.FC<{ children: ReactNode }> = ({ children }) => {
         .then(res => {
           if (res.status === 200) {
             const data = res.data;
+            console.log(data);
             if (data.user.nickname === null) {
               setUrl('/make');
             }
