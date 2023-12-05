@@ -1,13 +1,6 @@
 import React, { useState, createContext } from 'react';
 import mockData from '@mock';
 
-interface SnowBallContextType {
-  snowBallData: SnowBallData;
-  setSnowBallData: React.Dispatch<React.SetStateAction<SnowBallData>>;
-  userData: UserData;
-  setUserData: React.Dispatch<React.SetStateAction<UserData>>;
-}
-
 interface Message {
   content: string | undefined;
   created: string;
@@ -45,6 +38,13 @@ interface UserData {
   main_snowball_id: number;
   snowball_list: Array<number>;
   message_count: number;
+}
+
+interface SnowBallContextType {
+  snowBallData: SnowBallData;
+  setSnowBallData: React.Dispatch<React.SetStateAction<SnowBallData>>;
+  userData: UserData;
+  setUserData: React.Dispatch<React.SetStateAction<UserData>>;
 }
 
 const SnowBallContext = createContext<SnowBallContextType>({
