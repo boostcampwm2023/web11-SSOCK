@@ -1,5 +1,5 @@
-import styled from 'styled-components';
 import axios from 'axios';
+import styled from 'styled-components';
 
 interface MsgProps {
   color: string;
@@ -77,7 +77,7 @@ const ListMsg = (props: MsgProps): JSX.Element => {
         withCredentials: true
       })
       .then(() => {
-        // 리렌더링 구현해야함
+        // 리렌더링 구현해야함 이거 보이나
       });
   };
 

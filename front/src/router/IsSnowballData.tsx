@@ -20,7 +20,7 @@ const IsSnowballData: React.FC<{ children: ReactNode }> = ({ children }) => {
 
   useEffect(() => {
     // saveCookie();
-    if (url === '' || url === '/make') {
+    if (url === '' || url === '/make' || url === 'main') {
       axios
         .get('/api/user', {
           withCredentials: true // axios 쿠키 값 전달
