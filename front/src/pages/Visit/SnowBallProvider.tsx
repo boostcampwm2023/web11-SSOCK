@@ -29,6 +29,7 @@ interface SnowBallData {
   bottom_decoration_id: number;
   message_list: Array<Message>;
 }
+
 interface Message {
   content: string | undefined;
   created: string;

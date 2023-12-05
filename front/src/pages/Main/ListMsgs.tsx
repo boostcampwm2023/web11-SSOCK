@@ -9,21 +9,6 @@ interface ListMsgProps {
   set: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const StyledList = styled.div`
-  pointer-events: auto;
-  position: absolute;
-  width: 100%;
-  top: 10%;
-  height: 85%;
-  overflow-y: scroll;
-`;
-
-const StyledListWrap = styled.div`
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-`;
-
 interface MsgResponse {
   user_id: number;
   snowball_id: number;
@@ -39,6 +24,21 @@ interface MsgResponse {
   opened: string;
   letter_id: number;
 }
+
+const StyledList = styled.div`
+  pointer-events: auto;
+  position: absolute;
+  width: 100%;
+  top: 10%;
+  height: 85%;
+  overflow-y: scroll;
+`;
+
+const StyledListWrap = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+`;
 
 const ListMsgs = (props: ListMsgProps) => {
   const [messages, setMessages] = useState<Array<MsgResponse>>([]);

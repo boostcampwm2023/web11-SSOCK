@@ -22,7 +22,7 @@ const Visit = () => {
         console.error(e);
         navigate('*');
       });
-  }, []);
+  }, [navigate, user]);
 
   return (
     <>
