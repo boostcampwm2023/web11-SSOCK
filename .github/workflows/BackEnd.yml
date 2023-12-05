@@ -53,7 +53,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
-          context: .
+          context: ./back
           push: true
           tags: ghcr.io/yunuo46/was_test:latest
   deploy_docker:
