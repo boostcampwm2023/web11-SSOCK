@@ -7,7 +7,7 @@ import { SENTIMENT_MODEL } from '@constants';
 interface SnowProps {
   centerPosition: THREE.Vector3;
   rangeRadius: number;
-  sentiment: string;
+  sentiment: 'positive' | 'neutral' | 'negative';
 }
 
 const randomizePosition = (

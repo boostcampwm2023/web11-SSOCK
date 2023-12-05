@@ -8,28 +8,6 @@ interface SnowBallContextType {
   setUserData: React.Dispatch<React.SetStateAction<UserData>>;
 }
 
-interface UserData {
-  id: number;
-  main_snowball_id: number;
-  message_count: number;
-  nickname: string;
-  snowball_count: number;
-  snowball_list: Array<number>;
-  user_id: string;
-  username: string;
-}
-
-interface SnowBallData {
-  title: string;
-  id: number;
-  is_message_private: boolean;
-  main_decoration_color: string;
-  main_decoration_id: number;
-  bottom_decoration_color: string;
-  bottom_decoration_id: number;
-  message_list: Array<Message>;
-}
-
 interface Message {
   content: string | undefined;
   created: string;
@@ -43,12 +21,34 @@ interface Message {
   sender: string | undefined;
   snowball_id: number;
   user_id: number;
-  sentiment: string;
+  sentiment: 'positive' | 'neutral' | 'negative';
   confidence: number;
 }
 
+interface SnowBallData {
+  id: number;
+  title: string;
+  main_decoration_id: number;
+  main_decoration_color: string;
+  bottom_decoration_id: number;
+  bottom_decoration_color: string;
+  is_message_private: boolean;
+  message_list: Array<Message>;
+}
+
+interface UserData {
+  id: number;
+  username: string;
+  nickname: string;
+  user_id: string;
+  snowball_count: number;
+  main_snowball_id: number;
+  snowball_list: Array<number>;
+  message_count: number;
+}
+
 const SnowBallContext = createContext<SnowBallContextType>({
-  snowBallData: mockData.snowball_data,
+  snowBallData: mockData.snowball_data as SnowBallData,
   setSnowBallData: () => {},
   userData: mockData.user_data,
   setUserData: () => {}
@@ -58,7 +58,7 @@ const SnowBallProvider: React.FC<{ children: React.ReactNode }> = ({
   children
 }) => {
   const [snowBallData, setSnowBallData] = useState<SnowBallData>(
-    mockData.snowball_data
+    mockData.snowball_data as SnowBallData
   );
   const [userData, setUserData] = useState<UserData>(mockData.user_data);
   return (
