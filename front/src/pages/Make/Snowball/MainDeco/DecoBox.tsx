@@ -18,6 +18,7 @@ const StyledBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  min-width: min-content;
 `;
 
 const StyledImg = styled.img`
