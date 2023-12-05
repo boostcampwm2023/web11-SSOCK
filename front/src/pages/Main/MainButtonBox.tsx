@@ -80,7 +80,7 @@ const MainButtonBox = (props: MainButtonBoxProps) => {
     axios.get('/api/user', { withCredentials: true }).then(res => {
       const user = res.data.user.auth_id;
 
-      const url = `${import.meta.env.VITE_APP_BASE_URL}/visit/${user}`;
+      const url = `https://www.mysnowball.kr/visit/${user}`;
       if (navigator.share === undefined) {
         navigator.clipboard.writeText(url);
       } else {
