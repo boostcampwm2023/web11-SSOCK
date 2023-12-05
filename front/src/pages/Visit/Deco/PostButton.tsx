@@ -49,7 +49,7 @@ const PostButton = (props: ButtonProps) => {
       letter_id: letterID
     };
     axios
-      .post(`/api/message//${snowBallData.id}`, a)
+      .post(`/api/message/${snowBallData.id}`, a)
       .then(() => {
         axios.get(`/api/snowball/${snowBallData.id}`).then(res => {
           setSnowBallData(res.data);
