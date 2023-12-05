@@ -1,8 +1,14 @@
-import { useState, useEffect, useRef } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useEffect, useRef, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import styled from 'styled-components';
 import { SnowGlobeCanvas, UIContainer } from '@components';
 import MainButtonBox from './MainButtonBox';
+import {
+  SnowBallContext,
+  UserData,
+  SnowBallData
+} from '@pages/Visit/SnowBallProvider';
 
 const LeftBtn = styled.img`
   position: fixed;
@@ -14,53 +20,100 @@ const RightBtn = styled(LeftBtn)`
   right: 0;
 `;
 
+const moveSnowball = (
+  move: 'Prev' | 'Next',
+  userData: UserData,
+  snowBallData: SnowBallData,
+  setSnowBallData: React.Dispatch<React.SetStateAction<SnowBallData>>
+) => {
+  const nowSnowBallID = userData.snowball_list.findIndex(
+    id => id === snowBallData.id
+  );
+
+  if (nowSnowBallID === undefined) {
+    throw '알수없는 snowballID입니다.';
+  }
+
+  const nextIdx = move === 'Prev' ? userData.snowball_count - 1 : 1;
+  const nextSnowBallID =
+    userData.snowball_list[(nowSnowBallID + nextIdx) % userData.snowball_count];
+
+  axios(`/api/snowball/${nextSnowBallID}`)
+    .then(res => {
+      setSnowBallData(res.data as SnowBallData);
+    })
+    .catch(e => {
+      console.error(e);
+    });
+};
+
 const Main = () => {
   const navigate = useNavigate();
-  const [searchParams, setSearchParams] = useSearchParams();
-  const allSnowballIdx = 5; // fetch 필요
-  const [snowballIdx, setSnowballIdx] = useState(1);
-
+  const { setSnowBallData, setUserData, userData, snowBallData } =
+    useContext(SnowBallContext);
   const leftArrowRef = useRef<HTMLImageElement>(null);
   const rightArrowRef = useRef<HTMLImageElement>(null);
 
-  useEffect(() => {
-    if (
-      !searchParams.size ||
-      searchParams.get('snowball') !== String(snowballIdx)
-    ) {
-      navigate('/main?snowball=1');
-      setSnowballIdx(1);
-      searchParams.set('snowball', '1');
-      setSearchParams(searchParams);
-    }
-  }, [searchParams, setSearchParams, navigate, snowballIdx]);
+  // const saveCookie = () => {
+  //   const cookieToken = import.meta.env.VITE_APP_COOKIE_TOKEN;
+  //   const cookieName = 'access_token';
+  //   const cookieValue = cookieToken;
+  //   const today = new Date();
+  //   const expire = new Date();
+  //   const secure = true;
+  //   expire.setDate(today.getDate() + 1);
+  //   document.cookie = `${cookieName}=${cookieValue}; expires=${expire.toUTCString()}; secure=${secure}; path=/`;
+  // };
 
-  const moveSnowball = (where: 'prev' | 'next') => {
-    const nowIdx = where === 'prev' ? snowballIdx - 1 : snowballIdx + 1;
-    setSnowballIdx(nowIdx);
-    searchParams.set('snowball', `${nowIdx}`);
-    setSearchParams(searchParams);
-  };
+  useEffect(() => {
+    //saveCookie();
+    axios
+      .get('/api/user', {
+        withCredentials: true // axios 쿠키 값 전달
+      })
+      .then(res => {
+        if (res.status === 200) {
+          const userData = res.data.user as UserData;
+          const snowballData = res.data.main_snowball as SnowBallData;
+          setSnowBallData(snowballData);
+          setUserData(userData);
+          if (
+            userData.nickname === null ||
+            userData.snowball_count === 0 ||
+            userData.nickname === 'null'
+          ) {
+            navigate('/make');
+          }
+        }
+      })
+      .catch(e => {
+        console.error(e);
+        navigate('/');
+      });
+  }, [navigate]);
 
   return (
     <>
       <SnowGlobeCanvas />
 
       <UIContainer>
-        {snowballIdx > 1 ? (
-          <LeftBtn
-            ref={leftArrowRef}
-            src={'/icons/prev.svg'}
-            onClick={() => moveSnowball('prev')}
-          />
-        ) : null}
-
-        {snowballIdx < allSnowballIdx ? (
-          <RightBtn
-            ref={rightArrowRef}
-            src={'/icons/next.svg'}
-            onClick={() => moveSnowball('next')}
-          />
+        {userData.snowball_list.length > 1 ? (
+          <>
+            <LeftBtn
+              src={'/icons/prev.svg'}
+              onClick={() =>
+                moveSnowball('Prev', userData, snowBallData, setSnowBallData)
+              }
+              ref={leftArrowRef}
+            />
+            <RightBtn
+              src={'/icons/next.svg'}
+              onClick={() =>
+                moveSnowball('Next', userData, snowBallData, setSnowBallData)
+              }
+              ref={rightArrowRef}
+            />
+          </>
         ) : null}
 
         <MainButtonBox leftArrow={leftArrowRef} rightArrow={rightArrowRef} />

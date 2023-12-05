@@ -62,7 +62,7 @@ const VisitBody = () => {
           sender={sender}
           to={userData.nickname}
         />
-      ) : userData.snowball_list.length > 0 ? (
+      ) : userData.snowball_list.length > 1 ? (
         <>
           <LeftBtn
             src={'/icons/prev.svg'}

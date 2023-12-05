@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import { ListMsg, Prev } from '@components';
 import { MSG_COLOR } from '@constants';
+import { SnowBallContext } from '@pages/Visit/SnowBallProvider';
 
 interface ListMsgProps {
   set: React.Dispatch<React.SetStateAction<boolean>>;
@@ -41,34 +42,37 @@ interface MsgResponse {
 
 const ListMsgs = (props: ListMsgProps) => {
   const [messages, setMessages] = useState<Array<MsgResponse>>([]);
+  const { userData } = useContext(SnowBallContext);
 
   useEffect(() => {
     axios.get('/api/message').then(res => {
-      console.log(res.data);
-      setMessages(res.data);
+      if (res.data.length !== 0) setMessages(res.data);
     });
-  }, []);
+  }, [userData]);
 
   return (
     <>
-      <Prev set={props.set} />
-
-      <StyledList>
-        <StyledListWrap>
-          {messages.map((msg, idx) => {
-            return (
-              <ListMsg
-                key={idx}
-                color={MSG_COLOR[msg.letter_id].color}
-                content={msg.content}
-                sender={msg.sender}
-                to={msg.to} // 요게 지금 없음
-                messageId={msg.id}
-              />
-            );
-          })}
-        </StyledListWrap>
-      </StyledList>
+      {messages.length > 0 ? (
+        <>
+          <Prev set={props.set} />
+          <StyledList>
+            <StyledListWrap>
+              {messages.map((msg, idx) => {
+                return (
+                  <ListMsg
+                    key={idx}
+                    color={MSG_COLOR[msg.letter_id].color}
+                    content={msg.content}
+                    sender={msg.sender}
+                    to={userData.nickname}
+                    messageId={msg.id}
+                  />
+                );
+              })}
+            </StyledListWrap>
+          </StyledList>
+        </>
+      ) : null}
     </>
   );
 };

@@ -8,7 +8,9 @@ const colors = {
   '--sub-text': '#A0A0A0',
   '--nick-name': '#49C19D',
   '--blue-blue-dark-10': '#4589FF',
-  '--white-primary': '#ECE0D0'
+  '--white-primary': '#ECE0D0',
+  '--progress-yet': '#ECE0D0',
+  '--progress-done': '#ECE0D0'
 };
 
 const font = {

@@ -1,3 +1,19 @@
+export const SENTIMENT_MODEL = [
+  { name: '선물상자', fileName: '/models/ribbonBox.glb', img: 'ribbonBox.png' },
+  {
+    name: '긍정',
+    fileName: '/models/heart.glb'
+  },
+  {
+    name: '보통',
+    fileName: '/models/star.glb'
+  },
+  {
+    name: '부정',
+    fileName: '/models/water.glb'
+  }
+];
+
 export const DECO = [
   { name: '선물상자', fileName: '/models/ribbonBox.glb', img: 'ribbonBox.png' },
   {
@@ -38,6 +54,11 @@ export const MAIN = [
     name: '안경부캠덕',
     fileName: '/models/bcduck_glasses.glb',
     img: '/models/img/Main/lamp.gif'
+  },
+  {
+    name: '눈사람',
+    fileName: '/models/snowman.glb',
+    img: '/models/img/Main/lamp2.gif'
   }
 ];
 

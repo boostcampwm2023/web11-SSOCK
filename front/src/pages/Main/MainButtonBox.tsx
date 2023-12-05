@@ -1,10 +1,11 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useContext } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import { Container } from '@utils';
 import { HeaderText } from '@components';
 import MenuModal from './MenuModal';
 import ListMsgs from './ListMsgs';
+import { SnowBallContext } from '@pages/Visit/SnowBallProvider';
 
 interface MainButtonBoxProps {
   leftArrow: React.RefObject<HTMLImageElement>;
@@ -43,6 +44,10 @@ const screenTime = (
       );
     }
   });
+  const a = document.getElementById('musicController');
+  if (a) {
+    a.style.display = 'none';
+  }
 
   setTimeout(() => {
     setScreen(true);
@@ -50,7 +55,9 @@ const screenTime = (
 
   setTimeout(() => {
     setScreen(false);
-
+    if (a) {
+      a.style.display = 'block';
+    }
     refs.forEach(ref => {
       if (ref.current) {
         ref.current.style.setProperty('animation', 'none');
@@ -64,7 +71,7 @@ const MainButtonBox = (props: MainButtonBoxProps) => {
   const menuRef = useRef<HTMLImageElement>(null);
   const screenRef = useRef<HTMLImageElement>(null);
   const shareLinkRef = useRef<HTMLImageElement>(null);
-
+  const { userData } = useContext(SnowBallContext);
   const [menuModal, setMenuModal] = useState(false);
   const [list, setList] = useState(false);
   const [screen, setScreen] = useState(false);
@@ -91,14 +98,17 @@ const MainButtonBox = (props: MainButtonBoxProps) => {
       {!screen ? (
         <>
           <Container>
-            <HeaderText Ref={headerRef} userName="test" />
+            <HeaderText Ref={headerRef} userName={userData.nickname} />
           </Container>
 
-          <StyledMenu
-            ref={menuRef}
-            src={'/icons/menu.svg'}
-            onClick={() => setMenuModal(true)}
-          />
+          {list ? null : (
+            <StyledMenu
+              ref={menuRef}
+              src={'/icons/menu.svg'}
+              onClick={() => setMenuModal(true)}
+            />
+          )}
+
           {menuModal ? <MenuModal set={setMenuModal} list={setList} /> : null}
 
           <StyledScreen

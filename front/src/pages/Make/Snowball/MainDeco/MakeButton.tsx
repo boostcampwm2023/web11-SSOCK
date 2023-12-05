@@ -1,4 +1,5 @@
 import { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 import { LongButton } from '@utils';
@@ -30,6 +31,7 @@ const StyledAlert = styled.div`
 `;
 
 const MakeButton = (props: ButtonProps) => {
+  const navigate = useNavigate();
   const { snowballName, mainDecoID, mainColor, bottomID, bottomColor } =
     useContext(DecoContext);
   const [alert, setAlert] = useState(false);
@@ -53,6 +55,10 @@ const MakeButton = (props: ButtonProps) => {
       .post('/api/snowball', snowballInfo, { withCredentials: true })
       .then(res => {
         console.log(res);
+      })
+      .catch(e => {
+        console.error(e);
+        navigate('/');
       });
 
     props.view[1](!props.view[0]);
