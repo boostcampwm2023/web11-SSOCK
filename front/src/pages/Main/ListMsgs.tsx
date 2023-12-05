@@ -54,7 +54,7 @@ const ListMsgs = (props: ListMsgProps) => {
     <>
       {messages.length > 0 ? (
         <>
-          <Prev set={props.set} />{' '}
+          <Prev set={props.set} />
           <StyledList>
             <StyledListWrap>
               {messages.map((msg, idx) => {
