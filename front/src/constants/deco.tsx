@@ -43,22 +43,22 @@ export const MAIN = [
   {
     name: '산타',
     fileName: '/models/santa.glb',
-    img: '/models/img/Main/tree.png'
+    img: '/models/img/Main/santa.gif'
   },
   {
     name: '부캠덕',
     fileName: '/models/bcduck.glb',
-    img: '/models/img/Main/bcduck.png'
+    img: '/models/img/Main/bcduck.gif'
   },
   {
     name: '안경부캠덕',
     fileName: '/models/bcduck_glasses.glb',
-    img: '/models/img/Main/lamp.gif'
+    img: '/models/img/Main/bcduck_glasses.gif'
   },
   {
     name: '눈사람',
     fileName: '/models/snowman.glb',
-    img: '/models/img/Main/lamp2.gif'
+    img: '/models/img/Main/snowman.gif'
   }
 ];
 
