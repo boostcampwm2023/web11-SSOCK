@@ -42,7 +42,7 @@ export const MAIN = [
   {
     name: '눈사람',
     fileName: '/models/snowman.glb',
-    img: '/models/img/Main/lamp.gif'
+    img: '/models/img/Main/lamp2.gif'
   }
 ];
 
