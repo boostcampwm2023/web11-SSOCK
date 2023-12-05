@@ -119,7 +119,7 @@ jobs:
             ssh -i ~/.ssh/id_rsa root@10.0.2.6 << 'EOF'
             echo "${{ secrets.ENV_FILE }}" > .env
             echo ${{ secrets.GHCR_TOKEN_TEST }} | docker login ghcr.io -u peageon --password-stdin
-            docker pull ssock
+            docker pull ghcr.io/peageon/ssock:latest
             docker stop ssock || true
             docker rm ssock || true
             docker run -d --name ssock -p 3000:3000 --env-file .env ghcr.io/peageon/ssock:latest
