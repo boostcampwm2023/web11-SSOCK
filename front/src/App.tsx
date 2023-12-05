@@ -4,7 +4,7 @@ import GlobalStyles from './GlobalStyles';
 import { theme } from '@utils';
 import * as Pages from '@pages';
 import { Song } from '@components';
-import { IsSnowballData } from './router';
+import { HasSnowballData } from './router';
 import { SnowBallProvider } from '@pages/Visit/SnowBallProvider';
 import { MessageProvider } from '@pages/Visit/MessageProvider';
 import { DecoProvider } from '@pages/Visit/Deco/DecoProvider';
@@ -51,9 +51,9 @@ const App = () => {
               <Route
                 path="/make"
                 element={
-                  <IsSnowballData>
+                  <HasSnowballData>
                     <Outlet />
-                  </IsSnowballData>
+                  </HasSnowballData>
                 }
               >
                 <Route path="" element={<Pages.Nickname />} />

@@ -13,7 +13,7 @@ import axios from 'axios';
 //   document.cookie = `${cookieName}=${cookieValue}; expires=${expire.toUTCString()}; secure=${secure}; path=/`;
 // };
 
-const IsSnowballData: React.FC<{ children: ReactNode }> = ({ children }) => {
+const HasSnowballData: React.FC<{ children: ReactNode }> = ({ children }) => {
   const navigate = useNavigate();
   const [url, setUrl] = React.useState<string>('');
   const maxSnowball = 5;
@@ -53,4 +53,4 @@ const IsSnowballData: React.FC<{ children: ReactNode }> = ({ children }) => {
   return <>{children}</>;
 };
 
-export default IsSnowballData;
+export default HasSnowballData;
