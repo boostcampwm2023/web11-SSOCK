@@ -1,4 +1,4 @@
-import { useContext, useRef } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 import { OrbitControls } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import * as THREE from 'three';
@@ -13,7 +13,10 @@ const SnowGlobeCanvas = () => {
   const glassRadius = 7;
   const glassPosition = new THREE.Vector3(0, glassRadius / 2, 0);
   const { snowBallData } = useContext(SnowBallContext);
-
+  // // debugger;
+  useEffect(() => {
+    console.log(snowBallData, 'test');
+  }, [snowBallData]);
   const snows = Array.from({ length: 100 }, (_, i) => (
     <Models.Snow
       key={i}
@@ -23,7 +26,7 @@ const SnowGlobeCanvas = () => {
       model={Math.floor(Math.random() * 3)}
     />
   ));
-
+  // console.log(snowBallData, 'test');
   const decos = snowBallData.message_list.map((message, index) => {
     return (
       <Models.Deco

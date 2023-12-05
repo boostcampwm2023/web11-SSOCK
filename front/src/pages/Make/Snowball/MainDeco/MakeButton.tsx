@@ -52,7 +52,7 @@ const MakeButton = (props: ButtonProps) => {
     axios
       .post('/api/snowball', snowballInfo, { withCredentials: true })
       .then(res => {
-        console.log(res);
+        console.log(res); // 뒤에 로직이 없 보냈는데 -> 데이터 최신화가 안됨 지금 // 여기도 데이터 요청 있으면 굳이 건들필요는 없기
       });
 
     props.view[1](!props.view[0]);

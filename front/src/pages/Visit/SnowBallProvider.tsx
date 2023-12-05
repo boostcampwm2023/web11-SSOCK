@@ -60,21 +60,19 @@ const SnowBallProvider: React.FC<{ children: React.ReactNode }> = ({
     mockData.snowball_data
   );
   const [userData, setUserData] = useState<UserData>(mockData.user_data);
-  const navigate = useNavigate();
-
-  const { user } = useParams();
-  useEffect(() => {
-    axios(`/api/user/${user}`)
-      .then(res => {
-        setSnowBallData(res.data.main_snowball as SnowBallData);
-        setUserData(res.data.user as UserData);
-      })
-      .catch(e => {
-        //없는 유저 조회시 wrong page로 보내버리기
-        console.error(e);
-        navigate('*');
-      });
-  }, []);
+  // const { user } = useParams();
+  // useEffect(() => {
+  //   axios(`/api/user/${user}`)
+  //     .then(res => {
+  //       setSnowBallData(res.data.main_snowball as SnowBallData);
+  //       setUserData(res.data.user as UserData);
+  //     })
+  //     .catch(e => {
+  //       //없는 유저 조회시 wrong page로 보내버리기
+  //       console.error(e);
+  //       navigate('*');
+  //     });
+  // }, []);
 
   return (
     <SnowBallContext.Provider
