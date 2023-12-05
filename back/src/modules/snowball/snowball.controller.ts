@@ -28,6 +28,7 @@ import { JWTGuard } from 'src/common/guards/jwt.guard';
 import { UpdateMainDecoDto } from './dto/update-main-decoration.dto';
 import { JWTRequest } from '../../common/interface/request.interface';
 import { hasJWTInterceptor } from '../../common/interceptors/hasJwt.interceptor';
+import { ControllerLoggerInterceptor } from '../../common/interceptors/log.interceptor';
 
 @ApiTags('Snowball API')
 @Controller('snowball')
@@ -35,6 +36,7 @@ export class SnowballController {
   constructor(private readonly snowballService: SnowballService) {}
 
   @UseGuards(JWTGuard)
+  @UseInterceptors(ControllerLoggerInterceptor)
   @ApiCookieAuth('access_token')
   @Post()
   @HttpCode(201)
@@ -59,6 +61,7 @@ export class SnowballController {
   }
 
   @UseGuards(JWTGuard)
+  @UseInterceptors(ControllerLoggerInterceptor)
   @ApiCookieAuth('access_token')
   @Put('/:snowball_id')
   @HttpCode(200)
@@ -86,6 +89,7 @@ export class SnowballController {
   }
 
   @Get('/:snowball_id')
+  @UseInterceptors(ControllerLoggerInterceptor)
   @UseInterceptors(hasJWTInterceptor)
   @HttpCode(200)
   @ApiResponse({
@@ -110,6 +114,7 @@ export class SnowballController {
   }
 
   @UseGuards(JWTGuard)
+  @UseInterceptors(ControllerLoggerInterceptor)
   @ApiCookieAuth('access_token')
   @Put('/:snowball_id/decoration')
   @ApiResponse({
