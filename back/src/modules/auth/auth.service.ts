@@ -2,7 +2,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from '../user/entity/user.entity';
-import { Repository } from 'typeorm';
+import { DataSource, Repository } from 'typeorm';
 
 export interface payload {
   id: number;
@@ -14,7 +14,8 @@ export class AuthService {
   constructor(
     private readonly jwtService: JwtService,
     @InjectRepository(UserEntity)
-    private readonly UserRepository: Repository<UserEntity>
+    private readonly UserRepository: Repository<UserEntity>,
+    private readonly dataSource: DataSource
   ) {}
 
   async getUserInfo(user: any): Promise<payload> {
@@ -86,15 +87,25 @@ export class AuthService {
   }
 
   async saveRefreshToken(user: any, refreshToken: string): Promise<boolean> {
+    const queryRunner = this.dataSource.createQueryRunner();
+    await queryRunner.connect();
+    await queryRunner.startTransaction('READ COMMITTED');
     try {
-      await this.UserRepository.update(
+      const updateResult = await queryRunner.manager.update(
+        UserEntity,
         { id: user.id },
         { refresh_token: refreshToken }
       );
+      if (!updateResult.affected) {
+        throw new UnauthorizedException('Refresh Token 저장 실패');
+      }
+      await queryRunner.commitTransaction();
     } catch (error) {
+      await queryRunner.rollbackTransaction();
       throw new UnauthorizedException('Refresh Token 저장 실패');
+    } finally {
+      await queryRunner.release();
     }
-
     return true;
   }
 

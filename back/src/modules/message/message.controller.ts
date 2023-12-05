@@ -28,7 +28,6 @@ import {
 import { ResCreateMessageDto } from './dto/response/res-create-message.dto';
 import { MessageDto } from './dto/message.dto';
 import { JWTGuard } from 'src/common/guards/jwt.guard';
-import { UpdateMessageDecorationDto } from './dto/update-message-decoration.dto';
 import { UpdateMessageLocationDto } from './dto/update-message-location.dto';
 import { JWTRequest } from 'src/common/interface/request.interface';
 import { ClovaService } from './clova.service';
@@ -146,36 +145,6 @@ export class MessageController {
     @Param('message_id') message_id: number
   ): Promise<MessageDto> {
     return await this.messageService.openMessage(message_id);
-  }
-
-  @UseGuards(JWTGuard)
-  @ApiCookieAuth('access_token')
-  @Put('/:message_id/decoration')
-  @ApiOperation({
-    summary: '메세지 장식 변경',
-    description: '메시지의 장식을 변경합니다.'
-  })
-  @ApiResponse({
-    status: 200,
-    type: MessageDto
-  })
-  @ApiBadRequestResponse({
-    description: '잘못된 요청입니다.'
-  })
-  @ApiNotFoundResponse({
-    description: '해당 메시지가 존재하지 않습니다.'
-  })
-  @ApiInternalServerErrorResponse({
-    description: '서버측 오류'
-  })
-  async updateMessageDecoration(
-    @Param('message_id') message_id: number,
-    @Body() updateMessageDecorationDto: UpdateMessageDecorationDto
-  ): Promise<UpdateMessageDecorationDto> {
-    return await this.messageService.updateMessageDecoration(
-      message_id,
-      updateMessageDecorationDto
-    );
   }
 
   @UseGuards(JWTGuard)

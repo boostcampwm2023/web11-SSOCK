@@ -12,11 +12,9 @@ import { ReqCreateMessageDto } from './dto/request/req-create-message.dto';
 import { MessageEntity } from './entity/message.entity';
 import { ResCreateMessageDto } from './dto/response/res-create-message.dto';
 import { MessageDto } from './dto/message.dto';
-import { UpdateMessageDecorationDto } from './dto/update-message-decoration.dto';
 import { UpdateMessageLocationDto } from './dto/update-message-location.dto';
 import { plainToInstance, instanceToPlain } from 'class-transformer';
 import { LetterEntity } from './entity/letter.entity';
-import { DecorationPrefixEntity } from '../snowball/entity/decoration-prefix.entity';
 import { ResClovaSentiment } from './clova.service';
 import { SnowballEntity } from '../snowball/entity/snowball.entity';
 
@@ -28,9 +26,7 @@ export class MessageService {
     @InjectRepository(SnowballEntity)
     private readonly snowballRepository: Repository<SnowballEntity>,
     @InjectRepository(LetterEntity)
-    private readonly letterRepository: Repository<LetterEntity>,
-    @InjectRepository(DecorationPrefixEntity)
-    private readonly messageDecoRepository: Repository<DecorationPrefixEntity>
+    private readonly letterRepository: Repository<LetterEntity>
   ) {}
   async createMessage(
     createMessageDto: ReqCreateMessageDto,
@@ -51,9 +47,14 @@ export class MessageService {
       ...createMessageDto
       // is_deleted랑 created는 자동으로 설정
     });
-    const savedMessage = await this.messageRepository.insert(messageEntity);
-    if (!savedMessage.raw.affectedRows)
-      throw new InternalServerErrorException('insert fail');
+    try {
+      await this.messageRepository.save(messageEntity, {
+        reload: false
+      });
+    } catch (err) {
+      console.log(err);
+      throw new InternalServerErrorException('Insert Fail');
+    }
 
     const resCreateMessage = {
       ...createMessageDto,
@@ -66,21 +67,27 @@ export class MessageService {
     });
   }
 
-  async isInsertAllowed(snowball_id: number): Promise<boolean> {
-    const messageCount = await this.messageRepository.count({
-      where: { snowball_id: snowball_id, is_deleted: false }
-    });
-    if (messageCount >= 30)
-      throw new ConflictException('메세지 갯수가 30개를 초과했습니다');
-    else return true;
+  async isInsertAllowed(snowball_id: number): Promise<void> {
+    try {
+      const messageCount = await this.messageRepository.count({
+        where: { snowball_id: snowball_id, is_deleted: false }
+      });
+      if (messageCount >= 30)
+        throw new ConflictException('메세지 갯수가 30개를 초과했습니다');
+    } catch (err) {
+      throw new InternalServerErrorException('서버 오류');
+    }
   }
 
-  async doesLetterIdExist(letter_id: number): Promise<boolean> {
-    const letter = await this.letterRepository.findOne({
-      where: { id: letter_id, active: true }
-    });
-    if (!letter) throw new NotFoundException('존재하지 않는 letter id입니다');
-    else return true;
+  async doesLetterIdExist(letter_id: number): Promise<void> {
+    try {
+      const letter = await this.letterRepository.findOne({
+        where: { id: letter_id, active: true }
+      });
+      if (!letter) throw new NotFoundException('존재하지 않는 letter id입니다');
+    } catch (err) {
+      throw new InternalServerErrorException('서버 오류');
+    }
   }
 
   async deleteMessage(user_id: number, message_id: number): Promise<void> {
@@ -102,7 +109,10 @@ export class MessageService {
       if (message.is_deleted) {
         throw new GoneException(`${message_id}는 이미 삭제된 메시지입니다.`);
       }
-      await this.messageRepository.update(message_id, { is_deleted: true });
+      await this.messageRepository.save(
+        { id: message_id, is_deleted: true },
+        { reload: false }
+      );
     } catch (err) {
       throw new InternalServerErrorException('서버 오류');
     }
@@ -137,48 +147,16 @@ export class MessageService {
         `${message_id}번 메시지는 이미 열려있습니다.`
       );
     }
-    const date = new Date();
-    await this.messageRepository.update(message_id, { opened: date });
+    await this.messageRepository.save(
+      { id: message_id, opened: Date() },
+      { reload: false }
+    );
     const messageDto = plainToInstance(
       MessageDto,
       instanceToPlain(messageEntity),
       { groups: ['public'] }
     );
     return messageDto;
-  }
-
-  async updateMessageDecoration(
-    message_id: number,
-    updateMessageDecorationDto: UpdateMessageDecorationDto
-  ): Promise<UpdateMessageDecorationDto> {
-    const { decoration_id, decoration_color } = updateMessageDecorationDto;
-    this.doesDecorationExist(decoration_id);
-
-    const updateResult = await this.messageRepository
-      .createQueryBuilder()
-      .update(MessageEntity)
-      .set({
-        decoration_id,
-        decoration_color
-      })
-      .where('id = :id', { id: message_id, is_deleted: false })
-      .execute();
-    if (!updateResult.affected) {
-      throw new NotFoundException('업데이트할 메시지가 존재하지 않습니다.');
-    } else if (updateResult.affected > 1) {
-      throw new InternalServerErrorException('중복 데이터 오류');
-    }
-    return updateMessageDecorationDto;
-  }
-
-  async doesDecorationExist(decoration_id: number): Promise<boolean> {
-    const decoration = await this.messageDecoRepository.findOne({
-      where: { id: decoration_id, active: true }
-    });
-    if (!decoration) {
-      throw new NotFoundException('업데이트할 장식이 존재하지 않습니다.');
-    }
-    return true;
   }
 
   async updateMessageLocation(

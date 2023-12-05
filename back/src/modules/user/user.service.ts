@@ -1,12 +1,13 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { UserEntity } from './entity/user.entity';
-import { Repository } from 'typeorm';
+import { DataSource, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ResInfoDto } from './dto/response/res-info.dto';
 import { UserDto } from './dto/user.dto';
 import { SnowballService } from '../snowball/snowball.service';
 import { NicknameDto } from './dto/nickname.dto';
 import { plainToInstance } from 'class-transformer';
+import { JWTRequest } from 'src/common/interface/request.interface';
 
 interface userData {
   id: number;
@@ -19,7 +20,8 @@ export class UserService {
   constructor(
     private readonly snowballService: SnowballService,
     @InjectRepository(UserEntity)
-    private readonly userRepository: Repository<UserEntity>
+    private readonly userRepository: Repository<UserEntity>,
+    private readonly dataSource: DataSource
   ) {}
 
   async getUserData(auth_id: string): Promise<userData> {
@@ -48,7 +50,6 @@ export class UserService {
       return null;
     }
   }
-
 
   async createUserInfo(user: any, hasToken: boolean): Promise<ResInfoDto> {
     const userDto: UserDto = await this.createUserDto(
@@ -89,19 +90,23 @@ export class UserService {
   }
 
   async updateNickname(
-    id: number,
+    req: JWTRequest,
     nicknameDto: NicknameDto
   ): Promise<NicknameDto> {
-    const updateResult = await this.userRepository
-      .createQueryBuilder()
-      .update(UserEntity)
-      .set({
-        nickname: nicknameDto.nickname
-      })
-      .where('id = :id', { id: id })
-      .execute();
-    if (!updateResult.affected) {
-      throw new NotFoundException('업데이트할 유저가 존재하지 않습니다.');
+    try {
+      const updateResult = await req.queryRunnerManager
+        .createQueryBuilder()
+        .update(UserEntity)
+        .set({
+          nickname: nicknameDto.nickname
+        })
+        .where('id = :id', { id: req.user.id })
+        .execute();
+      if (!updateResult.affected) {
+        throw new NotFoundException('업데이트할 유저가 존재하지 않습니다.');
+      }
+    } catch (err) {
+      throw err;
     }
     return nicknameDto;
   }

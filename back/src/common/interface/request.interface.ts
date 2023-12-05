@@ -1,4 +1,5 @@
 import { Request } from 'express';
+import { EntityManager } from 'typeorm';
 
 export interface JWTRequest extends Request {
   user: {
@@ -8,4 +9,5 @@ export interface JWTRequest extends Request {
   };
 
   hasToken?: boolean;
+  queryRunnerManager?: EntityManager;
 }
