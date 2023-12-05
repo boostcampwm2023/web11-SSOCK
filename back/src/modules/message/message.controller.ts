@@ -8,8 +8,7 @@ import {
   HttpCode,
   UseGuards,
   Put,
-  Req,
-  UseInterceptors
+  Req
 } from '@nestjs/common';
 import { MessageService } from './message.service';
 import { ReqCreateMessageDto } from './dto/request/req-create-message.dto';
@@ -32,7 +31,6 @@ import { JWTGuard } from 'src/common/guards/jwt.guard';
 import { UpdateMessageLocationDto } from './dto/update-message-location.dto';
 import { JWTRequest } from 'src/common/interface/request.interface';
 import { ClovaService } from './clova.service';
-import { ControllerLoggerInterceptor } from 'src/common/interceptors/log.interceptor';
 @ApiTags('Message API')
 @Controller('message')
 export class MessageController {
@@ -42,7 +40,6 @@ export class MessageController {
   ) {}
 
   @Post('/:snowball_id')
-  @UseInterceptors(ControllerLoggerInterceptor)
   @HttpCode(201)
   @ApiOperation({
     summary: '메세지 생성 API',
@@ -74,7 +71,6 @@ export class MessageController {
   }
 
   @UseGuards(JWTGuard)
-  @UseInterceptors(ControllerLoggerInterceptor)
   @ApiCookieAuth('access_token')
   @Delete(':message_id')
   @HttpCode(204)
@@ -100,7 +96,6 @@ export class MessageController {
   }
 
   @UseGuards(JWTGuard)
-  @UseInterceptors(ControllerLoggerInterceptor)
   @ApiCookieAuth('access_token')
   @Get('/')
   @HttpCode(200)
@@ -123,7 +118,6 @@ export class MessageController {
   }
 
   @UseGuards(JWTGuard)
-  @UseInterceptors(ControllerLoggerInterceptor)
   @ApiCookieAuth('access_token')
   @Put('/:message_id/open')
   @HttpCode(200)
@@ -154,7 +148,6 @@ export class MessageController {
   }
 
   @UseGuards(JWTGuard)
-  @UseInterceptors(ControllerLoggerInterceptor)
   @ApiCookieAuth('access_token')
   @Put('/:message_id/location')
   @ApiOperation({

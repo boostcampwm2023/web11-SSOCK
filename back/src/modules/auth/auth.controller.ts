@@ -1,23 +1,14 @@
-import {
-  Controller,
-  Get,
-  Req,
-  Res,
-  UseGuards,
-  UseInterceptors
-} from '@nestjs/common';
+import { Controller, Get, Req, Res, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 import { payload } from './auth.service';
-import { ControllerLoggerInterceptor } from 'src/common/interceptors/log.interceptor';
 
 @ApiTags('Oauth API')
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
   @Get('google')
-  @UseInterceptors(ControllerLoggerInterceptor)
   @ApiOperation({
     summary: 'Google 로그인 요청 API',
     description: 'Google OAuth API에 로그인 요청을 보냅니다.'
@@ -34,7 +25,6 @@ export class AuthController {
   async googleLogin(): Promise<void> {}
 
   @Get('google/redirect')
-  @UseInterceptors(ControllerLoggerInterceptor)
   @UseGuards(AuthGuard('google'))
   @ApiResponse({
     status: 200,
@@ -55,7 +45,6 @@ export class AuthController {
   }
 
   @Get('naver')
-  @UseInterceptors(ControllerLoggerInterceptor)
   @ApiOperation({
     summary: 'Naver 로그인 요청 API',
     description: 'Naver OAuth API에 로그인 요청을 보냅니다.'
@@ -72,7 +61,6 @@ export class AuthController {
   async naverLogin(): Promise<void> {}
 
   @Get('naver/redirect')
-  @UseInterceptors(ControllerLoggerInterceptor)
   @UseGuards(AuthGuard('naver'))
   @ApiResponse({
     status: 200,
@@ -93,7 +81,6 @@ export class AuthController {
   }
 
   @Get('kakao')
-  @UseInterceptors(ControllerLoggerInterceptor)
   @ApiOperation({
     summary: 'Kakao 로그인 요청 API',
     description: 'Kakao OAuth API에 로그인 요청을 보냅니다.'
@@ -110,7 +97,6 @@ export class AuthController {
   async kakaoLogin(): Promise<void> {}
 
   @Get('kakao/redirect')
-  @UseInterceptors(ControllerLoggerInterceptor)
   @UseGuards(AuthGuard('kakao'))
   @ApiResponse({
     status: 200,
@@ -132,7 +118,6 @@ export class AuthController {
   }
 
   @Get('logout')
-  @UseInterceptors(ControllerLoggerInterceptor)
   @ApiResponse({
     status: 200,
     description: '로그아웃 성공'

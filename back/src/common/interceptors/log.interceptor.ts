@@ -15,7 +15,7 @@ export class ControllerLoggerInterceptor implements NestInterceptor {
     const logger = new Logger(controllerName);
     const request = context.switchToHttp().getRequest();
     const method = request.method;
-    const url = request.url;
+    const url = request.originalUrl;
     const start = Date.now();
     logger.verbose(`>>> IN: ${method} ${url}`);
     return next.handle().pipe(

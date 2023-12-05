@@ -21,7 +21,6 @@ import { ResInfoDto } from './dto/response/res-info.dto';
 import { NicknameDto } from './dto/nickname.dto';
 import { JWTRequest } from 'src/common/interface/request.interface';
 import { TransactionInterceptor } from 'src/common/interceptors/transaction.interceptor';
-import { ControllerLoggerInterceptor } from 'src/common/interceptors/log.interceptor';
 
 @ApiTags('User API')
 @Controller('user')
@@ -29,7 +28,6 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @UseGuards(JWTGuard)
-  @UseInterceptors(ControllerLoggerInterceptor)
   @ApiCookieAuth('access_token')
   @Get()
   @ApiOperation({
@@ -46,7 +44,6 @@ export class UserController {
   }
 
   @Get('/:auth_id')
-  @UseInterceptors(ControllerLoggerInterceptor)
   @ApiOperation({
     summary: '방문자 유저 조회 API',
     description: '방문자가 접속한 유저의 정보를 반환합니다'
@@ -65,7 +62,7 @@ export class UserController {
   }
 
   @UseGuards(JWTGuard)
-  @UseInterceptors(ControllerLoggerInterceptor, TransactionInterceptor)
+  @UseInterceptors(TransactionInterceptor)
   @ApiCookieAuth('access_token')
   @Put('/nickname')
   @ApiBody({ type: NicknameDto })
