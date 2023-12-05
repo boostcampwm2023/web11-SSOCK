@@ -33,9 +33,12 @@ export class MessageService {
     resClovaSentiment: ResClovaSentiment,
     snowball_id: number
   ): Promise<ResCreateMessageDto> {
-    this.isInsertAllowed(snowball_id);
-    this.doesLetterIdExist(createMessageDto.letter_id);
-
+    try {
+      this.isInsertAllowed(snowball_id);
+      this.doesLetterIdExist(createMessageDto.letter_id);
+    } catch (err) {
+      throw new InternalServerErrorException('서버 에러');
+    }
     const user_id = await this.findUserId(snowball_id);
     const location = await this.findLocation(snowball_id);
     const messageEntity = this.messageRepository.create({
@@ -68,26 +71,18 @@ export class MessageService {
   }
 
   async isInsertAllowed(snowball_id: number): Promise<void> {
-    try {
-      const messageCount = await this.messageRepository.count({
-        where: { snowball_id: snowball_id, is_deleted: false }
-      });
-      if (messageCount >= 30)
-        throw new ConflictException('메세지 갯수가 30개를 초과했습니다');
-    } catch (err) {
-      throw new InternalServerErrorException('서버 오류');
-    }
+    const messageCount = await this.messageRepository.count({
+      where: { snowball_id: snowball_id, is_deleted: false }
+    });
+    if (messageCount >= 30)
+      throw new ConflictException('메세지 갯수가 30개를 초과했습니다');
   }
 
   async doesLetterIdExist(letter_id: number): Promise<void> {
-    try {
-      const letter = await this.letterRepository.findOne({
-        where: { id: letter_id, active: true }
-      });
-      if (!letter) throw new NotFoundException('존재하지 않는 letter id입니다');
-    } catch (err) {
-      throw new InternalServerErrorException('서버 오류');
-    }
+    const letter = await this.letterRepository.findOne({
+      where: { id: letter_id, active: true }
+    });
+    if (!letter) throw new NotFoundException('존재하지 않는 letter id입니다');
   }
 
   async deleteMessage(user_id: number, message_id: number): Promise<void> {
