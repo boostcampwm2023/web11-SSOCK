@@ -6,16 +6,10 @@ import { MessageEntity } from './entity/message.entity';
 import { JWTGuard } from '../../common/guards/jwt.guard';
 import { ClovaService } from './clova.service';
 import { LetterEntity } from './entity/letter.entity';
-import { DecorationPrefixEntity } from '../snowball/entity/decoration-prefix.entity';
 import { SnowballEntity } from '../snowball/entity/snowball.entity';
 @Module({
   imports: [
-    TypeOrmModule.forFeature([
-      MessageEntity,
-      SnowballEntity,
-      LetterEntity,
-      DecorationPrefixEntity
-    ])
+    TypeOrmModule.forFeature([MessageEntity, SnowballEntity, LetterEntity])
   ],
   controllers: [MessageController],
   providers: [MessageService, ClovaService, JWTGuard],

@@ -12,11 +12,9 @@ import { ReqCreateMessageDto } from './dto/request/req-create-message.dto';
 import { MessageEntity } from './entity/message.entity';
 import { ResCreateMessageDto } from './dto/response/res-create-message.dto';
 import { MessageDto } from './dto/message.dto';
-import { UpdateMessageDecorationDto } from './dto/update-message-decoration.dto';
 import { UpdateMessageLocationDto } from './dto/update-message-location.dto';
 import { plainToInstance, instanceToPlain } from 'class-transformer';
 import { LetterEntity } from './entity/letter.entity';
-import { DecorationPrefixEntity } from '../snowball/entity/decoration-prefix.entity';
 import { ResClovaSentiment } from './clova.service';
 import { SnowballEntity } from '../snowball/entity/snowball.entity';
 
@@ -28,9 +26,7 @@ export class MessageService {
     @InjectRepository(SnowballEntity)
     private readonly snowballRepository: Repository<SnowballEntity>,
     @InjectRepository(LetterEntity)
-    private readonly letterRepository: Repository<LetterEntity>,
-    @InjectRepository(DecorationPrefixEntity)
-    private readonly messageDecoRepository: Repository<DecorationPrefixEntity>
+    private readonly letterRepository: Repository<LetterEntity>
   ) {}
   async createMessage(
     createMessageDto: ReqCreateMessageDto,
@@ -155,40 +151,6 @@ export class MessageService {
       { groups: ['public'] }
     );
     return messageDto;
-  }
-
-  async updateMessageDecoration(
-    message_id: number,
-    updateMessageDecorationDto: UpdateMessageDecorationDto
-  ): Promise<UpdateMessageDecorationDto> {
-    const { decoration_id, decoration_color } = updateMessageDecorationDto;
-    this.doesDecorationExist(decoration_id);
-
-    const updateResult = await this.messageRepository
-      .createQueryBuilder()
-      .update(MessageEntity)
-      .set({
-        decoration_id,
-        decoration_color
-      })
-      .where('id = :id', { id: message_id, is_deleted: false })
-      .execute();
-    if (!updateResult.affected) {
-      throw new NotFoundException('업데이트할 메시지가 존재하지 않습니다.');
-    } else if (updateResult.affected > 1) {
-      throw new InternalServerErrorException('중복 데이터 오류');
-    }
-    return updateMessageDecorationDto;
-  }
-
-  async doesDecorationExist(decoration_id: number): Promise<boolean> {
-    const decoration = await this.messageDecoRepository.findOne({
-      where: { id: decoration_id, active: true }
-    });
-    if (!decoration) {
-      throw new NotFoundException('업데이트할 장식이 존재하지 않습니다.');
-    }
-    return true;
   }
 
   async updateMessageLocation(
