@@ -63,9 +63,11 @@ const App = () => {
               <Route
                 path="/main"
                 element={
-                  <SnowBallProvider>
-                    <Pages.Main />
-                  </SnowBallProvider>
+                  <MessageProvider>
+                    <SnowBallProvider>
+                      <Pages.Main />
+                    </SnowBallProvider>
+                  </MessageProvider>
                 }
               />
 

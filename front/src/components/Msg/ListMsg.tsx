@@ -1,5 +1,12 @@
 import axios from 'axios';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+import {
+  SnowBallContext,
+  UserData,
+  SnowBallData
+} from '@pages/Visit/SnowBallProvider';
+import { useContext } from 'react';
 
 interface MsgProps {
   color: string;
@@ -71,13 +78,32 @@ const StyledToWrap = styled.div``;
 const StyledDeleteButton = styled.button``;
 
 const ListMsg = (props: MsgProps): JSX.Element => {
+  const navigate = useNavigate();
+  const { setSnowBallData, setUserData, userData, snowBallData } =
+    useContext(SnowBallContext);
+
   const deleteMsg = () => {
     axios
       .delete(`/api/message/${props.messageId}`, {
         withCredentials: true
       })
       .then(() => {
-        // 리렌더링 구현해야함 이거 보이나
+        axios
+          .get('/api/user', { withCredentials: true })
+          .then(res => {
+            const userData = res.data.user as UserData;
+            const snowballData = res.data.main_snowball as SnowBallData;
+            setSnowBallData(snowballData);
+            setUserData(userData);
+          })
+          .catch(e => {
+            console.error(e);
+            navigate('*');
+          });
+      }) // 여기가 지금 좀 맘에안듬 민아가 코딩을 안해요
+      .catch(e => {
+        console.error(e);
+        navigate('*');
       });
   };
 

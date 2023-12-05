@@ -1,10 +1,11 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useContext } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import { Container } from '@utils';
 import { HeaderText } from '@components';
 import MenuModal from './MenuModal';
 import ListMsgs from './ListMsgs';
+import { SnowBallContext } from '@pages/Visit/SnowBallProvider';
 
 const StyledMenu = styled.img`
   position: fixed;
@@ -64,7 +65,7 @@ const MainButtonBox = (props: MainButtonBoxProps) => {
   const menuRef = useRef<HTMLImageElement>(null);
   const screenRef = useRef<HTMLImageElement>(null);
   const shareLinkRef = useRef<HTMLImageElement>(null);
-
+  const { userData } = useContext(SnowBallContext);
   const [menuModal, setMenuModal] = useState(false);
   const [list, setList] = useState(false);
   const [screen, setScreen] = useState(false);
@@ -83,10 +84,7 @@ const MainButtonBox = (props: MainButtonBoxProps) => {
           url: url
         });
       }
-
     });
-
-
   };
 
   return (
@@ -94,7 +92,7 @@ const MainButtonBox = (props: MainButtonBoxProps) => {
       {!screen ? (
         <>
           <Container>
-            <HeaderText Ref={headerRef} userName="test" />
+            <HeaderText Ref={headerRef} userName={userData.nickname} />
           </Container>
 
           <StyledMenu

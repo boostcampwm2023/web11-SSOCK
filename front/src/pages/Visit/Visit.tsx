@@ -1,11 +1,11 @@
+import { useContext, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import { SnowGlobeCanvas, UIContainer } from '@components';
 import VisitHeader from './VisitHeader';
 import VisitBody from './VisitBody';
 import VisitBottom from './VisitBottom';
-import { useContext, useEffect } from 'react';
 import { SnowBallContext, SnowBallData, UserData } from './SnowBallProvider';
-import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 
 const Visit = () => {
   const navigate = useNavigate();
@@ -23,6 +23,7 @@ const Visit = () => {
         navigate('*');
       });
   }, []);
+
   return (
     <>
       <SnowGlobeCanvas />
