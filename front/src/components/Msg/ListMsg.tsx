@@ -79,8 +79,7 @@ const StyledDeleteButton = styled.button``;
 
 const ListMsg = (props: MsgProps): JSX.Element => {
   const navigate = useNavigate();
-  const { setSnowBallData, setUserData, userData, snowBallData } =
-    useContext(SnowBallContext);
+  const { setSnowBallData, setUserData } = useContext(SnowBallContext);
 
   const deleteMsg = () => {
     axios

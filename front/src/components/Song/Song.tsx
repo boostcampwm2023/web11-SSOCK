@@ -39,6 +39,7 @@ const Song = () => {
 
   return (
     <StyledMusic
+      id="musicController"
       src={play ? '/music/music.svg' : '/music/music-slash.svg'}
       onClick={toggle}
     />

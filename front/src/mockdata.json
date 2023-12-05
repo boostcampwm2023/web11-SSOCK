@@ -20,7 +20,9 @@
         "opened": null,
         "sender": "박민수",
         "snowball_id": 1,
-        "user_id": 1
+        "user_id": 1,
+        "sentiment": "positive",
+        "confidence": 100
       },
       {
         "content": "메리크리스마스~\n 내년에도 사이좋게 지내자!!.",
@@ -34,7 +36,9 @@
         "opened": null,
         "sender": "김찬우",
         "snowball_id": 1,
-        "user_id": 1
+        "user_id": 1,
+        "sentiment": "positive",
+        "confidence": 100
       }
     ]
   },
