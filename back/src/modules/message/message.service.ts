@@ -3,7 +3,7 @@ import {
   ForbiddenException,
   GoneException,
   Injectable,
-  InternalServerErrorException,
+  BadRequestException,
   NotFoundException
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -37,7 +37,7 @@ export class MessageService {
       this.isInsertAllowed(snowball_id);
       this.doesLetterIdExist(createMessageDto.letter_id);
     } catch (err) {
-      throw new InternalServerErrorException('서버 에러');
+      throw new BadRequestException('서버 에러');
     }
     const user_id = await this.findUserId(snowball_id);
     const location = await this.findLocation(snowball_id);
@@ -56,7 +56,7 @@ export class MessageService {
       });
     } catch (err) {
       console.log(err);
-      throw new InternalServerErrorException('Insert Fail');
+      throw new BadRequestException('Insert Fail');
     }
 
     const resCreateMessage = {
@@ -109,7 +109,7 @@ export class MessageService {
         { reload: false }
       );
     } catch (err) {
-      throw new InternalServerErrorException('서버 오류');
+      throw new BadRequestException('서버 오류');
     }
   }
 
@@ -170,7 +170,7 @@ export class MessageService {
     if (!updateResult.affected) {
       throw new NotFoundException('업데이트를 실패했습니다');
     } else if (updateResult.affected > 1) {
-      throw new InternalServerErrorException('데이터 중복 오류');
+      throw new BadRequestException('데이터 중복 오류');
     }
     return updateMessageLocationDto;
   }
