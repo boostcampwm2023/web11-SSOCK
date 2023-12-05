@@ -39,6 +39,10 @@ const screenTime = (
       );
     }
   });
+  const a = document.getElementById('musicController');
+  if (a) {
+    a.style.display = 'none';
+  }
 
   setTimeout(() => {
     setScreen(true);
@@ -46,7 +50,9 @@ const screenTime = (
 
   setTimeout(() => {
     setScreen(false);
-
+    if (a) {
+      a.style.display = 'block';
+    }
     refs.forEach(ref => {
       if (ref.current) {
         ref.current.style.setProperty('animation', 'none');

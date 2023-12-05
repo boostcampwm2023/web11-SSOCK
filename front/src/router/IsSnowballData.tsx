@@ -43,7 +43,7 @@ const IsSnowballData: React.FC<{ children: ReactNode }> = ({ children }) => {
           }
         })
         .catch(err => {
-          console.log(err);
+          console.error(err);
           navigate('*');
         });
     }

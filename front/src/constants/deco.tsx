@@ -1,3 +1,19 @@
+export const SENTIMENT_MODEL = [
+  { name: '선물상자', fileName: '/models/ribbonBox.glb', img: 'ribbonBox.png' },
+  {
+    name: '긍정',
+    fileName: '/models/heart.glb'
+  },
+  {
+    name: '보통',
+    fileName: '/models/star.glb'
+  },
+  {
+    name: '부정',
+    fileName: '/models/water.glb'
+  }
+];
+
 export const DECO = [
   { name: '선물상자', fileName: '/models/ribbonBox.glb', img: 'ribbonBox.png' },
   {
