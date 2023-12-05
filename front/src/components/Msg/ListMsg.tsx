@@ -45,7 +45,7 @@ const StyledTo = styled.span`
 `;
 
 const StyledLetterContent = styled.div`
-  white-space: pre;
+  white-space: normal;
   text-align: center;
   color: white;
 `;

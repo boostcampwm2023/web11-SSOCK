@@ -38,23 +38,6 @@ const StyledTo = styled.span`
   color: ${props => props.theme.colors['--nick-name']};
 `;
 
-const StyledLetterContent = styled.div`
-  white-space: pre;
-  text-align: center;
-  color: white;
-`;
-
-const StyledFromBox = styled(StyledLetterPerson)`
-  flex-direction: row-reverse;
-  display: flex;
-  justify-content: space-between;
-`;
-
-const StyledFrom = styled.span`
-  text-align: right;
-  color: ${props => props.theme.colors['--primary-redp-variant']};
-`;
-
 const StyledInputBox = styled.div`
   text-align: right;
   width: 100%;
@@ -92,6 +75,23 @@ const StyledTextArea = styled.textarea`
 
   /* 인터넷 익스플로러, 엣지 */
   -ms-overflow-style: none;
+`;
+
+const StyledLetterContent = styled.div`
+  white-space: normal;
+  text-align: center;
+  color: white;
+`;
+
+const StyledFromBox = styled(StyledLetterPerson)`
+  flex-direction: row-reverse;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const StyledFrom = styled.span`
+  text-align: right;
+  color: ${props => props.theme.colors['--primary-redp-variant']};
 `;
 
 const StyledFromInput = styled.input`
