@@ -13,7 +13,8 @@ const StyledModal = styled.div`
   top: 4%;
   right: 0;
   width: 40%;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: #161616;
+  border-radius: 0.625rem 0 0 0.625rem;
   box-shadow: 0 0.625rem 1.25rem rgba(255, 255, 255, 0.25),
     0 0.625rem 1.25rem rgba(255, 255, 255, 0.25);
   font: ${props => props.theme.font['--normal-main-header-font']};
@@ -32,7 +33,7 @@ const StyledUser = styled(StyledSection)`
 
 const StyledLogout = styled(StyledSection)`
   color: ${props => props.theme.colors['--primary-red-primary']};
-  font-family: 'Pretendard-Regular';
+
   font-weight: bold;
 `;
 
@@ -50,6 +51,10 @@ const MenuModal = (props: ModalProps) => {
   const userName = mock.user_data.nickname;
   const navigate = useNavigate();
 
+  const makeNewSnowBall = () => {
+    navigate('/make/snowball');
+  };
+
   return (
     <StyledModal>
       <StyledUser>{userName}님</StyledUser>
@@ -62,6 +67,10 @@ const MenuModal = (props: ModalProps) => {
         }}
       >
         편지 리스트로 보기
+      </StyledSection>
+
+      <StyledSection onClick={makeNewSnowBall}>
+        새로운 스노우볼 만들러 가기
       </StyledSection>
 
       <StyledLogout onClick={() => Logout(navigate)}>로그아웃</StyledLogout>

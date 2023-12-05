@@ -95,11 +95,14 @@ const MainButtonBox = (props: MainButtonBoxProps) => {
             <HeaderText Ref={headerRef} userName={userData.nickname} />
           </Container>
 
-          <StyledMenu
-            ref={menuRef}
-            src={'/icons/menu.svg'}
-            onClick={() => setMenuModal(true)}
-          />
+          {list ? null : (
+            <StyledMenu
+              ref={menuRef}
+              src={'/icons/menu.svg'}
+              onClick={() => setMenuModal(true)}
+            />
+          )}
+
           {menuModal ? <MenuModal set={setMenuModal} list={setList} /> : null}
 
           <StyledScreen
