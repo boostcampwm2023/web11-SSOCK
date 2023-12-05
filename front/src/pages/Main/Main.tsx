@@ -4,13 +4,13 @@ import styled from 'styled-components';
 import { SnowGlobeCanvas, UIContainer } from '@components';
 import MainButtonBox from './MainButtonBox';
 
-const StyledLeft = styled.img`
+const LeftBtn = styled.img`
   position: fixed;
   top: 50%;
   height: 4rem;
 `;
 
-const StyledRight = styled(StyledLeft)`
+const RightBtn = styled(LeftBtn)`
   right: 0;
 `;
 
@@ -48,7 +48,7 @@ const Main = () => {
 
       <UIContainer>
         {snowballIdx > 1 ? (
-          <StyledLeft
+          <LeftBtn
             ref={leftArrowRef}
             src={'/icons/prev.svg'}
             onClick={() => moveSnowball('prev')}
@@ -56,7 +56,7 @@ const Main = () => {
         ) : null}
 
         {snowballIdx < allSnowballIdx ? (
-          <StyledRight
+          <RightBtn
             ref={rightArrowRef}
             src={'/icons/next.svg'}
             onClick={() => moveSnowball('next')}

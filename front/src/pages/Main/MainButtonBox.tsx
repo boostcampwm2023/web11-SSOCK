@@ -6,6 +6,11 @@ import { HeaderText } from '@components';
 import MenuModal from './MenuModal';
 import ListMsgs from './ListMsgs';
 
+interface MainButtonBoxProps {
+  leftArrow: React.RefObject<HTMLImageElement>;
+  rightArrow: React.RefObject<HTMLImageElement>;
+}
+
 const StyledMenu = styled.img`
   position: fixed;
   top: 3.5rem;
@@ -54,11 +59,6 @@ const screenTime = (
   }, 5000);
 };
 
-interface MainButtonBoxProps {
-  leftArrow: React.RefObject<HTMLImageElement>;
-  rightArrow: React.RefObject<HTMLImageElement>;
-}
-
 const MainButtonBox = (props: MainButtonBoxProps) => {
   const headerRef = useRef<HTMLDivElement>(null);
   const menuRef = useRef<HTMLImageElement>(null);
@@ -83,10 +83,7 @@ const MainButtonBox = (props: MainButtonBoxProps) => {
           url: url
         });
       }
-
     });
-
-
   };
 
   return (
