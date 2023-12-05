@@ -122,4 +122,4 @@ jobs:
             docker pull ghcr.io/peageon/ssock:latest
             docker stop ssock || true
             docker rm ssock || true
-            docker run -d --name ssock -p 3000:3000 --env-file .env ghcr.io/peageon/ssock:latest
+            docker run -d --name ssock --restart always -p 3000:3000 --env-file .env ghcr.io/peageon/ssock:latest
