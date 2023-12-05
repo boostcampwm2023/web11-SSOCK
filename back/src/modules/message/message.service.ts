@@ -33,12 +33,9 @@ export class MessageService {
     resClovaSentiment: ResClovaSentiment,
     snowball_id: number
   ): Promise<ResCreateMessageDto> {
-    try {
-      this.isInsertAllowed(snowball_id);
-      this.doesLetterIdExist(createMessageDto.letter_id);
-    } catch (err) {
-      throw new BadRequestException('서버 에러');
-    }
+    await this.isInsertAllowed(snowball_id);
+    await this.doesLetterIdExist(createMessageDto.letter_id);
+
     const user_id = await this.findUserId(snowball_id);
     const location = await this.findLocation(snowball_id);
     const messageEntity = this.messageRepository.create({
