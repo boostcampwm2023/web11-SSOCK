@@ -38,6 +38,11 @@ export const MAIN = [
     name: '안경부캠덕',
     fileName: '/models/bcduck_glasses.glb',
     img: '/models/img/Main/lamp.gif'
+  },
+  {
+    name: '눈사람',
+    fileName: '/models/snowman.glb',
+    img: '/models/img/Main/lamp.gif'
   }
 ];
 
