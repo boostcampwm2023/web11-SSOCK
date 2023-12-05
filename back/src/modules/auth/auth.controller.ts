@@ -1,7 +1,6 @@
 import { Controller, Get, Req, Res, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
-
 import { AuthService } from './auth.service';
 import { payload } from './auth.service';
 
@@ -40,14 +39,8 @@ export class AuthController {
     const payload: payload = await this.authService.getUserInfo(req.user);
     const { accessToken, refreshToken } =
       await this.authService.generateJwtToken(payload);
-    res.cookie('access_token', accessToken, {
-      httpOnly: true,
-      maxAge: parseInt(`${process.env.JWT_ACCESS_AGE}`)
-    });
-    res.cookie('refresh_token', refreshToken, {
-      httpOnly: true,
-      maxAge: parseInt(`${process.env.JWT_REFRESH_AGE}`)
-    });
+    await this.authService.saveRefreshToken(payload, refreshToken);
+    this.authService.setCookies(res, accessToken, refreshToken);
     res.redirect(`${process.env.OAUTH_REDIRECT_URL}`);
   }
 
@@ -82,14 +75,8 @@ export class AuthController {
     const payload: payload = await this.authService.getUserInfo(req.user);
     const { accessToken, refreshToken } =
       await this.authService.generateJwtToken(payload);
-    res.cookie('access_token', accessToken, {
-      httpOnly: true,
-      maxAge: parseInt(`${process.env.JWT_ACCESS_AGE}`)
-    });
-    res.cookie('refresh_token', refreshToken, {
-      httpOnly: true,
-      maxAge: parseInt(`${process.env.JWT_REFRESH_AGE}`)
-    });
+    await this.authService.saveRefreshToken(payload, refreshToken);
+    this.authService.setCookies(res, accessToken, refreshToken);
     res.redirect(`${process.env.OAUTH_REDIRECT_URL}`);
   }
 
@@ -125,14 +112,19 @@ export class AuthController {
     // To DO: refresh token db에 저장 & 클라이언트에는 index만 저장?
     const { accessToken, refreshToken } =
       await this.authService.generateJwtToken(payload);
-    res.cookie('access_token', accessToken, {
-      httpOnly: true,
-      maxAge: parseInt(`${process.env.JWT_ACCESS_AGE}`)
-    });
-    res.cookie('refresh_token', refreshToken, {
-      httpOnly: true,
-      maxAge: parseInt(`${process.env.JWT_REFRESH_AGE}`)
-    });
+    await this.authService.saveRefreshToken(payload, refreshToken);
+    this.authService.setCookies(res, accessToken, refreshToken);
     res.redirect(`${process.env.OAUTH_REDIRECT_URL}`);
+  }
+
+  @Get('logout')
+  @ApiResponse({
+    status: 200,
+    description: '로그아웃 성공'
+  })
+  async logout(@Res() res: any): Promise<void> {
+    res.clearCookie('access_token');
+    res.clearCookie('refresh_token');
+    res.redirect(`/`);
   }
 }
