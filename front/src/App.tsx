@@ -1,14 +1,13 @@
 import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components';
 import GlobalStyles from './GlobalStyles';
-import { theme } from '@utils';
+import { theme, Loading } from '@utils';
 import * as Pages from '@pages';
 import { Song } from '@components';
 import { HasSnowballData } from './router';
 import { SnowBallProvider } from '@pages/Visit/SnowBallProvider';
 import { MessageProvider } from '@pages/Visit/MessageProvider';
 import { DecoProvider } from '@pages/Visit/Deco/DecoProvider';
-import Loading from './utils/Loading';
 
 const Outer = styled.div`
   position: relative;
@@ -49,7 +48,7 @@ const App = () => {
                 <Route path="deco" element={<Pages.Deco />} />
               </Route>
 
-                <Route path="/loading" element={<Loading />} />
+              <Route path="/loading" element={<Loading />} />
               <Route
                 path="/make"
                 element={

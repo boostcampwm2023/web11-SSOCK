@@ -1,5 +1,5 @@
-import styled, { keyframes } from 'styled-components';
 import { useEffect, useState } from 'react';
+import styled, { keyframes } from 'styled-components';
 import { theme } from '@utils';
 
 const spin = keyframes`
@@ -23,7 +23,7 @@ const StyledLoading = styled.div`
   height: 100%;
   display: flex;
   justify-content: center;
-  align-items:center;
+  align-items: center;
   flex-direction: column;
   gap: 1.5rem;
 `;
@@ -52,10 +52,10 @@ const Loading = () => {
   }, []);
 
   return (
-  <StyledLoading>
-    <StylishCircle />
-    <StyledLoadingText>Loading{dots}</StyledLoadingText>
-  </StyledLoading>
+    <StyledLoading>
+      <StylishCircle />
+      <StyledLoadingText>Loading{dots}</StyledLoadingText>
+    </StyledLoading>
   );
 };
 
