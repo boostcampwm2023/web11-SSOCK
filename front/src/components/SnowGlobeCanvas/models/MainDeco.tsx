@@ -15,7 +15,8 @@ interface MyModelProps {
 const fallingModel = (
   modelRef: THREE.Object3D | null,
   speedRef: React.MutableRefObject<THREE.Vector3>,
-  delta: number
+  delta: number,
+  isStoppedRef: React.MutableRefObject<boolean>
 ) => {
   const airResistance = 0.02;
   const acceleration = 0.3 * delta; //가속도
@@ -26,7 +27,7 @@ const fallingModel = (
     speedRef.current.y *= 1 - airResistance;
 
     if (modelRef.position.y <= 0.1 && Math.abs(speedRef.current.y) <= 0.05) {
-      speedRef.current = new THREE.Vector3(0, 0, 0);
+      isStoppedRef.current = true;
     }
 
     if (modelRef.position.y <= 0) {
@@ -38,6 +39,7 @@ const fallingModel = (
 const MainDeco = ({ id, scale, position, color }: MyModelProps) => {
   const deco = useGLTF(MAIN[id].fileName).scene.clone();
   const speedRef = useRef<THREE.Vector3>(new THREE.Vector3(0, 0, 0));
+  const isStoppedRef = useRef<boolean>(false);
 
   deco.name = MAIN[id].name;
   deco.scale.set(scale, scale, scale);
@@ -46,8 +48,9 @@ const MainDeco = ({ id, scale, position, color }: MyModelProps) => {
   colorPart.material = makeColorChangedMaterial(colorPart, color);
   deco.children.forEach(mesh => (mesh.castShadow = true));
   useFrame((_, delta) => {
-    console.log(delta);
-    fallingModel(deco, speedRef, delta);
+    if (!isStoppedRef.current) {
+      fallingModel(deco, speedRef, delta, isStoppedRef);
+    }
   });
 
   return <primitive object={deco} />;
