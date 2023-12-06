@@ -138,7 +138,7 @@ const Main = () => {
                         snowBallData,
                         setSnowBallData
                       );
-                      delayButton(leftArrowRef, rightArrowRef);
+                      delayButton();
                     }}
                     ref={leftArrowRef}
                   />
@@ -151,7 +151,7 @@ const Main = () => {
                         snowBallData,
                         setSnowBallData
                       );
-                      delayButton(leftArrowRef, rightArrowRef);
+                      delayButton();
                     }}
                     ref={rightArrowRef}
                   />
