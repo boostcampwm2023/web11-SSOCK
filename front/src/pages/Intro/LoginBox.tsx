@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import { BlurBody } from '@utils';
+import { theme } from '@utils';
 
 interface LoginProps {
   view: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
@@ -90,6 +91,12 @@ const LoginUI = (props: SocialLogin) => {
   );
 };
 
+const StyledLoginText = styled.p`
+  font: ${theme.font['--normal-login-font']};
+  color: ${theme.colors['--white-primary']};
+  text-align: center;
+`;
+
 const LoginBox = (props: LoginProps) => {
   const [isFocus, setIsFocus] = useState(true);
   const closeRef = useRef<HTMLDivElement>(null);
@@ -99,6 +106,9 @@ const LoginBox = (props: LoginProps) => {
       <BlurBody onClick={() => closeLogin(props, closeRef, setIsFocus)} />
       {isFocus ? (
         <StyledLoginBox ref={closeRef}>
+          <StyledLoginText>
+            크롬 및 삼성브라우저 사용을 권장합니다.
+          </StyledLoginText>
           <LoginUI social={'kakao'} />
           <LoginUI social={'naver'} />
           <LoginUI social={'google'} />
