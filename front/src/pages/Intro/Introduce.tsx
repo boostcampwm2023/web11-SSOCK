@@ -31,6 +31,7 @@ const StyledText = styled.div`
   overflow: scroll;
   padding: 5%;
   font: ${props => props.theme.font['--normal-introduce-font']};
+  pointer-events: auto;
   * {
     pointer-events: auto;
   }
@@ -116,6 +117,7 @@ const Introduce = (props: IntroduceProps) => {
           <Bold>🎉편지 AI 감정분석</Bold>
           <br />
           눈과 함께 편지의 감정들이 떨어져요🎄
+          <br />
           감정의 크기에 따라 사이즈가 달라요💫
           <br />
           ❤️긍정의 감정이 가득해요😊
