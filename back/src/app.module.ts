@@ -6,6 +6,8 @@ import { AuthModule } from './modules/auth/auth.module';
 import typeOrmConfig from './config/ormconfig';
 import { JwtModule } from '@nestjs/jwt';
 import { UserModule } from './modules/user/user.module';
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import { ControllerLoggerInterceptor } from './common/interceptors/log.interceptor';
 
 @Module({
   imports: [
@@ -17,6 +19,9 @@ import { UserModule } from './modules/user/user.module';
     })
   ],
   controllers: [AppController],
-  providers: [AppService]
+  providers: [
+    AppService,
+    { provide: APP_INTERCEPTOR, useClass: ControllerLoggerInterceptor }
+  ]
 })
 export class AppModule {}
