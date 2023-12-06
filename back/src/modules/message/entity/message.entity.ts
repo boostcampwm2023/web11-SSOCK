@@ -38,8 +38,8 @@ export class MessageEntity {
   @Column({ length: 16 })
   sender: string;
 
-  @Column({ default: false })
-  is_deleted: boolean;
+  @CreateDateColumn({ default: null })
+  is_deleted: Date | null;
 
   @Column()
   location: number;

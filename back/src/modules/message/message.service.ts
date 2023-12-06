@@ -17,6 +17,7 @@ import { plainToInstance, instanceToPlain } from 'class-transformer';
 import { LetterEntity } from './entity/letter.entity';
 import { ResClovaSentiment } from './clova.service';
 import { SnowballEntity } from '../snowball/entity/snowball.entity';
+import { DecorationPrefixEntity } from '../snowball/entity/decoration-prefix.entity';
 
 @Injectable()
 export class MessageService {
@@ -26,7 +27,9 @@ export class MessageService {
     @InjectRepository(SnowballEntity)
     private readonly snowballRepository: Repository<SnowballEntity>,
     @InjectRepository(LetterEntity)
-    private readonly letterRepository: Repository<LetterEntity>
+    private readonly letterRepository: Repository<LetterEntity>,
+    @InjectRepository(DecorationPrefixEntity)
+    private readonly decorationPrefixRepository: Repository<DecorationPrefixEntity>
   ) {}
   async createMessage(
     createMessageDto: ReqCreateMessageDto,
@@ -34,6 +37,7 @@ export class MessageService {
     snowball_id: number
   ): Promise<ResCreateMessageDto> {
     await this.isInsertAllowed(snowball_id);
+    await this.doesDecoIdExist(createMessageDto.decoration_id);
     await this.doesLetterIdExist(createMessageDto.letter_id);
 
     const user_id = await this.findUserId(snowball_id);
@@ -69,10 +73,19 @@ export class MessageService {
 
   async isInsertAllowed(snowball_id: number): Promise<void> {
     const messageCount = await this.messageRepository.count({
-      where: { snowball_id: snowball_id, is_deleted: false }
+      where: { snowball_id: snowball_id, is_deleted: null }
     });
     if (messageCount >= 30) {
       throw new ConflictException('메세지 갯수가 30개를 초과했습니다');
+    }
+  }
+
+  async doesDecoIdExist(decoration_id: number): Promise<void> {
+    const decoration = await this.decorationPrefixRepository.findOne({
+      where: { id: decoration_id, active: true }
+    });
+    if (!decoration) {
+      throw new NotFoundException('존재하지 않는 decoration id입니다');
     }
   }
 
@@ -105,7 +118,7 @@ export class MessageService {
         throw new GoneException(`${message_id}는 이미 삭제된 메시지입니다.`);
       }
       await this.messageRepository.save(
-        { id: message_id, is_deleted: true },
+        { id: message_id, is_deleted: Date() },
         { reload: false }
       );
     } catch (err) {
@@ -115,7 +128,7 @@ export class MessageService {
 
   async getAllMessages(user_id: number): Promise<MessageDto[]> {
     const messageEntities = await this.messageRepository.find({
-      where: { user_id: user_id, is_deleted: false }
+      where: { user_id: user_id, is_deleted: null }
     });
     if (!messageEntities) {
       throw new NotFoundException(`User with id ${user_id} not found`);
@@ -130,7 +143,7 @@ export class MessageService {
 
   async openMessage(message_id: number): Promise<MessageDto> {
     const messageEntity = await this.messageRepository.findOne({
-      where: { id: message_id, is_deleted: false }
+      where: { id: message_id, is_deleted: null }
     });
     if (!messageEntity) {
       throw new NotFoundException(
@@ -177,7 +190,7 @@ export class MessageService {
 
   async getMessageCount(user_id: number): Promise<number> {
     return this.messageRepository.count({
-      where: { user_id: user_id, is_deleted: false }
+      where: { user_id: user_id, is_deleted: null }
     });
   }
 
@@ -186,7 +199,7 @@ export class MessageService {
     groups: string
   ): Promise<MessageDto[]> {
     const messageEntities = await this.messageRepository.find({
-      where: { snowball_id: snowball_id, is_deleted: false }
+      where: { snowball_id: snowball_id, is_deleted: null }
     });
 
     const messageDtos = messageEntities.map(entity =>
