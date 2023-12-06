@@ -2,7 +2,7 @@
   "snowball_data": {
     "id": 1,
     "title": "스노우볼 속 내마음❤️",
-    "main_decoration_id": 5,
+    "main_decoration_id": 2,
     "main_decoration_color": "#ff0000",
     "bottom_decoration_id": 2,
     "bottom_decoration_color": "#ff0000",
@@ -27,7 +27,7 @@
       {
         "content": "메리크리스마스~\n 내년에도 사이좋게 지내자!!.",
         "created": "0",
-        "decoration_color": "#00ff00",
+        "decoration_color": "#3a911f",
         "decoration_id": 2,
         "id": 2,
         "is_deleted": false,
@@ -43,7 +43,7 @@
       {
         "content": "나랑 마인크래프트 해줘서 고마워\n앞으로도 나랑 마인크래프트 같이하자",
         "created": "0",
-        "decoration_color": "#ff0000",
+        "decoration_color": "#efff0a",
         "decoration_id": 4,
         "id": 3,
         "is_deleted": false,
@@ -59,7 +59,7 @@
       {
         "content": "선물은 작다 해도 큰 마음이 담겨있어요.\n 나의 작은 선물로 당신을 기쁘게 만들고 싶어요. 🎁❤️",
         "created": "0",
-        "decoration_color": "#ff0000",
+        "decoration_color": "#1f4391",
         "decoration_id": 4,
         "id": 4,
         "is_deleted": false,
@@ -108,7 +108,7 @@
         "content": "이번 크리스마스에는 따뜻한 차 한 잔과 함께 뜻깊은 이야기를 나눠보는 건 어떨까요? ☕🎄🎁",
         "created": "0",
         "decoration_color": "#ffff00",
-        "decoration_id": 1,
+        "decoration_id": 3,
         "id": 7,
         "is_deleted": false,
         "letter_id": 1,
@@ -139,8 +139,8 @@
       {
         "content": "이번 크리스마스에는 따뜻한 차 한 잔과 함께 뜻깊은 이야기를 나눠보는 건 어떨까요? ☕🎄🎁",
         "created": "0",
-        "decoration_color": "#ffff00",
-        "decoration_id": 1,
+        "decoration_color": "#d12b2b",
+        "decoration_id": 3,
         "id": 9,
         "is_deleted": false,
         "letter_id": 1,
@@ -155,8 +155,8 @@
       {
         "content": "이번 크리스마스에는 따뜻한 차 한 잔과 함께 뜻깊은 이야기를 나눠보는 건 어떨까요? ☕🎄🎁",
         "created": "0",
-        "decoration_color": "#ffff00",
-        "decoration_id": 1,
+        "decoration_color": "#d15a2b",
+        "decoration_id": 2,
         "id": 10,
         "is_deleted": false,
         "letter_id": 1,
@@ -171,7 +171,7 @@
       {
         "content": "이번 크리스마스에는 따뜻한 차 한 잔과 함께 뜻깊은 이야기를 나눠보는 건 어떨까요? ☕🎄🎁",
         "created": "0",
-        "decoration_color": "#ffff00",
+        "decoration_color": "#65b182",
         "decoration_id": 1,
         "id": 11,
         "is_deleted": false,
@@ -187,8 +187,8 @@
       {
         "content": "이번 크리스마스에는 따뜻한 차 한 잔과 함께 뜻깊은 이야기를 나눠보는 건 어떨까요? ☕🎄🎁",
         "created": "0",
-        "decoration_color": "#ffff00",
-        "decoration_id": 1,
+        "decoration_color": "#8865b1",
+        "decoration_id": 2,
         "id": 12,
         "is_deleted": false,
         "letter_id": 1,
@@ -204,7 +204,7 @@
         "content": "이번 크리스마스에는 따뜻한 차 한 잔과 함께 뜻깊은 이야기를 나눠보는 건 어떨까요? ☕🎄🎁",
         "created": "0",
         "decoration_color": "#ffff00",
-        "decoration_id": 1,
+        "decoration_id": 3,
         "id": 13,
         "is_deleted": false,
         "letter_id": 1,
@@ -219,7 +219,7 @@
       {
         "content": "이번 크리스마스에는 따뜻한 차 한 잔과 함께 뜻깊은 이야기를 나눠보는 건 어떨까요? ☕🎄🎁",
         "created": "0",
-        "decoration_color": "#ffff00",
+        "decoration_color": "#530fa0",
         "decoration_id": 1,
         "id": 14,
         "is_deleted": false,
@@ -235,7 +235,7 @@
       {
         "content": "이번 크리스마스에는 따뜻한 차 한 잔과 함께 뜻깊은 이야기를 나눠보는 건 어떨까요? ☕🎄🎁",
         "created": "0",
-        "decoration_color": "#ffff00",
+        "decoration_color": "#0fa08d",
         "decoration_id": 1,
         "id": 15,
         "is_deleted": false,
