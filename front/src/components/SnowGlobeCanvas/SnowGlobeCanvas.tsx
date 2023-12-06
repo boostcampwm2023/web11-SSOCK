@@ -25,7 +25,6 @@ const SnowGlobeCanvas = () => {
   ));
 
   const decos = snowBallData.message_list.map((message, index) => {
-    //console.log('#911f1f');
     return (
       <Models.Deco
         key={index}

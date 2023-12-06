@@ -40,15 +40,19 @@ const MainDeco = ({ id, scale, position, color }: MyModelProps) => {
   const deco = useGLTF(MAIN[id].fileName).scene.clone();
   const speedRef = useRef<THREE.Vector3>(new THREE.Vector3(0, 0, 0));
   const isStoppedRef = useRef<boolean>(false);
+
   useEffect(() => {
     isStoppedRef.current = false;
   }, [deco]);
+
   deco.name = MAIN[id].name;
   deco.scale.set(scale, scale, scale);
   deco.position.set(position.x, position.y, position.z);
+  deco.children.forEach(mesh => (mesh.castShadow = true));
+
   const colorPart = deco.getObjectByName('colorPart') as THREE.Mesh;
   colorPart.material = makeColorChangedMaterial(colorPart, color);
-  deco.children.forEach(mesh => (mesh.castShadow = true));
+
   useFrame((_, delta) => {
     if (!isStoppedRef.current) {
       fallingModel(deco, speedRef, delta, isStoppedRef);
