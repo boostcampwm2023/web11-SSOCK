@@ -19,6 +19,7 @@ const StyledIntroduce = styled.div`
   display: flex;
   flex-direction: column;
   animation: fadeIn 0.7s;
+  z-index: 10;
 
   @media (min-width: ${props => props.theme.size['--desktop-width']}) {
     width: 600px;
@@ -26,21 +27,34 @@ const StyledIntroduce = styled.div`
 `;
 
 const StyledText = styled.div`
-  flex: 9;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  overflow: auto;
-  word-break: keep-all;
+  height: 90%;
+  overflow: scroll;
+  padding: 5%;
   font: ${props => props.theme.font['--normal-introduce-font']};
   * {
-    pointer-events: all;
+    pointer-events: auto;
   }
 `;
 
+const Red = styled.span`
+  color: ${props => props.theme.colors['--primary-red-primary']};
+`;
+
+const Bold = styled.span`
+  font-weight: bold;
+`;
+
+const Section = styled.div`
+  white-space: normal;
+  word-break: keep-all;
+`;
+
+const StyledImg = styled.img`
+  width: 70%;
+`;
+
 const StyledClosed = styled.button`
-  flex: 1;
+  height: 10%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -71,10 +85,50 @@ const Introduce = (props: IntroduceProps) => {
   return (
     <StyledIntroduce ref={closeRef}>
       <StyledText>
-        안녕하세요 저희는 쏙입니다. <br /> <br />
-        스타 100개 달성 시 <br />
-        찬우 제로투 or 슬릭백 10초
+        <Red>
+          <Bold>🎅스노우볼 속 내마음🎅</Bold>
+        </Red>
+        <br />
+        <br />
+
+        <Section>
+          <Bold>👆스노우볼 클릭</Bold>
+          <br />
+          확대한 스노우볼에서는 받은 편지들을&nbsp;
+          <Red>장식</Red>으로 확인할 수 있어요🎁
+          <br />
+          장식 클릭으로 편지를 확인할 수 있어요💌
+          <br />
+          <StyledImg src={'/img/introduce/zoom.png'} />
+          <br />
+          스노우볼을 다시 작게 보고 싶을 때는 왼쪽 위&nbsp;
+          <Red>
+            <Bold>&lt;</Bold>
+          </Red>
+          표시를 눌러주세요🎄
+        </Section>
+        <br />
+
+        <Section>
+          <Bold>❗아직 확인하지 않은 편지</Bold>
+          <br />안 읽은 편지들을 확인할 수 있어요🎄
+        </Section>
+        <br />
+
+        <Section>
+          <Bold>🎉편지 AI 감정분석</Bold>
+          <br />
+          눈과 함께 편지의 감정들이 떨어져요🎄
+          <br />
+          ❤️긍정의 감정이 가득해요😊
+          <br />
+          ⭐온화한 감정으로 작성됐어요😌
+          <br />
+          💧슬픈 내용이 들어있어요😢
+          <br />
+        </Section>
       </StyledText>
+
       <StyledClosed onClick={() => closeIntroduce(props, closeRef)}>
         닫기
       </StyledClosed>
