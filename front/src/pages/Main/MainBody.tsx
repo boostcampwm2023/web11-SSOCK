@@ -1,8 +1,8 @@
-import styled from "styled-components";
-import { useContext } from "react";
-import { Msg } from "@components";
-import { MessageContext } from "../Visit/MessageProvider";
-import { SnowBallContext } from "../Visit/SnowBallProvider";
+import { useContext } from 'react';
+import styled from 'styled-components';
+import { Msg } from '@components';
+import { MessageContext } from '../Visit/MessageProvider';
+import { SnowBallContext } from '../Visit/SnowBallProvider';
 
 const MsgContainer = styled.div`
   max-height: fit-content;
@@ -11,9 +11,7 @@ const MsgContainer = styled.div`
 
 const MainBody = (): JSX.Element => {
   const { message, sender, color } = useContext(MessageContext);
-  const { userData } =
-    useContext(SnowBallContext);
-
+  const { userData } = useContext(SnowBallContext);
 
   return (
     <MsgContainer>
@@ -27,8 +25,8 @@ const MainBody = (): JSX.Element => {
           isDeco={false}
         />
       ) : null}
-      </MsgContainer>
+    </MsgContainer>
   );
 };
 
-export default MainBody
+export default MainBody;
