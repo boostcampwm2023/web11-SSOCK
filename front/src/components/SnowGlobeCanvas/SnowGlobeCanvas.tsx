@@ -47,6 +47,7 @@ const SnowGlobeCanvas = () => {
       centerPosition={glassPosition}
       rangeRadius={glassRadius}
       sentiment={message.sentiment}
+      confidence={message.confidence}
     />
   ));
 
