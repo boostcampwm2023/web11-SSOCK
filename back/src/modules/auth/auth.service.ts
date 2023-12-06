@@ -72,16 +72,22 @@ export class AuthService {
     try {
       res.cookie('access_token', accessToken, {
         httpOnly: true,
-        maxAge: parseInt(`${process.env.JWT_ACCESS_AGE}`)
+        maxAge: parseInt(`${process.env.JWT_ACCESS_AGE}`),
+        samesite: 'strict',
+        secure: true
       });
       if (refreshToken) {
         res.cookie('refresh_token', refreshToken, {
           httpOnly: true,
-          maxAge: parseInt(`${process.env.JWT_REFRESH_AGE}`)
+          maxAge: parseInt(`${process.env.JWT_REFRESH_AGE}`),
+          samesite: 'strict',
+          secure: true
         });
         res.cookie('loggedin', true, {
           httpOnly: false,
-          maxAge: parseInt(`${process.env.JWT_REFRESH_AGE}`)
+          maxAge: parseInt(`${process.env.JWT_REFRESH_AGE}`),
+          samesite: 'strict',
+          secure: true
         });
       }
     } catch (error) {
