@@ -116,6 +116,7 @@ const Introduce = (props: IntroduceProps) => {
           <Bold>🎉편지 AI 감정분석</Bold>
           <br />
           눈과 함께 편지의 감정들이 떨어져요🎄
+          감정의 크기에 따라 사이즈가 달라요💫
           <br />
           ❤️긍정의 감정이 가득해요😊
           <br />
