@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import { render, useFrame } from '@react-three/fiber';
+import { useFrame } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
 import { makeColorChangedMaterial } from '@utils/meshUtils';
