@@ -3,6 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from '../user/entity/user.entity';
 import { DataSource, Repository } from 'typeorm';
+import { Response } from 'express';
 
 export interface payload {
   id: number;
@@ -68,25 +69,29 @@ export class AuthService {
     });
   }
 
-  setCookies(res: any, accessToken: string, refreshToken?: string): boolean {
+  setCookies(
+    res: Response,
+    accessToken: string,
+    refreshToken?: string
+  ): boolean {
     try {
       res.cookie('access_token', accessToken, {
         httpOnly: true,
         maxAge: parseInt(`${process.env.JWT_ACCESS_AGE}`),
-        samesite: 'strict',
+        sameSite: 'strict',
         secure: true
       });
       if (refreshToken) {
         res.cookie('refresh_token', refreshToken, {
           httpOnly: true,
           maxAge: parseInt(`${process.env.JWT_REFRESH_AGE}`),
-          samesite: 'strict',
+          sameSite: 'strict',
           secure: true
         });
         res.cookie('loggedin', true, {
           httpOnly: false,
           maxAge: parseInt(`${process.env.JWT_REFRESH_AGE}`),
-          samesite: 'strict',
+          sameSite: 'strict',
           secure: true
         });
       }

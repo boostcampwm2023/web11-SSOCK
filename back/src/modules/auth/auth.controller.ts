@@ -3,6 +3,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 import { payload } from './auth.service';
+import { Response } from 'express';
 
 @ApiTags('Oauth API')
 @Controller('auth')
@@ -122,7 +123,7 @@ export class AuthController {
     status: 200,
     description: '로그아웃 성공'
   })
-  async logout(@Res() res: any): Promise<void> {
+  async logout(@Res() res: Response): Promise<void> {
     this.authService.clearCookies(res);
     res.redirect(`/`);
   }
