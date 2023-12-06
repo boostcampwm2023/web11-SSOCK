@@ -8,19 +8,24 @@ interface SnowProps {
   centerPosition: THREE.Vector3;
   rangeRadius: number;
   sentiment: 'positive' | 'neutral' | 'negative';
+  confidence: number;
 }
 
 const randomizePosition = (
-  target: THREE.Mesh,
+  target: THREE.Mesh | THREE.Group,
   centerPosition: THREE.Vector3,
   radius: number
 ) => {
-  //변경필요
-  target.position.set(
-    centerPosition.x - 3 + Math.random() * 6,
-    centerPosition.y + radius + Math.random() * radius * 2,
-    centerPosition.z - 3 + Math.random() * 6
-  );
+  const x =
+    centerPosition.x +
+    (radius / 2) * Math.cos(Math.random() * 2 * Math.PI) -
+    0.5;
+  const z =
+    centerPosition.z +
+    (radius / 2) * Math.sin(Math.random() * 2 * Math.PI) -
+    0.5;
+  const height = centerPosition.y + radius + Math.random() * radius * 2;
+  target.position.set(x, height, z);
 };
 
 const fallingAnimate = (
@@ -31,8 +36,6 @@ const fallingAnimate = (
 ) => {
   if (target.position.y <= -1) {
     randomizePosition(target, centerPosition, radius);
-    //const newScale = 0.2 + Math.random() * 0.5;
-    //target.scale.set(newScale, newScale, newScale);
   }
   target.position.y -= speed;
 };
@@ -53,19 +56,17 @@ const visibleInRange = (
 const Emoji: React.FC<SnowProps> = ({
   centerPosition,
   rangeRadius,
-  sentiment
+  sentiment,
+  confidence
 }) => {
   const snowRef = useRef<THREE.Mesh>(null);
-  const position = new THREE.Vector3(
-    centerPosition.x - rangeRadius + Math.random() * rangeRadius * 2,
-    centerPosition.y + rangeRadius + Math.random() * rangeRadius * 2,
-    centerPosition.z - rangeRadius + Math.random() * rangeRadius * 2
-  );
   const index = sentiment === 'positive' ? 1 : sentiment === 'neutral' ? 2 : 3;
   const snow = useGLTF(SENTIMENT_MODEL[index].fileName).scene.clone();
+  const scale = 0.3 + confidence / 200; // min 0.3 max 0.8
 
-  snow.scale.set(0.7, 0.7, 0.7);
-  snow.position.set(position.x, position.y, position.z);
+  randomizePosition(snow, centerPosition, rangeRadius);
+
+  snow.scale.set(scale, scale, scale);
   snow.rotation.y = Math.random();
 
   useFrame((_, delta) => {

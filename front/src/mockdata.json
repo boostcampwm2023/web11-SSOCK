@@ -22,7 +22,7 @@
         "snowball_id": 1,
         "user_id": 1,
         "sentiment": "positive",
-        "confidence": 100
+        "confidence": 10
       },
       {
         "content": "메리크리스마스~\n 내년에도 사이좋게 지내자!!.",
@@ -38,7 +38,7 @@
         "snowball_id": 1,
         "user_id": 1,
         "sentiment": "positive",
-        "confidence": 100
+        "confidence": 1
       },
       {
         "content": "나랑 마인크래프트 해줘서 고마워\n앞으로도 나랑 마인크래프트 같이하자",
