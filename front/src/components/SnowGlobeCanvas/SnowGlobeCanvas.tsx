@@ -25,6 +25,7 @@ const SnowGlobeCanvas = () => {
   ));
 
   const decos = snowBallData.message_list.map((message, index) => {
+    //console.log('#911f1f');
     return (
       <Models.Deco
         key={index}
@@ -35,7 +36,7 @@ const SnowGlobeCanvas = () => {
         color={message.decoration_color}
         sender={message.sender ?? '비공개'}
         letterID={message.letter_id ?? 0}
-        isOpened={message.opened !== null || message.opened !== 'null'}
+        isOpened={message.opened !== null}
       />
     );
   });
