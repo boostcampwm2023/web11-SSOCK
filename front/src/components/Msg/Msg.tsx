@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 import { DecoContext } from '@pages/Visit/Deco/DecoProvider';
+import { MessageContext } from '@pages/Visit/MessageProvider';
 
 interface MsgProps {
   color: string;
@@ -124,6 +125,7 @@ const Msg = (props: MsgProps): JSX.Element => {
   const { content, sender, setContent, setSender } = useContext(DecoContext);
   const maxWordCount = 500;
   const { user } = useParams();
+  const { setMessage } = useContext(MessageContext);
 
   const id = undefined;
   if (user === undefined && id !== undefined) {
@@ -148,7 +150,7 @@ const Msg = (props: MsgProps): JSX.Element => {
   };
 
   const removeMsg = () => {
-    console.log(1);
+    setMessage('');
   };
 
   return (
