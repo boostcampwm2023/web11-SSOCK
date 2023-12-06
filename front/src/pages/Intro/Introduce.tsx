@@ -13,7 +13,7 @@ const StyledIntroduce = styled.div`
   background-color: ${props => props.theme.colors['--primary-yellow']};
   border-radius: 1.5rem;
   width: 80%;
-  height: 60%;
+  height: 70%;
   text-align: center;
   color: ${props => props.theme.colors['--black-primary']};
   display: flex;
@@ -40,6 +40,11 @@ const Red = styled.span`
   color: ${props => props.theme.colors['--primary-red-primary']};
 `;
 
+const Title = styled(Red)`
+  font-weight: bold;
+  font-size: 1.35rem;
+`;
+
 const Bold = styled.span`
   font-weight: bold;
 `;
@@ -47,10 +52,6 @@ const Bold = styled.span`
 const Section = styled.div`
   white-space: normal;
   word-break: keep-all;
-`;
-
-const StyledImg = styled.img`
-  width: 70%;
 `;
 
 const StyledClosed = styled.button`
@@ -85,23 +86,19 @@ const Introduce = (props: IntroduceProps) => {
   return (
     <StyledIntroduce ref={closeRef}>
       <StyledText>
-        <Red>
-          <Bold>🎅스노우볼 속 내마음🎅</Bold>
-        </Red>
+        <Title>🎅스노우볼 속 내마음🎅</Title>
         <br />
         <br />
 
         <Section>
           <Bold>👆스노우볼 클릭</Bold>
           <br />
-          확대한 스노우볼에서는 받은 편지들을&nbsp;
+          🔺확대한 스노우볼에서는 받은 편지들을&nbsp;
           <Red>장식</Red>으로 확인할 수 있어요🎁
           <br />
-          장식 클릭으로 편지를 확인할 수 있어요💌
+          🔺장식 클릭으로 편지를 확인할 수 있어요💌
           <br />
-          <StyledImg src={'/img/introduce/zoom.png'} />
-          <br />
-          스노우볼을 다시 작게 보고 싶을 때는 왼쪽 위&nbsp;
+          🔺스노우볼을 다시 작게 보고 싶을 때는 왼쪽 위&nbsp;
           <Red>
             <Bold>&lt;</Bold>
           </Red>
