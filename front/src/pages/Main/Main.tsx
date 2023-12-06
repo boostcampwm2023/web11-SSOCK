@@ -4,12 +4,12 @@ import axios from 'axios';
 import styled from 'styled-components';
 import { SnowGlobeCanvas, UIContainer } from '@components';
 import MainButtonBox from './MainButtonBox';
+import MainBody from './MainBody';
 import {
   SnowBallContext,
   UserData,
   SnowBallData
 } from '@pages/Visit/SnowBallProvider';
-import MainBody from './MainBody';
 
 const LeftBtn = styled.img`
   position: fixed;
