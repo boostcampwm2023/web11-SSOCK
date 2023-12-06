@@ -39,7 +39,7 @@ const StyledLetterPerson = styled.div`
   color: white;
 `;
 
-const StyledLetterInput = styled.input`
+const StyledLetterInput = styled.div`
   color: white;
   text-align: left;
 `;
@@ -155,7 +155,7 @@ const Msg = (props: MsgProps): JSX.Element => {
 
   return (
     <StyledLetterBox color={props.color}>
-        { props.isInput ? <StyledLetterInput>To. <StyledTo>{props.to}</StyledTo> </StyledLetterInput> :
+        { props.isInput ? <StyledLetterInput>To. <StyledTo>{props.to}</StyledTo></StyledLetterInput> :
         <StyledLetterPerson>
         <StyledToWrap>
         To. <StyledTo>{props.to}</StyledTo>
