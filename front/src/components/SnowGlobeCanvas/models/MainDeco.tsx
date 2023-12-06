@@ -1,5 +1,5 @@
-import React, { useRef } from 'react';
-import { useFrame } from '@react-three/fiber';
+import React, { useRef, useEffect } from 'react';
+import { render, useFrame } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
 import { makeColorChangedMaterial } from '@utils/meshUtils';
@@ -40,7 +40,9 @@ const MainDeco = ({ id, scale, position, color }: MyModelProps) => {
   const deco = useGLTF(MAIN[id].fileName).scene.clone();
   const speedRef = useRef<THREE.Vector3>(new THREE.Vector3(0, 0, 0));
   const isStoppedRef = useRef<boolean>(false);
-
+  useEffect(() => {
+    isStoppedRef.current = false;
+  }, [deco]);
   deco.name = MAIN[id].name;
   deco.scale.set(scale, scale, scale);
   deco.position.set(position.x, position.y, position.z);

@@ -38,8 +38,9 @@ const Deco = ({
   deco.name = DECO[id].name;
   deco.scale.set(scale, scale, scale);
   deco.position.set(position.x, position.y, position.z);
-
-  if (isOpened) DecoSet(deco);
+  if (!isOpened) {
+    DecoSet(deco);
+  }
 
   deco.children.forEach(child => {
     if (child instanceof THREE.Mesh) {
