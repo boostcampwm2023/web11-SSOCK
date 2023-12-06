@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
@@ -75,18 +75,24 @@ const StyledFromInput = styled.input`
 
 const StyledToWrap = styled.div``;
 
+
+
 const StyledDeleteButton = styled.button`
   border: 1px solid gray;
   border-radius: 0.5rem;
   padding: 0.5rem;
   background-color: gray;
+
+
 `;
 
 const ListMsg = (props: MsgProps): JSX.Element => {
   const navigate = useNavigate();
   const { setSnowBallData, setUserData } = useContext(SnowBallContext);
+  const [isDisabled, setIsDisabled] = useState(false);
 
   const deleteMsg = () => {
+    setIsDisabled(true);
     axios
       .delete(`/api/message/${props.messageId}`, {
         withCredentials: true
@@ -104,7 +110,7 @@ const ListMsg = (props: MsgProps): JSX.Element => {
             console.error(e);
             navigate('*');
           });
-      }) // 여기가 지금 좀 맘에안듬 민아가 코딩을 안해요
+      })
       .catch(e => {
         console.error(e);
         navigate('*');
@@ -117,7 +123,7 @@ const ListMsg = (props: MsgProps): JSX.Element => {
         <StyledToWrap>
           To. <StyledTo>{props.to}</StyledTo>
         </StyledToWrap>
-        <StyledDeleteButton onClick={deleteMsg}>Delete</StyledDeleteButton>
+        <StyledDeleteButton disabled={isDisabled} onClick={deleteMsg}>Delete</StyledDeleteButton>
       </StyledLetterPerson>
 
       <StyledLetterContent>{props.content}</StyledLetterContent>
