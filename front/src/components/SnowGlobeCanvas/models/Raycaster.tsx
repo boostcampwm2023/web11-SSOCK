@@ -38,7 +38,7 @@ const Raycaster: React.FC<RaycasterProps> = ({ isClickedRef }) => {
       if (view) {
         setIsZoom(true);
       } else if (isZoom && !view) {
-        if (camera.position.distanceTo(new THREE.Vector3(0, 0, 0)) < 15) {
+        if (camera.position.distanceTo(new THREE.Vector3(0, 2, 0)) < 25) {
           camera.position.x = (camera.position.x + 0) * zoomOutSpeed;
           camera.position.y = (camera.position.y + 0) * zoomOutSpeed;
           camera.position.z = (camera.position.z + 0) * zoomOutSpeed;
