@@ -8,6 +8,7 @@ import { HasSnowballData } from './router';
 import { SnowBallProvider } from '@pages/Visit/SnowBallProvider';
 import { MessageProvider } from '@pages/Visit/MessageProvider';
 import { DecoProvider } from '@pages/Visit/Deco/DecoProvider';
+import Loading from './utils/Loading';
 
 const Outer = styled.div`
   position: relative;
@@ -48,6 +49,7 @@ const App = () => {
                 <Route path="deco" element={<Pages.Deco />} />
               </Route>
 
+                <Route path="/loading" element={<Loading />} />
               <Route
                 path="/make"
                 element={
