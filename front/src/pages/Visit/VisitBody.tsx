@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useRef } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import { Msg } from '@components';
@@ -52,6 +52,21 @@ const VisitBody = () => {
   const { userData, snowBallData, setSnowBallData } =
     useContext(SnowBallContext);
 
+  const leftArrowRef = useRef<HTMLImageElement>(null);
+  const rightArrowRef = useRef<HTMLImageElement>(null);
+
+  // 애니메이션 효과 미구현
+  const delayButton = () => {
+    if (leftArrowRef.current && rightArrowRef.current) {
+      leftArrowRef.current.style.pointerEvents = 'none';
+      rightArrowRef.current.style.pointerEvents = 'none';
+      setTimeout(() => {
+        leftArrowRef.current!.style.pointerEvents = 'all';
+        rightArrowRef.current!.style.pointerEvents = 'all';
+      }, 1500);
+    }
+  };
+
   return (
     <MsgContainer>
       {message !== '' ? (
@@ -67,15 +82,21 @@ const VisitBody = () => {
         <>
           <LeftBtn
             src={'/icons/prev.svg'}
-            onClick={() =>
-              moveSnowball('Prev', userData, snowBallData, setSnowBallData)
+            onClick={() => {
+              moveSnowball('Prev', userData, snowBallData, setSnowBallData);
+              delayButton();
             }
+            }
+            ref={leftArrowRef}
           />
           <RightBtn
             src={'/icons/next.svg'}
-            onClick={() =>
-              moveSnowball('Next', userData, snowBallData, setSnowBallData)
+            onClick={() => {
+              moveSnowball('Next', userData, snowBallData, setSnowBallData);
+              delayButton();
             }
+            }
+            ref={rightArrowRef}
           />
         </>
       ) : null}
