@@ -47,6 +47,7 @@ const ListMsgs = (props: ListMsgProps) => {
   useEffect(() => {
     axios.get('/api/message').then(res => {
       if (res.data.length !== 0) setMessages(res.data);
+      else props.set(false);
     });
   }, [userData]);
 
