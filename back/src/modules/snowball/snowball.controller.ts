@@ -134,9 +134,4 @@ export class SnowballController {
     );
     return snowball;
   }
-
-  @Get('/test')
-  test() {
-    return 'test';
-  }
 }
