@@ -122,7 +122,11 @@ const StyledFromInput = styled.input`
   pointer-events: stroke;
 `;
 
-const StyledDeleteButton = styled.button``;
+const StyledDeleteButton = styled.button`
+  color: white;
+  text-shadow: ${props => props.theme.font['--text-shadow']};
+  font-size: 1.0rem;
+`;
 
 const StyledToWrap = styled.div``;
 
