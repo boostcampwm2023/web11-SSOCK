@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useContext } from "react";
 import { Msg } from "@components";
 import { MessageContext } from "../Visit/MessageProvider";
-import { SnowBallContext, SnowBallData, UserData } from "../Visit/SnowBallProvider";
+import { SnowBallContext } from "../Visit/SnowBallProvider";
 
 const MsgContainer = styled.div`
   max-height: fit-content;
@@ -11,7 +11,7 @@ const MsgContainer = styled.div`
 
 const MainBody = (): JSX.Element => {
   const { message, sender, color } = useContext(MessageContext);
-  const { userData, snowBallData, setSnowBallData } =
+  const { userData } =
     useContext(SnowBallContext);
 
 
