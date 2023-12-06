@@ -28,9 +28,9 @@ import {
 import { ResCreateMessageDto } from './dto/response/res-create-message.dto';
 import { MessageDto } from './dto/message.dto';
 import { JWTGuard } from 'src/common/guards/jwt.guard';
-import { UpdateMessageLocationDto } from './dto/update-message-location.dto';
 import { JWTRequest } from 'src/common/interface/request.interface';
 import { ClovaService } from './clova.service';
+import { UpdateMessageLocationsDto } from './dto/update-message-locations.dto';
 @ApiTags('Message API')
 @Controller('message')
 export class MessageController {
@@ -149,14 +149,14 @@ export class MessageController {
 
   @UseGuards(JWTGuard)
   @ApiCookieAuth('access_token')
-  @Put('/:message_id/location')
+  @Put('/location')
   @ApiOperation({
     summary: '메세지 위치 변경',
     description: '메시지의 위치를 변경합니다.'
   })
   @ApiResponse({
     status: 200,
-    type: MessageDto
+    type: UpdateMessageLocationsDto
   })
   @ApiBadRequestResponse({
     description: '잘못된 요청입니다.'
@@ -171,12 +171,8 @@ export class MessageController {
     description: '목표 위치가 비어있지 않습니다.'
   })
   async updateMessageLocation(
-    @Param('message_id') message_id: number,
-    @Body() updateMessageLocationDto: UpdateMessageLocationDto
-  ): Promise<UpdateMessageLocationDto> {
-    return await this.messageService.updateMessageLocation(
-      message_id,
-      updateMessageLocationDto
-    );
+    @Body() updateDtos: UpdateMessageLocationsDto
+  ): Promise<UpdateMessageLocationsDto> {
+    return await this.messageService.updateMessageLocations(updateDtos);
   }
 }
