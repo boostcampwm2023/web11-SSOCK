@@ -15,6 +15,7 @@ const MsgBox = () => {
           content={message}
           sender={sender}
           to={userData.nickname}
+          isDeco={false}
         />
       ) : null}
     </>

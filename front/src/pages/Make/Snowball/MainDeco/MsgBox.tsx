@@ -28,6 +28,7 @@ const MsgBox = ({ isInput }: MsgBoxProps) => {
         isInput={isInput}
         content={''}
         sender={''}
+        isDeco={true}
       />
     </MsgContainer>
   );
