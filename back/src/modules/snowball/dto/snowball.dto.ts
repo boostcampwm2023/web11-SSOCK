@@ -10,7 +10,7 @@ import {
 } from '@nestjs/class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { Expose, Transform } from 'class-transformer';
-import { MessageDto } from 'src/modules/message/dto/message.dto';
+import { MessageDto } from '../../message/dto/message.dto';
 
 export class SnowballDto {
   @Expose()

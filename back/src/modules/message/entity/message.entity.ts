@@ -7,8 +7,8 @@ import {
   JoinColumn,
   Unique
 } from 'typeorm';
-import { SnowballEntity } from 'src/modules/snowball/entity/snowball.entity';
-import { UserEntity } from 'src/modules/user/entity/user.entity';
+import { SnowballEntity } from '../../snowball/entity/snowball.entity';
+import { UserEntity } from '../../user/entity/user.entity';
 import { Exclude } from 'class-transformer';
 @Entity({ name: 'message' })
 @Unique(['snowball_id', 'location', 'is_deleted'])

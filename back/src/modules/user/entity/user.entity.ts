@@ -7,7 +7,7 @@ import {
   CreateDateColumn
 } from 'typeorm';
 import { SnowballEntity } from '../../snowball/entity/snowball.entity';
-import { MessageEntity } from 'src/modules/message/entity/message.entity';
+import { MessageEntity } from '../../message/entity/message.entity';
 
 @Entity({ name: 'user' })
 @Index(['auth_id'], { unique: true })

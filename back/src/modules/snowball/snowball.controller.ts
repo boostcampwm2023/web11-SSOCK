@@ -24,7 +24,7 @@ import { ReqCreateSnowballDto } from './dto/request/req-create-snowball.dto';
 import { ReqUpdateSnowballDto } from './dto/request/req-update-snowball.dto';
 import { SnowballDto } from './dto/snowball.dto';
 import { ResUpdateSnowballDto } from './dto/response/res-update-snowball.dto';
-import { JWTGuard } from 'src/common/guards/jwt.guard';
+import { JWTGuard } from '../../common/guards/jwt.guard';
 import { UpdateMainDecoDto } from './dto/update-main-decoration.dto';
 import { JWTRequest } from '../../common/interface/request.interface';
 import { hasJWTInterceptor } from '../../common/interceptors/hasJwt.interceptor';
