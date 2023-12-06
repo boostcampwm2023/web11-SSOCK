@@ -21,16 +21,22 @@ interface MsgColor {
 const StyledLetterBox = styled.div<MsgColor>`
   width: 80%;
   display: flex;
-  align-self: center;
+  flex-direction: column;
   font: ${props => props.theme.font['--normal-introduce-font']};
   text-shadow: ${props => props.theme.font['--text-shadow']};
-  flex-direction: column;
   border-radius: 1rem;
   padding: 1.5rem;
   gap: 1rem;
   background-color: ${props => props.color + '80'};
   margin: 1rem auto;
-  pointer-events: all;
+
+  //아래 수정 필요,, 왜 안돼돼
+  overflow: scroll;
+  touch-action: auto;
+  pointer-events: auto;
+  * {
+    pointer-events: auto;
+  }
 `;
 
 const StyledLetterPerson = styled.div`
@@ -154,15 +160,21 @@ const Msg = (props: MsgProps): JSX.Element => {
   };
 
   return (
-    <StyledLetterBox color={props.color}>
-        { props.isInput ? <StyledLetterInput>To. <StyledTo>{props.to}</StyledTo></StyledLetterInput> :
+    <StyledLetterBox color={props.color} onClick={() => alert('here')}>
+      {props.isInput ? (
+        <StyledLetterInput>
+          To. <StyledTo>{props.to}</StyledTo>
+        </StyledLetterInput>
+      ) : (
         <StyledLetterPerson>
-        <StyledToWrap>
-        To. <StyledTo>{props.to}</StyledTo>
-      </StyledToWrap>
-      { props.isDeco ? null : <StyledDeleteButton onClick={removeMsg}>X</StyledDeleteButton> }
-      </StyledLetterPerson>
-        }
+          <StyledToWrap>
+            To. <StyledTo>{props.to}</StyledTo>
+          </StyledToWrap>
+          {props.isDeco ? null : (
+            <StyledDeleteButton onClick={removeMsg}>X</StyledDeleteButton>
+          )}
+        </StyledLetterPerson>
+      )}
       {props.isInput ? (
         <StyledInputBox>
           <StyledTextArea
@@ -198,7 +210,7 @@ const Msg = (props: MsgProps): JSX.Element => {
           )}
         </StyledFrom>
 
-        {props.isInput && props.sender === '' ? `${wordCount} / 500` : null}
+        {props.isInput && props.sender === '익명' ? `${wordCount} / 500` : null}
       </StyledFromBox>
     </StyledLetterBox>
   );
