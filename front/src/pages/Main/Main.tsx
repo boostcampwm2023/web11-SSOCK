@@ -1,7 +1,8 @@
-import { useEffect, useRef, useContext } from 'react';
+import { useEffect, useRef, useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
+import { Loading } from '@utils';
 import { SnowGlobeCanvas, UIContainer } from '@components';
 import MainButtonBox from './MainButtonBox';
 import MainBody from './MainBody';
@@ -64,6 +65,7 @@ const Main = () => {
     useContext(SnowBallContext);
   const leftArrowRef = useRef<HTMLImageElement>(null);
   const rightArrowRef = useRef<HTMLImageElement>(null);
+  const [isLoading, setLoading] = useState(false);
 
   // const saveCookie = () => {
   //   const cookieToken = import.meta.env.VITE_APP_COOKIE_TOKEN;
@@ -88,6 +90,7 @@ const Main = () => {
           const snowballData = res.data.main_snowball as SnowBallData;
           setSnowBallData(snowballData);
           setUserData(userData);
+          setLoading(true);
           if (
             userData.nickname === null ||
             userData.snowball_count === 0 ||
@@ -105,33 +108,52 @@ const Main = () => {
 
   return (
     <>
-      <SnowGlobeCanvas />
-      <MainBodyWrap>
-        <UIContainer>
-          {userData.snowball_list.length > 1 ? (
-            <>
-              <LeftBtn
-                src={'/icons/prev.svg'}
-                onClick={() =>
-                  moveSnowball('Prev', userData, snowBallData, setSnowBallData)
-                }
-                ref={leftArrowRef}
-              />
-              <RightBtn
-                src={'/icons/next.svg'}
-                onClick={() =>
-                  moveSnowball('Next', userData, snowBallData, setSnowBallData)
-                }
-                ref={rightArrowRef}
-              />
-            </>
-          ) : null}
+      {isLoading ? (
+        <>
+          <SnowGlobeCanvas />
+          <MainBodyWrap>
+            <UIContainer>
+              {userData.snowball_list.length > 1 ? (
+                <>
+                  <LeftBtn
+                    src={'/icons/prev.svg'}
+                    onClick={() =>
+                      moveSnowball(
+                        'Prev',
+                        userData,
+                        snowBallData,
+                        setSnowBallData
+                      )
+                    }
+                    ref={leftArrowRef}
+                  />
+                  <RightBtn
+                    src={'/icons/next.svg'}
+                    onClick={() =>
+                      moveSnowball(
+                        'Next',
+                        userData,
+                        snowBallData,
+                        setSnowBallData
+                      )
+                    }
+                    ref={rightArrowRef}
+                  />
+                </>
+              ) : null}
 
-          <MainButtonBox leftArrow={leftArrowRef} rightArrow={rightArrowRef} />
-          <MainBody />
-          <EmptyDiv />
-        </UIContainer>
-      </MainBodyWrap>
+              <MainButtonBox
+                leftArrow={leftArrowRef}
+                rightArrow={rightArrowRef}
+              />
+              <MainBody />
+              <EmptyDiv />
+            </UIContainer>
+          </MainBodyWrap>
+        </>
+      ) : (
+        <Loading />
+      )}
     </>
   );
 };
