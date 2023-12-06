@@ -28,7 +28,8 @@ const MsgBox = ({ isInput }: MsgBoxProps) => {
         color={MSG_COLOR[letterID].color}
         isInput={isInput}
         content={''}
-        sender={''}
+        sender={'익명'}
+        isDeco={true}
       />
     </MsgContainer>
   );

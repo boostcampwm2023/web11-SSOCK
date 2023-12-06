@@ -61,6 +61,7 @@ const VisitBody = () => {
           content={message}
           sender={sender}
           to={userData.nickname}
+          isDeco={false}
         />
       ) : userData.snowball_list.length > 1 ? (
         <>
