@@ -121,7 +121,7 @@
         "confidence": 88
       },
       {
-        "content": "이번 크리스마스에는 따뜻한 차 한 잔과 함께 뜻깊은 이야기를 나눠보는 건 어떨까요? ☕🎄🎁",
+        "content": "너무 슬픈 한 해였어..\n2024년은 행복했으면 좋겠다🙏",
         "created": "0",
         "decoration_color": "#ffff00",
         "decoration_id": 2,
@@ -130,14 +130,14 @@
         "letter_id": 1,
         "location": 8,
         "opened": "",
-        "sender": "루피",
+        "sender": "눈물",
         "snowball_id": 1,
         "user_id": 1,
-        "sentiment": "positive",
-        "confidence": 88
+        "sentiment": "negative",
+        "confidence": 75
       },
       {
-        "content": "이번 크리스마스에는 따뜻한 차 한 잔과 함께 뜻깊은 이야기를 나눠보는 건 어떨까요? ☕🎄🎁",
+        "content": "벌써 2024년이야,, 난 나이먹기 싫어😢",
         "created": "0",
         "decoration_color": "#d12b2b",
         "decoration_id": 3,
@@ -146,14 +146,14 @@
         "letter_id": 1,
         "location": 9,
         "opened": "",
-        "sender": "루피",
+        "sender": "2023 가지마",
         "snowball_id": 1,
         "user_id": 1,
-        "sentiment": "positive",
-        "confidence": 88
+        "sentiment": "negative",
+        "confidence": 40
       },
       {
-        "content": "이번 크리스마스에는 따뜻한 차 한 잔과 함께 뜻깊은 이야기를 나눠보는 건 어떨까요? ☕🎄🎁",
+        "content": "올 한 해도 너 덕분에 행복했어😊",
         "created": "0",
         "decoration_color": "#d15a2b",
         "decoration_id": 2,
@@ -162,14 +162,14 @@
         "letter_id": 1,
         "location": 10,
         "opened": "",
-        "sender": "루피",
+        "sender": "맞춰봐",
         "snowball_id": 1,
         "user_id": 1,
         "sentiment": "positive",
-        "confidence": 88
+        "confidence": 60
       },
       {
-        "content": "이번 크리스마스에는 따뜻한 차 한 잔과 함께 뜻깊은 이야기를 나눠보는 건 어떨까요? ☕🎄🎁",
+        "content": "내년에도 올해처럼 행복하게 흐르기를 바라🎄",
         "created": "0",
         "decoration_color": "#65b182",
         "decoration_id": 1,
@@ -178,14 +178,14 @@
         "letter_id": 1,
         "location": 11,
         "opened": "",
-        "sender": "루피",
+        "sender": "선물",
         "snowball_id": 1,
         "user_id": 1,
         "sentiment": "positive",
-        "confidence": 88
+        "confidence": 25
       },
       {
-        "content": "이번 크리스마스에는 따뜻한 차 한 잔과 함께 뜻깊은 이야기를 나눠보는 건 어떨까요? ☕🎄🎁",
+        "content": "이번 크리스마스에는 너랑 같이 있고 싶어❤️",
         "created": "0",
         "decoration_color": "#8865b1",
         "decoration_id": 2,
@@ -194,14 +194,14 @@
         "letter_id": 1,
         "location": 12,
         "opened": "",
-        "sender": "루피",
+        "sender": "쿠키",
         "snowball_id": 1,
         "user_id": 1,
-        "sentiment": "positive",
-        "confidence": 88
+        "sentiment": "neutral",
+        "confidence": 50
       },
       {
-        "content": "이번 크리스마스에는 따뜻한 차 한 잔과 함께 뜻깊은 이야기를 나눠보는 건 어떨까요? ☕🎄🎁",
+        "content": "난 올해 정말 힘들었어..\n내년에는 같이 좋은 일만 가득했으면 좋겠다💦",
         "created": "0",
         "decoration_color": "#ffff00",
         "decoration_id": 3,
@@ -210,14 +210,14 @@
         "letter_id": 1,
         "location": 13,
         "opened": "",
-        "sender": "루피",
+        "sender": "abc",
         "snowball_id": 1,
         "user_id": 1,
-        "sentiment": "positive",
-        "confidence": 88
+        "sentiment": "negative",
+        "confidence": 40
       },
       {
-        "content": "이번 크리스마스에는 따뜻한 차 한 잔과 함께 뜻깊은 이야기를 나눠보는 건 어떨까요? ☕🎄🎁",
+        "content": "2024년 정말 설레ㅎㅎㅎㅎ\n또 어떤 좋은 일들이 기다리고 있을까?❤️",
         "created": "0",
         "decoration_color": "#530fa0",
         "decoration_id": 1,
@@ -226,14 +226,14 @@
         "letter_id": 1,
         "location": 14,
         "opened": "",
-        "sender": "루피",
+        "sender": "햅삐",
         "snowball_id": 1,
         "user_id": 1,
         "sentiment": "positive",
-        "confidence": 88
+        "confidence": 90
       },
       {
-        "content": "이번 크리스마스에는 따뜻한 차 한 잔과 함께 뜻깊은 이야기를 나눠보는 건 어떨까요? ☕🎄🎁",
+        "content": "제 편지가 기쁨이 되었으면 좋겠어요\n올 한해 정말 수고 많았어요\n항상 잘하고 있으니까 걱정하지말고 킵고잉❗",
         "created": "0",
         "decoration_color": "#0fa08d",
         "decoration_id": 1,
@@ -242,10 +242,10 @@
         "letter_id": 1,
         "location": 15,
         "opened": "",
-        "sender": "루피",
+        "sender": "마라톤",
         "snowball_id": 1,
         "user_id": 1,
-        "sentiment": "positive",
+        "sentiment": "neutral",
         "confidence": 88
       }
     ]
