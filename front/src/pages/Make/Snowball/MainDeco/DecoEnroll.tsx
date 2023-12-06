@@ -109,8 +109,6 @@ const DecoEnroll = (props: NaviProps) => {
       } else {
         navigator
           .share({
-            title: '내 마음 속 스노우볼',
-            text: '내 스노우 볼을 꾸며줘 !',
             url: url
           })
           .then(() => {
