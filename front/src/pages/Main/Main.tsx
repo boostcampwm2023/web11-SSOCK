@@ -48,6 +48,16 @@ const moveSnowball = (
     });
 };
 
+const MainBodyWrap = styled.div`
+  width: 100%;
+  height: 100%;
+`;
+
+const EmptyDiv = styled.div`
+  width: 100%;
+  height: 30%;
+`;
+
 const Main = () => {
   const navigate = useNavigate();
   const { setSnowBallData, setUserData, userData, snowBallData } =
@@ -96,31 +106,32 @@ const Main = () => {
   return (
     <>
       <SnowGlobeCanvas />
+      <MainBodyWrap>
+        <UIContainer>
+          {userData.snowball_list.length > 1 ? (
+            <>
+              <LeftBtn
+                src={'/icons/prev.svg'}
+                onClick={() =>
+                  moveSnowball('Prev', userData, snowBallData, setSnowBallData)
+                }
+                ref={leftArrowRef}
+              />
+              <RightBtn
+                src={'/icons/next.svg'}
+                onClick={() =>
+                  moveSnowball('Next', userData, snowBallData, setSnowBallData)
+                }
+                ref={rightArrowRef}
+              />
+            </>
+          ) : null}
 
-      <UIContainer>
-        {userData.snowball_list.length > 1 ? (
-          <>
-            <LeftBtn
-              src={'/icons/prev.svg'}
-              onClick={() =>
-                moveSnowball('Prev', userData, snowBallData, setSnowBallData)
-              }
-              ref={leftArrowRef}
-            />
-            <RightBtn
-              src={'/icons/next.svg'}
-              onClick={() =>
-                moveSnowball('Next', userData, snowBallData, setSnowBallData)
-              }
-              ref={rightArrowRef}
-            />
-          </>
-        ) : null}
-
-
-        <MainBody />
-        <MainButtonBox leftArrow={leftArrowRef} rightArrow={rightArrowRef} />
-      </UIContainer>
+          <MainButtonBox leftArrow={leftArrowRef} rightArrow={rightArrowRef} />
+          <MainBody />
+          <EmptyDiv />
+        </UIContainer>
+      </MainBodyWrap>
     </>
   );
 };
