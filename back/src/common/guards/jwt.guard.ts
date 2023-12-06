@@ -45,8 +45,7 @@ export class JWTGuard implements CanActivate {
           refreshToken
         );
         if (!valid) {
-          response.clearCookie('access_token');
-          response.clearCookie('refresh_token');
+          this.authService.clearCookies(response);
           throw new UnauthorizedException(
             'Refresh Token이 데이터베이스의 것과 일치 하지 않습니다.'
           );

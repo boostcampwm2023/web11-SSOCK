@@ -123,8 +123,7 @@ export class AuthController {
     description: '로그아웃 성공'
   })
   async logout(@Res() res: any): Promise<void> {
-    res.clearCookie('access_token');
-    res.clearCookie('refresh_token');
+    this.authService.clearCookies(res);
     res.redirect(`/`);
   }
 }

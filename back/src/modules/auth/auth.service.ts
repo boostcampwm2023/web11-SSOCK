@@ -79,6 +79,10 @@ export class AuthService {
           httpOnly: true,
           maxAge: parseInt(`${process.env.JWT_REFRESH_AGE}`)
         });
+        res.cookie('loggedin', true, {
+          httpOnly: false,
+          maxAge: parseInt(`${process.env.JWT_REFRESH_AGE}`)
+        });
       }
     } catch (error) {
       return false;
@@ -120,5 +124,12 @@ export class AuthService {
         'Refresh Token이 데이터 베이스에 없습니다.'
       );
     }
+  }
+
+  clearCookies(res: any): boolean {
+    for (const cookie in res.cookies) {
+      res.clearCookie(cookie);
+    }
+    return true;
   }
 }
