@@ -10,6 +10,7 @@ interface MsgProps {
   content: string;
   sender: string;
   to: string;
+  isDeco: boolean;
 }
 
 interface MsgColor {
@@ -32,8 +33,14 @@ const StyledLetterBox = styled.div<MsgColor>`
 `;
 
 const StyledLetterPerson = styled.div`
-  text-align: left;
+  display: flex;
+  justify-content: space-between;
   color: white;
+`;
+
+const StyledLetterInput = styled.input`
+  color: white;
+  text-align: left;
 `;
 
 const StyledTo = styled.span`
@@ -108,6 +115,10 @@ const StyledFromInput = styled.input`
   pointer-events: stroke;
 `;
 
+const StyledDeleteButton = styled.button``;
+
+const StyledToWrap = styled.div``;
+
 const Msg = (props: MsgProps): JSX.Element => {
   const [wordCount, setWordCount] = useState(0);
   const { content, sender, setContent, setSender } = useContext(DecoContext);
@@ -136,12 +147,20 @@ const Msg = (props: MsgProps): JSX.Element => {
     setWordCount(text.value.length);
   };
 
+  const removeMsg = () => {
+    console.log(1);
+  };
+
   return (
     <StyledLetterBox color={props.color}>
-      <StyledLetterPerson>
+        { props.isInput ? <StyledLetterInput>To. <StyledTo>{props.to}</StyledTo> </StyledLetterInput> :
+        <StyledLetterPerson>
+        <StyledToWrap>
         To. <StyledTo>{props.to}</StyledTo>
+      </StyledToWrap>
+      { props.isDeco ? null : <StyledDeleteButton onClick={removeMsg}>X</StyledDeleteButton> }
       </StyledLetterPerson>
-
+        }
       {props.isInput ? (
         <StyledInputBox>
           <StyledTextArea

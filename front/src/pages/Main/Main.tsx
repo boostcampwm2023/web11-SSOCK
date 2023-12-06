@@ -9,6 +9,7 @@ import {
   UserData,
   SnowBallData
 } from '@pages/Visit/SnowBallProvider';
+import MainBody from './MainBody';
 
 const LeftBtn = styled.img`
   position: fixed;
@@ -54,19 +55,19 @@ const Main = () => {
   const leftArrowRef = useRef<HTMLImageElement>(null);
   const rightArrowRef = useRef<HTMLImageElement>(null);
 
-  // const saveCookie = () => {
-  //   const cookieToken = import.meta.env.VITE_APP_COOKIE_TOKEN;
-  //   const cookieName = 'access_token';
-  //   const cookieValue = cookieToken;
-  //   const today = new Date();
-  //   const expire = new Date();
-  //   const secure = true;
-  //   expire.setDate(today.getDate() + 1);
-  //   document.cookie = `${cookieName}=${cookieValue}; expires=${expire.toUTCString()}; secure=${secure}; path=/`;
-  // };
+  const saveCookie = () => {
+    const cookieToken = import.meta.env.VITE_APP_COOKIE_TOKEN;
+    const cookieName = 'access_token';
+    const cookieValue = cookieToken;
+    const today = new Date();
+    const expire = new Date();
+    const secure = true;
+    expire.setDate(today.getDate() + 1);
+    document.cookie = `${cookieName}=${cookieValue}; expires=${expire.toUTCString()}; secure=${secure}; path=/`;
+  };
 
   useEffect(() => {
-    //saveCookie();
+    saveCookie();
     axios
       .get('/api/user', {
         withCredentials: true // axios 쿠키 값 전달
@@ -116,6 +117,8 @@ const Main = () => {
           </>
         ) : null}
 
+
+        <MainBody />
         <MainButtonBox leftArrow={leftArrowRef} rightArrow={rightArrowRef} />
       </UIContainer>
     </>
