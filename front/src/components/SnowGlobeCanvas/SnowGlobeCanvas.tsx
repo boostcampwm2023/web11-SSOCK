@@ -54,8 +54,14 @@ const SnowGlobeCanvas = () => {
   return (
     <PrevProvider>
       <CanvasContainer>
-        <Canvas camera={{ position: [15, 10, 0] }} shadows={true}>
+        <Canvas
+          camera={{
+            position: [25, 2, 0]
+          }}
+          shadows={true}
+        >
           <OrbitControls
+            target={new THREE.Vector3(0, 2, 0)}
             enablePan={true}
             enableZoom={true}
             maxPolarAngle={Math.PI / 2}
