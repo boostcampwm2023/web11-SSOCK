@@ -67,6 +67,20 @@ const Main = () => {
   const rightArrowRef = useRef<HTMLImageElement>(null);
   const [isLoading, setLoading] = useState(false);
 
+  // 애니메이션 효과가 없어서 구현해야함
+  const delayButton = () => {
+    if (leftArrowRef.current && rightArrowRef.current) {
+      leftArrowRef.current.style.pointerEvents = 'none';
+      rightArrowRef.current.style.pointerEvents = 'none';
+      setTimeout(() => {
+        if (leftArrowRef.current && rightArrowRef.current) {
+          leftArrowRef.current.style.pointerEvents = 'all';
+          rightArrowRef.current.style.pointerEvents = 'all';
+        }
+      }, 1500);
+    }
+  };
+
   // const saveCookie = () => {
   //   const cookieToken = import.meta.env.VITE_APP_COOKIE_TOKEN;
   //   const cookieName = 'access_token';
@@ -117,26 +131,28 @@ const Main = () => {
                 <>
                   <LeftBtn
                     src={'/icons/prev.svg'}
-                    onClick={() =>
+                    onClick={() => {
                       moveSnowball(
                         'Prev',
                         userData,
                         snowBallData,
                         setSnowBallData
-                      )
-                    }
+                      );
+                      delayButton(leftArrowRef, rightArrowRef);
+                    }}
                     ref={leftArrowRef}
                   />
                   <RightBtn
                     src={'/icons/next.svg'}
-                    onClick={() =>
+                    onClick={() => {
                       moveSnowball(
                         'Next',
                         userData,
                         snowBallData,
                         setSnowBallData
-                      )
-                    }
+                      );
+                      delayButton(leftArrowRef, rightArrowRef);
+                    }}
                     ref={rightArrowRef}
                   />
                 </>

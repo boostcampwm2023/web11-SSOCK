@@ -75,15 +75,11 @@ const StyledFromInput = styled.input`
 
 const StyledToWrap = styled.div``;
 
-
-
 const StyledDeleteButton = styled.button`
   border: 1px solid gray;
   border-radius: 0.5rem;
   padding: 0.5rem;
   background-color: gray;
-
-
 `;
 
 const ListMsg = (props: MsgProps): JSX.Element => {
@@ -123,7 +119,9 @@ const ListMsg = (props: MsgProps): JSX.Element => {
         <StyledToWrap>
           To. <StyledTo>{props.to}</StyledTo>
         </StyledToWrap>
-        <StyledDeleteButton disabled={isDisabled} onClick={deleteMsg}>Delete</StyledDeleteButton>
+        <StyledDeleteButton disabled={isDisabled} onClick={deleteMsg}>
+          Delete
+        </StyledDeleteButton>
       </StyledLetterPerson>
 
       <StyledLetterContent>{props.content}</StyledLetterContent>
