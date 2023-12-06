@@ -30,6 +30,11 @@ export const DECO = [
     name: '진저브레드',
     fileName: '/models/gingerBread.glb',
     img: '/models/img/Deco/gingerBread.gif'
+  },
+  {
+    name: '마크상자',
+    fileName: '/models/chest.glb',
+    img: '/models/img/Deco/chest.gif'
   }
 ];
 
