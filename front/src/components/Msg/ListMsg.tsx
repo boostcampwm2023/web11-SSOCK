@@ -1,3 +1,4 @@
+import { useContext } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
@@ -6,7 +7,6 @@ import {
   UserData,
   SnowBallData
 } from '@pages/Visit/SnowBallProvider';
-import { useContext } from 'react';
 
 interface MsgProps {
   color: string;
@@ -45,7 +45,7 @@ const StyledTo = styled.span`
 `;
 
 const StyledLetterContent = styled.div`
-  white-space: pre;
+  white-space: normal;
   text-align: center;
   color: white;
 `;

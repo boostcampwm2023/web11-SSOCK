@@ -55,32 +55,30 @@ const Raycaster: React.FC<RaycasterProps> = ({ isClickedRef }) => {
       raycaster.setFromCamera(pointer, camera);
 
       //터치한 시간으로 이벤트 분기
-      if (window.performance.now() - lastPosition.current > 120) {
-        return;
-      } else {
-        // 씬의 모든 객체들과 교차점 계산
-        setMessage('');
-        const intersects = raycaster.intersectObjects(scene.children, true);
+      if (window.performance.now() - lastPosition.current > 120) return;
 
-        if (intersects.length < 1) {
-          return;
-        }
-        if (intersects[0].object.name === 'glass') {
-          isAnimating.current = true;
-          isClickedRef.current = true;
-          return;
-        }
-        const selectedDeco = intersects.find(
-          intersect => intersect.object.userData.message
-        );
-        if (selectedDeco) {
-          const { message, sender, letterColor } = selectedDeco.object.userData;
-          setMessage(message);
-          setSender(sender);
-          setColor(letterColor);
-        }
+      // 씬의 모든 객체들과 교차점 계산
+      setMessage('');
+      const intersects = raycaster.intersectObjects(scene.children, true);
+      if (intersects.length < 1) return;
+
+      if (intersects[0].object.name === 'glass') {
+        isAnimating.current = true;
+        isClickedRef.current = true;
+        return;
+      }
+
+      const selectedDeco = intersects.find(
+        intersect => intersect.object.userData.message
+      );
+      if (selectedDeco) {
+        const { message, sender, letterColor } = selectedDeco.object.userData;
+        setMessage(message);
+        setSender(sender);
+        setColor(letterColor);
       }
     };
+
     const saveLastTime = () => {
       lastPosition.current = window.performance.now();
     };

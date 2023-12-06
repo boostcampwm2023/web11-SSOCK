@@ -23,7 +23,8 @@ const StyledModal = styled.div`
 
 const StyledSection = styled.div`
   padding: 5%;
-  word-break: break-all;
+  white-space: normal;
+  word-break: keep-all;
   cursor: pointer;
 `;
 

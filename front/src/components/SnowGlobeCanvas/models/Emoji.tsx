@@ -7,7 +7,7 @@ import { SENTIMENT_MODEL } from '@constants';
 interface SnowProps {
   centerPosition: THREE.Vector3;
   rangeRadius: number;
-  sentiment: string;
+  sentiment: 'positive' | 'neutral' | 'negative';
 }
 
 const randomizePosition = (
@@ -70,7 +70,7 @@ const Emoji: React.FC<SnowProps> = ({
 
   useFrame((_, delta) => {
     const snow = snowRef.current;
-    const speed = 2 * delta;
+    const speed = 1 * delta;
     if (snow) {
       fallingAnimate(snow, speed, centerPosition, rangeRadius);
       rotateAnimate(snow, speed);

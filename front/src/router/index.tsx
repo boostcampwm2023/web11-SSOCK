@@ -1,1 +1,1 @@
-export { default as IsSnowballData } from './IsSnowballData';
+export { default as HasSnowballData } from './HasSnowballData';

@@ -1,4 +1,6 @@
 import { useContext, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 import styled from 'styled-components';
 import { DecoContext } from '@pages/Visit/Deco/DecoProvider';
 
@@ -36,23 +38,6 @@ const StyledLetterPerson = styled.div`
 
 const StyledTo = styled.span`
   color: ${props => props.theme.colors['--nick-name']};
-`;
-
-const StyledLetterContent = styled.div`
-  white-space: pre;
-  text-align: center;
-  color: white;
-`;
-
-const StyledFromBox = styled(StyledLetterPerson)`
-  flex-direction: row-reverse;
-  display: flex;
-  justify-content: space-between;
-`;
-
-const StyledFrom = styled.span`
-  text-align: right;
-  color: ${props => props.theme.colors['--primary-redp-variant']};
 `;
 
 const StyledInputBox = styled.div`
@@ -94,6 +79,23 @@ const StyledTextArea = styled.textarea`
   -ms-overflow-style: none;
 `;
 
+const StyledLetterContent = styled.div`
+  white-space: normal;
+  text-align: center;
+  color: white;
+`;
+
+const StyledFromBox = styled(StyledLetterPerson)`
+  flex-direction: row-reverse;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const StyledFrom = styled.span`
+  text-align: right;
+  color: ${props => props.theme.colors['--primary-redp-variant']};
+`;
+
 const StyledFromInput = styled.input`
   width: 55%;
   outline: none;
@@ -110,6 +112,18 @@ const Msg = (props: MsgProps): JSX.Element => {
   const [wordCount, setWordCount] = useState(0);
   const { content, sender, setContent, setSender } = useContext(DecoContext);
   const maxWordCount = 500;
+  const { user } = useParams();
+
+  const id = undefined;
+  if (user === undefined && id !== undefined) {
+    // id는 메시지 고유 id, user===undefined로 visit이 아닌 main에서만 처리되도록
+    axios
+      .put(`/api/message/${id}`, { message_id: id }, { withCredentials: true })
+      .then(res => {
+        console.log(res);
+      })
+      .catch(e => console.error(e));
+  }
 
   const wordLength = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const text = e.target;

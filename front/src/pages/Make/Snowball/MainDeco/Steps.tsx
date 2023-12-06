@@ -66,6 +66,7 @@ const SelectDeco = styled.div`
   justify-content: center;
   flex: 1 0 0;
   gap: 1rem;
+  min-width: min-content;
 `;
 
 const ColorInput = styled.input.attrs({

@@ -23,6 +23,7 @@ const SnowGlobeCanvas = () => {
       model={Math.floor(Math.random() * 3)}
     />
   ));
+
   const decos = snowBallData.message_list.map((message, index) => {
     return (
       <Models.Deco
@@ -38,6 +39,7 @@ const SnowGlobeCanvas = () => {
       />
     );
   });
+
   const sentiments = snowBallData.message_list.map((message, i) => (
     <Models.Emoji
       key={i}
@@ -46,6 +48,7 @@ const SnowGlobeCanvas = () => {
       sentiment={message.sentiment}
     />
   ));
+
   return (
     <PrevProvider>
       <CanvasContainer>
