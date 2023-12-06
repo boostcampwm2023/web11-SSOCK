@@ -38,8 +38,8 @@ export class MessageEntity {
   @Column({ length: 16 })
   sender: string;
 
-  @Column({ default: false })
-  is_deleted: boolean;
+  @CreateDateColumn({ default: `${process.env.DATE_DEFAULT}` })
+  is_deleted: Date;
 
   @Column()
   location: number;
@@ -50,7 +50,7 @@ export class MessageEntity {
   @Column()
   confidence: number;
 
-  @CreateDateColumn({ default: null })
+  @CreateDateColumn({ nullable: true, default: null })
   opened: Date | null;
 
   @CreateDateColumn()
