@@ -1,10 +1,12 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import axios from 'axios';
 import { theme } from '@utils';
 import { SnowGlobeCanvas, Button } from '@components';
-import mock from '@mock';
 import { MainDeco } from './MainDeco';
 import { SnowBallContext } from '@pages/Visit/SnowBallProvider';
+import { UserData } from '@pages/Visit/SnowBallProvider';
 
 const StyledHeader = styled.div`
   position: absolute;
@@ -50,9 +52,29 @@ const StyledButtonBox = styled.div`
 `;
 
 const Snowball = () => {
-  const userName = mock.user_data.nickname;
+  const navigate = useNavigate();
+  const [userName, setUserName] = useState('김부캠');
   const [make, setMake] = useState(false);
   const { snowBallData } = useContext(SnowBallContext);
+
+  useEffect(() => {
+    axios
+      .get('/api/user', {
+        withCredentials: true
+      })
+      .then(res => {
+        if (res.status === 200) {
+          const userData = res.data.user as UserData;
+          setUserName(userData.nickname);
+        } else {
+          navigate('/make');
+        }
+      })
+      .catch(e => {
+        console.error(e);
+        navigate('/make');
+      });
+  }, [navigate]);
 
   return (
     <>
