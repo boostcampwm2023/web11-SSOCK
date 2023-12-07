@@ -19,6 +19,7 @@ import { ResClovaSentiment } from './clova.service';
 import { SnowballEntity } from '../snowball/entity/snowball.entity';
 import { DecorationPrefixEntity } from '../snowball/entity/decoration-prefix.entity';
 import { UpdateMessageLocationsDto } from './dto/update-message-locations.dto';
+import { UserEntity } from '../user/entity/user.entity';
 
 @Injectable()
 export class MessageService {
@@ -27,6 +28,8 @@ export class MessageService {
     private readonly messageRepository: Repository<MessageEntity>,
     @InjectRepository(SnowballEntity)
     private readonly snowballRepository: Repository<SnowballEntity>,
+    @InjectRepository(UserEntity)
+    private readonly userRepository: Repository<UserEntity>,
     @InjectRepository(LetterEntity)
     private readonly letterRepository: Repository<LetterEntity>,
     @InjectRepository(DecorationPrefixEntity)
@@ -36,6 +39,7 @@ export class MessageService {
   async createMessage(
     createMessageDto: ReqCreateMessageDto,
     resClovaSentiment: ResClovaSentiment,
+    auth_id: string,
     snowball_id: number
   ): Promise<ResCreateMessageDto> {
     await this.isInsertAllowed(snowball_id);
@@ -43,6 +47,7 @@ export class MessageService {
     await this.doesLetterIdExist(createMessageDto.letter_id);
 
     const user_id = await this.findUserId(snowball_id);
+    await this.compareUser(auth_id, user_id);
     const location = await this.findLocation(snowball_id);
     const messageEntity = this.messageRepository.create({
       user_id: user_id,
@@ -259,6 +264,17 @@ export class MessageService {
         '해당 스노우볼을 가지고 있는 유저가 존재하지 않습니다'
       );
     return user.user_id;
+  }
+
+  async compareUser(auth_id: string, user_id: number): Promise<void> {
+    const user = await this.userRepository.findOne({
+      select: ['id'],
+      where: { auth_id: auth_id }
+    });
+    if (!user) throw new NotFoundException('해당 유저가 존재하지 않습니다');
+    if (user.id !== user_id) {
+      throw new BadRequestException('해당 유저의 스노우볼이 아닙니다');
+    }
   }
 
   async findLocation(snowball_id: number): Promise<number> {

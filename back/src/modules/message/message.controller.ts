@@ -39,7 +39,7 @@ export class MessageController {
     private readonly clovaService: ClovaService
   ) {}
 
-  @Post('/:snowball_id')
+  @Post('/:auth_id/:snowball_id')
   @HttpCode(201)
   @ApiOperation({
     summary: '메세지 생성 API',
@@ -56,6 +56,7 @@ export class MessageController {
     description: 'Insert Fail'
   })
   async createMessage(
+    @Param('auth_id') auth_id: string,
     @Param('snowball_id') snowball_id: number,
     @Body() createMessageDto: ReqCreateMessageDto
   ): Promise<ResCreateMessageDto> {
@@ -65,6 +66,7 @@ export class MessageController {
     const resCreateMessage = await this.messageService.createMessage(
       createMessageDto,
       resClovaSentiment,
+      auth_id,
       snowball_id
     );
     return resCreateMessage;
