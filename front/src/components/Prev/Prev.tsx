@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { PrevContext } from '../SnowGlobeCanvas/PrevProvider';
+import { PrevContext } from '@components/SnowGlobeCanvas/PrevProvider';
 import { MessageContext } from '@pages/Visit/MessageProvider';
 
 interface PrevProps {
