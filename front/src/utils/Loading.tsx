@@ -36,12 +36,6 @@ const StyledLoadingText = styled.div`
 
 const Loading = () => {
   const [dots, setDots] = useState('');
-  // 이거 안먹힘 song 수정해야할듯
-  // const a = document.getElementById('musicController');
-  // console.log(a);
-  // if (a) {
-  //   a.style.display = 'none';
-  // }
 
   useEffect(() => {
     const interval = setInterval(() => {

@@ -111,7 +111,6 @@ const Main = () => {
           const snowballData = res.data.main_snowball as SnowBallData;
           const messageList = res.data.main_snowball
             .message_list as Array<Message>;
-          console.log('!!!', messageList);
           setSnowBallData(snowballData);
           setMessageList(messageList);
           setUserData(userData);

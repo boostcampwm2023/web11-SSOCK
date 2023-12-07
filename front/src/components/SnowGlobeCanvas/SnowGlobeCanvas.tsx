@@ -28,8 +28,6 @@ const SnowGlobeCanvas = React.memo<SnowGlobeCanvasProps>(
         model={Math.floor(Math.random() * 3)}
       />
     ));
-    console.log('renderCanvas');
-    // useMemo(snowBallData => snowBallData,[snowBallData])
 
     return (
       <PrevProvider>
