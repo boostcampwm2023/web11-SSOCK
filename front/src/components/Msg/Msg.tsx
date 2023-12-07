@@ -17,6 +17,27 @@ interface MsgColor {
   color: string;
 }
 
+const MsgBackground = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+
+  width: 100%;
+  height: 100%;
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(0, 0, 0, 0.5);
+  overflow: scroll;
+
+  @media (min-width: ${props => props.theme.size['--desktop-min-width']}) {
+    width: ${props => props.theme.size['--desktop-width']};
+    left: 50%;
+    transform: translateX(-50%);
+  }
+`;
+
 const StyledLetterBox = styled.div<MsgColor>`
   flex: 0 0 auto;
   width: 100%;
@@ -31,6 +52,15 @@ const StyledLetterBox = styled.div<MsgColor>`
   pointer-events: auto;
 `;
 
+const StyledLetterInput = styled.div`
+  color: white;
+  text-align: left;
+`;
+
+const StyledTo = styled.span`
+  color: ${props => props.theme.colors['--nick-name']};
+`;
+
 const StyledLetterPerson = styled.div`
   display: flex;
   align-content: center;
@@ -39,13 +69,12 @@ const StyledLetterPerson = styled.div`
   height: 2rem;
 `;
 
-const StyledLetterInput = styled.div`
-  color: white;
-  text-align: left;
-`;
+const StyledToWrap = styled.div``;
 
-const StyledTo = styled.span`
-  color: ${props => props.theme.colors['--nick-name']};
+const StyledDeleteButton = styled.button`
+  color: white;
+  text-shadow: ${props => props.theme.font['--text-shadow']};
+  font-size: 1rem;
 `;
 
 const StyledInputBox = styled.div`
@@ -101,11 +130,6 @@ const StyledFromBox = styled(StyledLetterPerson)`
   justify-content: space-between;
 `;
 
-const StyledFrom = styled.span`
-  text-align: right;
-  color: ${props => props.theme.colors['--primary-redp-variant']};
-`;
-
 const StyledFromInput = styled.input`
   width: 55%;
   outline: none;
@@ -119,27 +143,9 @@ const StyledFromInput = styled.input`
   pointer-events: stroke;
 `;
 
-const StyledDeleteButton = styled.button`
-  color: white;
-  text-shadow: ${props => props.theme.font['--text-shadow']};
-  font-size: 1rem;
-`;
-
-const StyledToWrap = styled.div``;
-
-const MsgBackground = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 100;
-
-  width: 100%;
-  height: 100%;
-  padding: 3rem;
-  display: flex;
-  flex-direction: column;
-  background-color: rgba(0, 0, 0, 0.5);
-  overflow: scroll;
+const StyledFrom = styled.span`
+  text-align: right;
+  color: ${props => props.theme.colors['--primary-redp-variant']};
 `;
 
 const DecoBackground = styled.div`
