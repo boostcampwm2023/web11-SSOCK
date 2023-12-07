@@ -7,8 +7,8 @@ import { InputSnowball, HeaderText, StepButton } from '@components';
 import MakeButton from './MakeButton';
 import DecoBox from './DecoBox';
 import DecoEnroll from './DecoEnroll';
-import { DecoContext } from './DecoProvider';
 import { UserData } from '@pages/Visit/SnowBallProvider';
+import { DecoContext } from './DecoProvider';
 
 const StateBar = styled.div`
   display: flex;
