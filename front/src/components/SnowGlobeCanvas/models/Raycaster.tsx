@@ -18,15 +18,13 @@ const Raycaster: React.FC<RaycasterProps> = ({ isClickedRef }) => {
 
   useFrame((_, delta) => {
     const isClicked = isClickedRef.current;
-    const zoomInSpeed = 1 - delta * 2;
     const zoomOutSpeed = 1 + delta * 2;
     if (isAnimating.current) {
       if (isClicked && !isZoom) {
+        const targetPosition = new THREE.Vector3(0, 3.5, 0);
         setView(true);
-        if (camera.position.distanceTo(new THREE.Vector3(0, 3.5, 0)) > 7) {
-          camera.position.x = camera.position.x * zoomInSpeed;
-          camera.position.y = camera.position.y * zoomInSpeed;
-          camera.position.z = camera.position.z * zoomInSpeed;
+        if (camera.position.distanceTo(targetPosition) > 6.5) {
+          camera.position.lerp(targetPosition, delta * 2);
         } else {
           isAnimating.current = false;
         }
