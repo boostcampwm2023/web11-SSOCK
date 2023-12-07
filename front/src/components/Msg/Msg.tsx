@@ -4,6 +4,7 @@ import axios from 'axios';
 import styled from 'styled-components';
 import { DecoContext } from '@pages/Visit/Deco/DecoProvider';
 import { MessageContext } from '@pages/Visit/MessageProvider';
+import { createPortal } from 'react-dom';
 
 interface MsgProps {
   color: string;
@@ -19,7 +20,8 @@ interface MsgColor {
 }
 
 const StyledLetterBox = styled.div<MsgColor>`
-  width: 80%;
+flex: 0 0 auto;
+  width: 100%;
   display: flex;
   flex-direction: column;
   font: ${props => props.theme.font['--normal-introduce-font']};
@@ -28,21 +30,15 @@ const StyledLetterBox = styled.div<MsgColor>`
   padding: 1.5rem;
   gap: 1rem;
   background-color: ${props => props.color + '80'};
-  margin: 1rem auto;
-
-  //아래 수정 필요,, 왜 안돼돼
-  overflow: scroll;
-  touch-action: auto;
   pointer-events: auto;
-  * {
-    pointer-events: auto;
-  }
 `;
 
 const StyledLetterPerson = styled.div`
   display: flex;
+  align-content: center;
   justify-content: space-between;
   color: white;
+  height: 2rem;
 `;
 
 const StyledLetterInput = styled.div`
@@ -57,6 +53,7 @@ const StyledTo = styled.span`
 const StyledInputBox = styled.div`
   text-align: right;
   width: 100%;
+  height: 2rem;
 `;
 
 const StyledTextArea = styled.textarea`
@@ -94,9 +91,10 @@ const StyledTextArea = styled.textarea`
 `;
 
 const StyledLetterContent = styled.div`
-  white-space: normal;
+  white-space: pre-wrap;
   text-align: center;
   color: white;
+  word-wrap: break-word;
 `;
 
 const StyledFromBox = styled(StyledLetterPerson)`
@@ -125,10 +123,30 @@ const StyledFromInput = styled.input`
 const StyledDeleteButton = styled.button`
   color: white;
   text-shadow: ${props => props.theme.font['--text-shadow']};
-  font-size: 1.0rem;
+  font-size: 1rem;
 `;
 
 const StyledToWrap = styled.div``;
+
+const MsgBackground = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+
+  width: 100%;
+  height: 100%;
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(0, 0, 0, 0.5);
+  overflow: scroll  ;
+`;
+
+const DecoBackground = styled.div`
+  width: 100%;
+  padding: 3rem;
+`
 
 const Msg = (props: MsgProps): JSX.Element => {
   const [wordCount, setWordCount] = useState(0);
@@ -163,60 +181,140 @@ const Msg = (props: MsgProps): JSX.Element => {
     setMessage('');
   };
 
+  const stopEvent = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+  };
+
   return (
-    <StyledLetterBox color={props.color} onClick={() => alert('here')}>
-      {props.isInput ? (
-        <StyledLetterInput>
-          To. <StyledTo>{props.to}</StyledTo>
-        </StyledLetterInput>
-      ) : (
-        <StyledLetterPerson>
-          <StyledToWrap>
-            To. <StyledTo>{props.to}</StyledTo>
-          </StyledToWrap>
-          {props.isDeco ? null : (
-            <StyledDeleteButton onClick={removeMsg}>X</StyledDeleteButton>
-          )}
-        </StyledLetterPerson>
-      )}
-      {props.isInput ? (
-        <StyledInputBox>
-          <StyledTextArea
-            rows={1}
-            value={content}
-            onChange={wordLength}
-            placeholder="편지를 작성해주세요."
-          />
-        </StyledInputBox>
-      ) : (
-        <StyledLetterContent>{props.content}</StyledLetterContent>
-      )}
+    <>
+    { !props.isInput && !props.isDeco ? (
+      createPortal(
+        <MsgBackground onClick={removeMsg}>
+          <StyledLetterBox color={props.color} onClick={stopEvent}>
+            {props.isInput ? (
+              <StyledLetterInput>
+                To. <StyledTo>{props.to}</StyledTo>
+              </StyledLetterInput>
+            ) : (
+              <StyledLetterPerson>
+                <StyledToWrap>
+                  To. <StyledTo>{props.to}</StyledTo>
+                </StyledToWrap>
+                {props.isDeco ? null : (
+                  <StyledDeleteButton onClick={removeMsg}>X</StyledDeleteButton>
+                )}
+              </StyledLetterPerson>
+            )}
+            {props.isInput ? (
+              <StyledInputBox>
+                <StyledTextArea
+                  rows={1}
+                  value={content}
+                  onChange={wordLength}
+                  placeholder="편지를 작성해주세요."
+                />
+              </StyledInputBox>
+            ) : (
+              <StyledLetterContent>
+                {props.content.toString()}
+              </StyledLetterContent>
+            )}
 
-      <StyledFromBox>
-        <StyledFrom>
-          From.
-          {props.isInput ? (
-            <StyledFromInput
-              value={sender}
-              placeholder="이름입력"
-              onFocus={e => {
-                e.target.value = '';
-              }}
-              onChange={e => {
-                if (e.target.value.length > 8) {
-                  e.target.value = e.target.value.substring(0, 8);
-                }
-                setSender(e.target.value);
-              }}
-            />
-          ) : (
-            <StyledFromInput value={props.sender} disabled />
-          )}
-        </StyledFrom>
+            <StyledFromBox>
+              <StyledFrom>
+                From.
+                {props.isInput ? (
+                  <StyledFromInput
+                    value={sender}
+                    placeholder="이름입력"
+                    onFocus={e => {
+                      e.target.value = '';
+                    }}
+                    onChange={e => {
+                      if (e.target.value.length > 8) {
+                        e.target.value = e.target.value.substring(0, 8);
+                      }
+                      setSender(e.target.value);
+                    }}
+                  />
+                ) : (
+                  <StyledFromInput value={props.sender} disabled />
+                )}
+              </StyledFrom>
 
-        {props.isInput && props.sender === '익명' ? `${wordCount} / 500` : null}
-      </StyledFromBox>
-    </StyledLetterBox>
+              {props.isInput && props.sender === '익명' ? (
+                `${wordCount} / 500`
+              ) : null
+              }
+            </StyledFromBox>
+          </StyledLetterBox>
+        </MsgBackground>,
+        document.body
+      )
+    ) : (
+      <DecoBackground>
+          <StyledLetterBox color={props.color}>
+            {props.isInput ? (
+              <StyledLetterInput>
+                To. <StyledTo>{props.to}</StyledTo>
+              </StyledLetterInput>
+            ) : (
+              <StyledLetterPerson>
+                <StyledToWrap>
+                  To. <StyledTo>{props.to}</StyledTo>
+                </StyledToWrap>
+                {props.isDeco ? null : (
+                  <StyledDeleteButton onClick={removeMsg}>X</StyledDeleteButton>
+                )}
+              </StyledLetterPerson>
+            )}
+            {props.isInput ? (
+              <StyledInputBox>
+                <StyledTextArea
+                  rows={1}
+                  value={content}
+                  onChange={wordLength}
+                  placeholder="편지를 작성해주세요."
+                />
+              </StyledInputBox>
+            ) : (
+              <StyledLetterContent>
+                {props.content.toString()}
+              </StyledLetterContent>
+            )}
+
+            <StyledFromBox>
+              <StyledFrom>
+                From.
+                {props.isInput ? (
+                  <StyledFromInput
+                    value={sender}
+                    placeholder="이름입력"
+                    onFocus={e => {
+                      e.target.value = '';
+                    }}
+                    onChange={e => {
+                      if (e.target.value.length > 8) {
+                        e.target.value = e.target.value.substring(0, 8);
+                      }
+                      setSender(e.target.value);
+                    }}
+                  />
+                ) : (
+                  <StyledFromInput value={props.sender} disabled />
+                )}
+              </StyledFrom>
+
+              {props.isInput && props.sender === '익명' ? (
+                `${wordCount} / 500`
+              ) : null
+              }
+            </StyledFromBox>
+          </StyledLetterBox>
+          </DecoBackground>
+    ) }
+      
+    </>
   );
 };
 

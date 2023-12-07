@@ -1,4 +1,4 @@
-import { useContext, useRef } from 'react';
+import { useContext, useRef, useEffect } from 'react';
 import { OrbitControls } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import * as THREE from 'three';
@@ -12,7 +12,7 @@ const SnowGlobeCanvas = () => {
   const isClicked = useRef<boolean>(false);
   const glassRadius = 7;
   const glassPosition = new THREE.Vector3(0, glassRadius / 2, 0);
-  const { snowBallData } = useContext(SnowBallContext);
+  const { snowBallData} = useContext(SnowBallContext);
 
   const snows = Array.from({ length: 100 }, (_, i) => (
     <Models.Snow
@@ -35,6 +35,7 @@ const SnowGlobeCanvas = () => {
         color={message.decoration_color}
         sender={message.sender ?? '비공개'}
         letterID={message.letter_id ?? 0}
+        messageID={message.id}
         isOpened={message.opened !== null}
       />
     );
@@ -49,6 +50,12 @@ const SnowGlobeCanvas = () => {
       confidence={message.confidence}
     />
   ));
+
+
+  // useEffect(()=>{
+  //   console.log('test');
+  //   console.log(snowBallData);
+  // },[snowBallData]);
 
   return (
     <PrevProvider>
