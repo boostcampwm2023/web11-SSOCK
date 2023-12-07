@@ -6,12 +6,14 @@ import { SnowGlobeCanvas, UIContainer } from '@components';
 import VisitHeader from './VisitHeader';
 import VisitBody from './VisitBody';
 import VisitBottom from './VisitBottom';
+import { MessageListContext } from '@pages/Visit/MessageListProvider';
 import { SnowBallContext, SnowBallData, UserData } from './SnowBallProvider';
 
 const Visit = () => {
   const navigate = useNavigate();
   const { setSnowBallData, setUserData, snowBallData } =
     useContext(SnowBallContext);
+  const { setMessageList } = useContext(MessageListContext);
   const { user } = useParams();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -19,6 +21,7 @@ const Visit = () => {
   useEffect(() => {
     axios(`/api/user/${user}`)
       .then(res => {
+        setMessageList(res.data.main_snowball.message_list);
         setSnowBallData(res.data.main_snowball as SnowBallData);
         setUserData(res.data.user as UserData);
         setIsLoading(true);
