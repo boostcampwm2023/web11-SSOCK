@@ -15,6 +15,7 @@ const MainBody = (): JSX.Element => {
   const { message, sender, color, messageID } = useContext(MessageContext);
   const { userData } = useContext(SnowBallContext);
   const { messageList, setMessageList } = useContext(MessageListContext);
+
   useEffect(() => {
     if (messageID === 0) {
       return;

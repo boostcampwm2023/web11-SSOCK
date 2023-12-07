@@ -1,4 +1,4 @@
-import { useContext, useRef } from 'react';
+import { useContext, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import { Msg } from '@components';
@@ -46,10 +46,10 @@ const moveSnowball = (
 };
 
 const VisitBody = () => {
-  const { message, sender, color } = useContext(MessageContext);
+  const { message, sender, color, messageID } = useContext(MessageContext);
   const { userData, snowBallData, setSnowBallData } =
     useContext(SnowBallContext);
-  const { setMessageList } = useContext(MessageListContext);
+  const { messageList, setMessageList } = useContext(MessageListContext);
   const leftArrowRef = useRef<HTMLImageElement>(null);
   const rightArrowRef = useRef<HTMLImageElement>(null);
 
@@ -68,6 +68,26 @@ const VisitBody = () => {
       }, 1500);
     }
   };
+
+  useEffect(() => {
+    if (messageID === 0) {
+      return;
+    }
+
+    axios
+      .put(`/api/message/${messageID}/open`)
+      .then(() => {
+        const newList = JSON.parse(
+          JSON.stringify(messageList)
+        ) as Array<Message>;
+        const nowMessage = newList.find(message => message.id === messageID);
+        if (nowMessage) {
+          nowMessage.opened = 'opened';
+        }
+        setMessageList(newList);
+      })
+      .catch(e => console.error(e));
+  }, [messageID]);
 
   return (
     <>
