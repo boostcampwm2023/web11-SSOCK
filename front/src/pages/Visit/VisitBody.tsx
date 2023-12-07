@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Msg } from '@components';
 import { MessageContext } from './MessageProvider';
 import { SnowBallContext, SnowBallData, UserData } from './SnowBallProvider';
-import { MessageListContext } from './MessageListProvider';
+import { MessageListContext, Message } from './MessageListProvider';
 
 const LeftBtn = styled.img`
   position: fixed;

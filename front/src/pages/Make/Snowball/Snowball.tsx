@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { theme } from '@utils';
 import { SnowGlobeCanvas, Button } from '@components';
 import mock from '@mock';
 import { MainDeco } from './MainDeco';
+import { SnowBallContext } from '@pages/Visit/SnowBallProvider';
 
 const StyledHeader = styled.div`
   position: absolute;
@@ -51,6 +52,7 @@ const StyledButtonBox = styled.div`
 const Snowball = () => {
   const userName = mock.user_data.nickname;
   const [make, setMake] = useState(false);
+  const { snowBallData } = useContext(SnowBallContext);
 
   return (
     <>
@@ -58,7 +60,7 @@ const Snowball = () => {
         <MainDeco set={setMake} />
       ) : (
         <>
-          <SnowGlobeCanvas />
+          <SnowGlobeCanvas snowBallData={snowBallData} />
           <StyledHeader>
             <StyledName>{userName}</StyledName>&nbsp;님
             <StyledWelcome>환영합니다 :&#41;</StyledWelcome>
