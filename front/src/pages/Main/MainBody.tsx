@@ -19,23 +19,20 @@ const MainBody = (): JSX.Element => {
     if (messageID === 0) {
       return;
     }
-    // 네엡 ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ
-    //ㅋㅋ메시지 오픈 api 못하겠으믄 쉬고있어 농담임 ㅋ
 
-    axios.put(`/api/message/${messageID}/open`).then(res => {
-      console.log(res);
-
-      const newList = JSON.parse(JSON.stringify(messageList)) as Array<Message>;
-      const nowMessage = newList.find(message => message.id === messageID);
-      if (nowMessage) {
-        nowMessage.opened = 'opened';
-      }
-      setMessageList(newList);
-    }); // 프리티어 필수~!~!~!~~~!~!~!~!~!~!~!~!~!~!~!~
-    // if (nowMessage) {
-    //   nowMessage.opened = 'opened';
-    // }
-    // setMessageList(newList);
+    axios
+      .put(`/api/message/${messageID}/open`)
+      .then(() => {
+        const newList = JSON.parse(
+          JSON.stringify(messageList)
+        ) as Array<Message>;
+        const nowMessage = newList.find(message => message.id === messageID);
+        if (nowMessage) {
+          nowMessage.opened = 'opened';
+        }
+        setMessageList(newList);
+      })
+      .catch(e => console.error(e));
   }, [messageID]);
 
   return (

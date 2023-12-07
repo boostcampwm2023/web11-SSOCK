@@ -1,7 +1,6 @@
 import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
-import { BlurBody } from '@utils';
-import { theme } from '@utils';
+import { BlurBody, theme } from '@utils';
 
 interface LoginProps {
   view: [boolean, React.Dispatch<React.SetStateAction<boolean>>];

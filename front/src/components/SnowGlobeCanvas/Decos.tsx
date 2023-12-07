@@ -21,4 +21,5 @@ const Decos = () => {
   ));
   return <>{decos}</>;
 };
+
 export default Decos;

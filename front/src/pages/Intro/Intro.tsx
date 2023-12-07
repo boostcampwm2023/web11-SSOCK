@@ -1,10 +1,10 @@
+import { useContext } from 'react';
 import styled from 'styled-components';
 import { SnowGlobeCanvas, UIContainer } from '@components';
 import IntroButtonBox from './IntroButtonBox';
 import MsgBox from './MsgBox';
-import { MessageProvider } from '../Visit/MessageProvider';
-import { useContext } from 'react';
 import { SnowBallContext } from '@pages/Visit/SnowBallProvider';
+import { MessageProvider } from '../Visit/MessageProvider';
 
 const TitleDiv = styled.div`
   display: flex;
