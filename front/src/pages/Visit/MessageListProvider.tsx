@@ -1,5 +1,4 @@
 import React, { useState, createContext } from 'react';
-import mockData from '@mock';
 
 interface Message {
   content: string | undefined;
@@ -24,16 +23,14 @@ interface MessageListContextType {
 }
 
 const MessageListContext = createContext<MessageListContextType>({
-  messageList: mockData.snowball_data.message_list as Array<Message>,
+  messageList: [],
   setMessageList: () => {}
 });
 
 const MessageListProvider: React.FC<{ children: React.ReactNode }> = ({
   children
 }) => {
-  const [messageList, setMessageList] = useState<Array<Message>>(
-    mockData.snowball_data.message_list as Array<Message>
-  );
+  const [messageList, setMessageList] = useState<Array<Message>>([]);
   return (
     <MessageListContext.Provider
       value={{
