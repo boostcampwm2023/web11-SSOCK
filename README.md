@@ -1,4 +1,4 @@
-![image](https://github.com/boostcampwm2023/web11-SSOCK/assets/83938394/b2258d3b-9e4c-4e82-a69f-090aceab71e2)# 🎄 web11-SSOCK
+# 🎄 web11-SSOCK
 
 ## 메인 아이디어
 - 부스트캠프가 끝나는 시기에 크리스마스 감성이 가득한 사이트 제작🎅
