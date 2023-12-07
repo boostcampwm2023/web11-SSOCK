@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 import { LongButton } from '@utils';
@@ -30,10 +30,13 @@ const StyledAlert = styled.div`
 `;
 
 const PostButton = (props: ButtonProps) => {
-  const { color, decoID, letterID, content, sender } = useContext(DecoContext);
+  const { decoID, color, letterID, content, sender, setDecoID, setColor, setLetterID, setContent, setSender } = useContext(DecoContext);
   const { snowBallData, setSnowBallData } = useContext(SnowBallContext);
   const navigate = useNavigate();
   const [alerts, setAlerts] = useState(false);
+
+  const { user }  = useParams();
+
 
   const ClickedPost = () => {
     //여기서 axios요청
@@ -41,21 +44,29 @@ const PostButton = (props: ButtonProps) => {
       setAlerts(true);
       return;
     }
-    const a = {
+
+    const msgInfo = {
       sender,
       content,
       decoration_id: decoID,
       decoration_color: color,
       letter_id: letterID
     };
+
     axios
-      .post(`/api/message/${snowBallData.id}`, a)
+      .post(`/api/message/${user}/${snowBallData.id}`, msgInfo)
       .then(() => {
         axios.get(`/api/snowball/${snowBallData.id}`).then(res => {
           setSnowBallData(res.data);
 
           props.view[1](!props.view[0]);
           props.visible[1](-1);
+
+          setDecoID(1);
+          setColor('#ff0000');
+          setLetterID(1);
+          setContent('');
+          setSender('');
         });
       })
       .catch(e => {
