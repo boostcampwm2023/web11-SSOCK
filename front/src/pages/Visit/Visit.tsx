@@ -10,7 +10,8 @@ import { SnowBallContext, SnowBallData, UserData } from './SnowBallProvider';
 
 const Visit = () => {
   const navigate = useNavigate();
-  const { setSnowBallData, setUserData } = useContext(SnowBallContext);
+  const { setSnowBallData, setUserData, snowBallData } =
+    useContext(SnowBallContext);
   const { user } = useParams();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -33,7 +34,7 @@ const Visit = () => {
     <>
       {isLoading ? (
         <>
-          <SnowGlobeCanvas />
+          <SnowGlobeCanvas snowBallData={snowBallData} />
           <UIContainer>
             <VisitHeader />
             <VisitBody />

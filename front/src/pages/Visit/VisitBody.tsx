@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Msg } from '@components';
 import { MessageContext } from './MessageProvider';
 import { SnowBallContext, SnowBallData, UserData } from './SnowBallProvider';
+import { MessageListContext } from './MessageListProvider';
 
 const LeftBtn = styled.img`
   position: fixed;
@@ -19,7 +20,8 @@ const moveSnowball = (
   move: 'Prev' | 'Next',
   userData: UserData,
   snowBallData: SnowBallData,
-  setSnowBallData: React.Dispatch<React.SetStateAction<SnowBallData>>
+  setSnowBallData: React.Dispatch<React.SetStateAction<SnowBallData>>,
+  setMessageListData: React.Dispatch<React.SetStateAction<Array<Message>>>
 ) => {
   const nowSnowBallID = userData.snowball_list.findIndex(
     id => id === snowBallData.id
@@ -36,6 +38,7 @@ const moveSnowball = (
   axios(`/api/snowball/${nextSnowBallID}`)
     .then(res => {
       setSnowBallData(res.data as SnowBallData);
+      setMessageListData(res.data.message_list as Array<Message>);
     })
     .catch(e => {
       console.error(e);
@@ -46,7 +49,7 @@ const VisitBody = () => {
   const { message, sender, color } = useContext(MessageContext);
   const { userData, snowBallData, setSnowBallData } =
     useContext(SnowBallContext);
-
+  const { setMessageList } = useContext(MessageListContext);
   const leftArrowRef = useRef<HTMLImageElement>(null);
   const rightArrowRef = useRef<HTMLImageElement>(null);
 
@@ -82,7 +85,13 @@ const VisitBody = () => {
           <LeftBtn
             src={'/icons/prev.svg'}
             onClick={() => {
-              moveSnowball('Prev', userData, snowBallData, setSnowBallData);
+              moveSnowball(
+                'Prev',
+                userData,
+                snowBallData,
+                setSnowBallData,
+                setMessageList
+              );
               delayButton();
             }}
             ref={leftArrowRef}
@@ -90,7 +99,13 @@ const VisitBody = () => {
           <RightBtn
             src={'/icons/next.svg'}
             onClick={() => {
-              moveSnowball('Next', userData, snowBallData, setSnowBallData);
+              moveSnowball(
+                'Next',
+                userData,
+                snowBallData,
+                setSnowBallData,
+                setMessageList
+              );
               delayButton();
             }}
             ref={rightArrowRef}
