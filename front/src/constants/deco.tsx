@@ -35,6 +35,21 @@ export const DECO = [
     name: '마크상자',
     fileName: '/models/chest.glb',
     img: '/models/img/Deco/chest.gif'
+  },
+  {
+    name: '똥',
+    fileName: '/models/ddong.glb',
+    img: '/models/img/Deco/ddong.gif'
+  },
+  {
+    name: '미니눈사람',
+    fileName: '/models/miniSnowMan.glb',
+    img: '/models/img/Deco/miniSnowMan.gif'
+  },
+  {
+    name: '양말',
+    fileName: '/models/socks.glb',
+    img: '/models/img/Deco/socks.gif'
   }
 ];
 
