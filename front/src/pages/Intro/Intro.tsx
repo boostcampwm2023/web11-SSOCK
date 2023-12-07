@@ -3,6 +3,8 @@ import { SnowGlobeCanvas, UIContainer } from '@components';
 import IntroButtonBox from './IntroButtonBox';
 import MsgBox from './MsgBox';
 import { MessageProvider } from '../Visit/MessageProvider';
+import { useContext } from 'react';
+import { SnowBallContext } from '@pages/Visit/SnowBallProvider';
 
 const TitleDiv = styled.div`
   display: flex;
@@ -16,10 +18,11 @@ const TitleDiv = styled.div`
 `;
 
 const Intro = () => {
+  const { snowBallData } = useContext(SnowBallContext);
   return (
     <>
       <MessageProvider>
-        <SnowGlobeCanvas />
+        <SnowGlobeCanvas snowBallData={snowBallData} />
         <UIContainer>
           <TitleDiv>
             <span>스노우볼 속 내마음</span>

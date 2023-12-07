@@ -37,7 +37,8 @@ const moveSnowball = (
   move: 'Prev' | 'Next',
   userData: UserData,
   snowBallData: SnowBallData,
-  setSnowBallData: React.Dispatch<React.SetStateAction<SnowBallData>>
+  setSnowBallData: React.Dispatch<React.SetStateAction<SnowBallData>>,
+  setMessageListData: React.Dispatch<React.SetStateAction<Array<Message>>>
 ) => {
   const nowSnowBallID = userData.snowball_list.findIndex(
     id => id === snowBallData.id
@@ -54,6 +55,7 @@ const moveSnowball = (
   axios(`/api/snowball/${nextSnowBallID}`)
     .then(res => {
       setSnowBallData(res.data as SnowBallData);
+      setMessageListData(res.data.message_list as Array<Message>);
     })
     .catch(e => {
       console.error(e);
@@ -133,7 +135,7 @@ const Main = () => {
     <>
       {isLoading ? (
         <>
-          <SnowGlobeCanvas />
+          <SnowGlobeCanvas snowBallData={snowBallData} />
           <MainBodyWrap>
             <UIContainer>
               {userData.snowball_list.length > 1 ? (
@@ -145,7 +147,8 @@ const Main = () => {
                         'Prev',
                         userData,
                         snowBallData,
-                        setSnowBallData
+                        setSnowBallData,
+                        setMessageList
                       );
                       delayButton();
                     }}
@@ -158,7 +161,8 @@ const Main = () => {
                         'Next',
                         userData,
                         snowBallData,
-                        setSnowBallData
+                        setSnowBallData,
+                        setMessageList
                       );
                       delayButton();
                     }}
