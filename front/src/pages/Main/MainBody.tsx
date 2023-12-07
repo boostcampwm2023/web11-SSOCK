@@ -16,7 +16,6 @@ const MainBody = (): JSX.Element => {
   const { messageList, setMessageList } = useContext(MessageListContext);
   useEffect(() => {
     //자 일단 요청보내고 응답 정상이라고 치자 여기서
-    console.log(messageID);
     const newList = JSON.parse(JSON.stringify(messageList)) as Array<Message>;
     const nowMessage = newList.find(message => message.id === messageID);
     if (nowMessage) {

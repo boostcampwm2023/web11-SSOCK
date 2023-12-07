@@ -5,7 +5,6 @@ import { MessageListContext } from '@pages/Visit/MessageListProvider';
 
 const Decos = () => {
   const { messageList } = useContext(MessageListContext);
-  console.log(messageList);
   const decos = messageList.map((message, index) => (
     <Models.Deco
       key={index}

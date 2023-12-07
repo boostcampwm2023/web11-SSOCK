@@ -55,6 +55,7 @@ const MakeButton = (props: ButtonProps) => {
       .post('/api/snowball', snowballInfo, { withCredentials: true })
       .then(res => {
         console.log(res);
+        //이건 민아가 토스트메시지 추가할거임
       })
       .catch(e => {
         console.error(e);
