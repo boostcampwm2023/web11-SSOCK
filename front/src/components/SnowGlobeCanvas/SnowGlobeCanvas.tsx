@@ -5,9 +5,9 @@ import * as THREE from 'three';
 import { CanvasContainer } from '@utils';
 import * as Models from './models';
 import { Prev } from '../Prev';
-import { PrevProvider } from './PrevProvider';
 import Decos from './Decos';
 import { SnowBallData } from '@pages/Visit/SnowBallProvider';
+import { PrevProvider } from './PrevProvider';
 
 interface SnowGlobeCanvasProps {
   snowBallData: SnowBallData;

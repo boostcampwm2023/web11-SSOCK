@@ -30,13 +30,23 @@ const StyledAlert = styled.div`
 `;
 
 const PostButton = (props: ButtonProps) => {
-  const { decoID, color, letterID, content, sender, setDecoID, setColor, setLetterID, setContent, setSender } = useContext(DecoContext);
+  const {
+    decoID,
+    color,
+    letterID,
+    content,
+    sender,
+    setDecoID,
+    setColor,
+    setLetterID,
+    setContent,
+    setSender
+  } = useContext(DecoContext);
   const { snowBallData, setSnowBallData } = useContext(SnowBallContext);
   const navigate = useNavigate();
   const [alerts, setAlerts] = useState(false);
 
-  const { user }  = useParams();
-
+  const { user } = useParams();
 
   const ClickedPost = () => {
     //여기서 axios요청
