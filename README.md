@@ -50,6 +50,6 @@
 
 ## [Notion](https://delicious-halloumi-7ae.notion.site/SSOCK-By-SSOCK-ada468a8b135435bb8acc1c50a2a9c0c?pvs=4)
 
-## 시스템 아키텍쳐 🔧
+## 🔧 시스템 아키텍쳐
 ![Web App Reference Architecture (1)](https://github.com/boostcampwm2023/web11-SSOCK/assets/83938394/3b1ca700-a415-4ac8-b080-e2091bace2ac)
 
