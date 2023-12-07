@@ -160,7 +160,7 @@ const Msg = (props: MsgProps): JSX.Element => {
   if (user === undefined && id !== undefined) {
     // id는 메시지 고유 id, user===undefined로 visit이 아닌 main에서만 처리되도록
     axios
-      .put(`/api/message/${id}`, { message_id: id }, { withCredentials: true })
+      .put(`/api/message/${id}`, { message_id: id }, { withCredentials: true }) // 여기 {message_id:00000} 이거 없어도 되나?
       .then(res => {
         console.log(res);
       })
