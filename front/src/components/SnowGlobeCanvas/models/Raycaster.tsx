@@ -10,23 +10,23 @@ interface RaycasterProps {
 
 const Raycaster: React.FC<RaycasterProps> = ({ isClickedRef }) => {
   const { camera, pointer, raycaster, scene, gl } = useThree();
-  const { setMessage, setSender, setColor,setMessageID } = useContext(MessageContext);
+  const { setMessage, setSender, setColor, setMessageID } =
+    useContext(MessageContext);
   const { view, setView, isZoom, setIsZoom } = useContext(PrevContext);
   const isAnimating = useRef(false); // 유리 클릭한 시점 , 뒤로가기 버튼 누른 시점 === true // 카메라 업 다운 차이 기록
   const lastPosition = useRef<number>(0);
 
-
-  useFrame((_,delta) => {
+  useFrame((_, delta) => {
     const isClicked = isClickedRef.current;
-    const zoomInSpeed = 1 -  delta*2;
-    const zoomOutSpeed = 1 + delta*2;
+    const zoomInSpeed = 1 - delta * 2;
+    const zoomOutSpeed = 1 + delta * 2;
     if (isAnimating.current) {
       if (isClicked && !isZoom) {
         setView(true);
         if (camera.position.distanceTo(new THREE.Vector3(0, 3.5, 0)) > 7) {
-          camera.position.x = (camera.position.x) * zoomInSpeed ;
-          camera.position.y = (camera.position.y) * zoomInSpeed ;
-          camera.position.z = (camera.position.z) * zoomInSpeed ;
+          camera.position.x = camera.position.x * zoomInSpeed;
+          camera.position.y = camera.position.y * zoomInSpeed;
+          camera.position.z = camera.position.z * zoomInSpeed;
         } else {
           isAnimating.current = false;
         }
@@ -38,9 +38,9 @@ const Raycaster: React.FC<RaycasterProps> = ({ isClickedRef }) => {
         setIsZoom(true);
       } else if (isZoom && !view) {
         if (camera.position.distanceTo(new THREE.Vector3(0, 3.5, 0)) < 25) {
-          camera.position.x = (camera.position.x) * zoomOutSpeed;
-          camera.position.y = (camera.position.y) * zoomOutSpeed;
-          camera.position.z = (camera.position.z) * zoomOutSpeed;
+          camera.position.x = camera.position.x * zoomOutSpeed;
+          camera.position.y = camera.position.y * zoomOutSpeed;
+          camera.position.z = camera.position.z * zoomOutSpeed;
         } else {
           setIsZoom(false);
         }
@@ -71,7 +71,8 @@ const Raycaster: React.FC<RaycasterProps> = ({ isClickedRef }) => {
         intersect => intersect.object.userData.message
       );
       if (selectedDeco) {
-        const { message, sender, letterColor, messageID } = selectedDeco.object.userData;
+        const { message, sender, letterColor, messageID } =
+          selectedDeco.object.userData;
         setMessage(message);
         setSender(sender);
         setColor(letterColor);

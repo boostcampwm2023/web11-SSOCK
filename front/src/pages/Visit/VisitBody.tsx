@@ -5,11 +5,6 @@ import { Msg } from '@components';
 import { MessageContext } from './MessageProvider';
 import { SnowBallContext, SnowBallData, UserData } from './SnowBallProvider';
 
-const MsgContainer = styled.div`
-  max-height: fit-content;
-  overflow: scroll;
-`;
-
 const LeftBtn = styled.img`
   position: fixed;
   top: 50%;
@@ -55,20 +50,24 @@ const VisitBody = () => {
   const leftArrowRef = useRef<HTMLImageElement>(null);
   const rightArrowRef = useRef<HTMLImageElement>(null);
 
-  // 애니메이션 효과 미구현
   const delayButton = () => {
     if (leftArrowRef.current && rightArrowRef.current) {
       leftArrowRef.current.style.pointerEvents = 'none';
       rightArrowRef.current.style.pointerEvents = 'none';
+      leftArrowRef.current.style.animation = 'fadeOut 0.5s forwards';
+      rightArrowRef.current.style.animation = 'fadeOut 0.5s forwards';
+
       setTimeout(() => {
         leftArrowRef.current!.style.pointerEvents = 'all';
         rightArrowRef.current!.style.pointerEvents = 'all';
+        leftArrowRef.current!.style.animation = 'fadeIn 0.5s forwards';
+        rightArrowRef.current!.style.animation = 'fadeIn 0.5s forwards';
       }, 1500);
     }
   };
 
   return (
-    <MsgContainer>
+    <>
       {message !== '' ? (
         <Msg
           color={color}
@@ -85,8 +84,7 @@ const VisitBody = () => {
             onClick={() => {
               moveSnowball('Prev', userData, snowBallData, setSnowBallData);
               delayButton();
-            }
-            }
+            }}
             ref={leftArrowRef}
           />
           <RightBtn
@@ -94,13 +92,12 @@ const VisitBody = () => {
             onClick={() => {
               moveSnowball('Next', userData, snowBallData, setSnowBallData);
               delayButton();
-            }
-            }
+            }}
             ref={rightArrowRef}
           />
         </>
       ) : null}
-    </MsgContainer>
+    </>
   );
 };
 

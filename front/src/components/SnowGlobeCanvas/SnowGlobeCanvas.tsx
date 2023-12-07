@@ -1,18 +1,19 @@
-import { useContext, useRef, useEffect } from 'react';
+import { useContext, useRef } from 'react';
 import { OrbitControls } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import * as THREE from 'three';
-import { CanvasContainer, getDecoPoisition } from '@utils';
+import { CanvasContainer } from '@utils';
 import * as Models from './models';
 import { Prev } from '../Prev';
 import { SnowBallContext } from '@pages/Visit/SnowBallProvider';
 import { PrevProvider } from './PrevProvider';
+import Decos from './Decos';
 
 const SnowGlobeCanvas = () => {
   const isClicked = useRef<boolean>(false);
   const glassRadius = 7;
   const glassPosition = new THREE.Vector3(0, glassRadius / 2, 0);
-  const { snowBallData} = useContext(SnowBallContext);
+  const { snowBallData } = useContext(SnowBallContext);
 
   const snows = Array.from({ length: 100 }, (_, i) => (
     <Models.Snow
@@ -23,39 +24,8 @@ const SnowGlobeCanvas = () => {
       model={Math.floor(Math.random() * 3)}
     />
   ));
-
-  const decos = snowBallData.message_list.map((message, index) => {
-    return (
-      <Models.Deco
-        key={index}
-        id={message.decoration_id}
-        scale={1}
-        position={getDecoPoisition(message.location)}
-        message={message.content ?? '비공개메시지입니다'}
-        color={message.decoration_color}
-        sender={message.sender ?? '비공개'}
-        letterID={message.letter_id ?? 0}
-        messageID={message.id}
-        isOpened={message.opened !== null}
-      />
-    );
-  });
-
-  const sentiments = snowBallData.message_list.map((message, i) => (
-    <Models.Emoji
-      key={i}
-      centerPosition={glassPosition}
-      rangeRadius={glassRadius}
-      sentiment={message.sentiment}
-      confidence={message.confidence}
-    />
-  ));
-
-
-  // useEffect(()=>{
-  //   console.log('test');
-  //   console.log(snowBallData);
-  // },[snowBallData]);
+  console.log('renderCanvas');
+  // useMemo(snowBallData => snowBallData,[snowBallData])
 
   return (
     <PrevProvider>
@@ -115,11 +85,10 @@ const SnowGlobeCanvas = () => {
             color={new THREE.Color(snowBallData.bottom_decoration_color)}
           />
           {snows}
-          {decos}
-          {sentiments}
+
+          <Decos />
         </Canvas>
       </CanvasContainer>
-
       <Prev set={'Canvas'} />
     </PrevProvider>
   );

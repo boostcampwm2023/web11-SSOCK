@@ -1,10 +1,10 @@
 import { useContext, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 import { DecoContext } from '@pages/Visit/Deco/DecoProvider';
 import { MessageContext } from '@pages/Visit/MessageProvider';
-import { createPortal } from 'react-dom';
 
 interface MsgProps {
   color: string;
@@ -20,7 +20,7 @@ interface MsgColor {
 }
 
 const StyledLetterBox = styled.div<MsgColor>`
-flex: 0 0 auto;
+  flex: 0 0 auto;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -116,6 +116,7 @@ const StyledFromInput = styled.input`
   color: ${props => props.theme.colors['--nick-name']};
   text-shadow: ${props => props.theme.font['--text-shadow']};
   font-size: 1rem;
+
   font-weight: 700;
   pointer-events: stroke;
 `;
@@ -140,13 +141,13 @@ const MsgBackground = styled.div`
   display: flex;
   flex-direction: column;
   background-color: rgba(0, 0, 0, 0.5);
-  overflow: scroll  ;
+  overflow: scroll;
 `;
 
 const DecoBackground = styled.div`
   width: 100%;
   padding: 3rem;
-`
+`;
 
 const Msg = (props: MsgProps): JSX.Element => {
   const [wordCount, setWordCount] = useState(0);
@@ -187,72 +188,73 @@ const Msg = (props: MsgProps): JSX.Element => {
 
   return (
     <>
-    { !props.isInput && !props.isDeco ? (
-      createPortal(
-        <MsgBackground onClick={removeMsg}>
-          <StyledLetterBox color={props.color} onClick={stopEvent}>
-            {props.isInput ? (
-              <StyledLetterInput>
-                To. <StyledTo>{props.to}</StyledTo>
-              </StyledLetterInput>
-            ) : (
-              <StyledLetterPerson>
-                <StyledToWrap>
+      {!props.isInput && !props.isDeco ? (
+        createPortal(
+          <MsgBackground onClick={removeMsg}>
+            <StyledLetterBox color={props.color} onClick={stopEvent}>
+              {props.isInput ? (
+                <StyledLetterInput>
                   To. <StyledTo>{props.to}</StyledTo>
-                </StyledToWrap>
-                {props.isDeco ? null : (
-                  <StyledDeleteButton onClick={removeMsg}>X</StyledDeleteButton>
-                )}
-              </StyledLetterPerson>
-            )}
-            {props.isInput ? (
-              <StyledInputBox>
-                <StyledTextArea
-                  rows={1}
-                  value={content}
-                  onChange={wordLength}
-                  placeholder="편지를 작성해주세요."
-                />
-              </StyledInputBox>
-            ) : (
-              <StyledLetterContent>
-                {props.content.toString()}
-              </StyledLetterContent>
-            )}
-
-            <StyledFromBox>
-              <StyledFrom>
-                From.
-                {props.isInput ? (
-                  <StyledFromInput
-                    value={sender}
-                    placeholder="이름입력"
-                    onFocus={e => {
-                      e.target.value = '';
-                    }}
-                    onChange={e => {
-                      if (e.target.value.length > 8) {
-                        e.target.value = e.target.value.substring(0, 8);
-                      }
-                      setSender(e.target.value);
-                    }}
+                </StyledLetterInput>
+              ) : (
+                <StyledLetterPerson>
+                  <StyledToWrap>
+                    To. <StyledTo>{props.to}</StyledTo>
+                  </StyledToWrap>
+                  {props.isDeco ? null : (
+                    <StyledDeleteButton onClick={removeMsg}>
+                      X
+                    </StyledDeleteButton>
+                  )}
+                </StyledLetterPerson>
+              )}
+              {props.isInput ? (
+                <StyledInputBox>
+                  <StyledTextArea
+                    rows={1}
+                    value={content}
+                    onChange={wordLength}
+                    placeholder="편지를 작성해주세요."
                   />
-                ) : (
-                  <StyledFromInput value={props.sender} disabled />
-                )}
-              </StyledFrom>
+                </StyledInputBox>
+              ) : (
+                <StyledLetterContent>
+                  {props.content.toString()}
+                </StyledLetterContent>
+              )}
 
-              {props.isInput && props.sender === '익명' ? (
-                `${wordCount} / 500`
-              ) : null
-              }
-            </StyledFromBox>
-          </StyledLetterBox>
-        </MsgBackground>,
-        document.body
-      )
-    ) : (
-      <DecoBackground>
+              <StyledFromBox>
+                <StyledFrom>
+                  From.
+                  {props.isInput ? (
+                    <StyledFromInput
+                      value={sender}
+                      placeholder="이름입력"
+                      onFocus={e => {
+                        e.target.value = '';
+                      }}
+                      onChange={e => {
+                        if (e.target.value.length > 8) {
+                          e.target.value = e.target.value.substring(0, 8);
+                        }
+                        setSender(e.target.value);
+                      }}
+                    />
+                  ) : (
+                    <StyledFromInput value={props.sender} disabled />
+                  )}
+                </StyledFrom>
+
+                {props.isInput && props.sender === '익명'
+                  ? `${wordCount} / 500`
+                  : null}
+              </StyledFromBox>
+            </StyledLetterBox>
+          </MsgBackground>,
+          document.body
+        )
+      ) : (
+        <DecoBackground>
           <StyledLetterBox color={props.color}>
             {props.isInput ? (
               <StyledLetterInput>
@@ -305,15 +307,13 @@ const Msg = (props: MsgProps): JSX.Element => {
                 )}
               </StyledFrom>
 
-              {props.isInput && props.sender === '익명' ? (
-                `${wordCount} / 500`
-              ) : null
-              }
+              {props.isInput && props.sender === '익명'
+                ? `${wordCount} / 500`
+                : null}
             </StyledFromBox>
           </StyledLetterBox>
-          </DecoBackground>
-    ) }
-      
+        </DecoBackground>
+      )}
     </>
   );
 };

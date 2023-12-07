@@ -1,23 +1,6 @@
 import React, { useState, createContext } from 'react';
 import mockData from '@mock';
 
-interface Message {
-  content: string | undefined;
-  created: string;
-  decoration_color: string;
-  decoration_id: number;
-  id: number;
-  is_deleted: boolean;
-  letter_id: number | undefined;
-  location: number;
-  opened: string | null;
-  sender: string | undefined;
-  snowball_id: number;
-  user_id: number;
-  sentiment: 'positive' | 'neutral' | 'negative';
-  confidence: number;
-}
-
 interface SnowBallData {
   id: number;
   title: string;
@@ -26,7 +9,6 @@ interface SnowBallData {
   bottom_decoration_id: number;
   bottom_decoration_color: string;
   is_message_private: boolean;
-  message_list: Array<Message>;
 }
 
 interface UserData {

@@ -1,4 +1,5 @@
 import { useEffect, useState, useContext } from 'react';
+import { createPortal } from 'react-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 import { ListMsg, Prev } from '@components';
@@ -40,6 +41,21 @@ const StyledListWrap = styled.div`
   flex-direction: column;
 `;
 
+const ListBackground = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  overflow: scroll;
+`;
+
 const ListMsgs = (props: ListMsgProps) => {
   const [messages, setMessages] = useState<Array<MsgResponse>>([]);
   const { userData } = useContext(SnowBallContext);
@@ -53,27 +69,30 @@ const ListMsgs = (props: ListMsgProps) => {
 
   return (
     <>
-      {messages.length > 0 ? (
-        <>
-          <Prev set={props.set} />
-          <StyledList>
-            <StyledListWrap>
-              {messages.map((msg, idx) => {
-                return (
-                  <ListMsg
-                    key={idx}
-                    color={MSG_COLOR[msg.letter_id].color}
-                    content={msg.content}
-                    sender={msg.sender}
-                    to={userData.nickname}
-                    messageId={msg.id}
-                  />
-                );
-              })}
-            </StyledListWrap>
-          </StyledList>
-        </>
-      ) : null}
+      {messages.length > 0
+        ? createPortal(
+            <ListBackground>
+              <Prev set={props.set} />
+              <StyledList>
+                <StyledListWrap>
+                  {messages.map((msg, idx) => {
+                    return (
+                      <ListMsg
+                        key={idx}
+                        color={MSG_COLOR[msg.letter_id].color}
+                        content={msg.content}
+                        sender={msg.sender}
+                        to={userData.nickname}
+                        messageId={msg.id}
+                      />
+                    );
+                  })}
+                </StyledListWrap>
+              </StyledList>
+            </ListBackground>,
+            document.body
+          )
+        : null}
     </>
   );
 };

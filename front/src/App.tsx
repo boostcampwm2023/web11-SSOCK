@@ -8,6 +8,7 @@ import { HasSnowballData } from './router';
 import { SnowBallProvider } from '@pages/Visit/SnowBallProvider';
 import { MessageProvider } from '@pages/Visit/MessageProvider';
 import { DecoProvider } from '@pages/Visit/Deco/DecoProvider';
+import { MessageListProvider } from '@pages/Visit/MessageListProvider';
 
 const Outer = styled.div`
   position: relative;
@@ -38,7 +39,9 @@ const App = () => {
                   <DecoProvider>
                     <MessageProvider>
                       <SnowBallProvider>
-                        <Outlet />
+                        <MessageListProvider>
+                          <Outlet />
+                        </MessageListProvider>
                       </SnowBallProvider>
                     </MessageProvider>
                   </DecoProvider>
@@ -66,7 +69,9 @@ const App = () => {
                 element={
                   <MessageProvider>
                     <SnowBallProvider>
-                      <Pages.Main />
+                      <MessageListProvider>
+                        <Pages.Main />
+                      </MessageListProvider>
                     </SnowBallProvider>
                   </MessageProvider>
                 }

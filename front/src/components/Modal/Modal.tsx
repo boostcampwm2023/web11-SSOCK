@@ -11,7 +11,7 @@ import {
 } from '@pages/Visit/SnowBallProvider';
 
 interface DeleteModalProps {
-  message : number;
+  message: number;
 }
 
 const Button = styled.button`
@@ -79,9 +79,9 @@ const ModalButton = styled.div`
 `;
 
 const Divider = styled.div`
-    height: 100%;
-    width: 1rem;
-    color: white;
+  height: 100%;
+  width: 1rem;
+  color: white;
 `;
 
 const MButton = styled.button`
@@ -94,7 +94,11 @@ const DeleteModal = (props: DeleteModalProps) => {
 
   useEffect(() => {
     const closeModal = (e: MouseEvent) => {
-      if (isModalOpened && modalRef.current && !modalRef.current.contains(e.target as Node)) {
+      if (
+        isModalOpened &&
+        modalRef.current &&
+        !modalRef.current.contains(e.target as Node)
+      ) {
         setIsModalOpened(false);
       }
     };
@@ -143,9 +147,7 @@ const DeleteModal = (props: DeleteModalProps) => {
   return (
     <>
       <Button onClick={() => setIsModalOpened(true)}>
-        <Text>
-          Delete
-        </Text>
+        <Text>Delete</Text>
       </Button>
 
       {isModalOpened &&
@@ -156,12 +158,14 @@ const DeleteModal = (props: DeleteModalProps) => {
               <SubTitle>삭제된 편지는 복구할 수 없어요 😭 </SubTitle>
               <ButtonWrap>
                 <ModalButton>
-              <MButton onClick={deleteMsg}>삭제</MButton> 
-              </ModalButton>
-              <Divider>|</Divider>
-              <ModalButton>
-              <MButton onClick={() => setIsModalOpened(false)}>취소</MButton>
-              </ModalButton>
+                  <MButton onClick={deleteMsg}>삭제</MButton>
+                </ModalButton>
+                <Divider>|</Divider>
+                <ModalButton>
+                  <MButton onClick={() => setIsModalOpened(false)}>
+                    취소
+                  </MButton>
+                </ModalButton>
               </ButtonWrap>
             </Modal>
           </ModalBackground>,

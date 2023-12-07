@@ -7,6 +7,8 @@ interface MyContextType {
   setColor: React.Dispatch<React.SetStateAction<string>>;
   sender: string;
   setSender: React.Dispatch<React.SetStateAction<string>>;
+  messageID: number;
+  setMessageID: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const MessageContext = createContext<MyContextType>({
@@ -15,7 +17,9 @@ const MessageContext = createContext<MyContextType>({
   color: '',
   setColor: () => {},
   sender: '',
-  setSender: () => {}
+  setSender: () => {},
+  messageID: 0,
+  setMessageID: () => {}
 });
 
 const MessageProvider: React.FC<{ children: React.ReactNode }> = ({
@@ -24,6 +28,7 @@ const MessageProvider: React.FC<{ children: React.ReactNode }> = ({
   const [message, setMessage] = useState<string>('');
   const [color, setColor] = useState<string>('');
   const [sender, setSender] = useState<string>('');
+  const [messageID, setMessageID] = useState<number>(0);
   return (
     <MessageContext.Provider
       value={{
@@ -32,7 +37,9 @@ const MessageProvider: React.FC<{ children: React.ReactNode }> = ({
         color,
         setColor,
         sender,
-        setSender
+        setSender,
+        messageID,
+        setMessageID
       }}
     >
       {children}
