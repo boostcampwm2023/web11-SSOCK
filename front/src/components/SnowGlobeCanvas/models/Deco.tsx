@@ -12,6 +12,7 @@ interface DecoProps {
   sender: string;
   letterID: number;
   isOpened: boolean;
+  messageID: number;
 }
 
 const DecoSet = (deco: THREE.Group<THREE.Object3DEventMap>) => {
@@ -29,7 +30,8 @@ const Deco = ({
   color,
   sender,
   letterID,
-  isOpened
+  isOpened,
+  messageID
 }: DecoProps) => {
   const deco = useGLTF(DECO[id].fileName).scene.clone();
   const target = { x: 8, z: 0 };
@@ -48,6 +50,7 @@ const Deco = ({
       child.userData.sender = sender;
       child.userData.color = color;
       child.userData.letterColor = MSG_COLOR[letterID].color;
+      child.userData.messageID = messageID;
       child.castShadow = true;
       if (child.name === 'Main') {
         child.material = MeshUtils.makeColorChangedMaterial(child, color);

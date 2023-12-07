@@ -136,6 +136,10 @@ const DeleteModal = (props: DeleteModalProps) => {
       });
   };
 
+  const stopEvent = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+  };
+
   return (
     <>
       <Button onClick={() => setIsModalOpened(true)}>
@@ -147,7 +151,7 @@ const DeleteModal = (props: DeleteModalProps) => {
       {isModalOpened &&
         createPortal(
           <ModalBackground onClick={() => setIsModalOpened(false)}>
-            <Modal>
+            <Modal onClick={stopEvent}>
               <Title>편지를 삭제할까요 ?</Title>
               <SubTitle>삭제된 편지는 복구할 수 없어요 😭 </SubTitle>
               <ButtonWrap>

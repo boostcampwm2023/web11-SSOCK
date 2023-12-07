@@ -1,12 +1,6 @@
-import { useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import styled from 'styled-components';
-import {
-  SnowBallContext,
-  UserData,
-  SnowBallData
-} from '@pages/Visit/SnowBallProvider';
+import { DeleteModal } from '@components';
+
 
 interface MsgProps {
   color: string;
@@ -70,48 +64,14 @@ const StyledFromInput = styled.input`
   text-shadow: ${props => props.theme.font['--text-shadow']};
   font-size: 1rem;
   font-weight: 700;
-  pointer-events: stroke;
+  pointer-events: all;
 `;
 
 const StyledToWrap = styled.div``;
 
-const StyledDeleteButton = styled.button`
-  border: 1px solid gray;
-  border-radius: 0.5rem;
-  padding: 0.5rem;
-  background-color: gray;
-`;
+
 
 const ListMsg = (props: MsgProps): JSX.Element => {
-  const navigate = useNavigate();
-  const { setSnowBallData, setUserData } = useContext(SnowBallContext);
-  const [isDisabled, setIsDisabled] = useState(false);
-
-  const deleteMsg = () => {
-    setIsDisabled(true);
-    axios
-      .delete(`/api/message/${props.messageId}`, {
-        withCredentials: true
-      })
-      .then(() => {
-        axios
-          .get('/api/user', { withCredentials: true })
-          .then(res => {
-            const userData = res.data.user as UserData;
-            const snowballData = res.data.main_snowball as SnowBallData;
-            setSnowBallData(snowballData);
-            setUserData(userData);
-          })
-          .catch(e => {
-            console.error(e);
-            navigate('*');
-          });
-      })
-      .catch(e => {
-        console.error(e);
-        navigate('*');
-      });
-  };
 
   return (
     <StyledLetterBox color={props.color}>
@@ -119,9 +79,7 @@ const ListMsg = (props: MsgProps): JSX.Element => {
         <StyledToWrap>
           To. <StyledTo>{props.to}</StyledTo>
         </StyledToWrap>
-        <StyledDeleteButton disabled={isDisabled} onClick={deleteMsg}>
-          Delete
-        </StyledDeleteButton>
+        <DeleteModal message={props.messageId}/>
       </StyledLetterPerson>
 
       <StyledLetterContent>{props.content}</StyledLetterContent>
