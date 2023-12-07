@@ -53,7 +53,7 @@ const StyledButtonBox = styled.div`
 
 const Snowball = () => {
   const navigate = useNavigate();
-  const [userName, setUserName] = useState('김부캠');
+  const [nickname, setNickname] = useState('김부캠');
   const [make, setMake] = useState(false);
   const { snowBallData } = useContext(SnowBallContext);
 
@@ -65,7 +65,7 @@ const Snowball = () => {
       .then(res => {
         if (res.status === 200) {
           const userData = res.data.user as UserData;
-          setUserName(userData.nickname);
+          setNickname(userData.nickname);
         } else {
           navigate('/make');
         }
@@ -84,7 +84,7 @@ const Snowball = () => {
         <>
           <SnowGlobeCanvas snowBallData={snowBallData} />
           <StyledHeader>
-            <StyledName>{userName}</StyledName>&nbsp;님
+            <StyledName>{nickname}</StyledName>&nbsp;님
             <StyledWelcome>환영합니다 :&#41;</StyledWelcome>
           </StyledHeader>
 
