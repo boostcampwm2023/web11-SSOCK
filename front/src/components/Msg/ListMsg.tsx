@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { DeleteModal } from '@components';
 
-
 interface MsgProps {
   color: string;
   content: string;
@@ -69,17 +68,14 @@ const StyledFromInput = styled.input`
 
 const StyledToWrap = styled.div``;
 
-
-
 const ListMsg = (props: MsgProps): JSX.Element => {
-
   return (
     <StyledLetterBox color={props.color}>
       <StyledLetterPerson>
         <StyledToWrap>
           To. <StyledTo>{props.to}</StyledTo>
         </StyledToWrap>
-        <DeleteModal message={props.messageId}/>
+        <DeleteModal message={props.messageId} />
       </StyledLetterPerson>
 
       <StyledLetterContent>{props.content}</StyledLetterContent>

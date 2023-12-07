@@ -11,6 +11,12 @@ import {
   UserData,
   SnowBallData
 } from '@pages/Visit/SnowBallProvider';
+import { MessageListContext, Message } from '@pages/Visit/MessageListProvider';
+
+const MainBodyWrap = styled.div`
+  width: 100%;
+  height: 100%;
+`;
 
 const LeftBtn = styled.img`
   position: fixed;
@@ -20,6 +26,11 @@ const LeftBtn = styled.img`
 
 const RightBtn = styled(LeftBtn)`
   right: 0;
+`;
+
+const EmptyDiv = styled.div`
+  width: 100%;
+  height: 30%;
 `;
 
 const moveSnowball = (
@@ -49,33 +60,28 @@ const moveSnowball = (
     });
 };
 
-const MainBodyWrap = styled.div`
-  width: 100%;
-  height: 100%;
-`;
-
-const EmptyDiv = styled.div`
-  width: 100%;
-  height: 30%;
-`;
-
 const Main = () => {
   const navigate = useNavigate();
   const { setSnowBallData, setUserData, userData, snowBallData } =
     useContext(SnowBallContext);
+  const { setMessageList } = useContext(MessageListContext);
   const leftArrowRef = useRef<HTMLImageElement>(null);
   const rightArrowRef = useRef<HTMLImageElement>(null);
   const [isLoading, setLoading] = useState(false);
 
-  // 애니메이션 효과가 없어서 구현해야함
   const delayButton = () => {
     if (leftArrowRef.current && rightArrowRef.current) {
       leftArrowRef.current.style.pointerEvents = 'none';
       rightArrowRef.current.style.pointerEvents = 'none';
+      leftArrowRef.current.style.animation = 'fadeOut 0.5s forwards';
+      rightArrowRef.current.style.animation = 'fadeOut 0.5s forwards';
+
       setTimeout(() => {
         if (leftArrowRef.current && rightArrowRef.current) {
           leftArrowRef.current.style.pointerEvents = 'all';
           rightArrowRef.current.style.pointerEvents = 'all';
+          leftArrowRef.current!.style.animation = 'fadeIn 0.5s forwards';
+          rightArrowRef.current!.style.animation = 'fadeIn 0.5s forwards';
         }
       }, 1500);
     }
@@ -91,9 +97,8 @@ const Main = () => {
   //   expire.setDate(today.getDate() + 1);
   //   document.cookie = `${cookieName}=${cookieValue}; expires=${expire.toUTCString()}; secure=${secure}; path=/`;
   // };
-
   useEffect(() => {
-    //saveCookie();
+    // saveCookie();
     axios
       .get('/api/user', {
         withCredentials: true // axios 쿠키 값 전달
@@ -102,7 +107,11 @@ const Main = () => {
         if (res.status === 200) {
           const userData = res.data.user as UserData;
           const snowballData = res.data.main_snowball as SnowBallData;
+          const messageList = res.data.main_snowball
+            .message_list as Array<Message>;
+          console.log('!!!', messageList);
           setSnowBallData(snowballData);
+          setMessageList(messageList);
           setUserData(userData);
           setLoading(true);
           if (
@@ -118,7 +127,7 @@ const Main = () => {
         console.error(e);
         navigate('/');
       });
-  }, [navigate]);
+  }, []);
 
   return (
     <>

@@ -20,7 +20,8 @@ const font = {
   '--normal-introduce-font':
     'normal normal 400 1.125rem/150% "KingSejongInstitute"',
   '--normal-login-font': 'normal normal 400 1rem/100% "Pretendard-Regular"',
-  '--normal-button-font': 'normal normal 400 1.125rem/150% "YUniverse-B"',
+  '--normal-button-font':
+    'normal normal 400 1.125rem/150% "KingSejongInstitute"',
   '--normal-nickname-font':
     'normal normal 400 1.75rem/normal "KingSejongInstitute"',
   '--normal-nickname-input-font':

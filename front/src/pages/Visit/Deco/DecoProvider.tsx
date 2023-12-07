@@ -14,11 +14,11 @@ interface DecoContextType {
 }
 
 const DecoContext = createContext<DecoContextType>({
-  decoID: 0,
+  decoID: 1,
   setDecoID: () => {},
   color: '#ff0000',
   setColor: () => {},
-  letterID: 0,
+  letterID: 1,
   setLetterID: () => {},
   content: '',
   setContent: () => {},
