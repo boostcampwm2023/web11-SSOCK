@@ -1,10 +1,11 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import { SnowGlobeCanvas, UIContainer } from '@components';
+import mockData from '@mock';
 import IntroButtonBox from './IntroButtonBox';
 import MsgBox from './MsgBox';
-import { SnowBallContext } from '@pages/Visit/SnowBallProvider';
-import { MessageProvider } from '../Visit/MessageProvider';
+import { MessageListContext, Message } from '@pages/Visit/MessageListProvider';
+import { MessageProvider } from '@pages/Visit/MessageProvider';
 
 const TitleDiv = styled.div`
   display: flex;
@@ -18,11 +19,16 @@ const TitleDiv = styled.div`
 `;
 
 const Intro = () => {
-  const { snowBallData } = useContext(SnowBallContext);
+  const { setMessageList } = useContext(MessageListContext);
+
+  useEffect(() => {
+    setMessageList(mockData.snowball_data.message_list as Array<Message>);
+  }, [setMessageList]);
+
   return (
     <>
       <MessageProvider>
-        <SnowGlobeCanvas snowBallData={snowBallData} />
+        <SnowGlobeCanvas snowBallData={mockData.snowball_data} />
         <UIContainer>
           <TitleDiv>
             <span>스노우볼 속 내마음</span>

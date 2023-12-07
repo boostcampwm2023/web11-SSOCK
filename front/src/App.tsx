@@ -31,7 +31,14 @@ const App = () => {
           <Song />
           <BrowserRouter>
             <Routes>
-              <Route path="/" element={<Pages.Intro />} />
+              <Route
+                path="/"
+                element={
+                  <MessageListProvider>
+                    <Pages.Intro />
+                  </MessageListProvider>
+                }
+              />
 
               <Route
                 path="/visit/:user"
