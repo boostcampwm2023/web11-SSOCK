@@ -34,14 +34,15 @@ const SnowGlobeCanvas = React.memo<SnowGlobeCanvasProps>(
         <CanvasContainer>
           <Canvas
             camera={{
-              position: [25, 2, 0]
+              position: [25, 2, 0],
+              fov: 100
             }}
             shadows={true}
           >
             <OrbitControls
               target={new THREE.Vector3(0, 2, 0)}
-              enablePan={true}
-              enableZoom={true}
+              enablePan={false}
+              enableZoom={false}
               maxPolarAngle={Math.PI / 2}
               minPolarAngle={0}
             />

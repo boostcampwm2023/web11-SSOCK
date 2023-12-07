@@ -54,6 +54,10 @@ const MainDeco = ({ id, scale, position, color }: MyModelProps) => {
   colorPart.material = makeColorChangedMaterial(colorPart, color);
 
   useFrame((_, delta) => {
+    //이거 1초에 1프레임도 안나오면 메인장식 멈출수도있음
+    if (delta > 1) {
+      delta = 0;
+    }
     if (!isStoppedRef.current) {
       fallingModel(deco, speedRef, delta, isStoppedRef);
     }
