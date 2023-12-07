@@ -21,9 +21,9 @@ const Raycaster: React.FC<RaycasterProps> = ({ isClickedRef }) => {
     const zoomOutSpeed = 1 + delta * 2;
     if (isAnimating.current) {
       if (isClicked && !isZoom) {
-        const targetPosition = new THREE.Vector3(0, 3.5, 0);
+        const targetPosition = new THREE.Vector3(0, 2.5, 0);
         setView(true);
-        if (camera.position.distanceTo(targetPosition) > 6.5) {
+        if (camera.position.distanceTo(targetPosition) > 6) {
           camera.position.lerp(targetPosition, delta * 2);
         } else {
           isAnimating.current = false;
@@ -35,7 +35,7 @@ const Raycaster: React.FC<RaycasterProps> = ({ isClickedRef }) => {
       if (view) {
         setIsZoom(true);
       } else if (isZoom && !view) {
-        if (camera.position.distanceTo(new THREE.Vector3(0, 3.5, 0)) < 25) {
+        if (camera.position.distanceTo(new THREE.Vector3(0, 3.5, 0)) < 15) {
           camera.position.x = camera.position.x * zoomOutSpeed;
           camera.position.y = camera.position.y * zoomOutSpeed;
           camera.position.z = camera.position.z * zoomOutSpeed;

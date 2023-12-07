@@ -34,7 +34,7 @@ const SnowGlobeCanvas = React.memo<SnowGlobeCanvasProps>(
         <CanvasContainer>
           <Canvas
             camera={{
-              position: [25, 2, 0],
+              position: [15, 2, 0],
               fov: 100
             }}
             shadows={true}
@@ -69,7 +69,7 @@ const SnowGlobeCanvas = React.memo<SnowGlobeCanvasProps>(
             <Models.Raycaster isClickedRef={isClicked} />
             <Models.Ground scale={1} position={new THREE.Vector3(0, 0, 0)} />
             <Models.Glass
-              position={new THREE.Vector3(0, glassRadius / 2, 0)}
+              position={glassPosition}
               color={new THREE.Color('white')}
               radius={glassRadius}
               opacity={0.1}
