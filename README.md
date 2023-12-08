@@ -4,6 +4,41 @@
 - 부스트캠프가 끝나는 시기에 크리스마스 감성이 가득한 사이트 제작🎅
 - 크리스마스에 사람들끼리 속마음을 주고받으면 어떨까❓
 - 롤링페이퍼처럼 여러사람이 한 곳에 메시지를 작성 하는 아이디어📄
+<br><br>
+
+<div align="center">
+
+### 스노우볼을 이리저리 구경 해보세요 ! 🎄
+
+장식을 클릭하면 메세지를 확인 할 수 있어요 💝
+
+<br>
+
+<img width="60%" src="https://github.com/boostcampwm2023/web11-SSOCK/assets/98443541/99ce2b72-ebc0-4875-8c04-aebf952b74a8"><br><br>
+
+<hr><br>
+
+### 나만의 스노우볼을 만들어 보세요 ! ⛄
+
+장식과 색깔을 선택해 개성있는 스노우 볼을 만들고 공유해 보세요 🔮
+
+<br>
+
+<img width="60%" src="https://github.com/boostcampwm2023/web11-SSOCK/assets/98443541/ba41fd29-2cfc-4316-ac3b-ad8cccaeab88"><br><br>
+
+<hr><br>
+
+### 공유 받은 스노우볼을 꾸며주세요 ! 🎁
+
+이쁜 장식을 만들어 따뜻한 말을 담은 메세지를 남겨보세요 ! 💌
+
+<br>
+
+<img width="60%" src="https://github.com/boostcampwm2023/web11-SSOCK/assets/98443541/008c0d98-96e0-4812-a9e7-46126eb1d4ae"><br><br>
+
+<hr>
+
+</div>
 
 ## SSOCK 팀
 <table align="center" width="100%">
