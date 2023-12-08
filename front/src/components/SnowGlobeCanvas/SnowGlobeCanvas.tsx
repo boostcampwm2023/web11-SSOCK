@@ -89,7 +89,10 @@ const SnowGlobeCanvas = React.memo<SnowGlobeCanvasProps>(
             />
             {snows}
 
-            <Decos />
+            <Decos
+              centerPosition={new THREE.Vector3(0, 0, 0)}
+              radius={glassRadius}
+            />
           </Canvas>
         </CanvasContainer>
         <Prev set={'Canvas'} />

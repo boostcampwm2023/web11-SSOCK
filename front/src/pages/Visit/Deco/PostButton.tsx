@@ -30,18 +30,7 @@ const StyledAlert = styled.div`
 `;
 
 const PostButton = (props: ButtonProps) => {
-  const {
-    decoID,
-    color,
-    letterID,
-    content,
-    sender,
-    setDecoID,
-    setColor,
-    setLetterID,
-    setContent,
-    setSender
-  } = useContext(DecoContext);
+  const { decoID, color, letterID, content, sender } = useContext(DecoContext);
   const { snowBallData, setSnowBallData } = useContext(SnowBallContext);
   const navigate = useNavigate();
   const [alerts, setAlerts] = useState(false);
@@ -71,12 +60,6 @@ const PostButton = (props: ButtonProps) => {
 
           props.view[1](!props.view[0]);
           props.visible[1](-1);
-
-          setDecoID(1);
-          setColor('#ff0000');
-          setLetterID(1);
-          setContent('');
-          setSender('');
         });
       })
       .catch(e => {
