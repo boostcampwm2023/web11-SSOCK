@@ -35,7 +35,7 @@ const Intro = () => {
         <SnowGlobeCanvas snowBallData={mockData.snowball_data} />
         <UIContainer>
           <TitleDiv>
-            <span>스노우볼 속 내마음</span>
+            <span>스노우볼 속 내 마음</span>
           </TitleDiv>
           <MsgBox />
           <IntroButtonBox />

@@ -12,6 +12,7 @@ import {
   SnowBallData
 } from '@pages/Visit/SnowBallProvider';
 import { MessageListContext, Message } from '@pages/Visit/MessageListProvider';
+import { useLogout } from '@hooks';
 
 const MainBodyWrap = styled.div`
   width: 100%;
@@ -64,6 +65,7 @@ const moveSnowball = (
 
 const Main = () => {
   const navigate = useNavigate();
+  const logout = useLogout;
   const { setSnowBallData, setUserData, userData, snowBallData } =
     useContext(SnowBallContext);
   const { setMessageList } = useContext(MessageListContext);
@@ -110,6 +112,7 @@ const Main = () => {
         if (res.status === 200) {
           const resUserData = res.data.user as UserData;
           setUserData(resUserData);
+          console.log('userdata=', resUserData);
 
           if (res.data.main_snowball === null) {
             navigate('/make');
@@ -134,7 +137,7 @@ const Main = () => {
       })
       .catch(e => {
         console.error(e);
-        navigate('/');
+        logout();
       });
   }, []);
 
