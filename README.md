@@ -5,7 +5,7 @@
 - 크리스마스에 사람들끼리 속마음을 주고받으면 어떨까❓
 - 롤링페이퍼처럼 여러사람이 한 곳에 메시지를 작성 하는 아이디어📄
 
-## [서비스 링크 - mysnowball.kr](https://www.mysnowball.kr)
+[서비스 링크 - mysnowball.kr 🔮](https://www.mysnowball.kr){:target="_blank"}
   
 <br><br>
 
