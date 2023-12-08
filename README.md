@@ -4,37 +4,58 @@
 - 부스트캠프가 끝나는 시기에 크리스마스 감성이 가득한 사이트 제작🎅
 - 크리스마스에 사람들끼리 속마음을 주고받으면 어떨까❓
 - 롤링페이퍼처럼 여러사람이 한 곳에 메시지를 작성 하는 아이디어📄
+
+## [서비스 링크 - mysnowball.kr](https://www.mysnowball.kr)
+  
 <br><br>
 
 <div align="center">
 
 ### 스노우볼을 이리저리 구경 해보세요 ! 🎄
 
-장식을 클릭하면 메세지를 확인 할 수 있어요 💝
+**장식을 클릭하면 메세지를 확인 할 수 있어요 💝**
 
 <br>
 
 <img width="60%" src="https://github.com/boostcampwm2023/web11-SSOCK/assets/98443541/99ce2b72-ebc0-4875-8c04-aebf952b74a8"><br><br>
 
+스노우볼을 클릭하면 내부로 들어가서 장식 클릭이 가능해집니다.
+
+장식을 클릭하면 메세지가 보여요.
+
+읽지 않은 메세지는 ❗ 표시가 떠있어요.
+
 <hr><br>
 
 ### 나만의 스노우볼을 만들어 보세요 ! ⛄
 
-장식과 색깔을 선택해 개성있는 스노우 볼을 만들고 공유해 보세요 🔮
+**장식과 색깔을 선택해 개성있는 스노우 볼을 만들고 공유해 보세요 🔮**
 
 <br>
 
 <img width="60%" src="https://github.com/boostcampwm2023/web11-SSOCK/assets/98443541/ba41fd29-2cfc-4316-ac3b-ad8cccaeab88"><br><br>
 
+원하는 장식과 색깔을 선택 할 수 있어요.
+
+스노우볼의 이름을 직접 정해줄 수 있어요.
+
+링크를 마음을 전달 받고 싶은 사람들에게 공유해요.
+
 <hr><br>
 
 ### 공유 받은 스노우볼을 꾸며주세요 ! 🎁
 
-이쁜 장식을 만들어 따뜻한 말을 담은 메세지를 남겨보세요 ! 💌
+**이쁜 장식을 만들어 따뜻한 말을 담은 메세지를 남겨보세요 ! 💌**
 
 <br>
 
 <img width="60%" src="https://github.com/boostcampwm2023/web11-SSOCK/assets/98443541/008c0d98-96e0-4812-a9e7-46126eb1d4ae"><br><br>
+
+공유 받은 링크를 통해 스노우볼 주인의 장식을 구경해요.
+
+스노우볼에 들어갈 장식을 직접 선택해요.
+
+전하고 싶은 마음을 메세지에 담아 장식과 함께 전달해요. 
 
 <hr>
 
@@ -151,10 +172,31 @@
     </tbody>
 </table>
 
+## 🔧 시스템 아키텍쳐
+![Web App Reference Architecture (1)](https://github.com/boostcampwm2023/web11-SSOCK/assets/83938394/3b1ca700-a415-4ac8-b080-e2091bace2ac)
+
+## 프로젝트 진행
+
+- [🪧기획서](https://delicious-halloumi-7ae.notion.site/1562397628e946af8079141976c2c05f)
+- [🎨디자인](https://www.figma.com/file/gjkpvDvtIXvIbQeYnRAxXT/%EC%8A%A4%EB%85%B8%EC%9A%B0%EB%B3%BC-ssock-%EB%82%B4-%EB%A7%88%EC%9D%8C?type=design&node-id=0%3A1&mode=design&t=syUy3ZT9jZUE0Zjm-1)
+- [🧑‍💻트러블슈팅 및 기술로그](https://delicious-halloumi-7ae.notion.site/05ad5353254b49d1aef2021f773f79f0)
+- [📓그라운드 룰](https://delicious-halloumi-7ae.notion.site/5755ab5457d843129355de5b4e22a538)
+- [🏠깃허브 컨벤션](https://delicious-halloumi-7ae.notion.site/35419f77b8fb4cf0b6dc62776540062a)
+- [☑️코딩 및 브랜치 컨벤션](https://delicious-halloumi-7ae.notion.site/TODO-3e94a37008054e1dbf069924e4b326d1)
+- [🔙백로그](https://delicious-halloumi-7ae.notion.site/bb4f7bbba3b147a39cd425c70a187049)
+- [📘회의록](https://delicious-halloumi-7ae.notion.site/5e446ce68cb84ead801fd98eb9419811?pvs=4)
+
+## 기술적 도전
+
+작성예정
+
+<hr>
+
+더 자세한 기록은 노션과 위키를 확인해주세요.
+
 ## [Wiki](https://github.com/boostcampwm2023/web11-SSOCK/wiki)
 
 ## [Notion](https://delicious-halloumi-7ae.notion.site/SSOCK-By-SSOCK-ada468a8b135435bb8acc1c50a2a9c0c?pvs=4)
 
-## 🔧 시스템 아키텍쳐
-![Web App Reference Architecture (1)](https://github.com/boostcampwm2023/web11-SSOCK/assets/83938394/3b1ca700-a415-4ac8-b080-e2091bace2ac)
+
 
