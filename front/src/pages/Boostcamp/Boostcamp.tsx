@@ -1,5 +1,6 @@
 import { useRef, useEffect } from 'react';
 import styled from 'styled-components';
+import { Prev } from '@components';
 import BoostcampProject from './BoostcampProject';
 
 class Flake {
@@ -101,31 +102,35 @@ const Boostcamp = () => {
   }, []);
 
   return (
-    <BoostcampWrapper>
-      <canvas
-        style={{ pointerEvents: 'none', position: 'absolute' }}
-        ref={canvasRef}
-      />
-      <BoostcampDiv>
-        <BoostcampProject
-          img={'/img/tempThumbnail.png'}
-          title={'내 마음 속 스노우볼'}
-          text={'내 마음 속 스노우볼을 꾸며보세요 !!'}
+    <>
+      <BoostcampWrapper>
+        <canvas
+          style={{ pointerEvents: 'none', position: 'absolute' }}
+          ref={canvasRef}
         />
+        <BoostcampDiv>
+          <BoostcampProject
+            img={'/img/tempThumbnail.png'}
+            title={'내 마음 속 스노우볼'}
+            text={'내 마음 속 스노우볼을 꾸며보세요 !!'}
+          />
 
-        <BoostcampProject
-          img={'/img/tempThumbnail.png'}
-          title={'내 마음 속 스노우볼'}
-          text={'내 마음 속 스노우볼을 꾸며보세요 !!'}
-        />
+          <BoostcampProject
+            img={'/img/tempThumbnail.png'}
+            title={'내 마음 속 스노우볼'}
+            text={'내 마음 속 스노우볼을 꾸며보세요 !!'}
+          />
 
-        <BoostcampProject
-          img={'/img/tempThumbnail.png'}
-          title={'내 마음 속 스노우볼'}
-          text={'내 마음 속 스노우볼을 꾸며보세요 !!'}
-        />
-      </BoostcampDiv>
-    </BoostcampWrapper>
+          <BoostcampProject
+            img={'/img/tempThumbnail.png'}
+            title={'내 마음 속 스노우볼'}
+            text={'내 마음 속 스노우볼을 꾸며보세요 !!'}
+          />
+        </BoostcampDiv>
+      </BoostcampWrapper>
+
+      <Prev set={null} />
+    </>
   );
 };
 
