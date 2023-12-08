@@ -11,6 +11,8 @@
       "@components/*": ["components/*"],
       "@constants": ["constants/index"],
       "@constants/*": ["constants/*"],
+      "@hooks": ["hooks/index"],
+      "@hooks/*": ["hooks/*"],
       "@pages": ["pages/index"],
       "@pages/*": ["pages/*"],
       "@utils": ["utils/index"],

@@ -20,6 +20,7 @@ export default defineConfig({
     alias: {
       '@components': '/src/components',
       '@constants': '/src/constants',
+      '@hooks': '/src/hooks',
       '@pages': '/src/pages',
       '@utils': '/src/utils',
       '@mock': '/src/mockdata.json'
