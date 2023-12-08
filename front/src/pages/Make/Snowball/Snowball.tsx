@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import axios from 'axios';
-import { theme } from '@utils';
+import { Loading, theme } from '@utils';
 import { SnowGlobeCanvas, Button } from '@components';
 import { MainDeco } from './MainDeco';
 import { SnowBallContext } from '@pages/Visit/SnowBallProvider';
@@ -55,6 +55,7 @@ const Snowball = () => {
   const navigate = useNavigate();
   const [nickname, setNickname] = useState('김부캠');
   const [make, setMake] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const { setUserData, snowBallData } = useContext(SnowBallContext);
 
   window.history.pushState({}, '', '/main');
@@ -68,6 +69,7 @@ const Snowball = () => {
       .then(res => {
         if (res.status === 200) {
           const userData = res.data.user as UserData;
+          setIsLoading(true);
           setUserData(userData);
           setNickname(userData.nickname);
         } else {
@@ -82,29 +84,35 @@ const Snowball = () => {
 
   return (
     <>
-      {make ? (
-        <MainDeco set={setMake} />
+      {!isLoading ? (
+        <Loading />
       ) : (
         <>
-          <SnowGlobeCanvas snowBallData={snowBallData} />
-          <StyledHeader>
-            <StyledName>{nickname}</StyledName>&nbsp;님
-            <StyledWelcome>환영합니다 :&#41;</StyledWelcome>
-          </StyledHeader>
+          {make ? (
+            <MainDeco set={setMake} />
+          ) : (
+            <>
+              <SnowGlobeCanvas snowBallData={snowBallData} />
+              <StyledHeader>
+                <StyledName>{nickname}</StyledName>&nbsp;님
+                <StyledWelcome>환영합니다 :&#41;</StyledWelcome>
+              </StyledHeader>
 
-          <StyledBottom>
-            <StyledBall>스노우볼</StyledBall>은 소중한 마음을 주고 받는
-            <br />
-            예쁜 선물 상자가 될 거예요.
-          </StyledBottom>
+              <StyledBottom>
+                <StyledBall>스노우볼</StyledBall>은 소중한 마음을 주고 받는
+                <br />
+                예쁜 선물 상자가 될 거예요.
+              </StyledBottom>
 
-          <StyledButtonBox>
-            <Button
-              text={'스노우볼 만들기'}
-              color={theme.colors['--primary-red-primary']}
-              view={[make, setMake]}
-            />
-          </StyledButtonBox>
+              <StyledButtonBox>
+                <Button
+                  text={'스노우볼 만들기'}
+                  color={theme.colors['--primary-red-primary']}
+                  view={[make, setMake]}
+                />
+              </StyledButtonBox>
+            </>
+          )}
         </>
       )}
     </>
