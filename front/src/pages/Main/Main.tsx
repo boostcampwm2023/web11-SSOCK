@@ -71,7 +71,7 @@ const Main = () => {
   const { setMessageList } = useContext(MessageListContext);
   const leftArrowRef = useRef<HTMLImageElement>(null);
   const rightArrowRef = useRef<HTMLImageElement>(null);
-  const [isLoading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const delayButton = () => {
     if (leftArrowRef.current && rightArrowRef.current) {
@@ -124,7 +124,7 @@ const Main = () => {
             .message_list as Array<Message>;
           setSnowBallData(resSnowballData);
           setMessageList(messageList);
-          setLoading(true);
+          setIsLoading(true);
 
           if (
             userData.nickname === null ||
