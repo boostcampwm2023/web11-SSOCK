@@ -1,13 +1,11 @@
 import { useState, useRef, useEffect, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import styled from 'styled-components';
 import { theme, Container } from '@utils';
 import { InputSnowball, HeaderText, StepButton } from '@components';
 import MakeButton from './MakeButton';
 import DecoBox from './DecoBox';
 import DecoEnroll from './DecoEnroll';
-import { UserData } from '@pages/Visit/SnowBallProvider';
+import { SnowBallContext } from '@pages/Visit/SnowBallProvider';
 import { DecoContext } from './DecoProvider';
 
 const StateBar = styled.div`
@@ -89,8 +87,6 @@ const ButtonBox = styled.div`
 `;
 
 const Steps = () => {
-  const navigate = useNavigate();
-  const [nickname, setNickname] = useState('김부캠');
   const [step, setStep] = useState<number>(0);
   const [lastBox, setLastBox] = useState(false);
   const [alert, setAlert] = useState<number>(0);
@@ -100,6 +96,7 @@ const Steps = () => {
 
   const { mainColor, bottomColor, setMainColor, setBottomColor } =
     useContext(DecoContext);
+  const { userData } = useContext(SnowBallContext);
 
   const doneStep = -1;
   const selectDeco = 0;
@@ -177,25 +174,6 @@ const Steps = () => {
     if (alert === good) setStep(step + 1);
   }, [alert]);
 
-  useEffect(() => {
-    axios
-      .get('/api/user', {
-        withCredentials: true
-      })
-      .then(res => {
-        if (res.status === 200) {
-          const userData = res.data.user as UserData;
-          setNickname(userData.nickname);
-        } else {
-          navigate('/make');
-        }
-      })
-      .catch(e => {
-        console.error(e);
-        navigate('/make');
-      });
-  }, [navigate]);
-
   const renderStateBoxes = () => {
     const boxes = [];
     for (let i = 0; i <= step; i++) {
@@ -212,7 +190,7 @@ const Steps = () => {
   return (
     <>
       <Container>
-        <HeaderText Ref={null} userName={nickname} />
+        <HeaderText Ref={null} userName={userData.nickname} />
 
         {step === lastConfirm || step === doneStep ? null : (
           <StateBar>{renderStateBoxes()}</StateBar>

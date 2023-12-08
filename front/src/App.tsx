@@ -62,9 +62,11 @@ const App = () => {
               <Route
                 path="/make"
                 element={
-                  <HasSnowballData>
-                    <Outlet />
-                  </HasSnowballData>
+                  <SnowBallProvider>
+                    <HasSnowballData>
+                      <Outlet />
+                    </HasSnowballData>
+                  </SnowBallProvider>
                 }
               >
                 <Route path="" element={<Pages.Nickname />} />

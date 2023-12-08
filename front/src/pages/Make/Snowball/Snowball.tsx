@@ -55,7 +55,7 @@ const Snowball = () => {
   const navigate = useNavigate();
   const [nickname, setNickname] = useState('김부캠');
   const [make, setMake] = useState(false);
-  const { snowBallData } = useContext(SnowBallContext);
+  const { setUserData, snowBallData } = useContext(SnowBallContext);
 
   window.history.pushState({}, '', '/main');
   window.history.pushState({}, '', '/make/snowball');
@@ -68,6 +68,7 @@ const Snowball = () => {
       .then(res => {
         if (res.status === 200) {
           const userData = res.data.user as UserData;
+          setUserData(userData);
           setNickname(userData.nickname);
         } else {
           navigate('/make');
