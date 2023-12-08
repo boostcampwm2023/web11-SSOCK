@@ -80,7 +80,6 @@ const StyledDeleteButton = styled.button`
 const StyledInputBox = styled.div`
   text-align: right;
   width: 100%;
-  height: 2rem;
 `;
 
 const StyledTextArea = styled.textarea`
@@ -185,34 +184,38 @@ const Msg = (props: MsgProps): JSX.Element => {
           <MsgBackground onClick={removeMsg}>
             <StyledLetterBox color={props.color} onClick={stopEvent}>
               {props.isInput ? (
-                <StyledLetterInput>
-                  To. <StyledTo>{props.to}</StyledTo>
-                </StyledLetterInput>
-              ) : (
-                <StyledLetterPerson>
-                  <StyledToWrap>
+                <>
+                  <StyledLetterInput>
                     To. <StyledTo>{props.to}</StyledTo>
-                  </StyledToWrap>
-                  {props.isDeco ? null : (
-                    <StyledDeleteButton onClick={removeMsg}>
-                      X
-                    </StyledDeleteButton>
-                  )}
-                </StyledLetterPerson>
-              )}
-              {props.isInput ? (
-                <StyledInputBox>
-                  <StyledTextArea
-                    rows={1}
-                    value={content}
-                    onChange={wordLength}
-                    placeholder="편지를 작성해주세요."
-                  />
-                </StyledInputBox>
+                  </StyledLetterInput>
+
+                  <StyledInputBox>
+                    <StyledTextArea
+                      rows={1}
+                      value={content}
+                      onChange={wordLength}
+                      placeholder="편지를 작성해주세요."
+                    />
+                  </StyledInputBox>
+                </>
               ) : (
-                <StyledLetterContent>
-                  {props.content.toString()}
-                </StyledLetterContent>
+                <>
+                  <StyledLetterPerson>
+                    <StyledToWrap>
+                      To. <StyledTo>{props.to}</StyledTo>
+                    </StyledToWrap>
+
+                    {props.isDeco ? null : (
+                      <StyledDeleteButton onClick={removeMsg}>
+                        X
+                      </StyledDeleteButton>
+                    )}
+                  </StyledLetterPerson>
+
+                  <StyledLetterContent>
+                    {props.content.toString()}
+                  </StyledLetterContent>
+                </>
               )}
 
               <StyledFromBox>
@@ -222,9 +225,7 @@ const Msg = (props: MsgProps): JSX.Element => {
                     <StyledFromInput
                       value={sender}
                       placeholder="이름입력"
-                      onFocus={e => {
-                        e.target.value = '';
-                      }}
+                      onFocus={e => (e.target.value = '')}
                       onChange={e => {
                         if (e.target.value.length > 8) {
                           e.target.value = e.target.value.substring(0, 8);
@@ -257,11 +258,13 @@ const Msg = (props: MsgProps): JSX.Element => {
                 <StyledToWrap>
                   To. <StyledTo>{props.to}</StyledTo>
                 </StyledToWrap>
+
                 {props.isDeco ? null : (
                   <StyledDeleteButton onClick={removeMsg}>X</StyledDeleteButton>
                 )}
               </StyledLetterPerson>
             )}
+
             {props.isInput ? (
               <StyledInputBox>
                 <StyledTextArea
@@ -284,9 +287,7 @@ const Msg = (props: MsgProps): JSX.Element => {
                   <StyledFromInput
                     value={sender}
                     placeholder="이름입력"
-                    onFocus={e => {
-                      e.target.value = '';
-                    }}
+                    onFocus={e => (e.target.value = '')}
                     onChange={e => {
                       if (e.target.value.length > 8) {
                         e.target.value = e.target.value.substring(0, 8);
