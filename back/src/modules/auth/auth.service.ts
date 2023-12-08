@@ -138,8 +138,12 @@ export class AuthService {
   }
 
   clearCookies(res: any): boolean {
-    for (const cookie in res.cookies) {
-      res.clearCookie(cookie);
+    try {
+      res.clearCookie('access_token');
+      res.clearCookie('refresh_token');
+      res.clearCookie('loggedin');
+    } catch (error) {
+      return false;
     }
     return true;
   }
