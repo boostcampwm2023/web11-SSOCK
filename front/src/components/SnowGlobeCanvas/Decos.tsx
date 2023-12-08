@@ -10,6 +10,7 @@ interface DecosProps {
 
 const Decos = ({ centerPosition, radius }: DecosProps) => {
   const { messageList } = useContext(MessageListContext);
+
   const decos = messageList.map((message, index) => (
     <Models.Deco
       key={index}
@@ -24,6 +25,7 @@ const Decos = ({ centerPosition, radius }: DecosProps) => {
       isOpened={message.opened !== null}
     />
   ));
+
   const emojis = messageList.map((message, index) => (
     <Models.Emoji
       key={index}

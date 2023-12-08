@@ -6,7 +6,6 @@ import { HeaderText } from '@components';
 import MenuModal from './MenuModal';
 import ListMsgs from './ListMsgs';
 import { SnowBallContext } from '@pages/Visit/SnowBallProvider';
-import { theme } from '@utils';
 
 interface MainButtonBoxProps {
   leftArrow: React.RefObject<HTMLImageElement>;
@@ -37,8 +36,8 @@ const ToastMsg = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
 
-  font: ${theme.font['--normal-button-font']};
-  background-color: ${theme.colors['--sub-text']};
+  font: ${props => props.theme.font['--normal-button-font']};
+  background-color: ${props => props.theme.colors['--sub-text']};
   border-radius: 1rem;
   text-align: center;
   padding: 1rem;
@@ -58,10 +57,9 @@ const screenTime = (
       );
     }
   });
-  const a = document.getElementById('musicController');
-  if (a) {
-    a.style.display = 'none';
-  }
+
+  const music = document.getElementById('musicController');
+  music ? (music.style.display = 'none') : null;
 
   setTimeout(() => {
     setScreen(true);
@@ -69,9 +67,7 @@ const screenTime = (
 
   setTimeout(() => {
     setScreen(false);
-    if (a) {
-      a.style.display = 'block';
-    }
+    music ? (music.style.display = 'block') : null;
     refs.forEach(ref => {
       if (ref.current) {
         ref.current.style.setProperty('animation', 'none');
@@ -85,18 +81,19 @@ const MainButtonBox = (props: MainButtonBoxProps) => {
   const menuRef = useRef<HTMLImageElement>(null);
   const screenRef = useRef<HTMLImageElement>(null);
   const shareLinkRef = useRef<HTMLImageElement>(null);
-  const { userData } = useContext(SnowBallContext);
+
   const [menuModal, setMenuModal] = useState(false);
   const [list, setList] = useState(false);
   const [screen, setScreen] = useState(false);
-
   const [toast, setToast] = useState(false);
+
+  const { userData } = useContext(SnowBallContext);
 
   const shareLink = () => {
     axios.get('/api/user', { withCredentials: true }).then(res => {
       const user = res.data.user.auth_id;
-
       const url = `https://www.mysnowball.kr/visit/${user}`;
+
       if (navigator.share === undefined) {
         navigator.clipboard.writeText(url);
         setToast(true);
