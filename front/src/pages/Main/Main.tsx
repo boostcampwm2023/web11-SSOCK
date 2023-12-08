@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 import { Loading } from '@utils';
+import { useLogout } from '@hooks';
 import { SnowGlobeCanvas, UIContainer } from '@components';
 import MainButtonBox from './MainButtonBox';
 import MainBody from './MainBody';
@@ -12,7 +13,6 @@ import {
   SnowBallData
 } from '@pages/Visit/SnowBallProvider';
 import { MessageListContext, Message } from '@pages/Visit/MessageListProvider';
-import { useLogout } from '@hooks';
 
 const MainBodyWrap = styled.div`
   width: 100%;

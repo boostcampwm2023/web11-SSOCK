@@ -8,8 +8,9 @@ const useLogout = () => {
     .catch(e => {
       console.error(e);
       cookie.remove('access_token');
+      cookie.remove('refresh_token');
+      cookie.remove('loggedin');
       window.location.replace('/');
-      alert('로그아웃을 다시 시도해주세요.');
     });
 };
 
