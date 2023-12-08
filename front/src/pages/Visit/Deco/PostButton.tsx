@@ -57,7 +57,6 @@ const PostButton = (props: ButtonProps) => {
       .then(() => {
         axios.get(`/api/snowball/${snowBallData.id}`).then(res => {
           setSnowBallData(res.data);
-
           props.view[1](!props.view[0]);
           props.visible[1](-1);
         });

@@ -99,6 +99,7 @@ const Main = () => {
   //   expire.setDate(today.getDate() + 1);
   //   document.cookie = `${cookieName}=${cookieValue}; expires=${expire.toUTCString()}; secure=${secure}; path=/`;
   // };
+
   useEffect(() => {
     // saveCookie();
     axios
@@ -108,17 +109,20 @@ const Main = () => {
       .then(res => {
         if (res.status === 200) {
           const resUserData = res.data.user as UserData;
+          setUserData(resUserData);
+
           if (res.data.main_snowball === null) {
             navigate('/make');
             return;
           }
+
           const resSnowballData = res.data.main_snowball as SnowBallData;
           const messageList = res.data.main_snowball
             .message_list as Array<Message>;
           setSnowBallData(resSnowballData);
           setMessageList(messageList);
-          setUserData(resUserData);
           setLoading(true);
+
           if (
             userData.nickname === null ||
             userData.snowball_count === 0 ||
