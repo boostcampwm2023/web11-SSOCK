@@ -59,6 +59,7 @@ const Snowball = () => {
 
   window.history.pushState({}, '', '/main');
   window.history.pushState({}, '', '/make/snowball');
+
   useEffect(() => {
     axios
       .get('/api/user', {
