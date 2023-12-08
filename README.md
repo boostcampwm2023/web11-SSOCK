@@ -46,6 +46,76 @@
   </tr>
 </table>
 
+## 기술스택
+
+<table>
+    <thead>
+        <tr>
+            <th>분류</th>
+            <th>기술 스택</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <p>공통</p>
+            </td>
+            <td>
+                <img src="https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=ffffff">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                  <p>프론트엔드</p>
+            </td>
+            <td>
+                  <img src="https://img.shields.io/badge/React-000000?logo=React&logoColor=#61DAFB">
+                  <img src="https://img.shields.io/badge/Three.js-000000?logo=Three.js&logoColor=white">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>백엔드</p>
+            </td>
+            <td>
+                <img src="https://img.shields.io/badge/Nest.js-E0234E?logo=NestJS&logoColor=white"/>
+                <img src="https://img.shields.io/badge/MySQL-4479A1?logo=MySQL&logoColor=white"/>
+                <img src="https://img.shields.io/badge/Swagger-85EA2D?logo=Swagger&logoColor=white"/>
+                <img src="https://img.shields.io/badge/TypeORM-FF4716?logo=typeorm&logoColor=white"/>
+            </td>
+        </tr>
+                <tr>
+            <td>
+                <p>패키지 매니저</p>
+            </td>
+            <td>
+              <img src="https://img.shields.io/badge/npm-CB3837?logo=npm&logoColor=white">
+            </td>
+        </tr>
+                <tr>
+            <td>
+                <p>배포</p>
+            </td>
+            <td>
+                <img src="https://img.shields.io/badge/Nginx-014532?logo=Nginx&logoColor=009639&">
+                <img src="https://img.shields.io/badge/Naver Cloud Platform-03C75A?logo=naver&logoColor=ffffff">
+                <img src="https://img.shields.io/badge/Docker-2496ED?&logo=Docker&logoColor=white">
+                <img src="https://img.shields.io/badge/GitHub Actions-000000?logo=github-actions">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>협업</p>
+            </td>
+            <td>
+                <img src="https://img.shields.io/badge/Notion-000000?logo=Notion">
+                <img src="https://img.shields.io/badge/Figma-F24E1E?logo=Figma&logoColor=ffffff">
+                <img src="https://img.shields.io/badge/Discord-5865F2?logo=Discord&logoColor=ffffff">
+            </td>
+        </tr>
+    </tbody>
+</table>
+
 ## [Wiki](https://github.com/boostcampwm2023/web11-SSOCK/wiki)
 
 ## [Notion](https://delicious-halloumi-7ae.notion.site/SSOCK-By-SSOCK-ada468a8b135435bb8acc1c50a2a9c0c?pvs=4)
