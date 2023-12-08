@@ -27,7 +27,7 @@ const Intro = () => {
   useEffect(() => {
     setMessageList(mockData.snowball_data.message_list as Array<Message>);
     cookie.load('access_token') ? navigate('/main') : null;
-  }, [setMessageList]);
+  }, [setMessageList, navigate]);
 
   return (
     <>

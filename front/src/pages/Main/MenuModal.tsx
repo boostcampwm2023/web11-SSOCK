@@ -1,6 +1,7 @@
+import { useContext } from 'react';
 import { useNavigate, NavigateFunction } from 'react-router-dom';
 import styled from 'styled-components';
-import mock from '@mock';
+import { SnowBallContext } from '@pages/Visit/SnowBallProvider';
 
 interface ModalProps {
   set: React.Dispatch<React.SetStateAction<boolean>>;
@@ -49,7 +50,7 @@ const Logout = (navigate: NavigateFunction) => {
 };
 
 const MenuModal = (props: ModalProps) => {
-  const userName = mock.user_data.nickname;
+  const { userData } = useContext(SnowBallContext);
   const navigate = useNavigate();
 
   const makeNewSnowBall = () => {
@@ -58,7 +59,7 @@ const MenuModal = (props: ModalProps) => {
 
   return (
     <StyledModal>
-      <StyledUser>{userName}님</StyledUser>
+      <StyledUser>{userData.nickname}님</StyledUser>
       <hr />
 
       <StyledSection
