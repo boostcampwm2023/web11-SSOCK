@@ -57,6 +57,9 @@ const Snowball = () => {
   const [make, setMake] = useState(false);
   const { snowBallData } = useContext(SnowBallContext);
 
+  window.history.pushState({}, '', '/main');
+  window.history.pushState({}, '', '/make/snowball');
+  // window.history.replaceState({}, '', '/test');
   useEffect(() => {
     axios
       .get('/api/user', {
