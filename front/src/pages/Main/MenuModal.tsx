@@ -1,6 +1,7 @@
 import { useContext } from 'react';
-import { useNavigate, NavigateFunction } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { useLogout } from '@hooks';
 import { SnowBallContext } from '@pages/Visit/SnowBallProvider';
 
 interface ModalProps {
@@ -43,15 +44,10 @@ const StyledClosed = styled(StyledSection)`
   text-align: center;
 `;
 
-const Logout = (navigate: NavigateFunction) => {
-  // 현재 가지고 있는 쿠키값 모두 지우기
-  // logout api 호출
-  navigate('/');
-};
-
 const MenuModal = (props: ModalProps) => {
   const { userData } = useContext(SnowBallContext);
   const navigate = useNavigate();
+  const logout = useLogout;
 
   const makeNewSnowBall = () => {
     navigate('/make/snowball');
@@ -75,7 +71,7 @@ const MenuModal = (props: ModalProps) => {
         새로운 스노우볼 만들러 가기
       </StyledSection>
 
-      <StyledLogout onClick={() => Logout(navigate)}>로그아웃</StyledLogout>
+      <StyledLogout onClick={logout}>로그아웃</StyledLogout>
       <hr />
 
       <StyledClosed onClick={() => props.set(false)}>닫기</StyledClosed>
