@@ -3,7 +3,12 @@ import { getDecoPoisition } from '@utils';
 import * as Models from './models';
 import { MessageListContext } from '@pages/Visit/MessageListProvider';
 
-const Decos = () => {
+interface DecosProps {
+  centerPosition: THREE.Vector3;
+  radius: number;
+}
+
+const Decos = ({ centerPosition, radius }: DecosProps) => {
   const { messageList } = useContext(MessageListContext);
   const decos = messageList.map((message, index) => (
     <Models.Deco
@@ -19,7 +24,22 @@ const Decos = () => {
       isOpened={message.opened !== null}
     />
   ));
-  return <>{decos}</>;
+  const emojis = messageList.map((message, index) => (
+    <Models.Emoji
+      key={index}
+      centerPosition={centerPosition}
+      rangeRadius={radius}
+      sentiment={message.sentiment}
+      confidence={message.confidence}
+    />
+  ));
+
+  return (
+    <>
+      {decos}
+      {emojis}
+    </>
+  );
 };
 
 export default Decos;

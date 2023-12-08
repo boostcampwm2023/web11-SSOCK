@@ -107,13 +107,17 @@ const Main = () => {
       })
       .then(res => {
         if (res.status === 200) {
-          const userData = res.data.user as UserData;
-          const snowballData = res.data.main_snowball as SnowBallData;
+          const resUserData = res.data.user as UserData;
+          if (res.data.main_snowball === null) {
+            navigate('/make');
+            return;
+          }
+          const resSnowballData = res.data.main_snowball as SnowBallData;
           const messageList = res.data.main_snowball
             .message_list as Array<Message>;
-          setSnowBallData(snowballData);
+          setSnowBallData(resSnowballData);
           setMessageList(messageList);
-          setUserData(userData);
+          setUserData(resUserData);
           setLoading(true);
           if (
             userData.nickname === null ||

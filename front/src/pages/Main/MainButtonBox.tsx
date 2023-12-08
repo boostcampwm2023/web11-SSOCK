@@ -6,6 +6,7 @@ import { HeaderText } from '@components';
 import MenuModal from './MenuModal';
 import ListMsgs from './ListMsgs';
 import { SnowBallContext } from '@pages/Visit/SnowBallProvider';
+import { theme } from '@utils';
 
 interface MainButtonBoxProps {
   leftArrow: React.RefObject<HTMLImageElement>;
@@ -28,6 +29,19 @@ const StyledShareLink = styled.img`
   position: absolute;
   bottom: 2rem;
   right: 0.8rem;
+`;
+
+const ToastMsg = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  font: ${theme.font['--normal-button-font']};
+  background-color: ${theme.colors['--sub-text']};
+  border-radius: 1rem;
+  text-align: center;
+  padding: 1rem;
 `;
 
 const screenTime = (
@@ -76,6 +90,8 @@ const MainButtonBox = (props: MainButtonBoxProps) => {
   const [list, setList] = useState(false);
   const [screen, setScreen] = useState(false);
 
+  const [toast, setToast] = useState(false);
+
   const shareLink = () => {
     axios.get('/api/user', { withCredentials: true }).then(res => {
       const user = res.data.user.auth_id;
@@ -83,6 +99,10 @@ const MainButtonBox = (props: MainButtonBoxProps) => {
       const url = `https://www.mysnowball.kr/visit/${user}`;
       if (navigator.share === undefined) {
         navigator.clipboard.writeText(url);
+        setToast(true);
+        setTimeout(() => {
+          setToast(false);
+        }, 1000);
       } else {
         navigator.share({
           url: url
@@ -131,6 +151,7 @@ const MainButtonBox = (props: MainButtonBoxProps) => {
           />
 
           {list ? <ListMsgs set={setList} /> : null}
+          {toast ? <ToastMsg>링크가 복사되었습니다.</ToastMsg> : null}
         </>
       ) : null}
     </>
