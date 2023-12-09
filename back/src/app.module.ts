@@ -3,15 +3,19 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './modules/auth/auth.module';
-import typeOrmConfig from './config/ormconfig';
+import typeOrmConfig from './config/orm-config';
 import { JwtModule } from '@nestjs/jwt';
 import { UserModule } from './modules/user/user.module';
-import { APP_INTERCEPTOR } from '@nestjs/core';
+import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 import { ControllerLoggerInterceptor } from './common/interceptors/log.interceptor';
+import { ThrottlerModule } from '@nestjs/throttler';
+import throttlerConfig from './config/throttler-config';
+import { ThrottlerBehindProxyGuard } from './common/guards/throttler.guard';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(typeOrmConfig),
+    ThrottlerModule.forRoot(throttlerConfig),
     UserModule,
     AuthModule,
     JwtModule.register({
@@ -21,7 +25,8 @@ import { ControllerLoggerInterceptor } from './common/interceptors/log.intercept
   controllers: [AppController],
   providers: [
     AppService,
-    { provide: APP_INTERCEPTOR, useClass: ControllerLoggerInterceptor }
+    { provide: APP_INTERCEPTOR, useClass: ControllerLoggerInterceptor },
+    { provide: APP_GUARD, useClass: ThrottlerBehindProxyGuard }
   ]
 })
 export class AppModule {}
