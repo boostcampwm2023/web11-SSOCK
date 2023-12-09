@@ -1,6 +1,7 @@
 import { useEffect, useRef, useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import cookie from 'react-cookies';
 import styled from 'styled-components';
 import { Loading } from '@utils';
 import { useLogout } from '@hooks';
@@ -104,6 +105,12 @@ const Main = () => {
 
   useEffect(() => {
     // saveCookie();
+
+    if (!cookie.load('loggedin')) {
+      navigate('/');
+      return;
+    }
+
     axios
       .get('/api/user', {
         withCredentials: true // axios 쿠키 값 전달
