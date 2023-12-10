@@ -145,7 +145,7 @@ const Main = () => {
       })
       .catch(e => {
         console.error(e);
-        logout();
+        logout;
       });
   }, []);
 
