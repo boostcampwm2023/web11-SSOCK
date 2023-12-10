@@ -1,9 +1,14 @@
-import cookie from 'react-cookies';
+import { useCookies } from 'react-cookie';
 
 const useLogout = () => {
-  window.open(`/api/auth/logout`, '_self');
-  cookie.remove('loggedin');
-  window.location.replace('/');
+  const [, , removeCookie] = useCookies(['loggedin']);
+  const logout = () => {
+    window.open(`/api/auth/logout`, '_self');
+    removeCookie('loggedin', { path: '/' });
+    window.location.replace('/');
+  };
+
+  return logout;
 };
 
 export default useLogout;
