@@ -7,7 +7,7 @@ import {
   NotFoundException
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { DataSource, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { ReqCreateMessageDto } from './dto/request/req-create-message.dto';
 import { MessageEntity } from './entity/message.entity';
 import { ResCreateMessageDto } from './dto/response/res-create-message.dto';
@@ -33,8 +33,7 @@ export class MessageService {
     @InjectRepository(LetterEntity)
     private readonly letterRepository: Repository<LetterEntity>,
     @InjectRepository(DecorationPrefixEntity)
-    private readonly decorationPrefixRepository: Repository<DecorationPrefixEntity>,
-    private readonly dataSource: DataSource
+    private readonly decorationPrefixRepository: Repository<DecorationPrefixEntity>
   ) {}
   async createMessage(
     createMessageDto: ReqCreateMessageDto,
@@ -196,14 +195,10 @@ export class MessageService {
   async updateMessageLocation(
     updateDto: UpdateMessageLocationDto
   ): Promise<boolean> {
-    const queryRunner = this.dataSource.createQueryRunner();
-    await queryRunner.connect();
-    await queryRunner.startTransaction('READ COMMITTED');
-
     const { message_id, location } = updateDto;
 
     try {
-      await queryRunner.manager
+      await this.messageRepository
         .createQueryBuilder()
         .update(MessageEntity)
         .set({
@@ -214,13 +209,9 @@ export class MessageService {
           is_deleted: new Date(`${process.env.DATE_DEFAULT}`)
         })
         .execute();
-      await queryRunner.commitTransaction();
     } catch (err) {
-      await queryRunner.rollbackTransaction();
       console.log(err.sqlMessage);
       return false;
-    } finally {
-      await queryRunner.release();
     }
     return true;
   }

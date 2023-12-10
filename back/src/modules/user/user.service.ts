@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { UserEntity } from './entity/user.entity';
-import { DataSource, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ResInfoDto } from './dto/response/res-info.dto';
 import { UserDto } from './dto/user.dto';
@@ -20,8 +20,7 @@ export class UserService {
   constructor(
     private readonly snowballService: SnowballService,
     @InjectRepository(UserEntity)
-    private readonly userRepository: Repository<UserEntity>,
-    private readonly dataSource: DataSource
+    private readonly userRepository: Repository<UserEntity>
   ) {}
 
   async getUserData(auth_id: string): Promise<userData> {

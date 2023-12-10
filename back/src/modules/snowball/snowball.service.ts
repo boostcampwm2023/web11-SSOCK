@@ -4,7 +4,7 @@ import {
   NotFoundException
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { DataSource, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { SnowballEntity } from './entity/snowball.entity';
 import { ReqCreateSnowballDto } from './dto/request/req-create-snowball.dto';
 import { ReqUpdateSnowballDto } from './dto/request/req-update-snowball.dto';
@@ -30,8 +30,7 @@ export class SnowballService {
     @InjectRepository(SnowballEntity)
     private readonly snowballRepository: Repository<SnowballEntity>,
     @InjectRepository(DecorationPrefixEntity)
-    private readonly snowballDecoRepository: Repository<DecorationPrefixEntity>,
-    private readonly dataSource: DataSource
+    private readonly snowballDecoRepository: Repository<DecorationPrefixEntity>
   ) {}
 
   async createSnowball(
