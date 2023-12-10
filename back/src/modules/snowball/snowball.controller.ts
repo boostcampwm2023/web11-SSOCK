@@ -87,7 +87,7 @@ export class SnowballController {
   }
 
   @Get('/:snowball_id')
-  @Throttle({ api: { limit: 30, ttl: 5000 } })
+  @Throttle({ api: { limit: 10, ttl: 1000 } })
   @UseInterceptors(hasJWTInterceptor)
   @HttpCode(200)
   @ApiResponse({

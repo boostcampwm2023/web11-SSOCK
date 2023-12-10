@@ -122,7 +122,7 @@ export class MessageController {
   }
 
   @UseGuards(JWTGuard)
-  @Throttle({ api: { limit: 30, ttl: 5000 } })
+  @Throttle({ api: { limit: 10, ttl: 1000 } })
   @ApiCookieAuth('access_token')
   @Put('/:message_id/open')
   @HttpCode(200)

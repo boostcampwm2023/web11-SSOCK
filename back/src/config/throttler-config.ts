@@ -4,7 +4,7 @@ const throttlerConfig: ThrottlerModuleOptions = {
   throttlers: [
     {
       name: 'api',
-      ttl: 5000, // 5 seconds
+      ttl: 1000, // 5 seconds
       limit: 5
     }
   ],
