@@ -2,7 +2,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from '../user/entity/user.entity';
-import { DataSource, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { Response } from 'express';
 
 export interface payload {
@@ -15,8 +15,7 @@ export class AuthService {
   constructor(
     private readonly jwtService: JwtService,
     @InjectRepository(UserEntity)
-    private readonly UserRepository: Repository<UserEntity>,
-    private readonly dataSource: DataSource
+    private readonly UserRepository: Repository<UserEntity>
   ) {}
 
   async getUserInfo(user: any): Promise<payload> {
