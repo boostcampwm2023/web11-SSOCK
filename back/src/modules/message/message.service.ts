@@ -58,6 +58,7 @@ export class MessageService {
     });
     try {
       await this.messageRepository.save(messageEntity, {
+        transaction: false,
         reload: false
       });
     } catch (err) {
@@ -126,7 +127,7 @@ export class MessageService {
     }
     await this.messageRepository.save(
       { id: message_id, is_deleted: new Date() },
-      { reload: false }
+      { transaction: false, reload: false }
     );
   }
 
@@ -167,7 +168,7 @@ export class MessageService {
     }
     await this.messageRepository.save(
       { id: message_id, opened: new Date() },
-      { reload: false }
+      { transaction: false, reload: false }
     );
     const messageDto = plainToInstance(
       MessageDto,

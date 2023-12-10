@@ -102,24 +102,15 @@ export class AuthService {
   }
 
   async saveRefreshToken(user: any, refreshToken: string): Promise<boolean> {
-    const queryRunner = this.dataSource.createQueryRunner();
-    await queryRunner.connect();
-    await queryRunner.startTransaction('READ COMMITTED');
-    try {
-      const updateResult = await queryRunner.manager.update(
-        UserEntity,
-        { id: user.id },
-        { refresh_token: refreshToken }
-      );
-      if (!updateResult.affected) {
-        throw new UnauthorizedException('Refresh Token 저장 실패');
-      }
-      await queryRunner.commitTransaction();
-    } catch (error) {
-      await queryRunner.rollbackTransaction();
+    const updateResult = await this.UserRepository.createQueryBuilder()
+      .update(UserEntity)
+      .set({
+        refresh_token: refreshToken
+      })
+      .where('id = :id', { id: user.id })
+      .execute();
+    if (!updateResult.affected) {
       throw new UnauthorizedException('Refresh Token 저장 실패');
-    } finally {
-      await queryRunner.release();
     }
     return true;
   }
