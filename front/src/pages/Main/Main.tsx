@@ -1,7 +1,6 @@
 import { useEffect, useRef, useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import cookie from 'react-cookies';
 import styled from 'styled-components';
 import { Loading } from '@utils';
 import { useLogout } from '@hooks';
@@ -14,6 +13,7 @@ import {
   SnowBallData
 } from '@pages/Visit/SnowBallProvider';
 import { MessageListContext, Message } from '@pages/Visit/MessageListProvider';
+import { useCookies } from 'react-cookie';
 
 const MainBodyWrap = styled.div`
   width: 100%;
@@ -66,13 +66,14 @@ const moveSnowball = (
 
 const Main = () => {
   const navigate = useNavigate();
-  const logout = useLogout;
+  const logout = useLogout();
   const { setSnowBallData, setUserData, userData, snowBallData } =
     useContext(SnowBallContext);
   const { setMessageList } = useContext(MessageListContext);
   const leftArrowRef = useRef<HTMLImageElement>(null);
   const rightArrowRef = useRef<HTMLImageElement>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [cookie] = useCookies(['loggedin']);
 
   const delayButton = () => {
     if (leftArrowRef.current && rightArrowRef.current) {
@@ -92,21 +93,21 @@ const Main = () => {
     }
   };
 
-  // const saveCookie = () => {
-  //   const cookieToken = import.meta.env.VITE_APP_COOKIE_TOKEN;
-  //   const cookieName = 'access_token';
-  //   const cookieValue = cookieToken;
-  //   const today = new Date();
-  //   const expire = new Date();
-  //   const secure = true;
-  //   expire.setDate(today.getDate() + 1);
-  //   document.cookie = `${cookieName}=${cookieValue}; expires=${expire.toUTCString()}; secure=${secure}; path=/`;
-  // };
+  const saveCookie = () => {
+    const cookieToken = import.meta.env.VITE_APP_COOKIE_TOKEN;
+    const cookieName = 'access_token';
+    const cookieValue = cookieToken;
+    const today = new Date();
+    const expire = new Date();
+    const secure = true;
+    expire.setDate(today.getDate() + 1);
+    document.cookie = `${cookieName}=${cookieValue}; expires=${expire.toUTCString()}; secure=${secure}; path=/`;
+  };
 
   useEffect(() => {
-    // saveCookie();
+    saveCookie();
 
-    if (!cookie.load('loggedin')) {
+    if (!cookie.loggedin) {
       navigate('/');
       return;
     }

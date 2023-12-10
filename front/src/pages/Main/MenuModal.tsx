@@ -47,7 +47,7 @@ const StyledClosed = styled(StyledSection)`
 const MenuModal = (props: ModalProps) => {
   const { userData } = useContext(SnowBallContext);
   const navigate = useNavigate();
-  const logout = useLogout;
+  const logout = useLogout();
 
   const makeNewSnowBall = () => {
     navigate('/make/snowball');

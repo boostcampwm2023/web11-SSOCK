@@ -1,6 +1,6 @@
 import { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import cookie from 'react-cookies';
+import { useCookies } from 'react-cookie';
 import styled from 'styled-components';
 import { SnowGlobeCanvas, UIContainer } from '@components';
 import mockData from '@mock';
@@ -23,10 +23,11 @@ const TitleDiv = styled.div`
 const Intro = () => {
   const navigate = useNavigate();
   const { setMessageList } = useContext(MessageListContext);
+  const [cookie] = useCookies(['loggedin']);
 
   useEffect(() => {
     setMessageList(mockData.snowball_data.message_list as Array<Message>);
-    cookie.load('loggedin') ? navigate('/main') : null;
+    cookie.loggedin ? navigate('/main') : null;
   }, [setMessageList, navigate]);
 
   return (
