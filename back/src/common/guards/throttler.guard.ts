@@ -4,10 +4,8 @@ import { Injectable } from '@nestjs/common';
 @Injectable()
 export class ThrottlerBehindProxyGuard extends ThrottlerGuard {
   protected async getTracker(req: Record<string, any>): Promise<string> {
-    console.log('req.ip = ', req.ip);
-    console.log('req.ips = ', req.ips);
-    const forwardedFor = req.headers['x-forwarded-for'];
-    console.log('forwardedFor = ', forwardedFor);
-    return req.ips.length ? req.ips[0] : req.ip;
+    const client_ip = req.headers['x-forwarded-for'];
+    console.log('client_ip = ', client_ip);
+    return client_ip || req.ip;
   }
 }
