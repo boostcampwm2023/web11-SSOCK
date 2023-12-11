@@ -16,6 +16,7 @@ const Modal = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  text-align: center;
 
   background-color: ${theme.colors['--primary-redp-variant']};
   color: white;
@@ -25,6 +26,11 @@ const Modal = styled.div`
   flex-direction: column;
   gap: 1rem;
   align-items: center;
+  width: 80%;
+
+  @media (min-width: ${theme.size['--desktop-min-width']}) {
+    width: ${theme.size['--desktop-width']};
+  }
 `;
 
 const ModalBackground = styled.div`
@@ -39,10 +45,12 @@ const ModalBackground = styled.div`
 
 const Title = styled.div`
   font: ${theme.font['--normal-title-font']};
+  white-space: normal;
 `;
 
 const SubTitle = styled.div`
   font: ${theme.font['--normal-introduce-font']};
+  white-space: normal;
 `;
 
 const ButtonWrap = styled.div`
