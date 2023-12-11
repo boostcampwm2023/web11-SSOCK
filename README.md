@@ -125,7 +125,9 @@
                   <p>프론트엔드</p>
             </td>
             <td>
-                  <img src="https://img.shields.io/badge/React-000000?logo=React&logoColor=#61DAFB">
+                  <img src="https://img.shields.io/badge/React-61DAFB?logo=React&logoColor=white">
+                  <img src="https://img.shields.io/badge/vite-646CFF?logo=vite&logoColor=white"/> 
+                  <img src="https://img.shields.io/badge/styled-components-DB7093?logo=styled-components&logoColor=white"/>
                   <img src="https://img.shields.io/badge/Three.js-000000?logo=Three.js&logoColor=white">
             </td>
         </tr>
@@ -167,6 +169,7 @@
                 <img src="https://img.shields.io/badge/Notion-000000?logo=Notion">
                 <img src="https://img.shields.io/badge/Figma-F24E1E?logo=Figma&logoColor=ffffff">
                 <img src="https://img.shields.io/badge/Discord-5865F2?logo=Discord&logoColor=ffffff">
+                <img src="https://img.shields.io/badge/slack-4A154B?logo=slack&logoColor=white"/>
             </td>
         </tr>
     </tbody>
