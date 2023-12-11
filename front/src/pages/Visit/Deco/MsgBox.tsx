@@ -13,8 +13,17 @@ const MsgContainer = styled.div`
   display: flex;
   flex-direction: column-reverse;
   width: 100%;
-  pointer-events: all;
+  pointer-events: auto;
   overflow: scroll;
+
+  @media (max-height: ${props => props.theme.size['--desktop-max-height']}) {
+    position: absolute;
+    top: 10%;
+    height: 50%;
+    * {
+      overflow: scroll;
+    }
+  }
 `;
 
 const MsgBox = ({ isInput }: MsgBoxProps) => {

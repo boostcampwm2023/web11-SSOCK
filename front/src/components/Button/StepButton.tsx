@@ -19,6 +19,7 @@ const StyledButton = styled(LongButton)<ButtonColor>`
   background-color: ${props => props.color};
   border-radius: 3.125rem;
   width: auto;
+  z-index: 100;
 `;
 
 const StepButton = (props: ButtonProps) => {
