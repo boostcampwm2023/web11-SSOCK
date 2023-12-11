@@ -106,12 +106,7 @@ const MainButtonBox = (props: MainButtonBoxProps) => {
           .share({
             url: url
           })
-          .then(() => {
-            setToast(true);
-            setTimeout(() => {
-              setToast(false);
-            }, 1000);
-          })
+          .then(() => {})
           .catch(() => {
             setToast(true);
             setTimeout(() => {
