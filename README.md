@@ -173,7 +173,7 @@
 </table>
 
 ## 🔧 시스템 아키텍쳐
-![Web App Reference Architecture (1)](https://github.com/boostcampwm2023/web11-SSOCK/assets/83938394/3b1ca700-a415-4ac8-b080-e2091bace2ac)
+![Web App Reference Architecture](https://github.com/boostcampwm2023/web11-SSOCK/assets/33882299/d761bf8a-0915-458f-817e-972345a67016)
 
 ## 프로젝트 진행
 
