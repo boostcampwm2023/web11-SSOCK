@@ -9,6 +9,7 @@ import {
   UserData,
   SnowBallData
 } from '@pages/Visit/SnowBallProvider';
+import { MessageListContext, Message } from '@pages/Visit/MessageListProvider';
 
 interface DeleteModalProps {
   message: number;
@@ -113,6 +114,7 @@ const DeleteModal = (props: DeleteModalProps) => {
 
   const navigate = useNavigate();
   const { setSnowBallData, setUserData } = useContext(SnowBallContext);
+  const { setMessageList } = useContext(MessageListContext);
 
   const deleteMsg = () => {
     setIsModalOpened(false);
@@ -125,8 +127,11 @@ const DeleteModal = (props: DeleteModalProps) => {
           .get('/api/user', { withCredentials: true })
           .then(res => {
             const userData = res.data.user as UserData;
-            const snowballData = res.data.main_snowball as SnowBallData;
-            setSnowBallData(snowballData);
+            const resSnowballData = res.data.main_snowball as SnowBallData;
+            const messageList = res.data.main_snowball
+              .message_list as Array<Message>;
+            setSnowBallData(resSnowballData);
+            setMessageList(messageList);
             setUserData(userData);
           })
           .catch(e => {
