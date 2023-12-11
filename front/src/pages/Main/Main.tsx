@@ -15,11 +15,6 @@ import {
 import { MessageListContext, Message } from '@pages/Visit/MessageListProvider';
 import { useCookies } from 'react-cookie';
 
-const MainBodyWrap = styled.div`
-  width: 100%;
-  height: 100%;
-`;
-
 const LeftBtn = styled.img`
   position: fixed;
   top: 50%;
@@ -56,8 +51,9 @@ const moveSnowball = (
 
   axios(`/api/snowball/${nextSnowBallID}`)
     .then(res => {
-      setSnowBallData(res.data as SnowBallData);
-      setMessageListData(res.data.message_list as Array<Message>);
+      console.log(res);
+      setSnowBallData(res.data.snowball as SnowBallData);
+      setMessageListData(res.data.snowball.message_list as Array<Message>);
     })
     .catch(e => {
       console.error(e);
@@ -93,28 +89,28 @@ const Main = () => {
     }
   };
 
-  // const saveCookie = () => {
-  //   const cookieToken = import.meta.env.VITE_APP_COOKIE_TOKEN;
-  //   const cookieName = 'access_token';
-  //   const cookieValue = cookieToken;
-  //   const today = new Date();
-  //   const expire = new Date();
-  //   const secure = true;
-  //   expire.setDate(today.getDate() + 1);
-  //   document.cookie = `${cookieName}=${cookieValue}; expires=${expire.toUTCString()}; secure=${secure}; path=/`;
+  const saveCookie = () => {
+    const cookieToken = import.meta.env.VITE_APP_COOKIE_TOKEN;
+    const cookieName = 'access_token';
+    const cookieValue = cookieToken;
+    const today = new Date();
+    const expire = new Date();
+    const secure = true;
+    expire.setDate(today.getDate() + 1);
+    document.cookie = `${cookieName}=${cookieValue}; expires=${expire.toUTCString()}; secure=${secure}; path=/`;
 
-  //   const cookieToken2 = true;
-  //   const cookieName2 = 'loggedin';
-  //   const cookieValue2 = cookieToken2;
-  //   const today2 = new Date();
-  //   const expire2 = new Date();
-  //   const secure2 = true;
-  //   expire2.setDate(today2.getDate() + 1);
-  //   document.cookie = `${cookieName2}=${cookieValue2}; expires=${expire2.toUTCString()}; secure=${secure2}; path=/`;
-  // };
+    const cookieToken2 = true;
+    const cookieName2 = 'loggedin';
+    const cookieValue2 = cookieToken2;
+    const today2 = new Date();
+    const expire2 = new Date();
+    const secure2 = true;
+    expire2.setDate(today2.getDate() + 1);
+    document.cookie = `${cookieName2}=${cookieValue2}; expires=${expire2.toUTCString()}; secure=${secure2}; path=/`;
+  };
 
   useEffect(() => {
-    //saveCookie();
+    saveCookie();
 
     if (!cookie.loggedin) {
       navigate('/');
@@ -129,7 +125,6 @@ const Main = () => {
         if (res.status === 200) {
           const resUserData = res.data.user as UserData;
           setUserData(resUserData);
-          console.log('userdata=', resUserData);
 
           if (res.data.main_snowball === null) {
             navigate('/make');
@@ -163,49 +158,47 @@ const Main = () => {
       {isLoading ? (
         <>
           <SnowGlobeCanvas snowBallData={snowBallData} />
-          <MainBodyWrap>
-            <UIContainer>
-              {userData.snowball_list.length > 1 ? (
-                <>
-                  <LeftBtn
-                    src={'/icons/prev.svg'}
-                    onClick={() => {
-                      moveSnowball(
-                        'Prev',
-                        userData,
-                        snowBallData,
-                        setSnowBallData,
-                        setMessageList
-                      );
-                      delayButton();
-                    }}
-                    ref={leftArrowRef}
-                  />
-                  <RightBtn
-                    src={'/icons/next.svg'}
-                    onClick={() => {
-                      moveSnowball(
-                        'Next',
-                        userData,
-                        snowBallData,
-                        setSnowBallData,
-                        setMessageList
-                      );
-                      delayButton();
-                    }}
-                    ref={rightArrowRef}
-                  />
-                </>
-              ) : null}
+          <UIContainer>
+            {userData.snowball_list.length > 1 ? (
+              <>
+                <LeftBtn
+                  src={'/icons/prev.svg'}
+                  onClick={() => {
+                    moveSnowball(
+                      'Prev',
+                      userData,
+                      snowBallData,
+                      setSnowBallData,
+                      setMessageList
+                    );
+                    delayButton();
+                  }}
+                  ref={leftArrowRef}
+                />
+                <RightBtn
+                  src={'/icons/next.svg'}
+                  onClick={() => {
+                    moveSnowball(
+                      'Next',
+                      userData,
+                      snowBallData,
+                      setSnowBallData,
+                      setMessageList
+                    );
+                    delayButton();
+                  }}
+                  ref={rightArrowRef}
+                />
+              </>
+            ) : null}
 
-              <MainButtonBox
-                leftArrow={leftArrowRef}
-                rightArrow={rightArrowRef}
-              />
-              <MainBody />
-              <EmptyDiv />
-            </UIContainer>
-          </MainBodyWrap>
+            <MainButtonBox
+              leftArrow={leftArrowRef}
+              rightArrow={rightArrowRef}
+            />
+            <MainBody />
+            <EmptyDiv />
+          </UIContainer>
         </>
       ) : (
         <Loading />

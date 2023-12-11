@@ -37,8 +37,8 @@ const moveSnowball = (
 
   axios(`/api/snowball/${nextSnowBallID}`)
     .then(res => {
-      setSnowBallData(res.data as SnowBallData);
-      setMessageListData(res.data.message_list as Array<Message>);
+      setSnowBallData(res.data.snowball as SnowBallData);
+      setMessageListData(res.data.snowball.message_list as Array<Message>);
     })
     .catch(e => {
       console.error(e);

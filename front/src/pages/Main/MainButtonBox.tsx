@@ -18,6 +18,17 @@ const StyledMenu = styled.img`
   right: 0.8rem;
 `;
 
+const HeaderContainer = styled(Container)`
+  flex-direction: row;
+`;
+
+const PrivateButton = styled.img`
+  pointer-events: all;
+  cursor: pointer;
+  width: 2rem;
+  height: 2rem;
+`;
+
 const StyledScreen = styled.img`
   position: absolute;
   bottom: 2rem;
@@ -102,14 +113,16 @@ const MainButtonBox = (props: MainButtonBoxProps) => {
         }, 1000);
       } else {
         navigator.clipboard.writeText(url);
-        navigator.share({
-          url: url
-        }).then(() => {
-          setToast(true);
-          setTimeout(() => {
-            setToast(false);
-          }, 1000);
-        })
+        navigator
+          .share({
+            url: url
+          })
+          .then(() => {
+            setToast(true);
+            setTimeout(() => {
+              setToast(false);
+            }, 1000);
+          })
           .catch(() => {
             setToast(true);
             setTimeout(() => {
@@ -126,6 +139,7 @@ const MainButtonBox = (props: MainButtonBoxProps) => {
         <>
           <Container>
             <HeaderText Ref={headerRef} userName={userData.nickname} />
+            <PrivateButton src="/icons/lock.svg" />
           </Container>
 
           {list ? null : (
