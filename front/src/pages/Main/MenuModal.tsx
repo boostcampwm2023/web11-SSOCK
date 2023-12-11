@@ -75,10 +75,6 @@ const MenuModal = (props: ModalProps) => {
     navigate('/make/snowball');
   };
 
-  const viewBoostcamp = () => {
-    navigate('/boostcamp');
-  };
-
   return (
     <>
       {toast ? (
@@ -100,10 +96,6 @@ const MenuModal = (props: ModalProps) => {
 
         <StyledSection onClick={makeNewSnowBall}>
           새로운 스노우볼 만들러 가기
-        </StyledSection>
-
-        <StyledSection onClick={viewBoostcamp}>
-          부스트캠프 다른 프로젝트 구경하기
         </StyledSection>
 
         <StyledLogout onClick={logout}>로그아웃</StyledLogout>
