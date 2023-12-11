@@ -36,6 +36,7 @@
     "class-validator": "^0.14.0",
     "dotenv": "^16.3.1",
     "express-basic-auth": "^1.2.1",
+    "k6": "^0.0.0",
     "mysql2": "^3.6.3",
     "passport": "^0.6.0",
     "passport-facebook": "^3.0.0",
