@@ -6,7 +6,6 @@ import { ListMsg, Prev } from '@components';
 import { MSG_COLOR } from '@constants';
 import { SnowBallContext } from '@pages/Visit/SnowBallProvider';
 import { useLogout } from '@hooks';
-import { log } from 'three/examples/jsm/nodes/Nodes.js';
 
 interface ListMsgProps {
   set: React.Dispatch<React.SetStateAction<boolean>>;

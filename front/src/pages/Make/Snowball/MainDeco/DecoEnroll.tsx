@@ -4,7 +4,6 @@ import axios from 'axios';
 import styled from 'styled-components';
 import { theme, BlurBody } from '@utils';
 import { useLogout } from '@hooks';
-import { Button } from '@components';
 
 interface NaviProps {
   visible: [number, React.Dispatch<React.SetStateAction<number>>];
@@ -137,12 +136,7 @@ const DecoEnroll = (props: NaviProps) => {
           .share({
             url: url
           })
-          .then(() => {
-            setToast(true);
-            setTimeout(() => {
-              CloseNav(props, closeRef, setIsFocus, navigate, 'root');
-            }, 1500);  
-          })
+          .then(() => {})
           .catch(() => {
             setToast(true);
             setTimeout(() => {

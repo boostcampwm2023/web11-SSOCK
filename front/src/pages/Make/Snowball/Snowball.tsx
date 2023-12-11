@@ -51,12 +51,22 @@ const StyledButtonBox = styled.div`
   text-align: center;
 `;
 
+const Home = styled.img`
+  position: fixed;
+  z-index: 99;
+  top: 4rem;
+  left: 0.2rem;
+  width: 3rem;
+  height: 3rem;
+  filter: invert(1);
+`;
+
 const Snowball = () => {
   const navigate = useNavigate();
   const [nickname, setNickname] = useState('김부캠');
   const [make, setMake] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const { setUserData, snowBallData } = useContext(SnowBallContext);
+  const { userData, setUserData, snowBallData } = useContext(SnowBallContext);
 
   window.history.pushState({}, '', '/main');
   window.history.pushState({}, '', '/make/snowball');
@@ -92,6 +102,10 @@ const Snowball = () => {
             <MainDeco set={setMake} />
           ) : (
             <>
+              { userData.snowball_count !== undefined && userData.snowball_count >= 1 ? 
+              <>
+              <Home onClick={() => navigate('/main')} src="/icons/home.svg" />
+              </> : null}
               <SnowGlobeCanvas snowBallData={snowBallData} />
               <StyledHeader>
                 <StyledName>{nickname}</StyledName>&nbsp;님
