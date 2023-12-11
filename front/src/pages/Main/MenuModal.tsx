@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { useLogout } from '@hooks';
@@ -44,12 +44,34 @@ const StyledClosed = styled(StyledSection)`
   text-align: center;
 `;
 
+const ToastMsg = styled.div`
+  position: fixed;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  font: ${props => props.theme.font['--normal-button-font']};
+  background-color: ${props => props.theme.colors['--sub-text']};
+  border-radius: 1rem;
+  text-align: center;
+  padding: 1rem;
+`;
+
 const MenuModal = (props: ModalProps) => {
   const { userData } = useContext(SnowBallContext);
   const navigate = useNavigate();
   const logout = useLogout();
 
+  const [toast, setToast] = useState(false);
+
   const makeNewSnowBall = () => {
+    if (userData.snowball_count >= 5) {
+      setToast(true);
+      setTimeout(() => {
+        setToast(false);
+      }, 1500);
+      return;
+    }
     navigate('/make/snowball');
   };
 
@@ -58,6 +80,9 @@ const MenuModal = (props: ModalProps) => {
   };
 
   return (
+    <>
+    {toast ? <ToastMsg>스노우볼은 최대 5개까지 만들 수 있습니다.</ToastMsg> : null}
+
     <StyledModal>
       <StyledUser>{userData.nickname}님</StyledUser>
       <hr />
@@ -84,6 +109,7 @@ const MenuModal = (props: ModalProps) => {
 
       <StyledClosed onClick={() => props.set(false)}>닫기</StyledClosed>
     </StyledModal>
+    </>
   );
 };
 
