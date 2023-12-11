@@ -1,7 +1,9 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useContext } from 'react';
 import { NavigateFunction, useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { theme, BlurBody } from '@utils';
+import { DecoContext } from './DecoProvider';
+import reset from 'styled-reset';
 
 interface NaviProps {
   visible: [number, React.Dispatch<React.SetStateAction<number>>];
@@ -68,7 +70,8 @@ const CloseNav = (
   setIsFocus: React.Dispatch<React.SetStateAction<boolean>>,
   navigate: NavigateFunction,
   user: string | undefined,
-  flag: 'close' | 'root'
+  flag: 'close' | 'root',
+  callback: () => void
 ) => {
   const onAnimationEnd = () => {
     if (closeRef.current) {
@@ -79,6 +82,7 @@ const CloseNav = (
         navigate('/');
         return;
       }
+      callback();
       navigate(`/visit/${user}`);
     }
   };
@@ -97,12 +101,20 @@ const DecoEnroll = (props: NaviProps) => {
   const { user } = useParams();
   const [isFocus, setIsFocus] = useState(true);
   const closeRef = useRef<HTMLDivElement>(null);
-
+  const { resetDecoContext } = useContext(DecoContext);
   return (
     <>
       <BlurBody
         onClick={() =>
-          CloseNav(props, closeRef, setIsFocus, navigate, user, 'close')
+          CloseNav(
+            props,
+            closeRef,
+            setIsFocus,
+            navigate,
+            user,
+            'close',
+            resetDecoContext
+          )
         }
       />
 
@@ -112,7 +124,15 @@ const DecoEnroll = (props: NaviProps) => {
             <StyledNavButton
               color={theme.colors['--primary-red-primary']}
               onClick={() =>
-                CloseNav(props, closeRef, setIsFocus, navigate, user, 'root')
+                CloseNav(
+                  props,
+                  closeRef,
+                  setIsFocus,
+                  navigate,
+                  user,
+                  'root',
+                  resetDecoContext
+                )
               }
             >
               <StyeldButtonText>
@@ -130,7 +150,15 @@ const DecoEnroll = (props: NaviProps) => {
             <StyledNavButton
               color={theme.colors['--primary-green-primary']}
               onClick={() =>
-                CloseNav(props, closeRef, setIsFocus, navigate, user, 'close')
+                CloseNav(
+                  props,
+                  closeRef,
+                  setIsFocus,
+                  navigate,
+                  user,
+                  'close',
+                  resetDecoContext
+                )
               }
             >
               <StyeldButtonText>전송한 선물 확인하기</StyeldButtonText>
