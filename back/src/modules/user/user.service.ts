@@ -93,7 +93,7 @@ export class UserService {
     nicknameDto: NicknameDto
   ): Promise<NicknameDto> {
     try {
-      const updateResult = await req.queryRunnerManager
+      const updateResult = await this.userRepository
         .createQueryBuilder()
         .update(UserEntity)
         .set({
