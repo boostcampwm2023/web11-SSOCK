@@ -115,45 +115,47 @@ const DecoEnroll = (props: NaviProps) => {
   const logout = useLogout();
 
   const shareLink = () => {
-    axios.get('/api/user', { withCredentials: true }).then(res => {
-      const user = res.data.user.auth_id;
+    axios
+      .get('/api/user', { withCredentials: true })
+      .then(res => {
+        const user = res.data.user.auth_id;
 
-      closeRef.current?.style.setProperty('pointer-events', 'none');
-      closeRef.current?.style.setProperty('opacity', '0.5');
-      BlurBodyRef.current?.style.setProperty('pointer-events', 'none');
+        closeRef.current?.style.setProperty('pointer-events', 'none');
+        closeRef.current?.style.setProperty('opacity', '0.5');
+        BlurBodyRef.current?.style.setProperty('pointer-events', 'none');
 
-      const url = `https://www.mysnowball.kr/visit/${user}`;
-      if (navigator.share === undefined) {
-        navigator.clipboard.writeText(url);
-        setToast(true);
-        setTimeout(() => {
-          CloseNav(props, closeRef, setIsFocus, navigate, 'root');
-        }, 1500);
-        return;
-      } else {
-        navigator.clipboard.writeText(url);
-        navigator
-          .share({
-            url: url
-          })
-          .then(() => {})
-          .catch(() => {
-            setToast(true);
-            setTimeout(() => {
-              CloseNav(props, closeRef, setIsFocus, navigate, 'root');
-            }, 1500);
-          });
-      }
-    })
-    .catch(e => {
-      console.error(e);
-      logout();
-    });
+        const url = `https://www.mysnowball.kr/visit/${user}`;
+        if (navigator.share === undefined) {
+          navigator.clipboard.writeText(url);
+          setToast(true);
+          setTimeout(() => {
+            CloseNav(props, closeRef, setIsFocus, navigate, 'root');
+          }, 1500);
+          return;
+        } else {
+          navigator.clipboard.writeText(url);
+          navigator
+            .share({
+              url: url
+            })
+            .then(() => {})
+            .catch(() => {
+              setToast(true);
+              setTimeout(() => {
+                CloseNav(props, closeRef, setIsFocus, navigate, 'root');
+              }, 1500);
+            });
+        }
+      })
+      .catch(e => {
+        console.error(e);
+        logout();
+      });
   };
 
   return (
     <>
-    { toast ? <ToastMsg>링크가 복사되었습니다.</ToastMsg> : null }
+      {toast ? <ToastMsg>링크가 복사되었습니다.</ToastMsg> : null}
       <BlurBody
         ref={BlurBodyRef}
         onClick={() => CloseNav(props, closeRef, setIsFocus, navigate, 'close')}

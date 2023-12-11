@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useContext } from 'react';
-import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router-dom';
+import { createPortal } from 'react-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 import { theme } from '@utils';

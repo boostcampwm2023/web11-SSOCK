@@ -102,10 +102,11 @@ const Snowball = () => {
             <MainDeco set={setMake} />
           ) : (
             <>
-              { userData.snowball_count !== undefined && userData.snowball_count >= 1 ? 
-              <>
-              <Home onClick={() => navigate('/main')} src="/icons/home.svg" />
-              </> : null}
+              {userData.snowball_count !== undefined &&
+              userData.snowball_count >= 1 ? (
+                <Home onClick={() => navigate('/main')} src="/icons/home.svg" />
+              ) : null}
+
               <SnowGlobeCanvas snowBallData={snowBallData} />
               <StyledHeader>
                 <StyledName>{nickname}</StyledName>&nbsp;님
