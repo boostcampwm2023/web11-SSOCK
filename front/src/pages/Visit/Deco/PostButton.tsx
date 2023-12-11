@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { LongButton } from '@utils';
 import { DecoContext } from './DecoProvider';
 import { SnowBallContext } from '../SnowBallProvider';
-import { Button } from '@components';
+
 
 interface ButtonProps {
   text: string;
