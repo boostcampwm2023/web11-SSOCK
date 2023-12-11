@@ -6,7 +6,6 @@ import { LongButton } from '@utils';
 import { DecoContext } from './DecoProvider';
 import { SnowBallContext } from '../SnowBallProvider';
 
-
 interface ButtonProps {
   text: string;
   color: string;
