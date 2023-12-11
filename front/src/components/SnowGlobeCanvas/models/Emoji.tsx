@@ -25,6 +25,7 @@ const randomizePosition = (
     (radius / 2) * Math.sin(Math.random() * 2 * Math.PI) -
     0.5;
   const height = centerPosition.y + radius + Math.random() * radius * 2;
+  console.log(height);
   target.position.set(x, height, z);
 };
 
