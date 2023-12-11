@@ -116,6 +116,11 @@ const LockModal = (props: LockModalProps) => {
     e.stopPropagation();
   };
 
+  const closeModal = () => {
+    props.set(false);
+    document.getElementById('lock')!.style.animation = 'fadeIn 1s forwards';
+  };
+
   return (
     <>
       {props.flag &&
@@ -145,8 +150,9 @@ const LockModal = (props: LockModalProps) => {
                   </MButton>
                 </ModalButton>
                 <Divider>|</Divider>
+
                 <ModalButton>
-                  <MButton onClick={() => props.set(false)}>닫기</MButton>
+                  <MButton onClick={closeModal}>닫기</MButton>
                 </ModalButton>
               </ButtonWrap>
             </Modal>

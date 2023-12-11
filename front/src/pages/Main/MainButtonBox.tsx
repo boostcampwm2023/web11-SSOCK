@@ -33,6 +33,7 @@ const PrivateButton = styled.img`
   cursor: pointer;
   width: 2rem;
   height: 2rem;
+  animation: fadeIn 1s forwards;
 `;
 
 const StyledScreen = styled.img`
@@ -108,6 +109,7 @@ const MainButtonBox = (props: MainButtonBoxProps) => {
   const [screen, setScreen] = useState(false);
   const [toast, setToast] = useState(false);
   const [modalToast, setModalToast] = useState(false);
+  const [isModalOpened, setIsModalOpened] = useState(false);
 
   const { snowBallData } = useContext(SnowBallContext);
   const { userData } = useContext(SnowBallContext);
@@ -143,7 +145,10 @@ const MainButtonBox = (props: MainButtonBoxProps) => {
     }
   };
 
-  const [isModalOpened, setIsModalOpened] = useState(false);
+  const privateClick = () => {
+    setIsModalOpened(true);
+    document.getElementById('lock')!.style.animation = 'fadeOut 1s forwards';
+  };
 
   return (
     <>
@@ -164,17 +169,19 @@ const MainButtonBox = (props: MainButtonBoxProps) => {
               총 {userData.message_count}개의 메시지
             </MessageCount>
             {modalToast ? (
-              <div style={{ width: '2rem', height: '2rem' }}></div> // 여기 애니메이션 효과 넣어야해
+              <div style={{ width: '2rem', height: '2rem' }} />
             ) : (
               <>
                 {snowBallData.is_message_private ? (
                   <PrivateButton
-                    onClick={() => setIsModalOpened(true)}
+                    id="lock"
+                    onClick={privateClick}
                     src="/icons/lock.svg"
                   />
                 ) : (
                   <PrivateButton
-                    onClick={() => setIsModalOpened(true)}
+                    id="lock"
+                    onClick={privateClick}
                     src="/icons/unlock.svg"
                   />
                 )}
