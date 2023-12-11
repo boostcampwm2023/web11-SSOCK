@@ -67,7 +67,7 @@ const EmptyDiv = styled.div`
 
 const ToastMsg = styled.div`
   position: fixed;
-  top: 70%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 
@@ -120,6 +120,7 @@ const DecoEnroll = (props: NaviProps) => {
       const user = res.data.user.auth_id;
 
       closeRef.current?.style.setProperty('pointer-events', 'none');
+      closeRef.current?.style.setProperty('opacity', '0.5');
       BlurBodyRef.current?.style.setProperty('pointer-events', 'none');
 
       const url = `https://www.mysnowball.kr/visit/${user}`;
