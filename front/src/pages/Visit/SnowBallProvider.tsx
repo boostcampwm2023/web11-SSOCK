@@ -16,7 +16,7 @@ interface UserData {
   id: number;
   username: string;
   nickname: string;
-  user_id: string;
+  auth_id: string;
   snowball_count: number;
   main_snowball_id: number;
   snowball_list: Array<number>;

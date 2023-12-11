@@ -16,6 +16,8 @@ const StyledMenu = styled.img`
   position: fixed;
   top: 3.5rem;
   right: 0.8rem;
+  width: 2rem;
+  height: 2rem;
 `;
 
 const PrivateButton = styled.img`
@@ -101,36 +103,34 @@ const MainButtonBox = (props: MainButtonBoxProps) => {
   console.log(snowBallData.is_message_private, '!!!');
 
   const shareLink = () => {
-    axios.get('/api/user', { withCredentials: true }).then(res => {
-      const user = res.data.user.auth_id;
-      const url = `https://www.mysnowball.kr/visit/${user}`;
+    const userID = userData.auth_id;
+    const url = `https://www.mysnowball.kr/visit/${userID}`;
 
-      if (navigator.share === undefined) {
-        navigator.clipboard.writeText(url);
-        setToast(true);
-        setTimeout(() => {
-          setToast(false);
-        }, 1000);
-      } else {
-        navigator.clipboard.writeText(url);
-        navigator
-          .share({
-            url: url
-          })
-          .then(() => {
-            setToast(true);
-            setTimeout(() => {
-              setToast(false);
-            }, 1000);
-          })
-          .catch(() => {
-            setToast(true);
-            setTimeout(() => {
-              setToast(false);
-            }, 1000);
-          });
-      }
-    });
+    if (navigator.share === undefined) {
+      navigator.clipboard.writeText(url);
+      setToast(true);
+      setTimeout(() => {
+        setToast(false);
+      }, 1000);
+    } else {
+      navigator.clipboard.writeText(url);
+      navigator
+        .share({
+          url: url
+        })
+        .then(() => {
+          setToast(true);
+          setTimeout(() => {
+            setToast(false);
+          }, 1000);
+        })
+        .catch(() => {
+          setToast(true);
+          setTimeout(() => {
+            setToast(false);
+          }, 1000);
+        });
+    }
   };
 
   return (
