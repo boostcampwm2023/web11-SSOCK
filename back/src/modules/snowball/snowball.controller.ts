@@ -8,8 +8,7 @@ import {
   HttpCode,
   UseGuards,
   Req,
-  UseInterceptors,
-  NotFoundException
+  UseInterceptors
 } from '@nestjs/common';
 import { SnowballService } from './snowball.service';
 import {
@@ -29,6 +28,7 @@ import { UpdateMainDecoDto } from './dto/update-main-decoration.dto';
 import { JWTRequest } from '../../common/interface/request.interface';
 import { hasJWTInterceptor } from '../../common/interceptors/hasJwt.interceptor';
 import { Throttle } from '@nestjs/throttler';
+import { ResGetSnowballDto } from './dto/response/res-get-snowball.dto';
 
 @ApiTags('Snowball API')
 @Controller('snowball')
@@ -93,7 +93,7 @@ export class SnowballController {
   @ApiResponse({
     status: 200,
     description: '스노우볼 조회 성공',
-    type: SnowballDto
+    type: ResGetSnowballDto
   })
   @ApiOperation({
     summary: '스노우볼 조회 API',
@@ -103,12 +103,12 @@ export class SnowballController {
     @Req() req: JWTRequest,
     @Param('snowball_id') snowball_id: number
   ) {
-    const snowball = await this.snowballService.getSnowball(
+    const resGetSnowballDto = await this.snowballService.getResGetSnowballDto(
+      req.user.id,
       snowball_id,
       req.hasToken
     );
-    if (!snowball) throw new NotFoundException('스노우볼을 찾을 수 없습니다.');
-    return snowball;
+    return resGetSnowballDto;
   }
 
   @UseGuards(JWTGuard)
