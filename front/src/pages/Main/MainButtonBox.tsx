@@ -1,5 +1,4 @@
 import { useState, useRef, useContext } from 'react';
-import axios from 'axios';
 import styled from 'styled-components';
 import { Container } from '@utils';
 import { HeaderText } from '@components';
@@ -16,15 +15,33 @@ const StyledMenu = styled.img`
   position: fixed;
   top: 3.5rem;
   right: 0.8rem;
+  width: 2rem;
+  height: 2rem;
+`;
+const MessageCount = styled.span`
+  font: ${props => props.theme.font['--normal-main-header-font']};
+  color: white;
+`;
+
+const PrivateButton = styled.img`
+  display: inline;
+  pointer-events: all;
+  cursor: pointer;
+  width: 2rem;
+  height: 2rem;
 `;
 
 const StyledScreen = styled.img`
+  width: 2rem;
+  height: 2rem;
   position: absolute;
   bottom: 2rem;
   margin-left: 0.8rem;
 `;
 
 const StyledShareLink = styled.img`
+  width: 2rem;
+  height: 2rem;
   position: absolute;
   bottom: 2rem;
   right: 0.8rem;
@@ -81,48 +98,56 @@ const MainButtonBox = (props: MainButtonBoxProps) => {
   const menuRef = useRef<HTMLImageElement>(null);
   const screenRef = useRef<HTMLImageElement>(null);
   const shareLinkRef = useRef<HTMLImageElement>(null);
-
+  const { snowBallData, changePrivate } = useContext(SnowBallContext);
   const [menuModal, setMenuModal] = useState(false);
   const [list, setList] = useState(false);
   const [screen, setScreen] = useState(false);
   const [toast, setToast] = useState(false);
-
   const { userData } = useContext(SnowBallContext);
 
   const shareLink = () => {
-    axios.get('/api/user', { withCredentials: true }).then(res => {
-      const user = res.data.user.auth_id;
-      const url = `https://www.mysnowball.kr/visit/${user}`;
+    const userID = userData.auth_id;
+    const url = `https://www.mysnowball.kr/visit/${userID}`;
 
-      if (navigator.share === undefined) {
-        navigator.clipboard.writeText(url);
-        setToast(true);
-        setTimeout(() => {
-          setToast(false);
-        }, 1000);
-      } else {
-        navigator.clipboard.writeText(url);
-        navigator
-          .share({
-            url: url
-          })
-          .then(() => {})
-          .catch(() => {
-            setToast(true);
-            setTimeout(() => {
-              setToast(false);
-            }, 1000);
-          });
-      }
-    });
+    if (navigator.share === undefined) {
+      navigator.clipboard.writeText(url);
+      setToast(true);
+      setTimeout(() => {
+        setToast(false);
+      }, 1000);
+    } else {
+      navigator.clipboard.writeText(url);
+      navigator
+        .share({
+          url: url
+        })
+        .then(() => {
+          setToast(true);
+          setTimeout(() => {
+            setToast(false);
+          }, 1000);
+        })
+        .catch(() => {
+          setToast(true);
+          setTimeout(() => {
+            setToast(false);
+          }, 1000);
+        });
+    }
   };
 
   return (
     <>
       {!screen ? (
         <>
-          <Container>
-            <HeaderText Ref={headerRef} userName={userData.nickname} />
+          <Container ref={headerRef}>
+            <HeaderText Ref={null} userName={userData.nickname} />
+            <MessageCount>총 {userData.message_count}개의 메시지</MessageCount>
+            {snowBallData.is_message_private ? (
+              <PrivateButton onClick={changePrivate} src="/icons/lock.svg" />
+            ) : (
+              <PrivateButton onClick={changePrivate} src="/icons/unlock.svg" />
+            )}
           </Container>
 
           {list ? null : (

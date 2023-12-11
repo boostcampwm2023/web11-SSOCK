@@ -15,11 +15,6 @@ import {
 } from '@pages/Visit/SnowBallProvider';
 import { MessageListContext, Message } from '@pages/Visit/MessageListProvider';
 
-const MainBodyWrap = styled.div`
-  width: 100%;
-  height: 100%;
-`;
-
 const LeftBtn = styled.img`
   position: fixed;
   top: 50%;
@@ -129,7 +124,6 @@ const Main = () => {
         if (res.status === 200) {
           const resUserData = res.data.user as UserData;
           setUserData(resUserData);
-          console.log('userdata=', resUserData);
 
           if (res.data.main_snowball === null) {
             navigate('/make');
@@ -154,7 +148,7 @@ const Main = () => {
       })
       .catch(e => {
         console.error(e);
-        logout;
+        logout();
       });
   }, []);
 
@@ -163,49 +157,47 @@ const Main = () => {
       {isLoading ? (
         <>
           <SnowGlobeCanvas snowBallData={snowBallData} />
-          <MainBodyWrap>
-            <UIContainer>
-              {userData.snowball_list.length > 1 ? (
-                <>
-                  <LeftBtn
-                    src={'/icons/prev.svg'}
-                    onClick={() => {
-                      moveSnowball(
-                        'Prev',
-                        userData,
-                        snowBallData,
-                        setSnowBallData,
-                        setMessageList
-                      );
-                      delayButton();
-                    }}
-                    ref={leftArrowRef}
-                  />
-                  <RightBtn
-                    src={'/icons/next.svg'}
-                    onClick={() => {
-                      moveSnowball(
-                        'Next',
-                        userData,
-                        snowBallData,
-                        setSnowBallData,
-                        setMessageList
-                      );
-                      delayButton();
-                    }}
-                    ref={rightArrowRef}
-                  />
-                </>
-              ) : null}
+          <UIContainer>
+            {userData.snowball_list.length > 1 ? (
+              <>
+                <LeftBtn
+                  src={'/icons/prev.svg'}
+                  onClick={() => {
+                    moveSnowball(
+                      'Prev',
+                      userData,
+                      snowBallData,
+                      setSnowBallData,
+                      setMessageList
+                    );
+                    delayButton();
+                  }}
+                  ref={leftArrowRef}
+                />
+                <RightBtn
+                  src={'/icons/next.svg'}
+                  onClick={() => {
+                    moveSnowball(
+                      'Next',
+                      userData,
+                      snowBallData,
+                      setSnowBallData,
+                      setMessageList
+                    );
+                    delayButton();
+                  }}
+                  ref={rightArrowRef}
+                />
+              </>
+            ) : null}
 
-              <MainButtonBox
-                leftArrow={leftArrowRef}
-                rightArrow={rightArrowRef}
-              />
-              <MainBody />
-              <EmptyDiv />
-            </UIContainer>
-          </MainBodyWrap>
+            <MainButtonBox
+              leftArrow={leftArrowRef}
+              rightArrow={rightArrowRef}
+            />
+            <MainBody />
+            <EmptyDiv />
+          </UIContainer>
         </>
       ) : (
         <Loading />

@@ -52,7 +52,6 @@ const VisitBody = () => {
   const { setMessageList } = useContext(MessageListContext);
   const leftArrowRef = useRef<HTMLImageElement>(null);
   const rightArrowRef = useRef<HTMLImageElement>(null);
-
   const delayButton = () => {
     if (leftArrowRef.current && rightArrowRef.current) {
       leftArrowRef.current.style.pointerEvents = 'none';

@@ -254,7 +254,7 @@
     "id": 1,
     "username": "김부캠",
     "nickname": "김부캠",
-    "user_id": "00000",
+    "auth_id": "00000",
     "snowball_count": 1,
     "main_snowball_id": 1,
     "snowball_list": [1],
