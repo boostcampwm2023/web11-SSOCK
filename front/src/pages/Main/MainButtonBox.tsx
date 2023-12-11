@@ -102,14 +102,16 @@ const MainButtonBox = (props: MainButtonBoxProps) => {
         }, 1000);
       } else {
         navigator.clipboard.writeText(url);
-        navigator.share({
-          url: url
-        }).then(() => {
-          setToast(true);
-          setTimeout(() => {
-            setToast(false);
-          }, 1000);
-        })
+        navigator
+          .share({
+            url: url
+          })
+          .then(() => {
+            setToast(true);
+            setTimeout(() => {
+              setToast(false);
+            }, 1000);
+          })
           .catch(() => {
             setToast(true);
             setTimeout(() => {
