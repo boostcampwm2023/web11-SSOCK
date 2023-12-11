@@ -93,19 +93,19 @@ const Main = () => {
     }
   };
 
-  // const saveCookie = () => {
-  //   const cookieToken = import.meta.env.VITE_APP_COOKIE_TOKEN;
-  //   const cookieName = 'access_token';
-  //   const cookieValue = cookieToken;
-  //   const today = new Date();
-  //   const expire = new Date();
-  //   const secure = true;
-  //   expire.setDate(today.getDate() + 1);
-  //   document.cookie = `${cookieName}=${cookieValue}; expires=${expire.toUTCString()}; secure=${secure}; path=/`;
-  // };
+  const saveCookie = () => {
+    const cookieToken = import.meta.env.VITE_APP_COOKIE_TOKEN;
+    const cookieName = 'access_token';
+    const cookieValue = cookieToken;
+    const today = new Date();
+    const expire = new Date();
+    const secure = true;
+    expire.setDate(today.getDate() + 1);
+    document.cookie = `${cookieName}=${cookieValue}; expires=${expire.toUTCString()}; secure=${secure}; path=/`;
+  };
 
   useEffect(() => {
-    // saveCookie();
+    saveCookie();
 
     if (!cookie.loggedin) {
       navigate('/');

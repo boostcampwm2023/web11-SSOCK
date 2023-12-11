@@ -32,7 +32,7 @@ const StyledShareLink = styled.img`
 
 const ToastMsg = styled.div`
   position: fixed;
-  top: 50%;
+  top: 80%;
   left: 50%;
   transform: translate(-50%, -50%);
 
