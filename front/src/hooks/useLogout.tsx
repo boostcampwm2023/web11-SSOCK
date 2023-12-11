@@ -5,7 +5,6 @@ const useLogout = () => {
   const logout = () => {
     window.open(`/api/auth/logout`, '_self');
     removeCookie('loggedin', { path: '/' });
-    window.location.replace('/');
   };
 
   return logout;
