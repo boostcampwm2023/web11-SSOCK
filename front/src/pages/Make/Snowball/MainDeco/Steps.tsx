@@ -108,6 +108,7 @@ const Steps = () => {
 
   const error = 404;
   const good = 200;
+  const returnPrev = -404;
 
   const selectDecoBox = useRef<HTMLDivElement>(null);
 
@@ -172,6 +173,7 @@ const Steps = () => {
 
   useEffect(() => {
     if (alert === good) setStep(step + 1);
+    else if (alert === returnPrev) setStep(step - 1);
   }, [alert]);
 
   const renderStateBoxes = () => {
@@ -210,6 +212,14 @@ const Steps = () => {
         <StyledButtonWrap>
           {step <= selectDeco ? (
             <div />
+          ) : step === lastConfirm ? (
+            <StepButton
+              text="< 이전"
+              step="doneDecrease"
+              color={theme.colors['--primary-red-primary']}
+              view={[alert, setAlert]}
+              disabled={false}
+            />
           ) : (
             <StepButton
               text="< 이전"
@@ -225,7 +235,7 @@ const Steps = () => {
           ) : step === writeSnowball ? (
             <StepButton
               text="다음 >"
-              step="done"
+              step="doneIncrease"
               color={theme.colors['--primary-red-primary']}
               view={[alert, setAlert]}
               disabled={false}

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 import axios from 'axios';
 import styled from 'styled-components';
 import { Loading } from '@utils';
@@ -13,7 +14,6 @@ import {
   SnowBallData
 } from '@pages/Visit/SnowBallProvider';
 import { MessageListContext, Message } from '@pages/Visit/MessageListProvider';
-import { useCookies } from 'react-cookie';
 
 const MainBodyWrap = styled.div`
   width: 100%;
