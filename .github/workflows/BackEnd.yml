@@ -120,6 +120,12 @@ jobs:
             echo "${{ secrets.ENV_FILE }}" > .env
             echo ${{ secrets.GHCR_TOKEN_TEST }} | docker login ghcr.io -u peageon --password-stdin
             docker pull ghcr.io/peageon/ssock:latest
-            docker stop ssock || true
-            docker rm ssock || true
-            docker run -d --name ssock --restart always -p 3000:3000 --env-file .env ghcr.io/peageon/ssock:latest
+            docker stop ssock1 || true
+            docker rm ssock1 || true
+            docker run -d --name ssock1 --restart always -p 3000:3000 --env-file .env ghcr.io/peageon/ssock:latest
+            docker stop ssock2 || true
+            docker rm ssock2 || true
+            docker run -d --name ssock2 --restart always -p 3001:3000 --env-file .env ghcr.io/peageon/ssock:latest
+            docker stop ssock3 || true
+            docker rm ssock3 || true
+            docker run -d --name ssock3 --restart always -p 3002:3000 --env-file .env ghcr.io/peageon/ssock:latest
