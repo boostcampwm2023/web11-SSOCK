@@ -2,20 +2,14 @@ import React, { useRef, useEffect, useContext } from 'react';
 import { createPortal } from 'react-dom';
 import styled from 'styled-components';
 import { theme } from '@utils';
-import {
-  SnowBallContext,
-} from '@pages/Visit/SnowBallProvider';
-
-
-
+import { SnowBallContext } from '@pages/Visit/SnowBallProvider';
 
 interface LockModalProps {
-  flag : boolean;
-  set : React.Dispatch<React.SetStateAction<boolean>>;
-  toast : boolean;
-  setToast : React.Dispatch<React.SetStateAction<boolean>>;
-};
-
+  flag: boolean;
+  set: React.Dispatch<React.SetStateAction<boolean>>;
+  toast: boolean;
+  setToast: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
 const Modal = styled.div`
   position: fixed;
@@ -38,10 +32,8 @@ const ModalBackground = styled.div`
   top: 0;
   left: 0;
   z-index: 100;
-
   width: 100%;
   height: 100%;
-
   background-color: rgba(0, 0, 0, 0.5);
 `;
 
@@ -77,9 +69,7 @@ const MButton = styled.button`
   font: ${theme.font['--normal-button-font']};
 `;
 
-
 const LockModal = (props: LockModalProps) => {
-
   const modalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -103,7 +93,6 @@ const LockModal = (props: LockModalProps) => {
 
   const { changePrivate, snowBallData } = useContext(SnowBallContext);
   const privateFlag = snowBallData.is_message_private;
-  
 
   const setPrivate = () => {
     props.set(false);
@@ -125,26 +114,31 @@ const LockModal = (props: LockModalProps) => {
         createPortal(
           <ModalBackground onClick={() => props.set(false)}>
             <Modal onClick={stopEvent}>
-              { privateFlag ?
-                <> 
-                <Title>해당 스노우볼을 공개 할까요 ?</Title>
-                <SubTitle>공개한 스노우볼의 메세지는 방문자들도 볼 수 있어요.</SubTitle>
+              {privateFlag ? (
+                <>
+                  <Title>해당 스노우볼을 공개 할까요 ?</Title>
+                  <SubTitle>
+                    공개한 스노우볼의 메세지는 방문자들도 볼 수 있어요.
+                  </SubTitle>
                 </>
-              : <>
-              <Title>해당 스노우볼을 비공개 할까요 ?</Title>
-              <SubTitle>비공개한 스노우볼의 메세지는 방문자에게 보이지 않아요.</SubTitle>
-              </>
-              }
-              
+              ) : (
+                <>
+                  <Title>해당 스노우볼을 비공개 할까요 ?</Title>
+                  <SubTitle>
+                    비공개한 스노우볼의 메세지는 방문자에게 보이지 않아요.
+                  </SubTitle>
+                </>
+              )}
+
               <ButtonWrap>
                 <ModalButton>
-                  <MButton onClick={setPrivate}>{privateFlag ? '공개' : '비공개'}</MButton>
+                  <MButton onClick={setPrivate}>
+                    {privateFlag ? '공개' : '비공개'}
+                  </MButton>
                 </ModalButton>
                 <Divider>|</Divider>
                 <ModalButton>
-                  <MButton onClick={() => props.set(false)}>
-                    닫기
-                  </MButton>
+                  <MButton onClick={() => props.set(false)}>닫기</MButton>
                 </ModalButton>
               </ButtonWrap>
             </Modal>
@@ -156,6 +150,3 @@ const LockModal = (props: LockModalProps) => {
 };
 
 export default LockModal;
-
-
-
