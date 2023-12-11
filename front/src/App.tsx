@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components';
 import GlobalStyles from './GlobalStyles';
-import { theme, Loading } from '@utils';
+import { theme } from '@utils';
 import * as Pages from '@pages';
 import { Song } from '@components';
 import { HasSnowballData } from './router';
@@ -58,7 +58,6 @@ const App = () => {
                 <Route path="deco" element={<Pages.Deco />} />
               </Route>
 
-              <Route path="/loading" element={<Loading />} />
               <Route
                 path="/make"
                 element={
