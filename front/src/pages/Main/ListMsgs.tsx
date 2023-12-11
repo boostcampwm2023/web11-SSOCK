@@ -2,10 +2,10 @@ import { useEffect, useState, useContext } from 'react';
 import { createPortal } from 'react-dom';
 import axios from 'axios';
 import styled from 'styled-components';
+import { useLogout } from '@hooks';
 import { ListMsg, Prev } from '@components';
 import { MSG_COLOR } from '@constants';
 import { SnowBallContext } from '@pages/Visit/SnowBallProvider';
-import { useLogout } from '@hooks';
 
 interface ListMsgProps {
   set: React.Dispatch<React.SetStateAction<boolean>>;
@@ -96,7 +96,7 @@ const ListMsgs = (props: ListMsgProps) => {
 
   return (
     <>
-    {toast ? <ToastMsg>메세지가 없습니다.</ToastMsg> : null}
+      {toast ? <ToastMsg>메세지가 없습니다.</ToastMsg> : null}
       {messages.length > 0
         ? createPortal(
             <ListBackground>

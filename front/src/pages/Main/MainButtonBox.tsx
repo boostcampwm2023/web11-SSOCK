@@ -20,6 +20,7 @@ const StyledMenu = styled.img`
   width: 2rem;
   height: 2rem;
 `;
+
 const MessageCount = styled.span`
   font: ${props => props.theme.font['--normal-main-header-font']};
   color: white;

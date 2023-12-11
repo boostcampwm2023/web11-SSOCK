@@ -1,6 +1,6 @@
 import React, { useState, createContext } from 'react';
-import mockData from '@mock';
 import axios from 'axios';
+import mockData from '@mock';
 
 interface SnowBallData {
   id: number;
@@ -56,7 +56,6 @@ const SnowBallProvider: React.FC<{ children: React.ReactNode }> = ({
     resData.is_message_private = res.data.is_message_private;
     setSnowBallData(resData);
   };
-  
   return (
     <SnowBallContext.Provider
       value={{
