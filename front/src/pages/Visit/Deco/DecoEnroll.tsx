@@ -3,7 +3,6 @@ import { NavigateFunction, useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { theme, BlurBody } from '@utils';
 import { DecoContext } from './DecoProvider';
-import reset from 'styled-reset';
 
 interface NaviProps {
   visible: [number, React.Dispatch<React.SetStateAction<number>>];

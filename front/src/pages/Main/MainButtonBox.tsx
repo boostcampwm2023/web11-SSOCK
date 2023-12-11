@@ -1,5 +1,4 @@
 import { useState, useRef, useContext } from 'react';
-import axios from 'axios';
 import styled from 'styled-components';
 import { Container } from '@utils';
 import { HeaderText } from '@components';

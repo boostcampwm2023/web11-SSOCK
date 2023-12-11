@@ -52,7 +52,6 @@ const SnowBallProvider: React.FC<{ children: React.ReactNode }> = ({
       is_message_private: !snowBallData.is_message_private
     };
     axios.put(`/api/snowball/${snowBallData.id}`, newData).then(res => {
-      console.log(res.data);
       const resData = Object.assign({}, snowBallData);
       resData.is_message_private = res.data.is_message_private;
       setSnowBallData(resData);
