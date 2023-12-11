@@ -157,7 +157,7 @@ export class SnowballService {
     });
     if (!user)
       throw new NotFoundException('스노우볼을 소유한 유저를 찾을 수 없습니다.');
-    return user.id;
+    return user.user_id;
   }
 
   async doesDecorationExist(decoration_id: number): Promise<boolean> {
