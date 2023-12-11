@@ -55,6 +55,12 @@ const ListBackground = styled.div`
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.5);
   overflow: scroll;
+
+  @media (min-width: ${props => props.theme.size['--desktop-min-width']}) {
+    width: ${props => props.theme.size['--desktop-width']};
+    left: 50%;
+    transform: translateX(-50%);
+  }
 `;
 
 const ToastMsg = styled.div`
