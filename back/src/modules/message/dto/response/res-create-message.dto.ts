@@ -11,6 +11,13 @@ import { Expose } from 'class-transformer';
 
 export class ResCreateMessageDto {
   @Expose()
+  @IsNotEmpty()
+  @IsNumber()
+  @Min(1)
+  @ApiProperty({ type: Number, description: '메세지 id' })
+  readonly id: number;
+
+  @Expose()
   @IsString()
   @Length(1, 16)
   @IsNotEmpty()

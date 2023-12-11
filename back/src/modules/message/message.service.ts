@@ -56,14 +56,7 @@ export class MessageService {
       ...createMessageDto
     });
     try {
-      const resCreateMessage = await this.messageRepository.save(
-        messageEntity,
-        {
-          transaction: false,
-          reload: false
-        }
-      );
-      console.log(resCreateMessage);
+      const resCreateMessage = await this.messageRepository.save(messageEntity);
       return plainToInstance(ResCreateMessageDto, resCreateMessage, {
         excludeExtraneousValues: true
       });
