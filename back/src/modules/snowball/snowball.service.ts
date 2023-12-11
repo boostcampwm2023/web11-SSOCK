@@ -137,17 +137,27 @@ export class SnowballService {
   }
 
   async getResGetSnowballDto(
-    user_id: number,
     snowball_id: number,
     hasToken: boolean
   ): Promise<ResGetSnowballDto> {
     const snowball = await this.getSnowball(snowball_id, hasToken);
     if (!snowball) throw new NotFoundException('스노우볼을 찾을 수 없습니다.');
+    const user_id = await this.getUserId(snowball_id);
     const resGetSnowball = {
       message_count: await this.messageService.getMessageCount(user_id),
       snowball
     };
     return plainToInstance(ResGetSnowballDto, resGetSnowball);
+  }
+
+  async getUserId(snowball_id: number): Promise<number> {
+    const user = await this.snowballRepository.findOne({
+      where: { id: snowball_id },
+      select: ['user_id']
+    });
+    if (!user)
+      throw new NotFoundException('스노우볼을 소유한 유저를 찾을 수 없습니다.');
+    return user.id;
   }
 
   async doesDecorationExist(decoration_id: number): Promise<boolean> {

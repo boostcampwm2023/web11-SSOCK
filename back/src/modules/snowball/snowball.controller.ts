@@ -104,7 +104,6 @@ export class SnowballController {
     @Param('snowball_id') snowball_id: number
   ) {
     const resGetSnowballDto = await this.snowballService.getResGetSnowballDto(
-      req.user.id,
       snowball_id,
       req.hasToken
     );
