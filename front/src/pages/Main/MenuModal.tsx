@@ -75,40 +75,34 @@ const MenuModal = (props: ModalProps) => {
     navigate('/make/snowball');
   };
 
-  const viewBoostcamp = () => {
-    navigate('/boostcamp');
-  };
-
   return (
     <>
-    {toast ? <ToastMsg>스노우볼은 최대 5개까지 만들 수 있습니다.</ToastMsg> : null}
+      {toast ? (
+        <ToastMsg>스노우볼은 최대 5개까지 만들 수 있습니다.</ToastMsg>
+      ) : null}
 
-    <StyledModal>
-      <StyledUser>{userData.nickname}님</StyledUser>
-      <hr />
+      <StyledModal>
+        <StyledUser>{userData.nickname}님</StyledUser>
+        <hr />
 
-      <StyledSection
-        onClick={() => {
-          props.set(false);
-          props.list(true);
-        }}
-      >
-        편지 리스트로 보기
-      </StyledSection>
+        <StyledSection
+          onClick={() => {
+            props.set(false);
+            props.list(true);
+          }}
+        >
+          편지 리스트로 보기
+        </StyledSection>
 
-      <StyledSection onClick={makeNewSnowBall}>
-        새로운 스노우볼 만들러 가기
-      </StyledSection>
+        <StyledSection onClick={makeNewSnowBall}>
+          새로운 스노우볼 만들러 가기
+        </StyledSection>
 
-      <StyledSection onClick={viewBoostcamp}>
-        부스트캠프 다른 프로젝트 구경하기
-      </StyledSection>
+        <StyledLogout onClick={logout}>로그아웃</StyledLogout>
+        <hr />
 
-      <StyledLogout onClick={logout}>로그아웃</StyledLogout>
-      <hr />
-
-      <StyledClosed onClick={() => props.set(false)}>닫기</StyledClosed>
-    </StyledModal>
+        <StyledClosed onClick={() => props.set(false)}>닫기</StyledClosed>
+      </StyledModal>
     </>
   );
 };

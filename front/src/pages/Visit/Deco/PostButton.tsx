@@ -6,7 +6,6 @@ import { LongButton } from '@utils';
 import { DecoContext } from './DecoProvider';
 import { SnowBallContext } from '../SnowBallProvider';
 
-
 interface ButtonProps {
   text: string;
   color: string;
@@ -54,11 +53,18 @@ const PostButton = (props: ButtonProps) => {
   const ButtonRef = useRef<HTMLButtonElement>(null);
 
   const ClickedPost = () => {
-    //여기서 axios요청
     if (content === '' || sender === '') {
       setAlerts(true);
+
+      if (content === '')
+        document.getElementById('textarea')!.style.border = '1px solid white';
+      if (sender === '')
+        document.getElementById('fromInput')!.style.border = '1px solid white';
       return;
     }
+
+    document.getElementById('textarea')!.style.border = 'none';
+    document.getElementById('fromInput')!.style.border = 'none';
 
     const msgInfo = {
       sender,
@@ -100,6 +106,7 @@ const PostButton = (props: ButtonProps) => {
           </ToastMsg>
         </>
       ) : null}
+
       <PostButtonWrap>
         {alerts ? (
           <StyledAlert>내용과 이름을 입력해주세요 !</StyledAlert>

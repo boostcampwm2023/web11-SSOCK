@@ -137,7 +137,6 @@ const StyledFromInput = styled.input`
   color: ${props => props.theme.colors['--nick-name']};
   text-shadow: ${props => props.theme.font['--text-shadow']};
   font-size: 1rem;
-
   font-weight: 700;
   pointer-events: stroke;
 `;
@@ -268,6 +267,7 @@ const Msg = (props: MsgProps): JSX.Element => {
             {props.isInput ? (
               <StyledInputBox>
                 <StyledTextArea
+                  id="textarea"
                   rows={1}
                   value={content}
                   onChange={wordLength}
@@ -285,6 +285,7 @@ const Msg = (props: MsgProps): JSX.Element => {
                 From.
                 {props.isInput ? (
                   <StyledFromInput
+                    id="fromInput"
                     value={sender}
                     placeholder="이름입력"
                     onFocus={e => (e.target.value = '')}

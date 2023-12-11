@@ -10,7 +10,7 @@ interface ButtonColor {
 interface ButtonProps {
   text: string;
   color: string;
-  step: 'increase' | 'decrease' | 'done';
+  step: 'increase' | 'decrease' | 'doneIncrease' | 'doneDecrease';
   view: [number, React.Dispatch<React.SetStateAction<number>>];
   disabled?: boolean;
 }
@@ -30,7 +30,11 @@ const StepButton = (props: ButtonProps) => {
     } else if (props.step === 'decrease') {
       props.view[1](props.view[0] - 1);
     } else {
-      snowballName === 'default' ? props.view[1](404) : props.view[1](200);
+      props.step === 'doneDecrease'
+        ? props.view[1](-404)
+        : snowballName === 'default'
+        ? props.view[1](404)
+        : props.view[1](200);
     }
   };
 

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Container } from '@utils';
 import { HeaderText } from '@components';
 import { SnowBallContext } from './SnowBallProvider';
+import { MessageListContext } from './MessageListProvider';
 
 const StyledLetter = styled.div`
   font: ${props => props.theme.font['--normal-main-header-font']};
@@ -20,13 +21,14 @@ const StyledLetterImg = styled.img`
 
 const VisitHeader = () => {
   const { userData } = useContext(SnowBallContext);
+  const { messageList } = useContext(MessageListContext);
 
   return (
     <Container>
       <HeaderText Ref={null} userName={userData.nickname} />
       <StyledLetter>
-        <StyledLetterImg src={'/icons/letter.svg'} />총 {userData.message_count}
-        개의 편지
+        <StyledLetterImg src={'/icons/letter.svg'} />
+        {messageList.length}/30
       </StyledLetter>
     </Container>
   );

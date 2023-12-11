@@ -3,6 +3,7 @@ import { NavigateFunction, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 import { theme, BlurBody } from '@utils';
+import { useLogout } from '@hooks';
 
 interface NaviProps {
   visible: [number, React.Dispatch<React.SetStateAction<number>>];
@@ -63,6 +64,19 @@ const EmptyDiv = styled.div`
   width: 1rem;
 `;
 
+const ToastMsg = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  font: ${props => props.theme.font['--normal-button-font']};
+  background-color: ${props => props.theme.colors['--sub-text']};
+  border-radius: 1rem;
+  text-align: center;
+  padding: 1rem;
+`;
+
 const CloseNav = (
   props: NaviProps,
   closeRef: React.RefObject<HTMLDivElement>,
@@ -96,34 +110,52 @@ const DecoEnroll = (props: NaviProps) => {
   const navigate = useNavigate();
   const [isFocus, setIsFocus] = useState(true);
   const closeRef = useRef<HTMLDivElement>(null);
+  const BlurBodyRef = useRef<HTMLDivElement>(null);
+  const [toast, setToast] = useState(false);
+  const logout = useLogout();
 
   const shareLink = () => {
     axios.get('/api/user', { withCredentials: true }).then(res => {
       const user = res.data.user.auth_id;
 
+      closeRef.current?.style.setProperty('pointer-events', 'none');
+      closeRef.current?.style.setProperty('opacity', '0.5');
+      BlurBodyRef.current?.style.setProperty('pointer-events', 'none');
+
       const url = `https://www.mysnowball.kr/visit/${user}`;
       if (navigator.share === undefined) {
         navigator.clipboard.writeText(url);
-        CloseNav(props, closeRef, setIsFocus, navigate, 'root');
+        setToast(true);
+        setTimeout(() => {
+          CloseNav(props, closeRef, setIsFocus, navigate, 'root');
+        }, 1500);
         return;
       } else {
+        navigator.clipboard.writeText(url);
         navigator
           .share({
             url: url
           })
-          .then(() => {
-            CloseNav(props, closeRef, setIsFocus, navigate, 'root');
-          })
+          .then(() => {})
           .catch(() => {
-            CloseNav(props, closeRef, setIsFocus, navigate, 'root');
+            setToast(true);
+            setTimeout(() => {
+              CloseNav(props, closeRef, setIsFocus, navigate, 'root');
+            }, 1500);
           });
       }
+    })
+    .catch(e => {
+      console.error(e);
+      logout();
     });
   };
 
   return (
     <>
+    { toast ? <ToastMsg>링크가 복사되었습니다.</ToastMsg> : null }
       <BlurBody
+        ref={BlurBodyRef}
         onClick={() => CloseNav(props, closeRef, setIsFocus, navigate, 'close')}
       />
 
