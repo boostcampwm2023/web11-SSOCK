@@ -82,7 +82,6 @@ const ListMsgs = (props: ListMsgProps) => {
       .then(res => {
         if (res.data.length !== 0) setMessages(res.data);
         else if (res.data.length === 0) {
-          console.log('메세지가 없습니다.');
           setToast(true);
           setTimeout(() => {
             props.set(false);

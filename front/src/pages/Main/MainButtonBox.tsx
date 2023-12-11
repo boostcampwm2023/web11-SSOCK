@@ -5,6 +5,8 @@ import { HeaderText } from '@components';
 import MenuModal from './MenuModal';
 import ListMsgs from './ListMsgs';
 import { SnowBallContext } from '@pages/Visit/SnowBallProvider';
+import LockModal from './LockModal';
+
 
 interface MainButtonBoxProps {
   leftArrow: React.RefObject<HTMLImageElement>;
@@ -21,6 +23,8 @@ const StyledMenu = styled.img`
 const MessageCount = styled.span`
   font: ${props => props.theme.font['--normal-main-header-font']};
   color: white;
+  display: flex;
+  gap: 0.5rem;
 `;
 
 const PrivateButton = styled.img`
@@ -98,11 +102,12 @@ const MainButtonBox = (props: MainButtonBoxProps) => {
   const menuRef = useRef<HTMLImageElement>(null);
   const screenRef = useRef<HTMLImageElement>(null);
   const shareLinkRef = useRef<HTMLImageElement>(null);
-  const { snowBallData, changePrivate } = useContext(SnowBallContext);
+  const { snowBallData,  } = useContext(SnowBallContext);
   const [menuModal, setMenuModal] = useState(false);
   const [list, setList] = useState(false);
   const [screen, setScreen] = useState(false);
   const [toast, setToast] = useState(false);
+  const [ modalToast, setModalToast ] = useState(false);
   const { userData } = useContext(SnowBallContext);
 
   const shareLink = () => {
@@ -136,18 +141,25 @@ const MainButtonBox = (props: MainButtonBoxProps) => {
     }
   };
 
+  const [isModalOpened, setIsModalOpened] = useState(false);
+
   return (
     <>
       {!screen ? (
         <>
+          {isModalOpened ? <LockModal toast={modalToast} setToast={setModalToast} flag={isModalOpened} set={setIsModalOpened}/> : null}
           <Container ref={headerRef}>
             <HeaderText Ref={null} userName={userData.nickname} />
-            <MessageCount>총 {userData.message_count}개의 메시지</MessageCount>
+            <MessageCount><img style={{pointerEvents : 'none'}} src="/icons/letter.svg"/>총 {userData.message_count}개의 메시지</MessageCount>
+            { modalToast ? <div style={{width : '2rem', height : '2rem'}}></div> : // 여기 애니메이션 효과 넣어야해
+            <>
             {snowBallData.is_message_private ? (
-              <PrivateButton onClick={changePrivate} src="/icons/lock.svg" />
+              <PrivateButton onClick={() => setIsModalOpened(true)} src="/icons/lock.svg" />
             ) : (
-              <PrivateButton onClick={changePrivate} src="/icons/unlock.svg" />
-            )}
+              <PrivateButton onClick={() => setIsModalOpened(true)} src="/icons/unlock.svg" />
+            )} 
+            </>
+            }
           </Container>
 
           {list ? null : (
@@ -183,6 +195,7 @@ const MainButtonBox = (props: MainButtonBoxProps) => {
 
           {list ? <ListMsgs set={setList} /> : null}
           {toast ? <ToastMsg>링크가 복사되었습니다.</ToastMsg> : null}
+          {modalToast ? <ToastMsg>{snowBallData.is_message_private ? '메세지가 비공개 되었습니다.' : '메세지가 공개 되었습니다.'}</ToastMsg> : null}
         </>
       ) : null}
     </>
