@@ -85,7 +85,6 @@ const App = () => {
                 }
               />
 
-              <Route path="/boostcamp" element={<Pages.Boostcamp />} />
               <Route path="*" element={<Pages.Wrong />} />
             </Routes>
           </BrowserRouter>
