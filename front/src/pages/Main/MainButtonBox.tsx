@@ -32,7 +32,7 @@ const StyledShareLink = styled.img`
 
 const ToastMsg = styled.div`
   position: fixed;
-  top: 80%;
+  top: 70%;
   left: 50%;
   transform: translate(-50%, -50%);
 
@@ -101,9 +101,21 @@ const MainButtonBox = (props: MainButtonBoxProps) => {
           setToast(false);
         }, 1000);
       } else {
+        navigator.clipboard.writeText(url);
         navigator.share({
           url: url
-        });
+        }).then(() => {
+          setToast(true);
+          setTimeout(() => {
+            setToast(false);
+          }, 1000);
+        })
+          .catch(() => {
+            setToast(true);
+            setTimeout(() => {
+              setToast(false);
+            }, 1000);
+          });
       }
     });
   };
