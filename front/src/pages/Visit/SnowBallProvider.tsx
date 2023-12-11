@@ -46,16 +46,19 @@ const SnowBallProvider: React.FC<{ children: React.ReactNode }> = ({
     mockData.snowball_data as SnowBallData
   );
   const [userData, setUserData] = useState<UserData>(mockData.user_data);
+
   const changePrivate = async () => {
     const newData = {
       title: snowBallData.title,
       is_message_private: !snowBallData.is_message_private
     };
+
     const res = await axios.put(`/api/snowball/${snowBallData.id}`, newData);
     const resData = Object.assign({}, snowBallData);
     resData.is_message_private = res.data.is_message_private;
     setSnowBallData(resData);
   };
+
   return (
     <SnowBallContext.Provider
       value={{
