@@ -5,6 +5,8 @@ import styled from 'styled-components';
 import { ListMsg, Prev } from '@components';
 import { MSG_COLOR } from '@constants';
 import { SnowBallContext } from '@pages/Visit/SnowBallProvider';
+import { useLogout } from '@hooks';
+import { log } from 'three/examples/jsm/nodes/Nodes.js';
 
 interface ListMsgProps {
   set: React.Dispatch<React.SetStateAction<boolean>>;
@@ -56,19 +58,47 @@ const ListBackground = styled.div`
   overflow: scroll;
 `;
 
+const ToastMsg = styled.div`
+  position: fixed;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  font: ${props => props.theme.font['--normal-button-font']};
+  background-color: ${props => props.theme.colors['--sub-text']};
+  border-radius: 1rem;
+  text-align: center;
+  padding: 1rem;
+`;
+
 const ListMsgs = (props: ListMsgProps) => {
   const [messages, setMessages] = useState<Array<MsgResponse>>([]);
   const { userData } = useContext(SnowBallContext);
+  const [toast, setToast] = useState(false);
+  const logout = useLogout();
 
   useEffect(() => {
-    axios.get('/api/message').then(res => {
-      if (res.data.length !== 0) setMessages(res.data);
-      else props.set(false);
-    });
-  }, [userData]);
+    axios
+      .get('/api/message')
+      .then(res => {
+        if (res.data.length !== 0) setMessages(res.data);
+        else if (res.data.length === 0) {
+          console.log('메세지가 없습니다.');
+          setToast(true);
+          setTimeout(() => {
+            props.set(false);
+          }, 1500);
+        }
+      })
+      .catch(e => {
+        console.error(e);
+        logout();
+      });
+  }, []);
 
   return (
     <>
+    {toast ? <ToastMsg>메세지가 없습니다.</ToastMsg> : null}
       {messages.length > 0
         ? createPortal(
             <ListBackground>
