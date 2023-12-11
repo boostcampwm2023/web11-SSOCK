@@ -56,24 +56,21 @@ export class MessageService {
       ...createMessageDto
     });
     try {
-      await this.messageRepository.save(messageEntity, {
-        transaction: false,
-        reload: false
+      const resCreateMessage = await this.messageRepository.save(
+        messageEntity,
+        {
+          transaction: false,
+          reload: false
+        }
+      );
+      console.log(resCreateMessage);
+      return plainToInstance(ResCreateMessageDto, resCreateMessage, {
+        excludeExtraneousValues: true
       });
     } catch (err) {
       console.log(err);
       throw new BadRequestException('Insert Fail');
     }
-
-    const resCreateMessage = {
-      ...createMessageDto,
-      ...resClovaSentiment,
-      location: location
-    };
-
-    return plainToInstance(ResCreateMessageDto, resCreateMessage, {
-      excludeExtraneousValues: true
-    });
   }
 
   async isInsertAllowed(snowball_id: number): Promise<void> {

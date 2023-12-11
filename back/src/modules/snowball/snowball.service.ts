@@ -49,7 +49,10 @@ export class SnowballService {
       ...createSnowballDto
     });
 
-    const savedSnowballEntity = await this.snowballRepository.save(snowball);
+    const savedSnowballEntity = await this.snowballRepository.save(snowball, {
+      reload: false,
+      transaction: false
+    });
     const savedSnowball = instanceToPlain(savedSnowballEntity);
 
     const combinedSnowballDto = {
