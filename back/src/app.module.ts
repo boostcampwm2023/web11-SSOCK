@@ -6,11 +6,11 @@ import { AuthModule } from './modules/auth/auth.module';
 import typeOrmConfig from './config/orm-config';
 import { JwtModule } from '@nestjs/jwt';
 import { UserModule } from './modules/user/user.module';
-import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
+import { APP_INTERCEPTOR } from '@nestjs/core';
 import { ControllerLoggerInterceptor } from './common/interceptors/log.interceptor';
 import { ThrottlerModule } from '@nestjs/throttler';
 import throttlerConfig from './config/throttler-config';
-import { ThrottlerBehindProxyGuard } from './common/guards/throttler.guard';
+//import { ThrottlerBehindProxyGuard } from './common/guards/throttler.guard';
 
 @Module({
   imports: [
@@ -25,8 +25,8 @@ import { ThrottlerBehindProxyGuard } from './common/guards/throttler.guard';
   controllers: [AppController],
   providers: [
     AppService,
-    { provide: APP_INTERCEPTOR, useClass: ControllerLoggerInterceptor },
-    { provide: APP_GUARD, useClass: ThrottlerBehindProxyGuard }
+    { provide: APP_INTERCEPTOR, useClass: ControllerLoggerInterceptor }
+    //{ provide: APP_GUARD, useClass: ThrottlerBehindProxyGuard }
   ]
 })
 export class AppModule {}

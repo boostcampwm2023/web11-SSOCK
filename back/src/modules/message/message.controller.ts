@@ -31,7 +31,7 @@ import { JWTGuard } from 'src/common/guards/jwt.guard';
 import { JWTRequest } from 'src/common/interface/request.interface';
 import { ClovaService } from './clova.service';
 import { UpdateMessageLocationsDto } from './dto/update-message-locations.dto';
-import { Throttle } from '@nestjs/throttler';
+//import { Throttle } from '@nestjs/throttler';
 
 @ApiTags('Message API')
 @Controller('message')
@@ -122,7 +122,7 @@ export class MessageController {
   }
 
   @UseGuards(JWTGuard)
-  @Throttle({ api: { limit: 10, ttl: 1000 } })
+  //@Throttle({ api: { limit: 10, ttl: 1000 } })
   @ApiCookieAuth('access_token')
   @Put('/:message_id/open')
   @HttpCode(200)
