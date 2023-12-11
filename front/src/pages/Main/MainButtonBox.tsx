@@ -19,8 +19,13 @@ const StyledMenu = styled.img`
   width: 2rem;
   height: 2rem;
 `;
+const MessageCount = styled.span`
+  font: ${props => props.theme.font['--normal-main-header-font']};
+  color: white;
+`;
 
 const PrivateButton = styled.img`
+  display: inline;
   pointer-events: all;
   cursor: pointer;
   width: 2rem;
@@ -100,7 +105,6 @@ const MainButtonBox = (props: MainButtonBoxProps) => {
   const [screen, setScreen] = useState(false);
   const [toast, setToast] = useState(false);
   const { userData } = useContext(SnowBallContext);
-  console.log(snowBallData.is_message_private, '!!!');
 
   const shareLink = () => {
     const userID = userData.auth_id;
@@ -139,6 +143,7 @@ const MainButtonBox = (props: MainButtonBoxProps) => {
         <>
           <Container ref={headerRef}>
             <HeaderText Ref={null} userName={userData.nickname} />
+            <MessageCount>총 {userData.message_count}개의 메시지</MessageCount>
             {snowBallData.is_message_private ? (
               <PrivateButton onClick={changePrivate} src="/icons/lock.svg" />
             ) : (

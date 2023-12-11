@@ -62,6 +62,7 @@ const BoostcampDiv = styled.div`
 `;
 
 const updateFlakes = (ctx: CanvasRenderingContext2D, flakes: Flake[]) => {
+  console.log('test');
   ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
   ctx.fillStyle = 'hsla(242, 95%, 3%, 1)';
   ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
