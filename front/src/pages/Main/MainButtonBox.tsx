@@ -18,10 +18,6 @@ const StyledMenu = styled.img`
   right: 0.8rem;
 `;
 
-const HeaderContainer = styled(Container)`
-  flex-direction: row;
-`;
-
 const PrivateButton = styled.img`
   pointer-events: all;
   cursor: pointer;
@@ -30,12 +26,16 @@ const PrivateButton = styled.img`
 `;
 
 const StyledScreen = styled.img`
+  width: 2rem;
+  height: 2rem;
   position: absolute;
   bottom: 2rem;
   margin-left: 0.8rem;
 `;
 
 const StyledShareLink = styled.img`
+  width: 2rem;
+  height: 2rem;
   position: absolute;
   bottom: 2rem;
   right: 0.8rem;
@@ -92,13 +92,13 @@ const MainButtonBox = (props: MainButtonBoxProps) => {
   const menuRef = useRef<HTMLImageElement>(null);
   const screenRef = useRef<HTMLImageElement>(null);
   const shareLinkRef = useRef<HTMLImageElement>(null);
-
+  const { snowBallData, changePrivate } = useContext(SnowBallContext);
   const [menuModal, setMenuModal] = useState(false);
   const [list, setList] = useState(false);
   const [screen, setScreen] = useState(false);
   const [toast, setToast] = useState(false);
-
   const { userData } = useContext(SnowBallContext);
+  console.log(snowBallData.is_message_private, '!!!');
 
   const shareLink = () => {
     axios.get('/api/user', { withCredentials: true }).then(res => {
@@ -137,9 +137,13 @@ const MainButtonBox = (props: MainButtonBoxProps) => {
     <>
       {!screen ? (
         <>
-          <Container>
-            <HeaderText Ref={headerRef} userName={userData.nickname} />
-            <PrivateButton src="/icons/lock.svg" />
+          <Container ref={headerRef}>
+            <HeaderText Ref={null} userName={userData.nickname} />
+            {snowBallData.is_message_private ? (
+              <PrivateButton onClick={changePrivate} src="/icons/lock.svg" />
+            ) : (
+              <PrivateButton onClick={changePrivate} src="/icons/unlock.svg" />
+            )}
           </Container>
 
           {list ? null : (

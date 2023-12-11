@@ -1,5 +1,6 @@
 import React, { useState, createContext } from 'react';
 import mockData from '@mock';
+import axios from 'axios';
 
 interface SnowBallData {
   id: number;
@@ -27,13 +28,15 @@ interface SnowBallContextType {
   setSnowBallData: React.Dispatch<React.SetStateAction<SnowBallData>>;
   userData: UserData;
   setUserData: React.Dispatch<React.SetStateAction<UserData>>;
+  changePrivate: () => void;
 }
 
 const SnowBallContext = createContext<SnowBallContextType>({
   snowBallData: mockData.snowball_data as SnowBallData,
   setSnowBallData: () => {},
   userData: mockData.user_data,
-  setUserData: () => {}
+  setUserData: () => {},
+  changePrivate: () => {}
 });
 
 const SnowBallProvider: React.FC<{ children: React.ReactNode }> = ({
@@ -43,13 +46,26 @@ const SnowBallProvider: React.FC<{ children: React.ReactNode }> = ({
     mockData.snowball_data as SnowBallData
   );
   const [userData, setUserData] = useState<UserData>(mockData.user_data);
+  const changePrivate = () => {
+    const newData = {
+      title: snowBallData.title,
+      is_message_private: !snowBallData.is_message_private
+    };
+    axios.put(`/api/snowball/${snowBallData.id}`, newData).then(res => {
+      console.log(res.data);
+      const resData = Object.assign({}, snowBallData);
+      resData.is_message_private = res.data.is_message_private;
+      setSnowBallData(resData);
+    });
+  };
   return (
     <SnowBallContext.Provider
       value={{
         snowBallData,
         setSnowBallData,
         userData,
-        setUserData
+        setUserData,
+        changePrivate
       }}
     >
       {children}

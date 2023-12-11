@@ -37,8 +37,8 @@ const moveSnowball = (
 
   axios(`/api/snowball/${nextSnowBallID}`)
     .then(res => {
-      setSnowBallData(res.data.snowball as SnowBallData);
-      setMessageListData(res.data.snowball.message_list as Array<Message>);
+      setSnowBallData(res.data as SnowBallData);
+      setMessageListData(res.data.message_list as Array<Message>);
     })
     .catch(e => {
       console.error(e);
@@ -52,7 +52,6 @@ const VisitBody = () => {
   const { setMessageList } = useContext(MessageListContext);
   const leftArrowRef = useRef<HTMLImageElement>(null);
   const rightArrowRef = useRef<HTMLImageElement>(null);
-
   const delayButton = () => {
     if (leftArrowRef.current && rightArrowRef.current) {
       leftArrowRef.current.style.pointerEvents = 'none';

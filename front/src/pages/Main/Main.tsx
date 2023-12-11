@@ -51,9 +51,8 @@ const moveSnowball = (
 
   axios(`/api/snowball/${nextSnowBallID}`)
     .then(res => {
-      console.log(res);
-      setSnowBallData(res.data.snowball as SnowBallData);
-      setMessageListData(res.data.snowball.message_list as Array<Message>);
+      setSnowBallData(res.data as SnowBallData);
+      setMessageListData(res.data.message_list as Array<Message>);
     })
     .catch(e => {
       console.error(e);
@@ -149,7 +148,7 @@ const Main = () => {
       })
       .catch(e => {
         console.error(e);
-        logout;
+        logout();
       });
   }, []);
 
