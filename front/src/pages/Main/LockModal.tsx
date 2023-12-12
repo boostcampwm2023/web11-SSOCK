@@ -44,13 +44,15 @@ const ModalBackground = styled.div`
 `;
 
 const Title = styled.div`
-  font: ${theme.font['--normal-title-font']};
+  font: ${theme.font['--normal-nickname-font']};
   white-space: normal;
+  word-break: keep-all;
 `;
 
 const SubTitle = styled.div`
   font: ${theme.font['--normal-introduce-font']};
   white-space: normal;
+  word-break: keep-all;
 `;
 
 const ButtonWrap = styled.div`
