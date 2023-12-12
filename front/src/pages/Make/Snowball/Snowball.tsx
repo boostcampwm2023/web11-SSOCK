@@ -53,7 +53,7 @@ const StyledButtonBox = styled.div`
 const Home = styled.img`
   position: fixed;
   z-index: 99;
-  top: 4rem;
+  top: 1rem;
   left: 0.2rem;
   width: 3rem;
   height: 3rem;
