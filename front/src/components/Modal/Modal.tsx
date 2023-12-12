@@ -141,36 +141,28 @@ const DeleteModal = (props: DeleteModalProps) => {
   }, [isModalOpened]);
 
   const deleteArrayElement = (arr: Array<MsgResponse>, index: number) => {
-    props.set([...arr.slice(0, index), ...arr.slice(index + 1)]);
+    const newArr = arr.filter((_, idx) => idx !== index);
+    props.set(newArr);
   };
 
-  const deleteMsg = () => {
+  const deleteMsg = async () => {
     setIsModalOpened(false);
-    axios
-      .delete(`/api/message/${props.message}`, {
-        withCredentials: true
-      })
-      .then(() => {
-        const index = props.arr.findIndex(msg => msg.id === props.message);
-        deleteArrayElement(props.arr, index);
+    try {
+    await axios.delete(`/api/message/${props.message}`, { withCredentials: true })
+    const index = props.arr.findIndex(msg => msg.id === props.message);
+    deleteArrayElement(props.arr, index);
 
-        axios
-          .get('/api/user', { withCredentials: true })
-          .then(res => {
-            const userData = res.data.user as UserData;
-            const resSnowballData = res.data.main_snowball as SnowBallData;
-            const messageList = res.data.main_snowball
-              .message_list as Array<Message>;
-
-            setSnowBallData(resSnowballData);
-            setMessageList(messageList);
-            setUserData(userData);
-          })
-          .catch(() => {
-            navigate('*');
-          });
-      })
-      .catch(() => navigate('*'));
+    const res = await axios.get('/api/user', { withCredentials: true })
+    const userData = res.data.user as UserData;
+    const resSnowballData = res.data.main_snowball as SnowBallData;
+    const messageList = res.data.main_snowball.message_list as Array<Message>;
+    setSnowBallData(resSnowballData);
+    setMessageList(messageList);
+    setUserData(userData);
+    } catch (err) {
+      console.log(err);
+      navigate('*');
+    }
   };
 
   const stopEvent = (e: React.MouseEvent<HTMLDivElement>) => {
