@@ -1,12 +1,31 @@
 import styled from 'styled-components';
 import { DeleteModal } from '@components';
 
+
+interface MsgResponse {
+  user_id: number;
+  snowball_id: number;
+  location: number;
+  content: string;
+  sender: string;
+  to: string;
+  created: string;
+  decoration_id: number;
+  decoration_color: string;
+  id: number;
+  is_deleted: boolean;
+  opened: string;
+  letter_id: number;
+}
+
 interface MsgProps {
   color: string;
   content: string;
   sender: string;
   to: string;
   messageId: number;
+  arr : Array<MsgResponse>;
+  set: React.Dispatch<React.SetStateAction<Array<MsgResponse>>>;
 }
 
 interface MsgColor {
@@ -75,7 +94,7 @@ const ListMsg = (props: MsgProps): JSX.Element => {
         <StyledToWrap>
           To. <StyledTo>{props.to}</StyledTo>
         </StyledToWrap>
-        <DeleteModal message={props.messageId} />
+        <DeleteModal arr={props.arr} set={props.set} message={props.messageId} />
       </StyledLetterPerson>
 
       <StyledLetterContent>{props.content}</StyledLetterContent>
