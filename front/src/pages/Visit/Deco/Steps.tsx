@@ -84,6 +84,19 @@ const ButtonBox = styled.div`
   justify-content: center;
 `;
 
+const ToastMsg = styled.div`
+  position: fixed;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  font: ${props => props.theme.font['--normal-button-font']};
+  background-color: ${props => props.theme.colors['--sub-text']};
+  border-radius: 1rem;
+  text-align: center;
+  padding: 1rem;
+`;
+
 const Steps = () => {
   const [step, setStep] = useState(0);
   const [lastBox, setLastBox] = useState(false);
@@ -161,6 +174,17 @@ const Steps = () => {
     };
   }, [isDecoBoxClicked]);
 
+  const [toast, setToast] = useState(false);
+
+  useEffect(() => {
+    if (step === selectDeco || step === selectMsgColor) {
+      setToast(true);
+      setTimeout(() => {
+        setToast(false);
+      }, 1500);
+    }
+  }, [step]);
+
   const renderStateBoxes = () => {
     const boxes = [];
     for (let i = 0; i <= step; i++) {
@@ -176,6 +200,7 @@ const Steps = () => {
 
   return (
     <>
+      {toast ? <ToastMsg>{step === selectDeco ? '드래그를 하여 여러 장식을 확인해보세요 !' : '드래그를 하여 여러 색깔을 확인해보세요 !'}</ToastMsg> : null }
       <Container>
         <HeaderText Ref={null} userName={userData.nickname} />
 
