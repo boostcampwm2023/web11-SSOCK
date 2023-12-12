@@ -20,7 +20,10 @@ const MainBody = (): JSX.Element => {
     if (messageID === 0) {
       return;
     }
-
+    const nowMsg = messageList.find(message => message.id === messageID);
+    if (nowMsg === undefined || nowMsg.opened !== null) {
+      return;
+    }
     axios
       .put(`/api/message/${messageID}/open`)
       .then(() => {
