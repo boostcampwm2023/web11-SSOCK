@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from 'react';
 import { createPortal } from 'react-dom';
-import axios from '@utils/axios';
 import styled from 'styled-components';
+import { axios } from '@utils';
 import { useLogout } from '@hooks';
 import { ListMsg, Prev } from '@components';
 import { MSG_COLOR } from '@constants';

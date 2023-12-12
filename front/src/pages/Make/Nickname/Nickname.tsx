@@ -1,8 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from '@utils/axios';
 import styled from 'styled-components';
-import { theme } from '@utils';
+import { theme, axios } from '@utils';
 import { Button } from '@components';
 
 const StyledWrap = styled.div`
@@ -77,7 +76,7 @@ const Nickname = () => {
   const [lenWarning, setLenWarning] = useState(false);
   const nicknameRef = useRef<HTMLInputElement>(null);
 
-  //브라우저 뒤로가기시 main으로 이동시켜주기위한 로직
+  // 브라우저 뒤로가기시 main으로 이동시켜주기위한 로직
   window.history.pushState({}, '', '/main');
   window.history.pushState({}, '', '/make');
 

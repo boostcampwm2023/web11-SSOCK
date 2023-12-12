@@ -1,6 +1,6 @@
 import React, { ReactNode, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from '@utils/axios';
+import { axios } from '@utils';
 
 const HasSnowballData: React.FC<{ children: ReactNode }> = ({ children }) => {
   const navigate = useNavigate();

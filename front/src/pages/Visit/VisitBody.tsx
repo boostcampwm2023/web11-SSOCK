@@ -1,6 +1,6 @@
 import { useContext, useRef } from 'react';
 import styled from 'styled-components';
-import axios from '@utils/axios';
+import { axios } from '@utils';
 import { Msg } from '@components';
 import { MessageContext } from './MessageProvider';
 import { SnowBallContext, SnowBallData, UserData } from './SnowBallProvider';
@@ -91,6 +91,7 @@ const VisitBody = () => {
             }}
             ref={leftArrowRef}
           />
+
           <RightBtn
             src={'/icons/next.svg'}
             onClick={() => {

@@ -1,9 +1,8 @@
 import { useEffect, useRef, useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
-import axios from '@utils/axios';
 import styled from 'styled-components';
-import { Loading } from '@utils';
+import { Loading, axios } from '@utils';
 import { useLogout } from '@hooks';
 import { SnowGlobeCanvas, UIContainer } from '@components';
 import MainButtonBox from './MainButtonBox';
@@ -58,13 +57,14 @@ const moveSnowball = (
 const Main = () => {
   const navigate = useNavigate();
   const logout = useLogout();
-  const { setSnowBallData, setUserData, userData, snowBallData } =
-    useContext(SnowBallContext);
-  const { setMessageList } = useContext(MessageListContext);
   const leftArrowRef = useRef<HTMLImageElement>(null);
   const rightArrowRef = useRef<HTMLImageElement>(null);
   const [isLoading, setIsLoading] = useState(false);
+
   const [cookie] = useCookies(['loggedin']);
+  const { setSnowBallData, setUserData, userData, snowBallData } =
+    useContext(SnowBallContext);
+  const { setMessageList } = useContext(MessageListContext);
 
   const delayButton = () => {
     if (leftArrowRef.current && rightArrowRef.current) {
@@ -145,6 +145,7 @@ const Main = () => {
                   }}
                   ref={leftArrowRef}
                 />
+
                 <RightBtn
                   src={'/icons/next.svg'}
                   onClick={() => {
@@ -166,6 +167,7 @@ const Main = () => {
               leftArrow={leftArrowRef}
               rightArrow={rightArrowRef}
             />
+
             <MainBody />
             <EmptyDiv />
           </UIContainer>
