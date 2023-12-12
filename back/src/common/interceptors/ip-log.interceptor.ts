@@ -2,9 +2,10 @@ import {
   Injectable,
   NestInterceptor,
   ExecutionContext,
-  CallHandler
+  CallHandler,
+  HttpStatus
 } from '@nestjs/common';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import * as winston from 'winston';
 import * as DailyRotateFile from 'winston-daily-rotate-file';
 
@@ -29,15 +30,20 @@ export class IPLoggerInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
     const request = context.switchToHttp().getRequest();
     const clientIp = request.headers['x-forwarded-for'] || request.ip;
-    const message = request.body.content;
     const logData = {
       level: 'info',
-      clientIp,
-      message,
-      timestamp: new Date().toISOString()
+      clientIp
     };
 
-    this.logger.info(logData);
-    return next.handle();
+    const response = context.switchToHttp().getResponse();
+    return next.handle().pipe(
+      map(data => {
+        if (response.statusCode === HttpStatus.CREATED) {
+          const id = data.id;
+          this.logger.info({ ...logData, id });
+        }
+        return data;
+      })
+    );
   }
 }
