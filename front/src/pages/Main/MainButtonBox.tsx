@@ -161,7 +161,6 @@ const MainButtonBox = (props: MainButtonBoxProps) => {
 
   const privateClick = () => {
     setIsModalOpened(true);
-    document.getElementById('lock')!.style.animation = 'fadeOut 1s forwards';
   };
 
   return (
