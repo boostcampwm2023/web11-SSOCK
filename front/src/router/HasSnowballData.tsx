@@ -2,24 +2,12 @@ import React, { ReactNode, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from '@utils/axios';
 
-// const saveCookie = () => {
-//   const cookieToken = import.meta.env.VITE_APP_COOKIE_TOKEN;
-//   const cookieName = 'access_token';
-//   const cookieValue = cookieToken;
-//   const today = new Date();
-//   const expire = new Date();
-//   const secure = true;
-//   expire.setDate(today.getDate() + 1);
-//   document.cookie = `${cookieName}=${cookieValue}; expires=${expire.toUTCString()}; secure=${secure}; path=/`;
-// };
-
 const HasSnowballData: React.FC<{ children: ReactNode }> = ({ children }) => {
   const navigate = useNavigate();
   const [url, setUrl] = React.useState<string>('');
   const maxSnowball = 5;
 
   useEffect(() => {
-    // saveCookie();
     if (url === '' || url === '/make' || url === 'main') {
       axios
         .get('/api/user', {
@@ -42,10 +30,7 @@ const HasSnowballData: React.FC<{ children: ReactNode }> = ({ children }) => {
             }
           }
         })
-        .catch(err => {
-          console.error(err);
-          navigate('*');
-        });
+        .catch(() => navigate('*'));
     }
     navigate(url);
   }, [url, navigate]);

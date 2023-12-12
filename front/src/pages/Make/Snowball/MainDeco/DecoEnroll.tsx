@@ -93,7 +93,7 @@ const CloseNav = (
         navigate('/main');
         return;
       }
-      navigate(`/main`);
+      navigate('/main');
     }
   };
 
@@ -147,10 +147,7 @@ const DecoEnroll = (props: NaviProps) => {
             });
         }
       })
-      .catch(e => {
-        console.error(e);
-        logout();
-      });
+      .catch(() => logout());
   };
 
   return (

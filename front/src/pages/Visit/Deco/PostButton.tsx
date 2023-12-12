@@ -77,15 +77,12 @@ const PostButton = (props: ButtonProps) => {
     axios
       .post(`/api/message/${user}/${snowBallData.id}`, msgInfo)
       .then(() => {
-        axios.get(`/api/snowball/${snowBallData.id}`).then(res => {
-          //setSnowBallData(res.data);
-          console.log(res); // 빌드 에러용
+        axios.get(`/api/snowball/${snowBallData.id}`).then(() => {
           props.view[1](!props.view[0]);
           props.visible[1](-1);
         });
       })
-      .catch(e => {
-        console.error(e);
+      .catch(() => {
         setToast(true);
         ButtonRef.current!.disabled = true;
         ButtonRef.current!.style.setProperty('opacity', '0.5');
