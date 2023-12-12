@@ -1,6 +1,6 @@
 import React, { ReactNode, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import axios from '@utils/axios';
 
 // const saveCookie = () => {
 //   const cookieToken = import.meta.env.VITE_APP_COOKIE_TOKEN;

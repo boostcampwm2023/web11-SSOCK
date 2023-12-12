@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createPortal } from 'react-dom';
-import axios from 'axios';
+import axios from '@utils/axios';
 import styled from 'styled-components';
 import { theme } from '@utils';
 import {
@@ -157,8 +157,7 @@ const DeleteModal = (props: DeleteModalProps) => {
             setMessageList(messageList);
             setUserData(userData);
           })
-          .catch(e => {
-            console.error(e);
+          .catch(() => {
             navigate('*');
           });
       })

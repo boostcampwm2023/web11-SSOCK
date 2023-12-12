@@ -9,6 +9,7 @@ import { SnowBallProvider } from '@pages/Visit/SnowBallProvider';
 import { MessageProvider } from '@pages/Visit/MessageProvider';
 import { DecoProvider } from '@pages/Visit/Deco/DecoProvider';
 import { MessageListProvider } from '@pages/Visit/MessageListProvider';
+import * as Sentry from '@sentry/react';
 
 const Outer = styled.div`
   position: relative;
@@ -21,75 +22,75 @@ const Outer = styled.div`
     width: ${theme.size['--desktop-width']};
   }
 `;
-
 const App = () => {
   return (
     <>
-      <GlobalStyles />
-      <ThemeProvider theme={theme}>
-        <Outer>
-          <Song />
-          <BrowserRouter>
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  <MessageListProvider>
-                    <Pages.Intro />
-                  </MessageListProvider>
-                }
-              />
+      <Sentry.ErrorBoundary>
+        <GlobalStyles />
+        <ThemeProvider theme={theme}>
+          <Outer>
+            <Song />
+            <BrowserRouter>
+              <Routes>
+                <Route
+                  path="/"
+                  element={
+                    <MessageListProvider>
+                      <Pages.Intro />
+                    </MessageListProvider>
+                  }
+                />
 
-              <Route
-                path="/visit/:user"
-                element={
-                  <DecoProvider>
+                <Route
+                  path="/visit/:user"
+                  element={
+                    <DecoProvider>
+                      <MessageProvider>
+                        <SnowBallProvider>
+                          <MessageListProvider>
+                            <Outlet />
+                          </MessageListProvider>
+                        </SnowBallProvider>
+                      </MessageProvider>
+                    </DecoProvider>
+                  }
+                >
+                  <Route path="" element={<Pages.Visit />} />
+                  <Route path="deco" element={<Pages.Deco />} />
+                </Route>
+
+                <Route
+                  path="/make"
+                  element={
+                    <SnowBallProvider>
+                      <HasSnowballData>
+                        <Outlet />
+                      </HasSnowballData>
+                    </SnowBallProvider>
+                  }
+                >
+                  <Route path="" element={<Pages.Nickname />} />
+                  <Route path="snowball" element={<Pages.Snowball />} />
+                </Route>
+
+                <Route
+                  path="/main"
+                  element={
                     <MessageProvider>
                       <SnowBallProvider>
                         <MessageListProvider>
-                          <Outlet />
+                          <Pages.Main />
                         </MessageListProvider>
                       </SnowBallProvider>
                     </MessageProvider>
-                  </DecoProvider>
-                }
-              >
-                <Route path="" element={<Pages.Visit />} />
-                <Route path="deco" element={<Pages.Deco />} />
-              </Route>
-
-              <Route
-                path="/make"
-                element={
-                  <SnowBallProvider>
-                    <HasSnowballData>
-                      <Outlet />
-                    </HasSnowballData>
-                  </SnowBallProvider>
-                }
-              >
-                <Route path="" element={<Pages.Nickname />} />
-                <Route path="snowball" element={<Pages.Snowball />} />
-              </Route>
-
-              <Route
-                path="/main"
-                element={
-                  <MessageProvider>
-                    <SnowBallProvider>
-                      <MessageListProvider>
-                        <Pages.Main />
-                      </MessageListProvider>
-                    </SnowBallProvider>
-                  </MessageProvider>
-                }
-              />
-
-              <Route path="*" element={<Pages.Wrong />} />
-            </Routes>
-          </BrowserRouter>
-        </Outer>
-      </ThemeProvider>
+                  }
+                />
+                <Route path="*" element={<Pages.Wrong />} />
+              </Routes>
+            </BrowserRouter>
+          </Outer>
+        </ThemeProvider>
+      </Sentry.ErrorBoundary>
     </>
   );
 };

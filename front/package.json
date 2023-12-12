@@ -12,6 +12,7 @@
   "dependencies": {
     "@react-three/drei": "^9.88.11",
     "@react-three/fiber": "^8.15.10",
+    "@sentry/react": "^7.86.0",
     "@types/react-router-dom": "^5.3.3",
     "@types/styled-components": "^5.1.29",
     "@types/three": "^0.158.1",

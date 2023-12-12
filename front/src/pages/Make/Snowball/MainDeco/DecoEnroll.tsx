@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import axios from '@utils/axios';
 import styled from 'styled-components';
 import { theme, BlurBody } from '@utils';
 import { useLogout } from '@hooks';

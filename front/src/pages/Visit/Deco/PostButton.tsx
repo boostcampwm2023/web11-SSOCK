@@ -1,6 +1,6 @@
 import { useContext, useState, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import axios from 'axios';
+import axios from '@utils/axios';
 import styled from 'styled-components';
 import { LongButton } from '@utils';
 import { DecoContext } from './DecoProvider';
