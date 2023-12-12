@@ -200,7 +200,14 @@ const Steps = () => {
 
   return (
     <>
-      {toast ? <ToastMsg>{step === selectDeco ? '드래그를 하여 여러 장식을 확인해보세요 !' : '드래그를 하여 여러 색깔을 확인해보세요 !'}</ToastMsg> : null }
+      {toast ? (
+        <ToastMsg>
+          {step === selectDeco
+            ? '드래그를 하여 여러 장식을 확인해보세요 !'
+            : '드래그를 하여 여러 색깔을 확인해보세요 !'}
+        </ToastMsg>
+      ) : null}
+
       <Container>
         <HeaderText Ref={null} userName={userData.nickname} />
 

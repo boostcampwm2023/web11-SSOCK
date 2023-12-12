@@ -22,6 +22,7 @@ const Outer = styled.div`
     width: ${theme.size['--desktop-width']};
   }
 `;
+
 const App = () => {
   return (
     <>
