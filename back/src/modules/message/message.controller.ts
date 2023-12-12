@@ -8,7 +8,8 @@ import {
   HttpCode,
   UseGuards,
   Put,
-  Req
+  Req,
+  UseInterceptors
 } from '@nestjs/common';
 import { MessageService } from './message.service';
 import { ReqCreateMessageDto } from './dto/request/req-create-message.dto';
@@ -31,6 +32,7 @@ import { JWTGuard } from 'src/common/guards/jwt.guard';
 import { JWTRequest } from 'src/common/interface/request.interface';
 import { ClovaService } from './clova.service';
 import { UpdateMessageLocationsDto } from './dto/update-message-locations.dto';
+import { IPLoggerInterceptor } from 'src/common/interceptors/ip-log.interceptor';
 //import { Throttle } from '@nestjs/throttler';
 
 @ApiTags('Message API')
@@ -41,6 +43,7 @@ export class MessageController {
     private readonly clovaService: ClovaService
   ) {}
 
+  @UseInterceptors(IPLoggerInterceptor)
   @Post('/:auth_id/:snowball_id')
   @HttpCode(201)
   @ApiOperation({
