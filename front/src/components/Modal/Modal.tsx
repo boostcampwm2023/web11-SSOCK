@@ -60,6 +60,11 @@ const Modal = styled.div`
   flex-direction: column;
   gap: 1rem;
   align-items: center;
+  width: 80%;
+
+  @media (min-width: ${theme.size['--desktop-min-width']}) {
+    width: ${theme.size['--desktop-width']};
+  }
 `;
 
 const ModalBackground = styled.div`
@@ -75,11 +80,15 @@ const ModalBackground = styled.div`
 `;
 
 const Title = styled.div`
-  font: ${theme.font['--normal-title-font']};
+  font: ${theme.font['--normal-nickname-font']};
+  white-space: normal;
+  word-break: keep-all;
 `;
 
 const SubTitle = styled.div`
   font: ${theme.font['--normal-introduce-font']};
+  white-space: normal;
+  word-break: keep-all;
 `;
 
 const ButtonWrap = styled.div`
