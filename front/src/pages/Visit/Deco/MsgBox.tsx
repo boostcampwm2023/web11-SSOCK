@@ -16,7 +16,7 @@ const MsgContainer = styled.div`
   pointer-events: auto;
   overflow: scroll;
 
-  @media (max-height: ${props => props.theme.size['--desktop-max-height']}) {
+  @media (max-height: ${props => props.theme.size['--message-min-height']}) {
     position: absolute;
     top: 10%;
     height: 50%;
