@@ -11,6 +11,9 @@ const typeOrmConfig: TypeOrmModuleOptions = {
   database: process.env.DATABASE_SCHEMA,
   entities: [process.env.ENTITY_PATH],
   synchronize: false,
-  logging: true
+  logging: true,
+  extra: {
+    connectionLimit: 30
+  }
 };
 export default typeOrmConfig;
