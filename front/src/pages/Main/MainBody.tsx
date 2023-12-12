@@ -20,23 +20,18 @@ const MainBody = (): JSX.Element => {
     if (messageID === 0) {
       return;
     }
+
     const nowMsg = messageList.find(message => message.id === messageID);
     if (nowMsg === undefined || nowMsg.opened !== null) {
       return;
     }
-    axios
-      .put(`/api/message/${messageID}/open`)
-      .then(() => {
-        const newList = JSON.parse(
-          JSON.stringify(messageList)
-        ) as Array<Message>;
-        const nowMessage = newList.find(message => message.id === messageID);
-        if (nowMessage) {
-          nowMessage.opened = 'opened';
-        }
-        setMessageList(newList);
-      })
-      .catch(e => console.error(e));
+
+    axios.put(`/api/message/${messageID}/open`).then(() => {
+      const newList = JSON.parse(JSON.stringify(messageList)) as Array<Message>;
+      const nowMessage = newList.find(message => message.id === messageID);
+      nowMessage ? (nowMessage.opened = 'opened') : null;
+      setMessageList(newList);
+    });
   }, [messageID]);
 
   return (

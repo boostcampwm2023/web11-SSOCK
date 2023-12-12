@@ -86,10 +86,7 @@ const Snowball = () => {
           navigate('/make');
         }
       })
-      .catch(e => {
-        console.error(e);
-        navigate('/make');
-      });
+      .catch(() => navigate('/make'));
   }, [navigate]);
 
   return (

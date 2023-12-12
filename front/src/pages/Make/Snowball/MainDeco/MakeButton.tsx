@@ -53,14 +53,11 @@ const MakeButton = (props: ButtonProps) => {
 
     axios
       .post('/api/snowball', snowballInfo, { withCredentials: true })
-      .then(res => {
-        console.log(res);
-        //이건 토스트메시지 추가할거임
+      .then(() => {
+        // console.log(res);
+        // 이건 토스트메시지 추가할거임
       })
-      .catch(e => {
-        console.error(e);
-        navigate('/');
-      });
+      .catch(() => navigate('/'));
 
     props.view[1](!props.view[0]);
     props.visible[1](-1);

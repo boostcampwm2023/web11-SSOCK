@@ -77,10 +77,10 @@ const ToastMsg = styled.div`
 `;
 
 const ListMsgs = (props: ListMsgProps) => {
+  const logout = useLogout();
   const [messages, setMessages] = useState<Array<MsgResponse>>([]);
   const { userData } = useContext(SnowBallContext);
   const [toast, setToast] = useState(false);
-  const logout = useLogout();
 
   useEffect(() => {
     axios
@@ -94,10 +94,7 @@ const ListMsgs = (props: ListMsgProps) => {
           }, 1500);
         }
       })
-      .catch(e => {
-        console.error(e);
-        logout();
-      });
+      .catch(() => logout());
   }, [userData]);
 
   return (

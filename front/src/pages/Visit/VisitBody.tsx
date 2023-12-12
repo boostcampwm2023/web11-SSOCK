@@ -35,14 +35,10 @@ const moveSnowball = (
   const nextSnowBallID =
     userData.snowball_list[(nowSnowBallID + nextIdx) % userData.snowball_count];
 
-  axios(`/api/snowball/${nextSnowBallID}`)
-    .then(res => {
-      setSnowBallData(res.data as SnowBallData);
-      setMessageListData(res.data.message_list as Array<Message>);
-    })
-    .catch(e => {
-      console.error(e);
-    });
+  axios(`/api/snowball/${nextSnowBallID}`).then(res => {
+    setSnowBallData(res.data as SnowBallData);
+    setMessageListData(res.data.message_list as Array<Message>);
+  });
 };
 
 const VisitBody = () => {

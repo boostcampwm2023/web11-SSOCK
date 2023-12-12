@@ -11,10 +11,10 @@ import { SnowBallContext, SnowBallData, UserData } from './SnowBallProvider';
 
 const Visit = () => {
   const navigate = useNavigate();
+  const { user } = useParams();
   const { setSnowBallData, setUserData, snowBallData } =
     useContext(SnowBallContext);
   const { setMessageList } = useContext(MessageListContext);
-  const { user } = useParams();
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -26,11 +26,7 @@ const Visit = () => {
         setUserData(res.data.user as UserData);
         setIsLoading(true);
       })
-      .catch(e => {
-        //없는 유저 조회시 wrong page로 보내버리기
-        console.error(e);
-        navigate('*');
-      });
+      .catch(() => navigate('*')); // 없는 유저 조회시 wrong page로 보내버리기
   }, [navigate, user]);
 
   return (

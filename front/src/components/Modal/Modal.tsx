@@ -108,8 +108,11 @@ const MButton = styled.button`
 `;
 
 const DeleteModal = (props: DeleteModalProps) => {
+  const navigate = useNavigate();
   const [isModalOpened, setIsModalOpened] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
+  const { setSnowBallData, setUserData } = useContext(SnowBallContext);
+  const { setMessageList } = useContext(MessageListContext);
 
   useEffect(() => {
     const closeModal = (e: MouseEvent) => {
@@ -129,10 +132,6 @@ const DeleteModal = (props: DeleteModalProps) => {
     };
   }, [isModalOpened]);
 
-  const navigate = useNavigate();
-  const { setSnowBallData, setUserData } = useContext(SnowBallContext);
-  const { setMessageList } = useContext(MessageListContext);
-
   const deleteArrayElement = (arr: Array<MsgResponse>, index: number) => {
     props.set([...arr.slice(0, index), ...arr.slice(index + 1)]);
   };
@@ -146,6 +145,7 @@ const DeleteModal = (props: DeleteModalProps) => {
       .then(() => {
         const index = props.arr.findIndex(msg => msg.id === props.message);
         deleteArrayElement(props.arr, index);
+
         axios
           .get('/api/user', { withCredentials: true })
           .then(res => {
@@ -153,6 +153,7 @@ const DeleteModal = (props: DeleteModalProps) => {
             const resSnowballData = res.data.main_snowball as SnowBallData;
             const messageList = res.data.main_snowball
               .message_list as Array<Message>;
+
             setSnowBallData(resSnowballData);
             setMessageList(messageList);
             setUserData(userData);
@@ -161,10 +162,7 @@ const DeleteModal = (props: DeleteModalProps) => {
             navigate('*');
           });
       })
-      .catch(e => {
-        console.error(e);
-        navigate('*');
-      });
+      .catch(() => navigate('*'));
   };
 
   const stopEvent = (e: React.MouseEvent<HTMLDivElement>) => {
