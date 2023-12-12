@@ -34,7 +34,7 @@ const size = {
   '--desktop-min-width': '1024px',
   '--desktop-width': '700px',
   maxWidth: '900px',
-  '--desktop-max-height': '600px'
+  '--message-min-height': '600px'
 };
 
 const theme = {
