@@ -134,6 +134,14 @@ const Introduce = (props: IntroduceProps) => {
           💧슬픈 내용이 들어있어요😢
           <br />
         </Section>
+        <br />
+
+        <Section>
+          🚨버그 및 신고는
+          <br />
+          <Bold>kimbukaem@gmail.com</Bold>
+          <br />로 부탁드립니다🙇
+        </Section>
       </StyledText>
 
       <StyledClosed onClick={() => closeIntroduce(props, closeRef)}>
