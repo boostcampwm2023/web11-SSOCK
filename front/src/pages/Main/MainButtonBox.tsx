@@ -65,6 +65,15 @@ const ToastMsg = styled.div`
   padding: 1rem;
 `;
 
+const EmptyDiv = styled.div`
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: all;
+`;
+
 const screenTime = (
   setScreen: React.Dispatch<React.SetStateAction<boolean>>,
   refs: Array<React.RefObject<HTMLDivElement>>
@@ -83,19 +92,22 @@ const screenTime = (
   const music = document.getElementById('musicController');
   music ? (music.style.display = 'none') : null;
 
+  const prev = document.getElementById('prevBtn');
+  prev ? (prev.style.display = 'none') : null;
+
   setTimeout(() => {
     setScreen(true);
   }, 1000);
+};
 
-  setTimeout(() => {
-    setScreen(false);
-    music ? (music.style.display = 'block') : null;
-    refs.forEach(ref => {
-      if (ref.current) {
-        ref.current.style.setProperty('animation', 'none');
-      }
-    });
-  }, 5000);
+const uiOn = (setScreen: React.Dispatch<React.SetStateAction<boolean>>) => {
+  const music = document.getElementById('musicController');
+  music ? (music.style.display = 'block') : null;
+
+  const prev = document.getElementById('prevBtn');
+  prev ? (prev.style.display = 'block') : null;
+
+  setScreen(false);
 };
 
 const MainButtonBox = (props: MainButtonBoxProps) => {
@@ -213,7 +225,6 @@ const MainButtonBox = (props: MainButtonBoxProps) => {
               ])
             }
           />
-
           <StyledShareLink
             ref={shareLinkRef}
             src={'/icons/shareLink.svg'}
@@ -230,7 +241,9 @@ const MainButtonBox = (props: MainButtonBoxProps) => {
             </ToastMsg>
           ) : null}
         </>
-      ) : null}
+      ) : (
+        <EmptyDiv onClick={() => uiOn(setScreen)} />
+      )}
     </>
   );
 };

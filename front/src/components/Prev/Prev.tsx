@@ -21,6 +21,7 @@ const Prev = (props: PrevProps) => {
 
   return (props.set === 'Canvas' && view) || props.set !== 'Canvas' ? (
     <StyledPrev
+      id="prevBtn"
       src={'/icons/prev.svg'}
       onClick={() => {
         setMessage('');
