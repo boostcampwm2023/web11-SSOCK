@@ -6,7 +6,7 @@ import MenuModal from './MenuModal';
 import ListMsgs from './ListMsgs';
 import LockModal from './LockModal';
 import { SnowBallContext } from '@pages/Visit/SnowBallProvider';
-
+import Introduce from '@pages/Intro/Introduce';
 interface MainButtonBoxProps {
   leftArrow: React.RefObject<HTMLImageElement>;
   rightArrow: React.RefObject<HTMLImageElement>;
@@ -157,6 +157,9 @@ const MainButtonBox = (props: MainButtonBoxProps) => {
     }
   };
 
+  const [setIntro, setShowIntro] = useState(false);
+
+
   const privateClick = () => {
     setIsModalOpened(true);
     document.getElementById('lock')!.style.animation = 'fadeOut 1s forwards';
@@ -209,7 +212,8 @@ const MainButtonBox = (props: MainButtonBoxProps) => {
             />
           )}
 
-          {menuModal ? <MenuModal set={setMenuModal} list={setList} /> : null}
+          {menuModal ? <MenuModal intro={[setIntro, setShowIntro]} set={setMenuModal} list={setList} /> : null}
+          {setIntro ? <><Introduce view={[setIntro, setShowIntro]}/></> : null }
 
           <StyledScreen
             ref={screenRef}
