@@ -1,8 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import axios from '@utils/axios';
-import { Loading, theme } from '@utils';
+import { Loading, theme, axios } from '@utils';
 import { SnowGlobeCanvas, Button } from '@components';
 import { MainDeco } from './MainDeco';
 import { SnowBallContext } from '@pages/Visit/SnowBallProvider';

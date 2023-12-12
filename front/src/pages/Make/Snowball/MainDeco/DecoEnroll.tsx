@@ -1,8 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
-import axios from '@utils/axios';
 import styled from 'styled-components';
-import { theme, BlurBody } from '@utils';
+import { theme, BlurBody, axios } from '@utils';
 import { useLogout } from '@hooks';
 
 interface NaviProps {
@@ -89,6 +88,7 @@ const CloseNav = (
       setIsFocus(false);
       props.view[1](!props.view[0]);
       closeRef.current.removeEventListener('animationend', onAnimationEnd);
+
       if (flag === 'root') {
         navigate('/main');
         return;
@@ -128,6 +128,7 @@ const DecoEnroll = (props: NaviProps) => {
         if (navigator.share === undefined) {
           navigator.clipboard.writeText(url);
           setToast(true);
+
           setTimeout(() => {
             CloseNav(props, closeRef, setIsFocus, navigate, 'root');
           }, 1500);
@@ -138,9 +139,9 @@ const DecoEnroll = (props: NaviProps) => {
             .share({
               url: url
             })
-            .then(() => {})
             .catch(() => {
               setToast(true);
+
               setTimeout(() => {
                 CloseNav(props, closeRef, setIsFocus, navigate, 'root');
               }, 1500);

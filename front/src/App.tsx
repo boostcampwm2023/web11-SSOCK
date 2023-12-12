@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
+import * as Sentry from '@sentry/react';
 import styled, { ThemeProvider } from 'styled-components';
 import GlobalStyles from './GlobalStyles';
 import { theme } from '@utils';
@@ -9,7 +10,6 @@ import { SnowBallProvider } from '@pages/Visit/SnowBallProvider';
 import { MessageProvider } from '@pages/Visit/MessageProvider';
 import { DecoProvider } from '@pages/Visit/Deco/DecoProvider';
 import { MessageListProvider } from '@pages/Visit/MessageListProvider';
-import * as Sentry from '@sentry/react';
 
 const Outer = styled.div`
   position: relative;

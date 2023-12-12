@@ -1,7 +1,6 @@
 import { useState, useContext, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import axios from '@utils/axios';
-import { Loading } from '@utils';
+import { Loading, axios } from '@utils';
 import { SnowGlobeCanvas, UIContainer } from '@components';
 import VisitHeader from './VisitHeader';
 import VisitBody from './VisitBody';

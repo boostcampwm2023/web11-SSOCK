@@ -1,9 +1,8 @@
 import { useState, useRef, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createPortal } from 'react-dom';
-import axios from '@utils/axios';
 import styled from 'styled-components';
-import { theme } from '@utils';
+import { theme, axios } from '@utils';
 import {
   SnowBallContext,
   UserData,
