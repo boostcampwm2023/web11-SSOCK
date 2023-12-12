@@ -4,9 +4,11 @@ import styled from 'styled-components';
 import { useLogout } from '@hooks';
 import { SnowBallContext } from '@pages/Visit/SnowBallProvider';
 
+
 interface ModalProps {
   set: React.Dispatch<React.SetStateAction<boolean>>;
   list: React.Dispatch<React.SetStateAction<boolean>>;
+  intro: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
 }
 
 const StyledModal = styled.div`
@@ -75,11 +77,19 @@ const MenuModal = (props: ModalProps) => {
     navigate('/make/snowball');
   };
 
+  const showIntro = () => {
+    props.set(false);
+    props.intro[1](true);
+  };
+
+
   return (
     <>
       {toast ? (
         <ToastMsg>스노우볼은 최대 5개까지 만들 수 있습니다.</ToastMsg>
       ) : null}
+
+      
 
       <StyledModal>
         <StyledUser>{userData.nickname}님</StyledUser>
@@ -96,6 +106,10 @@ const MenuModal = (props: ModalProps) => {
 
         <StyledSection onClick={makeNewSnowBall}>
           새로운 스노우볼 만들러 가기
+        </StyledSection>
+
+        <StyledSection onClick={showIntro}>
+          소개글 보기
         </StyledSection>
 
         <StyledLogout onClick={logout}>로그아웃</StyledLogout>
