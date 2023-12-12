@@ -104,14 +104,13 @@ const LockModal = (props: LockModalProps) => {
   const { changePrivate, snowBallData } = useContext(SnowBallContext);
   const privateFlag = snowBallData.is_message_private;
 
-  const setPrivate = () => {
+  const setPrivate = async () => {
     props.set(false);
-    changePrivate().then(() => {
-      props.setToast(true);
-      setTimeout(() => {
-        props.setToast(false);
-      }, 1500);
-    });
+    await changePrivate()
+    props.setToast(true);
+    setTimeout(() => {
+      props.setToast(false);
+    }, 1500);
   };
 
   const stopEvent = (e: React.MouseEvent<HTMLDivElement>) => {

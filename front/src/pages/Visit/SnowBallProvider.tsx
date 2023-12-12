@@ -1,6 +1,7 @@
 import React, { useState, createContext } from 'react';
 import { axios } from '@utils';
 import mockData from '@mock';
+import { useNavigate } from 'react-router-dom';
 
 interface SnowBallData {
   id: number;
@@ -46,17 +47,22 @@ const SnowBallProvider: React.FC<{ children: React.ReactNode }> = ({
     mockData.snowball_data as SnowBallData
   );
   const [userData, setUserData] = useState<UserData>(mockData.user_data);
-
+  const navigate = useNavigate();
   const changePrivate = async () => {
     const newData = {
       title: snowBallData.title,
       is_message_private: !snowBallData.is_message_private
     };
 
-    const res = await axios.put(`/api/snowball/${snowBallData.id}`, newData);
-    const resData = Object.assign({}, snowBallData);
-    resData.is_message_private = res.data.is_message_private;
-    setSnowBallData(resData);
+    try {
+      const res = await axios.put(`/api/snowball/${snowBallData.id}`, newData);
+      const resData = Object.assign({}, snowBallData);
+      resData.is_message_private = res.data.is_message_private;
+      setSnowBallData(resData);
+    } catch (err) {
+      console.log(err);
+      navigate('*');
+    }
   };
 
   return (
