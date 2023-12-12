@@ -113,6 +113,8 @@ const ListMsgs = (props: ListMsgProps) => {
                     return (
                       <ListMsg
                         key={idx}
+                        arr={messages}
+                        set={setMessages}
                         color={MSG_COLOR[msg.letter_id].color}
                         content={msg.content}
                         sender={msg.sender}

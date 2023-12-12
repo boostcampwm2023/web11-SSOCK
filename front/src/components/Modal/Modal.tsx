@@ -11,8 +11,26 @@ import {
 } from '@pages/Visit/SnowBallProvider';
 import { MessageListContext, Message } from '@pages/Visit/MessageListProvider';
 
+interface MsgResponse {
+  user_id: number;
+  snowball_id: number;
+  location: number;
+  content: string;
+  sender: string;
+  to: string;
+  created: string;
+  decoration_id: number;
+  decoration_color: string;
+  id: number;
+  is_deleted: boolean;
+  opened: string;
+  letter_id: number;
+}
+
 interface DeleteModalProps {
   message: number;
+  arr: Array<MsgResponse>;
+  set: React.Dispatch<React.SetStateAction<Array<MsgResponse>>>;
 }
 
 const Button = styled.button`
@@ -104,7 +122,6 @@ const DeleteModal = (props: DeleteModalProps) => {
       }
     };
 
-    // 이벤트 리스너를 document 전체에 붙여줌
     document.addEventListener('mousedown', closeModal);
 
     return () => {
@@ -116,6 +133,10 @@ const DeleteModal = (props: DeleteModalProps) => {
   const { setSnowBallData, setUserData } = useContext(SnowBallContext);
   const { setMessageList } = useContext(MessageListContext);
 
+  const deleteArrayElement = (arr: Array<MsgResponse>, index: number) => {
+    props.set([...arr.slice(0, index), ...arr.slice(index + 1)]);
+  };
+
   const deleteMsg = () => {
     setIsModalOpened(false);
     axios
@@ -123,6 +144,10 @@ const DeleteModal = (props: DeleteModalProps) => {
         withCredentials: true
       })
       .then(() => {
+        const index = props.arr.findIndex(
+          msg => msg.id === props.message
+        );
+        deleteArrayElement(props.arr, index);
         axios
           .get('/api/user', { withCredentials: true })
           .then(res => {
