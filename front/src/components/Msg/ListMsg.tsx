@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { DeleteModal } from '@components';
 
-
 interface MsgResponse {
   user_id: number;
   snowball_id: number;
@@ -24,7 +23,7 @@ interface MsgProps {
   sender: string;
   to: string;
   messageId: number;
-  arr : Array<MsgResponse>;
+  arr: Array<MsgResponse>;
   set: React.Dispatch<React.SetStateAction<Array<MsgResponse>>>;
 }
 
@@ -94,7 +93,11 @@ const ListMsg = (props: MsgProps): JSX.Element => {
         <StyledToWrap>
           To. <StyledTo>{props.to}</StyledTo>
         </StyledToWrap>
-        <DeleteModal arr={props.arr} set={props.set} message={props.messageId} />
+        <DeleteModal
+          arr={props.arr}
+          set={props.set}
+          message={props.messageId}
+        />
       </StyledLetterPerson>
 
       <StyledLetterContent>{props.content}</StyledLetterContent>

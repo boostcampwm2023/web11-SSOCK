@@ -144,9 +144,7 @@ const DeleteModal = (props: DeleteModalProps) => {
         withCredentials: true
       })
       .then(() => {
-        const index = props.arr.findIndex(
-          msg => msg.id === props.message
-        );
+        const index = props.arr.findIndex(msg => msg.id === props.message);
         deleteArrayElement(props.arr, index);
         axios
           .get('/api/user', { withCredentials: true })
