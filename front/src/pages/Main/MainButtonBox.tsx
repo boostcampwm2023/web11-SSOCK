@@ -159,7 +159,6 @@ const MainButtonBox = (props: MainButtonBoxProps) => {
 
   const [setIntro, setShowIntro] = useState(false);
 
-
   const privateClick = () => {
     setIsModalOpened(true);
     document.getElementById('lock')!.style.animation = 'fadeOut 1s forwards';
@@ -177,12 +176,14 @@ const MainButtonBox = (props: MainButtonBoxProps) => {
               set={setIsModalOpened}
             />
           ) : null}
+
           <Container ref={headerRef}>
             <HeaderText Ref={null} userName={userData.nickname} />
             <MessageCount>
               <img style={{ pointerEvents: 'none' }} src="/icons/letter.svg" />
               총 {userData.message_count}개의 메시지
             </MessageCount>
+
             {modalToast ? (
               <div style={{ width: '2rem', height: '2rem' }} />
             ) : (
@@ -212,8 +213,19 @@ const MainButtonBox = (props: MainButtonBoxProps) => {
             />
           )}
 
-          {menuModal ? <MenuModal intro={[setIntro, setShowIntro]} set={setMenuModal} list={setList} /> : null}
-          {setIntro ? <><Introduce view={[setIntro, setShowIntro]}/></> : null }
+          {menuModal ? (
+            <MenuModal
+              intro={[setIntro, setShowIntro]}
+              set={setMenuModal}
+              list={setList}
+            />
+          ) : null}
+
+          {setIntro ? (
+            <>
+              <Introduce view={[setIntro, setShowIntro]} />
+            </>
+          ) : null}
 
           <StyledScreen
             ref={screenRef}
@@ -229,6 +241,7 @@ const MainButtonBox = (props: MainButtonBoxProps) => {
               ])
             }
           />
+
           <StyledShareLink
             ref={shareLinkRef}
             src={'/icons/shareLink.svg'}

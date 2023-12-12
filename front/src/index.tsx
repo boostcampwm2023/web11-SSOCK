@@ -1,6 +1,6 @@
 import ReactDOM from 'react-dom/client';
-import App from './App';
 import * as Sentry from '@sentry/react';
+import App from './App';
 
 Sentry.init({
   dsn: import.meta.env.VITE_APP_SENTRY_DSN,
