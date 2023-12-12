@@ -1,7 +1,7 @@
 import { useEffect, useRef, useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
-import axios from 'axios';
+import axios from '@utils/axios';
 import styled from 'styled-components';
 import { Loading } from '@utils';
 import { useLogout } from '@hooks';
@@ -49,7 +49,7 @@ const moveSnowball = (
   const nextSnowBallID =
     userData.snowball_list[(nowSnowBallID + nextIdx) % userData.snowball_count];
 
-  axios(`/api/snowball/${nextSnowBallID}`)
+  axios(`/api/snowball/${nextSnowBallID + 1000}`)
     .then(res => {
       setSnowBallData(res.data as SnowBallData);
       setMessageListData(res.data.message_list as Array<Message>);

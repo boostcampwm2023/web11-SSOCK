@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext } from 'react';
 import { createPortal } from 'react-dom';
-import axios from 'axios';
+import axios from '@utils/axios';
 import styled from 'styled-components';
 import { useLogout } from '@hooks';
 import { ListMsg, Prev } from '@components';
@@ -98,7 +98,7 @@ const ListMsgs = (props: ListMsgProps) => {
         console.error(e);
         logout();
       });
-  }, []);
+  }, [userData]);
 
   return (
     <>

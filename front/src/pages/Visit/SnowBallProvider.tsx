@@ -1,5 +1,5 @@
 import React, { useState, createContext } from 'react';
-import axios from 'axios';
+import axios from '@utils/axios';
 import mockData from '@mock';
 
 interface SnowBallData {

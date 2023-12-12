@@ -1,5 +1,5 @@
 import { useContext, useEffect } from 'react';
-import axios from 'axios';
+import axios from '@utils/axios';
 import styled from 'styled-components';
 import { Msg } from '@components';
 import { MessageListContext, Message } from '@pages/Visit/MessageListProvider';
