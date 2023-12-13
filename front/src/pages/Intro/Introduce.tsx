@@ -115,6 +115,17 @@ const Introduce = (props: IntroduceProps) => {
         <br />
 
         <Section>
+          <Bold>🔒비공개 스노우볼 설정</Bold>
+          <br />
+          🔺로그인 후 자물쇠를 눌러서 스노우볼의 공개 여부를 설정할 수 있어요🔓
+          <br />
+          🔺비공개 스노우볼의 경우 스노우볼의 주인만 편지들을 열람할 수 있어요📮
+          <br />
+          🔺생성한 스노우볼별로 비공개 설정이 가능해요🔮
+        </Section>
+        <br />
+
+        <Section>
           <Bold>❗아직 확인하지 않은 편지</Bold>
           <br />안 읽은 편지들을 확인할 수 있어요☃️
         </Section>
