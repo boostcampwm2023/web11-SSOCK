@@ -100,13 +100,20 @@ const screenTime = (
   }, 1000);
 };
 
-const uiOn = (setScreen: React.Dispatch<React.SetStateAction<boolean>>) => {
+const uiOn = (
+  setScreen: React.Dispatch<React.SetStateAction<boolean>>,
+  refs: Array<React.RefObject<HTMLDivElement>>
+) => {
   const music = document.getElementById('musicController');
   music ? (music.style.display = 'block') : null;
 
   const prev = document.getElementById('prevBtn');
   prev ? (prev.style.display = 'block') : null;
-
+  refs.forEach(ref => {
+    if (ref.current) {
+      ref.current.style.setProperty('animation', `fadeInUp 0s forwards`);
+    }
+  });
   setScreen(false);
 };
 
@@ -258,7 +265,9 @@ const MainButtonBox = (props: MainButtonBoxProps) => {
           ) : null}
         </>
       ) : (
-        <EmptyDiv onClick={() => uiOn(setScreen)} />
+        <EmptyDiv
+          onClick={() => uiOn(setScreen, [props.leftArrow, props.rightArrow])}
+        />
       )}
     </>
   );
