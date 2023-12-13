@@ -91,9 +91,7 @@ const Main = () => {
     }
 
     axios
-      .get('/api/user', {
-        withCredentials: true // axios 쿠키 값 전달
-      })
+      .get('/api/user', { withCredentials: true })
       .then(res => {
         if (res.status === 200) {
           const resUserData = res.data.user as UserData;

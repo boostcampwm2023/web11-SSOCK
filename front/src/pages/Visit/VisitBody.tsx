@@ -5,6 +5,7 @@ import { Msg } from '@components';
 import { MessageContext } from './MessageProvider';
 import { SnowBallContext, SnowBallData, UserData } from './SnowBallProvider';
 import { MessageListContext, Message } from './MessageListProvider';
+import { NavigateFunction, useNavigate } from 'react-router-dom';
 
 const LeftBtn = styled.img`
   position: fixed;
@@ -16,12 +17,13 @@ const RightBtn = styled(LeftBtn)`
   right: 0;
 `;
 
-const moveSnowball = (
+const moveSnowball = async (
   move: 'Prev' | 'Next',
   userData: UserData,
   snowBallData: SnowBallData,
   setSnowBallData: React.Dispatch<React.SetStateAction<SnowBallData>>,
-  setMessageListData: React.Dispatch<React.SetStateAction<Array<Message>>>
+  setMessageListData: React.Dispatch<React.SetStateAction<Array<Message>>>,
+  navigate: NavigateFunction
 ) => {
   const nowSnowBallID = userData.snowball_list.findIndex(
     id => id === snowBallData.id
@@ -35,10 +37,27 @@ const moveSnowball = (
   const nextSnowBallID =
     userData.snowball_list[(nowSnowBallID + nextIdx) % userData.snowball_count];
 
-  axios(`/api/snowball/${nextSnowBallID}`).then(res => {
-    setSnowBallData(res.data as SnowBallData);
-    setMessageListData(res.data.message_list as Array<Message>);
-  });
+  try {
+    const response = await axios(`/api/snowball/${nextSnowBallID}`);
+    if (response.data.is_message_private === true) {
+      const messageList = response.data.message_list as Array<Message>;
+      const privateMessageList = messageList.map(message => {
+        const privateMessage = {
+          ...message
+        };
+        privateMessage.content = '비공개 메시지 입니다.';
+        privateMessage.sender = '비공개';
+        return privateMessage;
+      });
+      setMessageListData(privateMessageList);
+    } else {
+      setMessageListData(response.data.message_list as Array<Message>);
+    }
+    setSnowBallData(response.data as SnowBallData);
+  } catch (error) {
+    console.log(error);
+    navigate('*');
+  }
 };
 
 const VisitBody = () => {
@@ -48,6 +67,7 @@ const VisitBody = () => {
   const { setMessageList } = useContext(MessageListContext);
   const leftArrowRef = useRef<HTMLImageElement>(null);
   const rightArrowRef = useRef<HTMLImageElement>(null);
+  const navigate = useNavigate();
   const delayButton = () => {
     if (leftArrowRef.current && rightArrowRef.current) {
       leftArrowRef.current.style.pointerEvents = 'none';
@@ -85,7 +105,8 @@ const VisitBody = () => {
                 userData,
                 snowBallData,
                 setSnowBallData,
-                setMessageList
+                setMessageList,
+                navigate
               );
               delayButton();
             }}
@@ -100,7 +121,8 @@ const VisitBody = () => {
                 userData,
                 snowBallData,
                 setSnowBallData,
-                setMessageList
+                setMessageList,
+                navigate
               );
               delayButton();
             }}

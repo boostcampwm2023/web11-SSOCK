@@ -17,7 +17,7 @@ const Decos = ({ centerPosition, radius }: DecosProps) => {
       id={message.decoration_id}
       scale={1}
       position={getDecoPoisition(message.location)}
-      message={message.content ?? '비공개메시지입니다'}
+      message={message.content ?? '비공개 메시지 입니다.'}
       color={message.decoration_color}
       sender={message.sender ?? '비공개'}
       letterID={message.letter_id ?? 0}
