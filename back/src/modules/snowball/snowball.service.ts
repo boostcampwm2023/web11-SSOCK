@@ -126,7 +126,6 @@ export class SnowballService {
 
     const resSnowball = {
       ...snowball,
-      is_message_private: snowball.is_message_private,
       message_list: await this.messageService.getMessageList(
         snowball.id,
         is_private_contents === true ? 'private' : 'public'
