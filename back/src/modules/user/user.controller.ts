@@ -61,7 +61,7 @@ export class UserController {
     const userData = await this.userService.getUserData(auth_id);
     const result = this.userService.createUserInfo(
       userData,
-      false,
+      req.hasToken,
       !req.user ? 0 : req.user.id
     );
     return result;
