@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { Container } from '@utils';
 import { HeaderText } from '@components';
@@ -19,12 +20,24 @@ const StyledLetterImg = styled.img`
   height: 100%;
 `;
 
+const HomeBtn = styled.img`
+  position: fixed;
+  z-index: 99;
+  top: 1rem;
+  left: 0.2rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  filter: invert(1);
+`;
+
 const VisitHeader = () => {
   const { userData } = useContext(SnowBallContext);
   const { messageList } = useContext(MessageListContext);
+  const navigate = useNavigate();
 
   return (
     <Container>
+      <HomeBtn onClick={() => navigate('/')} src="/icons/home.svg" />
       <HeaderText Ref={null} userName={userData.nickname} />
       <StyledLetter>
         <StyledLetterImg src={'/icons/letter.svg'} />
