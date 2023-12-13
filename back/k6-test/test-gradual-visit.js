@@ -21,6 +21,6 @@ export default function () {
       'https://www.mysnowball.kr/api/user/111634878460880992241'
     );
     check(res, { 'status is 200': r => r.status == 200 });
-    sleep(0.1);
+    sleep(1);
   }
 }
