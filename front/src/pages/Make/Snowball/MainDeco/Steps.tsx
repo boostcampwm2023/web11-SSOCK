@@ -212,11 +212,11 @@ const Steps = () => {
   const renderStateBoxes = () => {
     const boxes = [];
     for (let i = 0; i <= step; i++) {
-      const progressColor = theme.colors['--primary-green-primary'];
+      const progressColor = theme.colors['--progress-done'];
       boxes.push(<StateBox key={i} color={progressColor}></StateBox>);
     }
     for (let i = step + 1; i < lastConfirm; i++) {
-      const progressColor = theme.colors['--primary-red-primary'];
+      const progressColor = theme.colors['--progress-yet'];
       boxes.push(<StateBox key={i} color={progressColor}></StateBox>);
     }
     return boxes;
