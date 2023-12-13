@@ -49,7 +49,7 @@
 
 <br>
 
-<img width="60%" src="https://github.com/boostcampwm2023/web11-SSOCK/assets/98443541/008c0d98-96e0-4812-a9e7-46126eb1d4ae"><br><br>
+<img width="60%" src="https://github.com/boostcampwm2023/web11-SSOCK/assets/98443541/22d5ad9b-6611-4511-831f-833385008324"><br><br>
 
 공유 받은 링크를 통해 스노우볼 주인의 장식을 구경해요.
 
