@@ -105,7 +105,8 @@ export class SnowballController {
   ) {
     const snowball = await this.snowballService.getSnowball(
       snowball_id,
-      req.hasToken
+      req.hasToken,
+      req.user.id
     );
     if (!snowball) throw new NotFoundException('스노우볼을 찾을 수 없습니다.');
     return snowball;

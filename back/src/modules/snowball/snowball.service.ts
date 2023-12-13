@@ -110,7 +110,8 @@ export class SnowballService {
 
   async getSnowball(
     snowball_id: number,
-    hasToken: boolean
+    hasToken: boolean,
+    user_id: number
   ): Promise<SnowballDto> | null {
     const snowball = await this.snowballRepository.findOne({
       where: { id: snowball_id }
@@ -120,7 +121,9 @@ export class SnowballService {
     }
 
     const is_private_contents =
-      !hasToken && snowball.is_message_private !== null;
+      !hasToken &&
+      snowball.is_message_private !== null &&
+      user_id !== snowball.user_id;
 
     const resSnowball = {
       ...snowball,
@@ -178,7 +181,11 @@ export class SnowballService {
     if (!userDto.main_snowball_id) {
       return null;
     } else {
-      return await this.getSnowball(userDto.main_snowball_id, hasToken);
+      return await this.getSnowball(
+        userDto.main_snowball_id,
+        hasToken,
+        userDto.id
+      );
     }
   }
 
