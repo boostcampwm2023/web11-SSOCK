@@ -10,12 +10,14 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
 import { ControllerLoggerInterceptor } from './common/interceptors/log.interceptor';
 import { ThrottlerModule } from '@nestjs/throttler';
 import throttlerConfig from './config/throttler-config';
+import { MongooseModule } from '@nestjs/mongoose';
 //import { ThrottlerBehindProxyGuard } from './common/guards/throttler.guard';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(typeOrmConfig),
     ThrottlerModule.forRoot(throttlerConfig),
+    MongooseModule.forRoot(process.env.MONGO_URI),
     UserModule,
     AuthModule,
     JwtModule.register({
