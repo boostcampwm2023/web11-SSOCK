@@ -5,7 +5,7 @@ const throttlerConfig: ThrottlerModuleOptions = {
     {
       name: 'api',
       ttl: 10000, // 1 seconds
-      limit: 3
+      limit: 30
     }
   ],
   errorMessage: 'Too Many API Requests'
