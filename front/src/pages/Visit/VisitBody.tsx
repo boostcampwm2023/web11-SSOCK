@@ -95,7 +95,8 @@ const VisitBody = () => {
           to={userData.nickname}
           isDeco={false}
         />
-      ) : userData.snowball_list.length > 1 ? (
+      ) : null }
+      { userData.snowball_list.length > 1 ? (
         <>
           <LeftBtn
             src={'/icons/prev.svg'}
