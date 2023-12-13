@@ -28,7 +28,7 @@ import { JWTGuard } from '../../common/guards/jwt.guard';
 import { UpdateMainDecoDto } from './dto/update-main-decoration.dto';
 import { JWTRequest } from '../../common/interface/request.interface';
 import { hasJWTInterceptor } from '../../common/interceptors/hasJwt.interceptor';
-//import { Throttle } from '@nestjs/throttler';
+import { Throttle } from '@nestjs/throttler';
 
 @ApiTags('Snowball API')
 @Controller('snowball')
@@ -87,7 +87,7 @@ export class SnowballController {
   }
 
   @Get('/:snowball_id')
-  //@Throttle({ api: { limit: 10, ttl: 1000 } })
+  @Throttle({ api: { limit: 10, ttl: 1000 } })
   @UseInterceptors(hasJWTInterceptor)
   @HttpCode(200)
   @ApiResponse({
