@@ -86,7 +86,7 @@ const ButtonBox = styled.div`
 
 const ToastMsg = styled.div`
   position: fixed;
-  top: 70%;
+  top: 55%;
   left: 50%;
   transform: translate(-50%, -50%);
 
@@ -95,6 +95,7 @@ const ToastMsg = styled.div`
   border-radius: 1rem;
   text-align: center;
   padding: 1rem;
+  font-size: 1rem;
 `;
 
 const Steps = () => {
@@ -176,13 +177,21 @@ const Steps = () => {
 
   const [toast, setToast] = useState(false);
 
-  useEffect(() => {
+  const timer = useRef<number | null>(null);
+  const setToastMsg = () => {
+    if (timer.current) clearTimeout(timer.current);
     if (step === selectDeco || step === selectMsgColor) {
       setToast(true);
-      setTimeout(() => {
+      timer.current = setTimeout(() => {
         setToast(false);
       }, 1500);
+    } else {
+      setToast(false);
     }
+  };
+
+  useEffect(() => {
+    setToastMsg();
   }, [step]);
 
   const renderStateBoxes = () => {
