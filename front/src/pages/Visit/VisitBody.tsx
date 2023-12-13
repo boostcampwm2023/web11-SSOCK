@@ -1,11 +1,11 @@
 import { useContext, useRef } from 'react';
+import { NavigateFunction, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { axios } from '@utils';
 import { Msg } from '@components';
 import { MessageContext } from './MessageProvider';
 import { SnowBallContext, SnowBallData, UserData } from './SnowBallProvider';
 import { MessageListContext, Message } from './MessageListProvider';
-import { NavigateFunction, useNavigate } from 'react-router-dom';
 
 const LeftBtn = styled.img`
   position: fixed;
@@ -61,13 +61,15 @@ const moveSnowball = async (
 };
 
 const VisitBody = () => {
+  const navigate = useNavigate();
   const { message, sender, color } = useContext(MessageContext);
   const { userData, snowBallData, setSnowBallData } =
     useContext(SnowBallContext);
   const { setMessageList } = useContext(MessageListContext);
+
   const leftArrowRef = useRef<HTMLImageElement>(null);
   const rightArrowRef = useRef<HTMLImageElement>(null);
-  const navigate = useNavigate();
+
   const delayButton = () => {
     if (leftArrowRef.current && rightArrowRef.current) {
       leftArrowRef.current.style.pointerEvents = 'none';
@@ -95,8 +97,9 @@ const VisitBody = () => {
           to={userData.nickname}
           isDeco={false}
         />
-      ) : null }
-      { userData.snowball_list.length > 1 ? (
+      ) : null}
+
+      {userData.snowball_list.length > 1 ? (
         <>
           <LeftBtn
             src={'/icons/prev.svg'}

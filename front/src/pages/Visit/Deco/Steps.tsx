@@ -182,7 +182,7 @@ const Steps = () => {
     if (timer.current) clearTimeout(timer.current);
     if (step === selectDeco || step === selectMsgColor) {
       setToast(true);
-      timer.current = setTimeout(() => {
+      timer.current = window.setTimeout(() => {
         setToast(false);
       }, 1500);
     } else {

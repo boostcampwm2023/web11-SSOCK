@@ -72,7 +72,7 @@ const MenuModal = (props: ModalProps) => {
     }
     if (userData.snowball_count >= 5) {
       setToast(true);
-      timer.current = setTimeout(() => {
+      timer.current = window.setTimeout(() => {
         setToast(false);
       }, 1500);
       return;

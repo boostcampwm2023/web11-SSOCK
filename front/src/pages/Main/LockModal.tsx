@@ -106,7 +106,7 @@ const LockModal = (props: LockModalProps) => {
 
   const setPrivate = async () => {
     props.set(false);
-    await changePrivate()
+    await changePrivate();
     props.setToast(true);
     setTimeout(() => {
       props.setToast(false);

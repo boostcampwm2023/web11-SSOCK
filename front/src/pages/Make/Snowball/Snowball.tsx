@@ -2,11 +2,11 @@ import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { Loading, theme, axios } from '@utils';
+import { useLogout } from '@hooks';
 import { SnowGlobeCanvas, Button } from '@components';
 import { MainDeco } from './MainDeco';
 import { SnowBallContext } from '@pages/Visit/SnowBallProvider';
 import { UserData } from '@pages/Visit/SnowBallProvider';
-import { useLogout } from '@hooks';
 
 const StyledHeader = styled.div`
   position: absolute;

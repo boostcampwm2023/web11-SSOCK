@@ -129,6 +129,7 @@ const MainButtonBox = (props: MainButtonBoxProps) => {
   const [toast, setToast] = useState(false);
   const [modalToast, setModalToast] = useState(false);
   const [isModalOpened, setIsModalOpened] = useState(false);
+  const [setIntro, setShowIntro] = useState(false);
 
   const { snowBallData } = useContext(SnowBallContext);
   const { userData } = useContext(SnowBallContext);
@@ -163,8 +164,6 @@ const MainButtonBox = (props: MainButtonBoxProps) => {
         });
     }
   };
-
-  const [setIntro, setShowIntro] = useState(false);
 
   const privateClick = () => {
     setIsModalOpened(true);

@@ -20,8 +20,10 @@ const Visit = () => {
   const getVisitData = async () => {
     try {
       const res = await axios(`/api/user/${user}`);
+
       if (res.data.main_snowball.is_message_private === true) {
-        const messageList = res.data.main_snowball.message_list as Array<Message>;
+        const messageList = res.data.main_snowball
+          .message_list as Array<Message>;
         const privateMessageList = messageList.map(message => {
           const privateMessage = {
             ...message
@@ -31,12 +33,14 @@ const Visit = () => {
           return privateMessage;
         });
         setMessageList(privateMessageList);
-      } else { setMessageList(res.data.main_snowball.message_list); }
+      } else {
+        setMessageList(res.data.main_snowball.message_list);
+      }
+
       setSnowBallData(res.data.main_snowball as SnowBallData);
       setUserData(res.data.user as UserData);
       setIsLoading(true);
-    } catch (err) {
-      console.log(err);
+    } catch {
       navigate('*');
     }
   };
