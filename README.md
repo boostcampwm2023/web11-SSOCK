@@ -176,7 +176,12 @@
 </table>
 
 ## 🔧 시스템 아키텍쳐
-![Web App Reference Architecture](https://github.com/boostcampwm2023/web11-SSOCK/assets/33882299/d761bf8a-0915-458f-817e-972345a67016)
+
+![Web_App_Reference_Architecture_7](https://github.com/boostcampwm2023/web11-SSOCK/assets/98443541/84c3d483-04b0-4484-9c7e-54b58708a648)
+
+## 기술적 도전
+
+작성예정
 
 ## 프로젝트 진행
 
@@ -189,9 +194,7 @@
 - [🔙백로그](https://delicious-halloumi-7ae.notion.site/bb4f7bbba3b147a39cd425c70a187049)
 - [📘회의록](https://delicious-halloumi-7ae.notion.site/5e446ce68cb84ead801fd98eb9419811?pvs=4)
 
-## 기술적 도전
 
-작성예정
 
 <hr>
 
