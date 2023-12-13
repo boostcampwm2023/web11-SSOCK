@@ -20,6 +20,7 @@ const Visit = () => {
   useEffect(() => {
     axios(`/api/user/${user}`)
       .then(res => {
+        console.log(res.data);
         setMessageList(res.data.main_snowball.message_list);
         setSnowBallData(res.data.main_snowball as SnowBallData);
         setUserData(res.data.user as UserData);
