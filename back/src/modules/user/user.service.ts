@@ -72,9 +72,7 @@ export class UserService {
       main_snowball: mainSnowballDto
     };
 
-    return plainToInstance(ResInfoDto, resInfoDto, {
-      enableCircularCheck: true
-    });
+    return resInfoDto;
   }
 
   async createUserDto(
