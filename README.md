@@ -181,8 +181,6 @@
 
 ## 기술적 도전
 
-<hr>
-
 ### 프론트엔드
 
 이번 프로젝트를 통해 가장 중점적으로 생각한 부분은 `실제 사용자들이 사용할 서비스를 만들자` 였습니다.
@@ -202,6 +200,35 @@
 [🖥️100vh 기기문제](https://delicious-halloumi-7ae.notion.site/100vh-7af4bdb4c46c46268d818217b3fd53cb?pvs=4)
 
 다음으로 매번 배포해서 모바일 환경을 실시간으로 CSS 를 디버깅하기에 어려움이 있어 여러 방법을 도입하였습니다.
+
+- 구글 크롬 스마트폰 모바일 개발자 도구 (안드로이드)
+- 유료 프로그램
+- vite 로컬 호스트 연결
+
+이렇게 세가지 방법을 찾아보았고 그중에 가장 접근성이 좋은 vite 로컬 호스트 연결을 선택하였습니다.
+
+`vite.config.ts` 의 host를 설정해 같은 네트워크를 공유하여 실시간으로 모바일 환경을 볼 수 있었습니다.
+
+<br>
+<div align="center">
+  <img src="https://github.com/boostcampwm2023/web11-SSOCK/assets/98443541/4aef3695-5b83-4dd9-8dfe-e6d66e6c4656" alt="react-components" width="60%">
+</div>
+<br>
+
+- ### 리렌더링 최적화
+
+SSOCK 팀 프론트엔드에서 설계한 컴포넌트 구조의 간략한 시각화는 다음과 같습니다.
+
+<br>
+<div align="center">
+  <img src="https://github.com/boostcampwm2023/web11-SSOCK/assets/98443541/77e3d6ec-7e90-4ebd-8727-d91520b64283" alt="react-components" width="90%">
+</div>
+<br>
+
+크게 `Three.js` 로 렌더링한 Canvas 컴포넌트와 UI 를 구분지어 설계하였습니다.
+
+
+
 
 
 
