@@ -50,15 +50,21 @@ export class UserService {
     }
   }
 
-  async createUserInfo(user: any, hasToken: boolean): Promise<ResInfoDto> {
+  async createUserInfo(
+    user: any,
+    hasToken: boolean,
+    isUser: boolean
+  ): Promise<ResInfoDto> {
     const userDto: UserDto = await this.createUserDto(
       user.id,
       user.name,
       user.auth_id
     );
+    console.log(userDto);
     const mainSnowballDto = await this.snowballService.getMainSnowballDto(
       userDto,
-      hasToken
+      hasToken,
+      isUser
     );
 
     const resInfoDto = {

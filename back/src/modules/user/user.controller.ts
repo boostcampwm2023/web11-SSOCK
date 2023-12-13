@@ -37,7 +37,7 @@ export class UserController {
     type: ResInfoDto
   })
   async createUserInfo(@Req() req: JWTRequest): Promise<ResInfoDto> {
-    const result = this.userService.createUserInfo(req.user, true);
+    const result = this.userService.createUserInfo(req.user, true, true);
     return result;
   }
 
@@ -55,7 +55,7 @@ export class UserController {
     @Param('auth_id') auth_id: string
   ): Promise<ResInfoDto> {
     const userData = await this.userService.getUserData(auth_id);
-    const result = this.userService.createUserInfo(userData, false);
+    const result = this.userService.createUserInfo(userData, false, false);
     return result;
   }
 
