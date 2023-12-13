@@ -103,11 +103,10 @@ export class SnowballController {
     @Req() req: JWTRequest,
     @Param('snowball_id') snowball_id: number
   ) {
-    const isUser = req.hasToken;
     const snowball = await this.snowballService.getSnowball(
       snowball_id,
       req.hasToken,
-      isUser
+      !req.user ? 0 : req.user.id
     );
     if (!snowball) throw new NotFoundException('스노우볼을 찾을 수 없습니다.');
     return snowball;

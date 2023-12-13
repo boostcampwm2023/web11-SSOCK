@@ -5,7 +5,8 @@ import {
   UseGuards,
   Param,
   Req,
-  Put
+  Put,
+  UseInterceptors
 } from '@nestjs/common';
 import { JWTGuard } from '../../common/guards/jwt.guard';
 import {
@@ -19,6 +20,7 @@ import { UserService } from './user.service';
 import { ResInfoDto } from './dto/response/res-info.dto';
 import { NicknameDto } from './dto/nickname.dto';
 import { JWTRequest } from 'src/common/interface/request.interface';
+import { hasJWTInterceptor } from 'src/common/interceptors/hasJwt.interceptor';
 
 @ApiTags('User API')
 @Controller('user')
@@ -37,11 +39,12 @@ export class UserController {
     type: ResInfoDto
   })
   async createUserInfo(@Req() req: JWTRequest): Promise<ResInfoDto> {
-    const result = this.userService.createUserInfo(req.user, true, true);
+    const result = this.userService.createUserInfo(req.user, true, req.user.id);
     return result;
   }
 
   @Get('/:auth_id')
+  @UseInterceptors(hasJWTInterceptor)
   @ApiOperation({
     summary: '방문자 유저 조회 API',
     description: '방문자가 접속한 유저의 정보를 반환합니다'
@@ -52,10 +55,15 @@ export class UserController {
     type: ResInfoDto
   })
   async createVisitInfo(
-    @Param('auth_id') auth_id: string
+    @Param('auth_id') auth_id: string,
+    @Req() req: JWTRequest
   ): Promise<ResInfoDto> {
     const userData = await this.userService.getUserData(auth_id);
-    const result = this.userService.createUserInfo(userData, false, false);
+    const result = this.userService.createUserInfo(
+      userData,
+      false,
+      !req.user ? 0 : req.user.id
+    );
     return result;
   }
 

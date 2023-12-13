@@ -53,7 +53,7 @@ export class UserService {
   async createUserInfo(
     user: any,
     hasToken: boolean,
-    isUser: boolean
+    user_id: number
   ): Promise<ResInfoDto> {
     const userDto: UserDto = await this.createUserDto(
       user.id,
@@ -64,7 +64,7 @@ export class UserService {
     const mainSnowballDto = await this.snowballService.getMainSnowballDto(
       userDto,
       hasToken,
-      isUser
+      user_id
     );
 
     const resInfoDto = {
