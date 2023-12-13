@@ -21,11 +21,7 @@ const StyledWrap = styled.div`
 const StyledExplain = styled.div`
   font: ${props => props.theme.font['--normal-nickname-font']};
   color: white;
-  padding-top: 40%;
-
-  @media (min-width: ${props => props.theme.size['--desktop-width']}) {
-    padding-top: 25%;
-  }
+  padding-top: 12rem;
 `;
 
 const StyledPink = styled.span`
