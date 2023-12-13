@@ -6,6 +6,7 @@ import { SnowGlobeCanvas, Button } from '@components';
 import { MainDeco } from './MainDeco';
 import { SnowBallContext } from '@pages/Visit/SnowBallProvider';
 import { UserData } from '@pages/Visit/SnowBallProvider';
+import { useLogout } from '@hooks';
 
 const StyledHeader = styled.div`
   position: absolute;
@@ -66,6 +67,7 @@ const Snowball = () => {
   const [make, setMake] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { userData, setUserData, snowBallData } = useContext(SnowBallContext);
+  const logout = useLogout();
 
   window.history.pushState({}, '', '/main');
   window.history.pushState({}, '', '/make/snowball');
@@ -82,10 +84,10 @@ const Snowball = () => {
           setUserData(userData);
           setNickname(userData.nickname);
         } else {
-          navigate('/make');
+          logout();
         }
       })
-      .catch(() => navigate('/make'));
+      .catch(() => logout());
   }, [navigate]);
 
   return (

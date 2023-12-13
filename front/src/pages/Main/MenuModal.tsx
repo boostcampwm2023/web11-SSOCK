@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { useLogout } from '@hooks';
@@ -65,10 +65,14 @@ const MenuModal = (props: ModalProps) => {
 
   const [toast, setToast] = useState(false);
 
+  const timer = useRef<number | null>(null);
   const makeNewSnowBall = () => {
+    if (timer.current) {
+      clearTimeout(timer.current);
+    }
     if (userData.snowball_count >= 5) {
       setToast(true);
-      setTimeout(() => {
+      timer.current = setTimeout(() => {
         setToast(false);
       }, 1500);
       return;

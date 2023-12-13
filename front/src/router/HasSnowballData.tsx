@@ -11,7 +11,7 @@ const HasSnowballData: React.FC<{ children: ReactNode }> = ({ children }) => {
     if (url === '' || url === '/make/nickname' || url === 'main') {
       axios
         .get('/api/user', {
-          withCredentials: true // axios 쿠키 값 전달
+          withCredentials: true
         })
         .then(res => {
           if (res.status === 200) {
