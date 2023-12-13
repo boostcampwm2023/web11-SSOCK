@@ -17,16 +17,21 @@ const Visit = () => {
 
   const [isLoading, setIsLoading] = useState(false);
 
+  const getVisitData = async () => {
+    try {
+      const res = await axios(`/api/user/${user}`)
+      setMessageList(res.data.main_snowball.message_list);
+      setSnowBallData(res.data.main_snowball as SnowBallData);
+      setUserData(res.data.user as UserData);
+      setIsLoading(true);
+    } catch (err) {
+      console.log(err);
+      navigate('*');
+    }
+  };
+
   useEffect(() => {
-    axios(`/api/user/${user}`)
-      .then(res => {
-        console.log(res.data);
-        setMessageList(res.data.main_snowball.message_list);
-        setSnowBallData(res.data.main_snowball as SnowBallData);
-        setUserData(res.data.user as UserData);
-        setIsLoading(true);
-      })
-      .catch(() => navigate('*')); // 없는 유저 조회시 wrong page로 보내버리기
+     getVisitData();
   }, [navigate, user]);
 
   return (
