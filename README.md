@@ -244,19 +244,55 @@ SSOCK 팀 프론트엔드에서 설계한 컴포넌트 구조의 간략한 시�
 이때 컴포넌트의 `props` 를 비교해 이전 값과 같으면 리렌더링을 하지 않는 **`React.memo`** 고차 컴포넌트를 사용하여 해결하였습니다.
 
 <br>
-<div align="center">
-  <span><img src="https://github.com/boostcampwm2023/web11-SSOCK/assets/98443541/bdef8c62-cd15-4d2a-90c5-23eddbf66f3e" width="40%" alt="beforeReactMemo"></span>
-  <span><img src="https://github.com/boostcampwm2023/web11-SSOCK/assets/98443541/29ad7d51-e755-41ca-b7b9-872d56636549" width="40%" alt="afterReactMemo"></span>
-</div>
+<table align="center" width="100%">
+  <th width="20%">React.memo 적용 전</th>
+  <th width="20%">React.memo 적용 후</th>
+  <tr>
+    <td><img src="https://github.com/boostcampwm2023/web11-SSOCK/assets/98443541/bdef8c62-cd15-4d2a-90c5-23eddbf66f3e"/></td>
+    <td><img src="https://github.com/boostcampwm2023/web11-SSOCK/assets/98443541/29ad7d51-e755-41ca-b7b9-872d56636549"/></td>
+  </tr>
+</table>
 <br>
+
+
 
 [😧 useContext 상태관리](https://delicious-halloumi-7ae.notion.site/useContext-3da416204dc24f3b879e3520241a2d45?pvs=4)
 
 [📝 React.memo 를 통한 최적화](https://delicious-halloumi-7ae.notion.site/React-memo-223350a204a84227bfb100d424f5b656?pvs=4)
 
+- ### 사용자 경험 최적화
+
+네이버 부스트캠프 챌린지때 읽었던 `함께 자라기` 책을 읽고 애자일 방법론에 대해 알게 되었고, 팀원들과 함께 이번 프로젝트에 적용해보기로 결정하였습니다.
+
+3주차 부터 프로토타입이 나오게 되면서 개발자들의 입장과 사용자들의 입장 차이가 상당히 다르다는 것을 경험하게 되었습니다.
+
+<br>
+<div align="center">
+  <img alt="예시사진" src="">
+  <img alt="예시사진" src="">
+  <img alt="예시사진" src="">
+</div>
+<br>
+
+피드백 수용한 사용자 편의성 개선
 
 
+<br>
+<table align="center" width="100%">
+  <th width="20%">피드백 수용 전</th>
+  <th width="20%">피드백 수용 후</th>
+  <tr>
+    <td><img src="https://github.com/boostcampwm2023/web11-SSOCK/assets/98443541/94c19a5f-67b4-421f-aa0b-c3653fdc0402"/></td>
+    <td><img src="https://github.com/boostcampwm2023/web11-SSOCK/assets/98443541/dd104ca3-e053-4fb3-8d5f-b1def6588463"/></td>
+  </tr>
+  <tr>
+    <td><img src="https://github.com/boostcampwm2023/web11-SSOCK/assets/98443541/833aedc7-4838-4e25-b332-ac71409e48b5"/></td>
+    <td><img src="https://github.com/boostcampwm2023/web11-SSOCK/assets/98443541/a3138ac5-60fd-4452-9759-7506721a266e"/></td>
+  </tr>
+</table>
+<br>
 
+매주 여러 사용자들에게 피드백을 받으며 프로젝트를 보완하고 수정하였습니다.
 
 
 
