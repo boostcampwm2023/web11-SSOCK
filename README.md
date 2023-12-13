@@ -227,6 +227,32 @@ SSOCK 팀 프론트엔드에서 설계한 컴포넌트 구조의 간략한 시�
 
 크게 `Three.js` 로 렌더링한 Canvas 컴포넌트와 UI 를 구분지어 설계하였습니다.
 
+3D 모델을 렌더링 하는것은 성능에 큰 영향이 있었고, 프로젝트 기준 애니메이션 효과가 많이 들어가 리렌더링을 하게 된다면 애니메이션 효과들이 처음부터 시작되어 (위 소개 GIF 예시로 장식이 다시 떨어지는 문제) 사용자 경험에 부정적 영향을 줄 수 있었습니다.
+
+따라서 리렌더링에 사용되는 `useState` 훅을 UI 내부에서 사용하려 시도하였고, 그로인해 Canvas 컴포넌트와의 `depth` 차이에 대해 깊게 고민하고 사용하게 되었습니다.
+
+또한 기존 React 에 기본기에 충실하기 위해 다른 상태관리 라이브러리를 사용하지 않고 `useContext` 훅을 사용해 상태관리를 하였습니다.
+
+각 라우팅된 페이지들의 공통적으로 사용되는 데이터들을 정의해주고 `Provider` 로 하위 컴포넌트들을 감싸 Canvas 와 UI 모두 동일한 데이터를 제공하였습니다.
+
+그로인해 Canvas로 렌더링된 장식 모델에 대한 이벤트처리를 UI 에서 처리할수 있어 Canvas 를 리렌더링 하지 않고 정상적으로 메세지를 띄울수 있었습니다.
+
+하지만 반대의 경우도 고려를 해야할 필요가 생기게 되어 문제가 되었습니다.
+
+읽지않은 메세지의 경우 Canvas 에서 3D 모델 ❗ 로 렌더링 하였는데, 장식을 클릭하였을때 UI 와 Canvas 모두 리렌더링을 동시에 해야 하는 경우가 생기게 되었고, 메세지를 읽을 때마다 3D 모델이 리렌더링 되어 다시 떨어지게 되었습니다.
+
+이때 컴포넌트의 `props` 를 비교해 이전 값과 같으면 리렌더링을 하지 않는 **`React.memo`** 고차 컴포넌트를 사용하여 해결하였습니다.
+
+<br>
+<div align="center">
+  <span><img src="https://github.com/boostcampwm2023/web11-SSOCK/assets/98443541/bdef8c62-cd15-4d2a-90c5-23eddbf66f3e" width="40%" alt="beforeReactMemo"></span>
+  <span><img src="https://github.com/boostcampwm2023/web11-SSOCK/assets/98443541/29ad7d51-e755-41ca-b7b9-872d56636549" width="40%" alt="afterReactMemo"></span>
+</div>
+<br>
+
+[😧 useContext 상태관리](https://delicious-halloumi-7ae.notion.site/useContext-3da416204dc24f3b879e3520241a2d45?pvs=4)
+
+[📝 React.memo 를 통한 최적화](https://delicious-halloumi-7ae.notion.site/React-memo-223350a204a84227bfb100d424f5b656?pvs=4)
 
 
 
