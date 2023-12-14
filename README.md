@@ -17,7 +17,7 @@
 
 <br>
 
-<img width="60%" src="https://github.com/boostcampwm2023/web11-SSOCK/assets/98443541/99ce2b72-ebc0-4875-8c04-aebf952b74a8"><br><br>
+<img width="50%" src="https://github.com/boostcampwm2023/web11-SSOCK/assets/98443541/99ce2b72-ebc0-4875-8c04-aebf952b74a8"><br><br>
 
 스노우볼을 클릭하면 내부로 들어가서 장식 클릭이 가능해집니다.
 
@@ -33,7 +33,7 @@
 
 <br>
 
-<img width="60%" src="https://github.com/boostcampwm2023/web11-SSOCK/assets/98443541/ba41fd29-2cfc-4316-ac3b-ad8cccaeab88"><br><br>
+<img width="50%" src="https://github.com/boostcampwm2023/web11-SSOCK/assets/98443541/ba41fd29-2cfc-4316-ac3b-ad8cccaeab88"><br><br>
 
 원하는 장식과 색깔을 선택 할 수 있어요.
 
@@ -49,7 +49,7 @@
 
 <br>
 
-<img width="60%" src="https://github.com/boostcampwm2023/web11-SSOCK/assets/98443541/22d5ad9b-6611-4511-831f-833385008324"><br><br>
+<img width="50%" src="https://github.com/boostcampwm2023/web11-SSOCK/assets/98443541/22d5ad9b-6611-4511-831f-833385008324"><br><br>
 
 공유 받은 링크를 통해 스노우볼 주인의 장식을 구경해요.
 
@@ -177,7 +177,7 @@
 
 ## 🔧 시스템 아키텍쳐
 
-![Web_App_Reference_Architecture_7](https://github.com/boostcampwm2023/web11-SSOCK/assets/98443541/84c3d483-04b0-4484-9c7e-54b58708a648)
+<img src="https://github.com/boostcampwm2023/web11-SSOCK/assets/33882299/7d1b46a0-265e-4197-87a9-98b170197678" width="70%"/>
 
 ## 기술적 도전
 
@@ -296,7 +296,7 @@ SSOCK 팀 프론트엔드에서 설계한 컴포넌트 구조의 간략한 시�
 
 ---
 
-### BE 기술적 도전
+### 백엔드 기술적 도전
 
 저희 백엔드 팀원이 이번 프로젝트를 통해 가장 중점적으로 생각한 부분은 많은 이용자들을 고려한 서버 구성 및 효율적인 설계입니다
 
@@ -312,7 +312,7 @@ VPC안에 Nginx를 실행하는 웹서버를 공개 서브넷에 빼주고 WAS�
 
 CI/CD를 구성하는 과정에서 백엔드서버가 비공개 서브넷에 포함되어있어 백엔드 서버에 배포가 되지 않는 에러가 발생했습니다. 처음에는 VPC를 완전히 이해하지 못한 상황이라 해당 에러가 뜨는 이유를 찾지 못했습니다. 면밀한 검사 후 문제를 찾았고 백엔드 서버의 배포를 위해서 NAT 게이트웨이를 추가해줘서 외부에서의 incoming 통신은 차단하지만 백엔드서버에서의 outgoing 통신은 열어주어서 배포를 할 수 있었습니다.
 
-<img src="https://github.com/boostcampwm2023/web11-SSOCK/assets/33882299/7d1b46a0-265e-4197-87a9-98b170197678" width="500"/>
+<img src="https://github.com/boostcampwm2023/web11-SSOCK/assets/33882299/3d69be5c-45e8-4c93-8d75-9b0fd1efd3aa" width="80%"/>
 
 - ### 악성 사용자 예방
 
