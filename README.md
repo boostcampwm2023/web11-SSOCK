@@ -138,6 +138,7 @@
             <td>
                 <img src="https://img.shields.io/badge/Nest.js-E0234E?logo=NestJS&logoColor=white"/>
                 <img src="https://img.shields.io/badge/MySQL-4479A1?logo=MySQL&logoColor=white"/>
+                <img src="https://img.shields.io/badge/MongoDB-47A248?logo=MongoDB&logoColor=white"/>
                 <img src="https://img.shields.io/badge/Swagger-85EA2D?logo=Swagger&logoColor=white"/>
                 <img src="https://img.shields.io/badge/TypeORM-FF4716?logo=typeorm&logoColor=white"/>
             </td>
