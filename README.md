@@ -282,19 +282,45 @@ SSOCK 팀 프론트엔드에서 설계한 컴포넌트 구조의 간략한 시�
   <th width="20%">피드백 수용 전</th>
   <th width="20%">피드백 수용 후</th>
   <tr>
-    <td><img src="https://github.com/boostcampwm2023/web11-SSOCK/assets/98443541/94c19a5f-67b4-421f-aa0b-c3653fdc0402"/></td>
-    <td><img src="https://github.com/boostcampwm2023/web11-SSOCK/assets/98443541/dd104ca3-e053-4fb3-8d5f-b1def6588463"/></td>
+    <td><img src="https://github.com/boostcampwm2023/web11-SSOCK/assets/98443541/94c19a5f-67b4-421f-aa0b-c3653fdc0402" width="400"/></td>
+    <td><img src="https://github.com/boostcampwm2023/web11-SSOCK/assets/98443541/dd104ca3-e053-4fb3-8d5f-b1def6588463" width="400"/></td>
   </tr>
   <tr>
-    <td><img src="https://github.com/boostcampwm2023/web11-SSOCK/assets/98443541/833aedc7-4838-4e25-b332-ac71409e48b5"/></td>
-    <td><img src="https://github.com/boostcampwm2023/web11-SSOCK/assets/98443541/a3138ac5-60fd-4452-9759-7506721a266e"/></td>
+    <td><img src="https://github.com/boostcampwm2023/web11-SSOCK/assets/98443541/833aedc7-4838-4e25-b332-ac71409e48b5" width="400"/></td>
+    <td><img src="https://github.com/boostcampwm2023/web11-SSOCK/assets/98443541/a3138ac5-60fd-4452-9759-7506721a266e" width="400"/></td>
   </tr>
 </table>
 <br>
 
 매주 여러 사용자들에게 피드백을 받으며 프로젝트를 보완하고 수정하였습니다.
 
+---
 
+### BE 기술적 도전
+
+저희 백엔드 팀원이 이번 프로젝트를 통해 가장 중점적으로 생각한 부분은 많은 이용자들을 고려한 서버 구성 및 효율적인 설계입니다
+
+백엔드 팀원 모두 실제 배포 및 Nest.js가 처음이었고, 새로운 기술들을 도입하기 보다는 기존에 많이 사용하는 기술 스택을 더 깊이있게 공부하며 사용하는 것을 목표로 잡았습니다
+
+- ### 인프라 설계
+
+NCP를 이용하여 실제 사용되는 인프라 구조와 비슷하게 백엔드 인프라를 구축하는것이 저희의 목표였습니다. 
+
+VPC안에 Nginx를 실행하는 웹서버를 공개 서브넷에 빼주고 WAS서버와 데이터베이스 서버를 비공개 서브넷에 넣어주었습니다.
+
+비공개 서브넷을 사용해서 백엔드 서버와 데이터베이스의 외부접근을 막아줌으로 1차 보호를 해주었습니다. 
+
+CI/CD를 구성하는 과정에서 백엔드서버가 비공개 서브넷에 포함되어있어 백엔드 서버에 배포가 되지 않는 에러가 발생했습니다. 처음에는 VPC를 완전히 이해하지 못한 상황이라 해당 에러가 뜨는 이유를 찾지 못했습니다. 면밀한 검사 후 문제를 찾았고 백엔드 서버의 배포를 위해서 NAT 게이트웨이를 추가해줘서 외부에서의 incoming 통신은 차단하지만 백엔드서버에서의 outgoing 통신은 열어주어서 배포를 할 수 있었습니다.
+
+<img src="https://github.com/boostcampwm2023/web11-SSOCK/assets/33882299/7d1b46a0-265e-4197-87a9-98b170197678" width="500"/>
+
+- ### 악성 사용자 예방
+
+유사한 다른 프로젝트를 참고하니, DDOS 공격으로 서버에 과부하가 걸리거나 예상치 못한 비용이 나오는 등의 문제가 있었습니다. 저희는 이를 예방하기 위해 ip별로 rate-limiting을 적용하여 요청이 비정상적으로 몰리는 ip를 차단했습니다
+
+- ### 쿼리 최적화
+
+TypeORM을 사용하다보니 편리한 내장 함수에 의존하게 되어 실제로 쿼리가 어떻게 전송되고 설계되는 지 명확하지가 않았습니다. 그래서 저희는 쿼리 로그를 기록하며 필요하다면 rawQuery를 설계하여 서비스 로직을 구성했습니다. 
 
 ## 프로젝트 진행
 
