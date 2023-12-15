@@ -98,7 +98,7 @@ const Main = () => {
           setUserData(resUserData);
 
           if (res.data.main_snowball === null) {
-            navigate('/make/snowball');
+            navigate('/make');
             return;
           }
 
@@ -114,7 +114,7 @@ const Main = () => {
             userData.snowball_count === 0 ||
             userData.nickname === 'null'
           ) {
-            navigate('/make/nickname');
+            navigate('/make');
           }
         }
       })

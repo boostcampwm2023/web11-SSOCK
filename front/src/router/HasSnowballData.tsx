@@ -8,7 +8,7 @@ const HasSnowballData: React.FC<{ children: ReactNode }> = ({ children }) => {
   const maxSnowball = 5;
 
   useEffect(() => {
-    if (url === '' || url === '/make/nickname' || url === 'main') {
+    if (url === '' || url === '/make' || url === 'main') {
       axios
         .get('/api/user', {
           withCredentials: true
@@ -17,7 +17,7 @@ const HasSnowballData: React.FC<{ children: ReactNode }> = ({ children }) => {
           if (res.status === 200) {
             const data = res.data;
             if (data.user.nickname === null) {
-              setUrl('/make/nickname');
+              setUrl('/make');
             } else if (
               data.user.nickname !== null &&
               data.main_snowball === null

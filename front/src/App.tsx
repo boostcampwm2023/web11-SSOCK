@@ -70,7 +70,7 @@ const App = () => {
                     </SnowBallProvider>
                   }
                 >
-                  <Route path="nickname" element={<Pages.Nickname />} />
+                  <Route path="" element={<Pages.Nickname />} />
                   <Route path="snowball" element={<Pages.Snowball />} />
                 </Route>
 
