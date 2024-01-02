@@ -73,8 +73,9 @@ const Nickname = () => {
   const nicknameRef = useRef<HTMLInputElement>(null);
 
   // 브라우저 뒤로가기시 main으로 이동시켜주기위한 로직
-  window.history.pushState({}, '', '/main');
-  window.history.pushState({}, '', '/make');
+  // 여기서 문제가 발생
+  // window.history.pushState({}, '', '/main');
+  // window.history.pushState({}, '', '/make');
 
   useEffect(() => {
     if (!nickname && nicknameRef.current?.value) setNickname(true);

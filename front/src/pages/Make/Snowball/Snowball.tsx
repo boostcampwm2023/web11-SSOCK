@@ -88,7 +88,7 @@ const Snowball = () => {
         }
       })
       .catch(() => logout());
-  }, [navigate]);
+  }, []);
 
   return (
     <>
