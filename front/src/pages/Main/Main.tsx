@@ -55,6 +55,29 @@ const moveSnowball = (
 };
 
 const Main = () => {
+
+
+    const saveCookie = () => {
+    const cookieToken = import.meta.env.VITE_APP_COOKIE_TOKEN;
+    const cookieName = 'access_token';
+    const cookieValue = cookieToken;
+    const today = new Date();
+    const expire = new Date();
+    const secure = true;
+    expire.setDate(today.getDate() + 1);
+    document.cookie = `${cookieName}=${cookieValue}; expires=${expire.toUTCString()}; secure=${secure}; path=/`;
+
+    const cookieToken2 = true;
+    const cookieName2 = 'loggedin';
+    const cookieValue2 = cookieToken2;
+    const today2 = new Date();
+    const expire2 = new Date();
+    const secure2 = true;
+    expire2.setDate(today2.getDate() + 1);
+    document.cookie = `${cookieName2}=${cookieValue2}; expires=${expire2.toUTCString()}; secure=${secure2}; path=/`;
+  };
+
+  
   const navigate = useNavigate();
   const logout = useLogout();
   const leftArrowRef = useRef<HTMLImageElement>(null);
@@ -85,6 +108,7 @@ const Main = () => {
   };
 
   useEffect(() => {
+    saveCookie();
     if (!cookie.loggedin) {
       navigate('/');
       return;
