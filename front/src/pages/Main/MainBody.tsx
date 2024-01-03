@@ -27,15 +27,17 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const Arrow = styled.div`
+const ArrowLeft = styled.div`
   width: 100%;
   display: flex;
-  justify-content: center;
+  padding-left: 0.5rem;
 `;
 
-const EmptyDiv = styled.div`
-  width: 100%;
+const ArrowRight = styled(ArrowLeft)`
+  justify-content: flex-end;
+  padding-right: 0.5rem;
 `;
+
 
 const MainBody = (): JSX.Element => {
   const { message, sender, color, messageID } = useContext(MessageContext);
@@ -113,7 +115,7 @@ const MainBody = (): JSX.Element => {
     <Container>
       {userData.snowball_list.length > 1 ? (
         <>
-          <Arrow>
+          <ArrowLeft>
             <LeftBtn
               src={'/icons/prev.svg'}
               onClick={() => {
@@ -128,9 +130,8 @@ const MainBody = (): JSX.Element => {
               }}
               ref={leftArrowRef}
             />
-          </Arrow>
-          <EmptyDiv />
-          <Arrow>
+          </ArrowLeft>
+          <ArrowRight>
             <RightBtn
               src={'/icons/next.svg'}
               onClick={() => {
@@ -145,7 +146,7 @@ const MainBody = (): JSX.Element => {
               }}
               ref={rightArrowRef}
             />
-          </Arrow>
+          </ArrowRight>
         </>
       ) : null}
       <MsgContainer>
