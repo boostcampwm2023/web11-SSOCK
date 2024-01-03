@@ -1,8 +1,11 @@
-import { useContext, useRef, useState } from 'react';
+import { useContext } from 'react';
 import styled from 'styled-components';
 import { SnowBallContext } from '@pages/Visit/SnowBallProvider';
 import { HeaderText } from '@components';
 
+interface MainHeaderProps {
+  set: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
+}
 
 const Container = styled.div`
   display: flex;
@@ -12,6 +15,15 @@ const Container = styled.div`
   width: 100%;
   min-height: 10rem;
   gap: 1rem;
+  animation: fadeIn 2s forwards;
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 `;
 
 const MessageCount = styled.span`
@@ -27,52 +39,46 @@ const PrivateButton = styled.img`
   cursor: pointer;
   width: 2rem;
   height: 2rem;
-  animation: fadeIn 1s forwards;
+  animation: fadeIn 2s forwards;
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 `;
 
-
-
-const MainHeader = (): JSX.Element => {
+const MainHeader = (props: MainHeaderProps): JSX.Element => {
   const { userData, snowBallData } = useContext(SnowBallContext);
-  const headerRef = useRef<HTMLDivElement>(null);
-  const [modalToast, setModalToast] = useState(false);
-  const [isModalOpened, setIsModalOpened] = useState(false);
-
-
 
   const privateClick = () => {
-    setIsModalOpened(true);
+    props.set[1](true);
   };
 
   return (
     <>
-      <Container ref={headerRef}>
+      <Container key="MainHeader">
         <HeaderText Ref={null} userName={userData.nickname} />
         <MessageCount>
           <img style={{ pointerEvents: 'none' }} src="/icons/letter.svg" />총{' '}
           {userData.message_count}개의 메시지
         </MessageCount>
 
-        {modalToast ? (
-          <div style={{ width: '2rem', height: '2rem' }} />
+        {snowBallData.is_message_private ? (
+          <PrivateButton
+            key="lock"
+            onClick={privateClick}
+            src="/icons/lock.svg"
+          />
         ) : (
-          <>
-            {snowBallData.is_message_private ? (
-              <PrivateButton
-                id="lock"
-                onClick={privateClick}
-                src="/icons/lock.svg"
-              />
-            ) : (
-              <PrivateButton
-                id="lock"
-                onClick={privateClick}
-                src="/icons/unlock.svg"
-              />
-            )}
-          </>
+          <PrivateButton
+            key="unlock"
+            onClick={privateClick}
+            src="/icons/unlock.svg"
+          />
         )}
-        
       </Container>
     </>
   );
