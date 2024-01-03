@@ -15,14 +15,26 @@ const MsgContainer = styled.div`
   overflow: scroll;
 `;
 
-const LeftBtn = styled.img`
-  position: fixed;
-  top: 50%;
-  height: 4rem;
+const LeftBtn = styled.img``;
+
+const RightBtn = styled(LeftBtn)``;
+
+const Container = styled.div`
+  width: 100%;
+  height: 70%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
-const RightBtn = styled(LeftBtn)`
-  right: 0;
+const Arrow = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+`;
+
+const EmptyDiv = styled.div`
+  width: 100%;
 `;
 
 const MainBody = (): JSX.Element => {
@@ -98,38 +110,42 @@ const MainBody = (): JSX.Element => {
   }, [messageID]);
 
   return (
-    <>
+    <Container>
       {userData.snowball_list.length > 1 ? (
         <>
-          <LeftBtn
-            src={'/icons/prev.svg'}
-            onClick={() => {
-              moveSnowball(
-                'Prev',
-                userData,
-                snowBallData,
-                setSnowBallData,
-                setMessageList
-              );
-              delayButton();
-            }}
-            ref={leftArrowRef}
-          />
-
-          <RightBtn
-            src={'/icons/next.svg'}
-            onClick={() => {
-              moveSnowball(
-                'Next',
-                userData,
-                snowBallData,
-                setSnowBallData,
-                setMessageList
-              );
-              delayButton();
-            }}
-            ref={rightArrowRef}
-          />
+          <Arrow>
+            <LeftBtn
+              src={'/icons/prev.svg'}
+              onClick={() => {
+                moveSnowball(
+                  'Prev',
+                  userData,
+                  snowBallData,
+                  setSnowBallData,
+                  setMessageList
+                );
+                delayButton();
+              }}
+              ref={leftArrowRef}
+            />
+          </Arrow>
+          <EmptyDiv />
+          <Arrow>
+            <RightBtn
+              src={'/icons/next.svg'}
+              onClick={() => {
+                moveSnowball(
+                  'Next',
+                  userData,
+                  snowBallData,
+                  setSnowBallData,
+                  setMessageList
+                );
+                delayButton();
+              }}
+              ref={rightArrowRef}
+            />
+          </Arrow>
         </>
       ) : null}
       <MsgContainer>
@@ -144,7 +160,7 @@ const MainBody = (): JSX.Element => {
           />
         ) : null}
       </MsgContainer>
-    </>
+    </Container>
   );
 };
 
