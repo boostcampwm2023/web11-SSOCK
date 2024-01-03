@@ -124,7 +124,7 @@ const MainButtonBox = (props: MainButtonBoxProps) => {
   const shareLinkRef = useRef<HTMLImageElement>(null);
 
   const [menuModal, setMenuModal] = useState(false);
-  const [list, setList] = useState(false);
+  // const [list, setList] = useState(false);
   const [screen, setScreen] = useState(false);
   const [toast, setToast] = useState(false);
   const [modalToast, setModalToast] = useState(false);
@@ -165,50 +165,13 @@ const MainButtonBox = (props: MainButtonBoxProps) => {
     }
   };
 
-  const privateClick = () => {
-    setIsModalOpened(true);
-  };
+
 
   return (
     <>
       {!screen ? (
         <>
-          {isModalOpened ? (
-            <LockModal
-              toast={modalToast}
-              setToast={setModalToast}
-              flag={isModalOpened}
-              set={setIsModalOpened}
-            />
-          ) : null}
-
-          <Container ref={headerRef}>
-            <HeaderText Ref={null} userName={userData.nickname} />
-            <MessageCount>
-              <img style={{ pointerEvents: 'none' }} src="/icons/letter.svg" />
-              총 {userData.message_count}개의 메시지
-            </MessageCount>
-
-            {modalToast ? (
-              <div style={{ width: '2rem', height: '2rem' }} />
-            ) : (
-              <>
-                {snowBallData.is_message_private ? (
-                  <PrivateButton
-                    id="lock"
-                    onClick={privateClick}
-                    src="/icons/lock.svg"
-                  />
-                ) : (
-                  <PrivateButton
-                    id="lock"
-                    onClick={privateClick}
-                    src="/icons/unlock.svg"
-                  />
-                )}
-              </>
-            )}
-          </Container>
+    
 
           {list ? null : (
             <StyledMenu
