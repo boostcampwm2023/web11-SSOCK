@@ -84,8 +84,13 @@ const closeIntroduce = (
 
 const Introduce = (props: IntroduceProps) => {
   const closeRef = useRef<HTMLDivElement>(null);
+
+  const stopPropagation = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+  };
+
   return (
-    <StyledIntroduce ref={closeRef}>
+    <StyledIntroduce ref={closeRef} onClick={stopPropagation}>
       <StyledText>
         <Title>🎅스노우볼 속 내 마음🎅</Title>
         <br />

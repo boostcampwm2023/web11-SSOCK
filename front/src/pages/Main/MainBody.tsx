@@ -25,6 +25,15 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  animation: fadeIn 2s forwards;
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 `;
 
 const ArrowLeft = styled.div`
@@ -112,7 +121,7 @@ const MainBody = (): JSX.Element => {
   }, [messageID]);
 
   return (
-    <Container>
+    <Container key="MainBody">
       {userData.snowball_list.length > 1 ? (
         <>
           <ArrowLeft>

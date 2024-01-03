@@ -1,14 +1,13 @@
-import React, { useRef, useEffect, useContext } from 'react';
+import { useRef, useEffect, useContext } from 'react';
 import { createPortal } from 'react-dom';
 import styled from 'styled-components';
 import { theme } from '@utils';
 import { SnowBallContext } from '@pages/Visit/SnowBallProvider';
 
 interface LockModalProps {
+  toast: [boolean, React.Dispatch<React.SetStateAction<boolean>>]
   flag: boolean;
   set: React.Dispatch<React.SetStateAction<boolean>>;
-  toast: boolean;
-  setToast: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const Modal = styled.div`
@@ -79,6 +78,8 @@ const MButton = styled.button`
   font: ${theme.font['--normal-button-font']};
 `;
 
+
+
 const LockModal = (props: LockModalProps) => {
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -104,12 +105,13 @@ const LockModal = (props: LockModalProps) => {
   const { changePrivate, snowBallData } = useContext(SnowBallContext);
   const privateFlag = snowBallData.is_message_private;
 
+
   const setPrivate = async () => {
     props.set(false);
     await changePrivate();
-    props.setToast(true);
+    props.toast[1](true);
     setTimeout(() => {
-      props.setToast(false);
+      props.toast[1](false);
     }, 1500);
   };
 
@@ -119,7 +121,6 @@ const LockModal = (props: LockModalProps) => {
 
   const closeModal = () => {
     props.set(false);
-    document.getElementById('lock')!.style.animation = 'fadeIn 1s forwards';
   };
 
   return (
