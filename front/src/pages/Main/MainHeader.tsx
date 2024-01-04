@@ -45,7 +45,10 @@ const MainHeader = (props: MainHeaderProps): JSX.Element => {
 
   useEffect(() => {
     if (props.animation) {
-      HeaderRef.current?.setAttribute('style', 'animation: fadeOut 1s forwards');
+      HeaderRef.current?.setAttribute(
+        'style',
+        'animation: fadeOut 1s forwards'
+      );
     }
   }, [props.animation]);
 
