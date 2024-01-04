@@ -1,9 +1,9 @@
+import { useContext, useState, useRef } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import theme from '../../../utils/theme';
-import { useContext, useState } from 'react';
+import { LongButton, axios } from '@utils';
 import { DecoContext } from './DecoProvider';
 import { SnowBallContext } from '../SnowBallProvider';
-import axios from 'axios';
 
 interface ButtonProps {
   text: string;
@@ -14,20 +14,8 @@ interface ButtonProps {
 
 type ColorProps = Pick<ButtonProps, 'color'>;
 
-const StyledButton = styled.button<ColorProps>`
+const StyledButton = styled(LongButton)<ColorProps>`
   background-color: ${props => props.color};
-  font: ${theme.font['--normal-button-font']};
-  border-radius: 10px;
-  width: 66.6667%;
-  height: 3rem;
-  padding: 0.625rem;
-  margin: 0.25rem;
-  color: white;
-  border: 1px solid ${theme.colors['--white-primary']};
-
-  @media (min-width: ${theme.size.maxWidth}) {
-    width: 600px;
-  }
 `;
 
 const PostButtonWrap = styled.div`
@@ -35,46 +23,91 @@ const PostButtonWrap = styled.div`
 `;
 
 const StyledAlert = styled.div`
-  color: ${theme.colors['--white-primary']};
+  color: ${props => props.theme.colors['--white-primary']};
   padding-bottom: 1rem;
-  font: ${theme.font['--normal-introduce-font']};
+  font: ${props => props.theme.font['--normal-introduce-font']};
+`;
+
+const ToastMsg = styled.div`
+  position: fixed;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  font: ${props => props.theme.font['--normal-button-font']};
+  background-color: ${props => props.theme.colors['--sub-text']};
+  border-radius: 1rem;
+  text-align: center;
+  padding: 1rem;
 `;
 
 const PostButton = (props: ButtonProps) => {
-  const { color, decoID, letterID, content, sender } = useContext(DecoContext);
-  const { userData, snowBallData } = useContext(SnowBallContext);
+  const { decoID, color, letterID, content, sender } = useContext(DecoContext);
+  const { snowBallData } = useContext(SnowBallContext);
+  const navigate = useNavigate();
+  const [alerts, setAlerts] = useState(false);
 
-  const [alert, setAlert] = useState(false);
+  const { user } = useParams();
+  const [toast, setToast] = useState(false);
+  const ButtonRef = useRef<HTMLButtonElement>(null);
 
   const ClickedPost = () => {
-    //여기서 axios요청
     if (content === '' || sender === '') {
-      setAlert(true);
+      setAlerts(true);
+
+      if (content === '')
+        document.getElementById('textarea')!.style.border = '1px solid white';
+      if (sender === '')
+        document.getElementById('fromInput')!.style.border = '1px solid white';
       return;
     }
-    const a = {
+
+    document.getElementById('textarea')!.style.border = 'none';
+    document.getElementById('fromInput')!.style.border = 'none';
+
+    const msgInfo = {
       sender,
       content,
       decoration_id: decoID,
       decoration_color: color,
       letter_id: letterID
     };
-    axios
-      .post(`/api/message/${userData.id}/${snowBallData.id}`, a)
-      .then(res => {
-        console.log(res, 'post DONE!!!');
-      })
-      .catch(e => console.error(e));
 
-    props.view[1](!props.view[0]);
-    props.visible[1](-1);
+    axios
+      .post(`/api/message/${user}/${snowBallData.id}`, msgInfo)
+      .then(() => {
+        axios.get(`/api/snowball/${snowBallData.id}`).then(() => {
+          props.view[1](!props.view[0]);
+          props.visible[1](-1);
+        });
+      })
+      .catch(() => {
+        setToast(true);
+        ButtonRef.current!.disabled = true;
+        ButtonRef.current!.style.setProperty('opacity', '0.5');
+        setTimeout(() => {
+          navigate('../');
+        }, 1500);
+      });
   };
 
   return (
     <>
+      {toast ? (
+        <>
+          <ToastMsg>
+            <p>메시지가 꽉찼어요</p>
+            <p>다른 스노우볼을 선택해주세요!</p>
+            <p>작성중인 메시지는 유지됩니다!</p>
+          </ToastMsg>
+        </>
+      ) : null}
+
       <PostButtonWrap>
-        {alert ? <StyledAlert>내용과 이름을 입력해주세요 !</StyledAlert> : null}
-        <StyledButton color={props.color} onClick={ClickedPost}>
+        {alerts ? (
+          <StyledAlert>내용과 이름을 입력해주세요 !</StyledAlert>
+        ) : null}
+        <StyledButton ref={ButtonRef} color={props.color} onClick={ClickedPost}>
           {props.text}
         </StyledButton>
       </PostButtonWrap>

@@ -1,13 +1,13 @@
 import { useState, useRef, useEffect, useContext } from 'react';
 import styled from 'styled-components';
-import theme from '../../../utils/theme';
-import { HeaderText, StepButton } from '../../../components';
-import DecoEnroll from './DecoEnroll';
+import { theme, Container } from '@utils';
+import { HeaderText, StepButton } from '@components';
 import DecoBox from './DecoBox';
-import { DecoContext } from './DecoProvider';
 import MsgBox from './MsgBox';
-import { SnowBallContext } from '../SnowBallProvider';
+import DecoEnroll from './DecoEnroll';
 import PostButton from './PostButton';
+import { DecoContext } from './DecoProvider';
+import { SnowBallContext } from '../SnowBallProvider';
 
 const StateBar = styled.div`
   display: flex;
@@ -21,6 +21,21 @@ const StateBox = styled.div`
   height: 2rem;
   background-color: ${props => props.color};
   transition: background-color 0.5s ease-in-out;
+`;
+
+const StyledBody = styled.div`
+  max-height: fit-content;
+  overflow-y: scroll;
+  pointer-events: none;
+  * {
+    pointer-events: all;
+  }
+`;
+
+const StyledBottomWrap = styled.div`
+  min-height: 15rem;
+  display: flex;
+  flex-direction: column;
 `;
 
 const StyledButtonWrap = styled.div`
@@ -69,47 +84,37 @@ const ButtonBox = styled.div`
   justify-content: center;
 `;
 
-const StyledTopWrap = styled.div`
-  display: flex;
-  height: 10rem;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  flex-direction: column;
-`;
+const ToastMsg = styled.div`
+  position: fixed;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 
-const StyledBody = styled.div`
-  flex: 1 1 auto;
-  display: flex;
-  overflow-y: hidden;
-  pointer-events: none;
-  * {
-    pointer-events: all;
-  }
-`;
-
-const StyledBottomWrap = styled.div`
-  display: flex;
-  flex-direction: column;
+  font: ${props => props.theme.font['--normal-button-font']};
+  background-color: ${props => props.theme.colors['--sub-text']};
+  border-radius: 1rem;
+  text-align: center;
+  padding: 1rem;
+  font-size: 1rem;
 `;
 
 const Steps = () => {
   const [step, setStep] = useState(0);
   const [lastBox, setLastBox] = useState(false);
+  const [isDecoBoxClicked, setIsDecoBoxClicked] = useState(false);
+  const [startClickedX, setStartClickedX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
+
   const { color, setColor } = useContext(DecoContext);
   const { userData } = useContext(SnowBallContext);
+
   const doneStep = -1;
   const selectDeco = 0;
   const selectColor = 1;
   const selectMsgColor = 2;
   const writeMsg = 3;
 
-  //const decoId = useRef<string | null>(null);
   const selectDecoBox = useRef<HTMLDivElement>(null);
-
-  const [isDecoBoxClicked, setIsDecoBoxClicked] = useState(false);
-  const [startClickedX, setStartClickedX] = useState(0);
-  const [scrollLeft, setScrollLeft] = useState(0);
 
   const mouseDown = (event: MouseEvent) => {
     setIsDecoBoxClicked(true);
@@ -170,14 +175,33 @@ const Steps = () => {
     };
   }, [isDecoBoxClicked]);
 
+  const [toast, setToast] = useState(false);
+
+  const timer = useRef<number | null>(null);
+  const setToastMsg = () => {
+    if (timer.current) clearTimeout(timer.current);
+    if (step === selectDeco || step === selectMsgColor) {
+      setToast(true);
+      timer.current = window.setTimeout(() => {
+        setToast(false);
+      }, 1500);
+    } else {
+      setToast(false);
+    }
+  };
+
+  useEffect(() => {
+    setToastMsg();
+  }, [step]);
+
   const renderStateBoxes = () => {
     const boxes = [];
     for (let i = 0; i <= step; i++) {
-      const progressColor = theme.colors['--primary-green-primary']; // Progress color
+      const progressColor = theme.colors['--progress-done'];
       boxes.push(<StateBox key={i} color={progressColor}></StateBox>);
     }
-    for (let i = step + 1; i < 3; i++) {
-      const progressColor = theme.colors['--primary-red-primary']; // Progress color
+    for (let i = step + 1; i < writeMsg; i++) {
+      const progressColor = theme.colors['--progress-yet'];
       boxes.push(<StateBox key={i} color={progressColor}></StateBox>);
     }
     return boxes;
@@ -185,21 +209,31 @@ const Steps = () => {
 
   return (
     <>
-      <StyledTopWrap>
+      {toast ? (
+        <ToastMsg>
+          {step === selectDeco
+            ? '드래그를 하여 여러 장식을 확인해보세요 !'
+            : '드래그를 하여 여러 색깔을 확인해보세요 !'}
+        </ToastMsg>
+      ) : null}
+
+      <Container>
         <HeaderText Ref={null} userName={userData.nickname} />
 
         {step === writeMsg || step === doneStep ? null : (
           <StateBar>{renderStateBoxes()}</StateBar>
         )}
-      </StyledTopWrap>
+      </Container>
+
       <StyledBody>
-        {step === writeMsg ? <MsgBox isInput={true} /> : null}
         {step === selectMsgColor ? <MsgBox isInput={false} /> : null}
+        {step === writeMsg ? <MsgBox isInput={true} /> : null}
       </StyledBody>
+
       <StyledBottomWrap>
         <StyledButtonWrap>
           {step <= selectDeco ? (
-            <div></div>
+            <div />
           ) : (
             <StepButton
               text="< 이전"
@@ -211,7 +245,7 @@ const Steps = () => {
           )}
 
           {step >= writeMsg || step === doneStep ? (
-            <div></div>
+            <div />
           ) : (
             <StepButton
               text="다음 >"
@@ -235,6 +269,8 @@ const Steps = () => {
                 <p>장식 색상을 선택해주세요</p>
               </>
             ) : null}
+
+            {step === selectMsgColor ? <DecoBox deco={'MsgColor'} /> : null}
             {step === writeMsg ? (
               <ButtonBox>
                 <PostButton
@@ -245,16 +281,12 @@ const Steps = () => {
                 />
               </ButtonBox>
             ) : null}
-            {step === selectMsgColor ? <DecoBox deco={'MsgColor'} /> : null}
           </SelectDeco>
         </SelectDecoBox>
       </StyledBottomWrap>
 
       {step === doneStep && lastBox === true ? (
-        <DecoEnroll
-          visible={[step, setStep]}
-          view={[lastBox, setLastBox]}
-        ></DecoEnroll>
+        <DecoEnroll visible={[step, setStep]} view={[lastBox, setLastBox]} />
       ) : null}
     </>
   );

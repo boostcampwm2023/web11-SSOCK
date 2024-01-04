@@ -1,9 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import theme from '../../../utils/theme';
-import mock from '../../../mockdata.json'; // temporary
-import { SnowGlobeCanvas, Button } from '../../../components';
+import { Loading, theme, axios } from '@utils';
+import { useLogout } from '@hooks';
+import { SnowGlobeCanvas, Button } from '@components';
+import { MainDeco } from './MainDeco';
+import { SnowBallContext } from '@pages/Visit/SnowBallProvider';
+import { UserData } from '@pages/Visit/SnowBallProvider';
 
 const StyledHeader = styled.div`
   position: absolute;
@@ -11,21 +14,18 @@ const StyledHeader = styled.div`
   left: 50%;
   transform: translate(-50%, 0);
   color: white;
-  font-family: 'Pretendard-Regular';
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
+  font: ${props => props.theme.font['--normal-nickname-input-font']};
+  font-size: 1.25rem;
   text-align: center;
 `;
 
 const StyledName = styled.span`
-  font: ${theme.font['--normal-nickname-font']};
-  color: ${theme.colors['--nick-name']};
+  font: ${props => props.theme.font['--normal-nickname-font']};
+  color: ${props => props.theme.colors['--nick-name']};
 `;
 
 const StyledWelcome = styled.div`
-  font: ${theme.font['--normal-title-font']};
+  font: ${props => props.theme.font['--normal-title-font']};
 `;
 
 const StyledBottom = styled.div`
@@ -35,13 +35,13 @@ const StyledBottom = styled.div`
   white-space: nowrap;
   text-align: center;
   transform: translate(-50%, 0);
-  font: ${theme.font['--normal-introduce-font']};
+  font: ${props => props.theme.font['--normal-introduce-font']};
   color: white;
-  text-shadow: -1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black;
+  text-shadow: ${props => props.theme.font['--text-shadow']};
 `;
 
 const StyledBall = styled.span`
-  color: ${theme.colors['--blue-blue-dark-10']};
+  color: ${props => props.theme.colors['--blue-blue-dark-10']};
 `;
 
 const StyledButtonBox = styled.div`
@@ -51,38 +51,83 @@ const StyledButtonBox = styled.div`
   text-align: center;
 `;
 
+const Home = styled.img`
+  position: fixed;
+  z-index: 99;
+  top: 1rem;
+  left: 0.2rem;
+  width: 3rem;
+  height: 3rem;
+  filter: invert(1);
+`;
+
 const Snowball = () => {
   const navigate = useNavigate();
-  const userName = mock.user_data.nickname;
+  const [nickname, setNickname] = useState('김부캠');
   const [make, setMake] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const { userData, setUserData, snowBallData } = useContext(SnowBallContext);
+  const logout = useLogout();
+
+  window.history.pushState({}, '', '/main');
+  window.history.pushState({}, '', '/make/snowball');
 
   useEffect(() => {
-    make ? navigate('/maindeco') : null;
-  }, [make, navigate]);
+    axios
+      .get('/api/user', {
+        withCredentials: true
+      })
+      .then(res => {
+        if (res.status === 200) {
+          const userData = res.data.user as UserData;
+          setIsLoading(true);
+          setUserData(userData);
+          setNickname(userData.nickname);
+        } else {
+          logout();
+        }
+      })
+      .catch(() => logout());
+  }, []);
 
   return (
     <>
-      <SnowGlobeCanvas />
-      <StyledHeader>
-        <StyledName>{userName}</StyledName>&nbsp;님
-        <StyledWelcome>환영합니다 :&#41;</StyledWelcome>
-      </StyledHeader>
+      {!isLoading ? (
+        <Loading />
+      ) : (
+        <>
+          {make ? (
+            <MainDeco set={setMake} />
+          ) : (
+            <>
+              {userData.snowball_count !== undefined &&
+              userData.snowball_count >= 1 ? (
+                <Home onClick={() => navigate('/main')} src="/icons/home.svg" />
+              ) : null}
 
-      <StyledBottom>
-        아직 <StyledBall>스노우볼</StyledBall>이 없군요!
-        <br />
-        스노우볼은 소중한 마음을 주고 받는
-        <br />
-        예쁜 선물 상자가 될 거예요.
-      </StyledBottom>
+              <SnowGlobeCanvas snowBallData={snowBallData} />
+              <StyledHeader>
+                <StyledName>{nickname}</StyledName>&nbsp;님
+                <StyledWelcome>환영합니다 :&#41;</StyledWelcome>
+              </StyledHeader>
 
-      <StyledButtonBox>
-        <Button
-          text={'스노우볼 만들기'}
-          color={theme.colors['--primary-red-primary']}
-          view={[make, setMake]}
-        />
-      </StyledButtonBox>
+              <StyledBottom>
+                <StyledBall>스노우볼</StyledBall>은 소중한 마음을 주고 받는
+                <br />
+                예쁜 선물 상자가 될 거예요.
+              </StyledBottom>
+
+              <StyledButtonBox>
+                <Button
+                  text={'스노우볼 만들기'}
+                  color={theme.colors['--primary-red-primary']}
+                  view={[make, setMake]}
+                />
+              </StyledButtonBox>
+            </>
+          )}
+        </>
+      )}
     </>
   );
 };

@@ -1,7 +1,8 @@
-import styled from 'styled-components';
-import theme from '../../utils/theme';
 import { useContext, useState } from 'react';
-import { DecoContext } from '../../pages/Visit/Deco/DecoProvider';
+import { createPortal } from 'react-dom';
+import styled from 'styled-components';
+import { DecoContext } from '@pages/Visit/Deco/DecoProvider';
+import { MessageContext } from '@pages/Visit/MessageProvider';
 
 interface MsgProps {
   color: string;
@@ -9,48 +10,71 @@ interface MsgProps {
   content: string;
   sender: string;
   to: string;
+  isDeco: boolean;
 }
 
 interface MsgColor {
   color: string;
 }
 
-const StyledLetterBox = styled.div<MsgColor>`
-  width: 80%;
+const MsgBackground = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+
+  width: 100%;
+  height: 100%;
+  padding: 3rem;
   display: flex;
-  align-self: center;
-  font: ${theme.font['--normal-introduce-font']};
   flex-direction: column;
+  background-color: rgba(0, 0, 0, 0.5);
+  overflow: scroll;
+
+  @media (min-width: ${props => props.theme.size['--desktop-min-width']}) {
+    width: ${props => props.theme.size['--desktop-width']};
+    left: 50%;
+    transform: translateX(-50%);
+  }
+`;
+
+const StyledLetterBox = styled.div<MsgColor>`
+  flex: 0 0 auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  font: ${props => props.theme.font['--normal-introduce-font']};
+  text-shadow: ${props => props.theme.font['--text-shadow']};
   border-radius: 1rem;
   padding: 1.5rem;
   gap: 1rem;
   background-color: ${props => props.color + '80'};
-  margin: 1rem;
+  pointer-events: auto;
 `;
 
-const StyledLetterPerson = styled.div`
-  text-align: left;
+const StyledLetterInput = styled.div`
   color: white;
+  text-align: left;
 `;
 
 const StyledTo = styled.span`
-  color: ${theme.colors['--nick-name']};
+  color: ${props => props.theme.colors['--nick-name']};
 `;
 
-const StyledLetterContent = styled.div`
-  text-align: center;
-  color: white;
-`;
-
-const StyledFromBox = styled(StyledLetterPerson)`
-  flex-direction: row-reverse;
+const StyledLetterPerson = styled.div`
   display: flex;
+  align-content: center;
   justify-content: space-between;
+  color: white;
+  height: 2rem;
 `;
 
-const StyledFrom = styled.span`
-  text-align: right;
-  color: ${theme.colors['--primary-redp-variant']};
+const StyledToWrap = styled.div``;
+
+const StyledDeleteButton = styled.button`
+  color: white;
+  text-shadow: ${props => props.theme.font['--text-shadow']};
+  font-size: 1rem;
 `;
 
 const StyledInputBox = styled.div`
@@ -63,20 +87,12 @@ const StyledTextArea = styled.textarea`
   outline: none;
   border: none;
   background-color: transparent;
-  color: ${theme.colors['--white-primary']};
+  color: ${props => props.theme.colors['--white-primary']};
   font-size: 1rem;
   font-weight: 700;
   line-height: 2rem;
   white-space: pre-wrap;
   resize: none; /* 사용자가 크기를 조정하지 못하게 함 */
-
-  /* 각 줄마다 밑줄을 추가하는 배경 설정 */
-  /* background-image: linear-gradient(
-    to bottom,
-    transparent 1.9rem,
-    ${theme.colors['--white-primary']} 2rem
-  );
-  background-size: 100% 2rem; */
 
   background-attachment: local;
   background-image: repeating-linear-gradient(
@@ -86,11 +102,6 @@ const StyledTextArea = styled.textarea`
     #ccc 1.9rem,
     #00000000 2rem
   );
-  /* &::placeholder {
-    color: gray;
-    font-size: 1rem;
-    font-weight: 700;
-  } */
 
   /* 스크롤바 숨김 처리 */
   /* 크롬, 사파리, 기타 웹킷 기반 브라우저 */
@@ -105,21 +116,46 @@ const StyledTextArea = styled.textarea`
   -ms-overflow-style: none;
 `;
 
+const StyledLetterContent = styled.div`
+  white-space: pre-wrap;
+  text-align: center;
+  color: white;
+  word-wrap: break-word;
+`;
+
+const StyledFromBox = styled(StyledLetterPerson)`
+  flex-direction: row-reverse;
+  display: flex;
+  justify-content: space-between;
+`;
+
 const StyledFromInput = styled.input`
   width: 55%;
   outline: none;
   border: none;
   background-color: transparent;
-  color: ${theme.colors['--nick-name']};
+  color: ${props => props.theme.colors['--nick-name']};
+  text-shadow: ${props => props.theme.font['--text-shadow']};
   font-size: 1rem;
   font-weight: 700;
   pointer-events: stroke;
 `;
 
-const Msg = (props: MsgProps) => {
+const StyledFrom = styled.span`
+  text-align: right;
+  color: ${props => props.theme.colors['--primary-redp-variant']};
+`;
+
+const DecoBackground = styled.div`
+  width: 100%;
+  padding: 3rem;
+`;
+
+const Msg = (props: MsgProps): JSX.Element => {
   const [wordCount, setWordCount] = useState(0);
-  const { setContent, setSender } = useContext(DecoContext);
+  const { content, sender, setContent, setSender } = useContext(DecoContext);
   const maxWordCount = 500;
+  const { setMessage } = useContext(MessageContext);
 
   const wordLength = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const text = e.target;
@@ -132,48 +168,147 @@ const Msg = (props: MsgProps) => {
     setWordCount(text.value.length);
   };
 
+  const removeMsg = () => {
+    setMessage('');
+  };
+
+  const stopEvent = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+  };
+
   return (
-    <StyledLetterBox color={props.color}>
-      <StyledLetterPerson>
-        To. <StyledTo>{props.to}</StyledTo>
-      </StyledLetterPerson>
+    <>
+      {!props.isInput && !props.isDeco ? (
+        createPortal(
+          <MsgBackground onClick={removeMsg}>
+            <StyledLetterBox color={props.color} onClick={stopEvent}>
+              {props.isInput ? (
+                <>
+                  <StyledLetterInput>
+                    To. <StyledTo>{props.to}</StyledTo>
+                  </StyledLetterInput>
 
-      {props.isInput ? (
-        <StyledInputBox>
-          <StyledTextArea
-            rows={1}
-            onChange={wordLength}
-            placeholder="편지를 작성해주세요."
-          />
-        </StyledInputBox>
+                  <StyledInputBox>
+                    <StyledTextArea
+                      rows={1}
+                      value={content}
+                      onChange={wordLength}
+                      placeholder="편지를 작성해주세요."
+                    />
+                  </StyledInputBox>
+                </>
+              ) : (
+                <>
+                  <StyledLetterPerson>
+                    <StyledToWrap>
+                      To. <StyledTo>{props.to}</StyledTo>
+                    </StyledToWrap>
+
+                    {props.isDeco ? null : (
+                      <StyledDeleteButton onClick={removeMsg}>
+                        X
+                      </StyledDeleteButton>
+                    )}
+                  </StyledLetterPerson>
+
+                  <StyledLetterContent>
+                    {props.content.toString()}
+                  </StyledLetterContent>
+                </>
+              )}
+
+              <StyledFromBox>
+                <StyledFrom>
+                  From.
+                  {props.isInput ? (
+                    <StyledFromInput
+                      value={sender}
+                      placeholder="이름입력"
+                      onFocus={e => (e.target.value = '')}
+                      onChange={e => {
+                        if (e.target.value.length > 8) {
+                          e.target.value = e.target.value.substring(0, 8);
+                        }
+                        setSender(e.target.value);
+                      }}
+                    />
+                  ) : (
+                    <StyledFromInput value={props.sender} disabled />
+                  )}
+                </StyledFrom>
+
+                {props.isInput && props.sender === '익명'
+                  ? `${wordCount} / 500`
+                  : null}
+              </StyledFromBox>
+            </StyledLetterBox>
+          </MsgBackground>,
+          document.body
+        )
       ) : (
-        <StyledLetterContent>{props.content}</StyledLetterContent>
+        <DecoBackground>
+          <StyledLetterBox color={props.color}>
+            {props.isInput ? (
+              <StyledLetterInput>
+                To. <StyledTo>{props.to}</StyledTo>
+              </StyledLetterInput>
+            ) : (
+              <StyledLetterPerson>
+                <StyledToWrap>
+                  To. <StyledTo>{props.to}</StyledTo>
+                </StyledToWrap>
+
+                {props.isDeco ? null : (
+                  <StyledDeleteButton onClick={removeMsg}>X</StyledDeleteButton>
+                )}
+              </StyledLetterPerson>
+            )}
+
+            {props.isInput ? (
+              <StyledInputBox>
+                <StyledTextArea
+                  id="textarea"
+                  rows={1}
+                  value={content}
+                  onChange={wordLength}
+                  placeholder="편지를 작성해주세요."
+                />
+              </StyledInputBox>
+            ) : (
+              <StyledLetterContent>
+                {props.content.toString()}
+              </StyledLetterContent>
+            )}
+
+            <StyledFromBox>
+              <StyledFrom>
+                From.
+                {props.isInput ? (
+                  <StyledFromInput
+                    id="fromInput"
+                    value={sender}
+                    placeholder="이름입력"
+                    onFocus={e => (e.target.value = '')}
+                    onChange={e => {
+                      if (e.target.value.length > 8) {
+                        e.target.value = e.target.value.substring(0, 8);
+                      }
+                      setSender(e.target.value);
+                    }}
+                  />
+                ) : (
+                  <StyledFromInput value={props.sender} disabled />
+                )}
+              </StyledFrom>
+
+              {props.isInput && props.sender === '익명'
+                ? `${wordCount} / 500`
+                : null}
+            </StyledFromBox>
+          </StyledLetterBox>
+        </DecoBackground>
       )}
-
-      <StyledFromBox>
-        <StyledFrom>
-          From.
-          {props.isInput ? (
-            <StyledFromInput
-              placeholder="이름입력"
-              onFocus={e => {
-                e.target.value = '';
-              }}
-              onChange={e => {
-                if (e.target.value.length > 8) {
-                  e.target.value = e.target.value.substring(0, 8);
-                }
-                setSender(e.target.value);
-              }}
-            />
-          ) : (
-            <StyledFromInput value={props.sender} disabled />
-          )}
-        </StyledFrom>
-
-        {props.isInput && props.sender === '' ? `${wordCount} / 500` : null}
-      </StyledFromBox>
-    </StyledLetterBox>
+    </>
   );
 };
 

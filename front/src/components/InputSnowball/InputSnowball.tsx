@@ -1,18 +1,17 @@
-import styled from 'styled-components';
-import theme from '../../utils/theme';
 import { useContext, useState } from 'react';
-import { DecoContext } from '../../pages/Make/MainDeco/DecoProvider';
+import styled from 'styled-components';
+import { DecoContext } from '@pages/Make/Snowball/MainDeco/DecoProvider';
 
 const StyledLetterBox = styled.div`
   width: 80%;
   display: flex;
   align-self: center;
-  font: ${theme.font['--normal-introduce-font']};
+  font: ${props => props.theme.font['--normal-introduce-font']};
   flex-direction: column;
   border-radius: 1rem;
   padding: 1.5rem;
   gap: 1rem;
-  background-color: ${theme.colors['--primary-red-primary']};
+  background-color: ${props => props.theme.colors['--primary-red-primary']};
 `;
 
 const StyledLetterPerson = styled.div`
@@ -36,7 +35,7 @@ const StyledTextArea = styled.textarea`
   outline: none;
   border: none;
   background-color: transparent;
-  color: ${theme.colors['--white-primary']};
+  color: ${props => props.theme.colors['--white-primary']};
   font-size: 1rem;
   font-weight: 700;
   line-height: 2rem;

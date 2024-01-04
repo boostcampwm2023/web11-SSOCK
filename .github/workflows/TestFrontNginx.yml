@@ -2,14 +2,14 @@ name: Deploy Frontend To Nginx Test
 
 on:
   push:
-    branches: [ "FE/main" ]
+    branches: ["FE/main"]
 
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    steps: 
+    steps:
       - uses: actions/checkout@v4
 
       - name: Setup Node.js
@@ -23,6 +23,10 @@ jobs:
       - name: Install dependencies
         working-directory: ./front
         run: npm install
+
+      - name: .env init
+        working-directory: ./front
+        run: echo VITE_APP_SENTRY_DSN = ${{ secrets.SENTRY_DSN }} >> .env
 
       - name: Generate build
         working-directory: ./front
@@ -39,7 +43,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             rm -rf /usr/share/nginx/build
-            
+
       - name: Deploy to Server
         uses: appleboy/scp-action@master
         with:

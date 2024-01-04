@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import theme from '../../../utils/theme';
-import { Button } from '../../../components';
+import { theme, axios } from '@utils';
+import { Button } from '@components';
 
 const StyledWrap = styled.div`
   width: 100%;
@@ -13,32 +13,29 @@ const StyledWrap = styled.div`
   flex-direction: column;
   justify-content: space-between;
 
-  @media (min-width: ${theme.size['--desktop-width']}) {
-    width: ${theme.size['--desktop-width']};
+  @media (min-width: ${props => props.theme.size['--desktop-width']}) {
+    width: ${props => props.theme.size['--desktop-width']};
   }
 `;
 
 const StyledExplain = styled.div`
-  font: ${theme.font['--normal-nickname-font']};
+  font: ${props => props.theme.font['--normal-nickname-font']};
   color: white;
-  padding-top: 40%;
-
-  @media (min-width: ${theme.size['--desktop-width']}) {
-    padding-top: 25%;
-  }
+  padding-top: 12rem;
 `;
 
 const StyledPink = styled.span`
-  color: ${theme.colors['--primary-redp-variant']};
+  color: ${props => props.theme.colors['--primary-redp-variant']};
 `;
 
 const StyledNickName = styled.div`
-  font: ${theme.font['--normal-login-font']};
+  font: ${props => props.theme.font['--normal-login-font']};
   color: white;
+  padding-top: 5%;
 `;
 
 const StyledInput = styled.input`
-  font: ${theme.font['--normal-nickname-input-font']};
+  font: ${props => props.theme.font['--normal-nickname-input-font']};
   margin-top: 5%;
   width: 100%;
   background-color: transparent;
@@ -47,7 +44,7 @@ const StyledInput = styled.input`
   color: white;
 
   &::placeholder {
-    color: ${theme.colors['--sub-text']};
+    color: ${props => props.theme.colors['--sub-text']};
   }
 
   &:focus {
@@ -55,30 +52,52 @@ const StyledInput = styled.input`
   }
 `;
 
+const StyledWarnText = styled.div`
+  font: ${props => props.theme.font['--normal-nickname-font']};
+  font-size: 1.5rem;
+  color: ${props => props.theme.colors['--blue-blue-dark-10']};
+  text-align: center;
+`;
+
 const StyledButtonBox = styled.div`
   display: flex;
   justify-content: center;
-  padding-top: 10%;
+  padding-top: 5%;
 `;
-
-const validNickname = (
-  nicknameRef: React.RefObject<HTMLInputElement>,
-  setStartNickname: React.Dispatch<React.SetStateAction<boolean>>
-) => {
-  if (nicknameRef.current && nicknameRef.current.value.length >= 2)
-    setStartNickname(true);
-};
 
 const Nickname = () => {
   const navigate = useNavigate();
-
-  const [nickname, setNickname] = useState(false); // 닉네임 설정유무 판단 필요(닉네임 설정하고 스노우볼은 설정 안했다던지 등등..)
-  const [startNickname, setStartNickname] = useState(false);
+  const [nickname, setNickname] = useState(false);
+  const [error, setError] = useState(false);
+  const [lenWarning, setLenWarning] = useState(false);
   const nicknameRef = useRef<HTMLInputElement>(null);
 
+  // 브라우저 뒤로가기시 main으로 이동시켜주기위한 로직
+  // 여기서 문제가 발생
+  // window.history.pushState({}, '', '/main');
+  // window.history.pushState({}, '', '/make');
+
   useEffect(() => {
-    nickname ? navigate('/make/snowball') : null;
-  }, [nickname, navigate]);
+    if (!nickname && nicknameRef.current?.value) setNickname(true);
+    if (!nickname || !nicknameRef.current?.value) return;
+
+    if (nicknameRef.current.value.length <= 16) {
+      setLenWarning(false);
+      axios
+        .put(
+          '/api/user/nickname',
+          { nickname: nicknameRef.current.value },
+          { withCredentials: true }
+        )
+        .then(res => {
+          res.status === 200 ? navigate('/make/snowball') : setError(true);
+        })
+        .catch(() => setError(true));
+    } else {
+      setError(false);
+      setLenWarning(true);
+    }
+  }, [nickname, error, lenWarning, navigate]);
 
   return (
     <StyledWrap>
@@ -90,19 +109,23 @@ const Nickname = () => {
 
       <div>
         <StyledNickName>닉네임</StyledNickName>
-        <StyledInput
-          ref={nicknameRef}
-          placeholder="ex) 라온이"
-          onChange={() => validNickname(nicknameRef, setStartNickname)}
-        />
+        <StyledInput ref={nicknameRef} placeholder="ex) 라온이" />
       </div>
+
+      <StyledWarnText>
+        {error
+          ? '다시 시도해주십시오.'
+          : lenWarning
+          ? '8글자 이하로 설정 가능합니다.'
+          : ' '}
+      </StyledWarnText>
 
       <StyledButtonBox>
         <Button
           text={'시작하기'}
           color={theme.colors['--primary-red-primary']}
           view={[nickname, setNickname]}
-          disabled={!startNickname}
+          disabled={false}
         />
       </StyledButtonBox>
     </StyledWrap>

@@ -1,24 +1,16 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useContext } from 'react';
 import { NavigateFunction, useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import theme from '../../../utils/theme';
+import { theme, BlurBody } from '@utils';
+import { DecoContext } from './DecoProvider';
 
 interface NaviProps {
   visible: [number, React.Dispatch<React.SetStateAction<number>>];
   view: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
 }
 
-const StyledBody = styled.div`
-  position: fixed;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(217, 217, 217, 0.2);
-  pointer-events: all;
-`;
-
 const StyledNaviBox = styled.div`
-  background-color: ${theme.colors['--primary-black']};
+  background-color: ${props => props.theme.colors['--primary-black']};
   position: absolute;
   bottom: 0;
   display: flex;
@@ -28,34 +20,12 @@ const StyledNaviBox = styled.div`
   height: 35%;
   padding: 2% 5%;
   padding-bottom: 5%;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
+  border-top-left-radius: 1.25rem;
+  border-top-right-radius: 1.25rem;
   animation: fadeInUp 0.5s forwards;
 
   pointer-events: all;
   z-index: 1;
-
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translate(0, 100%);
-    }
-    to {
-      opacity: 1;
-      transform: translate(0, 0);
-    }
-  }
-
-  @keyframes fadeOutDown {
-    from {
-      opacity: 1;
-      transform: translate(0, 0);
-    }
-    to {
-      opacity: 0;
-      transform: translate(0, 100%);
-    }
-  }
 `;
 
 const ButtonWrap = styled.div`
@@ -65,16 +35,15 @@ const ButtonWrap = styled.div`
 `;
 
 const StyledNavButton = styled.button`
-  height: 3rem;
-  width: 66%;
+  width: 100%;
   height: 4rem;
   border-radius: 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: ${theme.colors['--white-primary']};
+  color: ${props => props.theme.colors['--white-primary']};
   background-color: ${props => props.color};
-  border: 1px solid ${theme.colors['--white-primary']};
+  border: 1px solid ${props => props.theme.colors['--white-primary']};
 `;
 
 const StyeldButtonText = styled.div`
@@ -82,8 +51,8 @@ const StyeldButtonText = styled.div`
   height: 100%;
   display: flex;
   align-items: center;
-  font: ${theme.font['--normal-button-font']};
   justify-content: center;
+  font: ${props => props.theme.font['--normal-button-font']};
 `;
 
 const StyledImgIcon = styled.img`
@@ -91,7 +60,7 @@ const StyledImgIcon = styled.img`
 `;
 
 const EmptyDiv = styled.div`
-  width: 3rem;
+  width: 1rem;
 `;
 
 const CloseNav = (
@@ -100,7 +69,8 @@ const CloseNav = (
   setIsFocus: React.Dispatch<React.SetStateAction<boolean>>,
   navigate: NavigateFunction,
   user: string | undefined,
-  flag: 'close' | 'root'
+  flag: 'close' | 'root',
+  callback: () => void
 ) => {
   const onAnimationEnd = () => {
     if (closeRef.current) {
@@ -111,6 +81,7 @@ const CloseNav = (
         navigate('/');
         return;
       }
+      callback();
       navigate(`/visit/${user}`);
     }
   };
@@ -125,16 +96,24 @@ const CloseNav = (
 };
 
 const DecoEnroll = (props: NaviProps) => {
-  const [isFocus, setIsFocus] = useState(true);
-  const closeRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
   const { user } = useParams();
-
+  const [isFocus, setIsFocus] = useState(true);
+  const closeRef = useRef<HTMLDivElement>(null);
+  const { resetDecoContext } = useContext(DecoContext);
   return (
     <>
-      <StyledBody
+      <BlurBody
         onClick={() =>
-          CloseNav(props, closeRef, setIsFocus, navigate, user, 'close')
+          CloseNav(
+            props,
+            closeRef,
+            setIsFocus,
+            navigate,
+            user,
+            'close',
+            resetDecoContext
+          )
         }
       />
 
@@ -144,7 +123,15 @@ const DecoEnroll = (props: NaviProps) => {
             <StyledNavButton
               color={theme.colors['--primary-red-primary']}
               onClick={() =>
-                CloseNav(props, closeRef, setIsFocus, navigate, user, 'root')
+                CloseNav(
+                  props,
+                  closeRef,
+                  setIsFocus,
+                  navigate,
+                  user,
+                  'root',
+                  resetDecoContext
+                )
               }
             >
               <StyeldButtonText>
@@ -162,10 +149,18 @@ const DecoEnroll = (props: NaviProps) => {
             <StyledNavButton
               color={theme.colors['--primary-green-primary']}
               onClick={() =>
-                CloseNav(props, closeRef, setIsFocus, navigate, user, 'close')
+                CloseNav(
+                  props,
+                  closeRef,
+                  setIsFocus,
+                  navigate,
+                  user,
+                  'close',
+                  resetDecoContext
+                )
               }
             >
-              <StyeldButtonText>닫기</StyeldButtonText>
+              <StyeldButtonText>전송한 선물 확인하기</StyeldButtonText>
             </StyledNavButton>
           </ButtonWrap>
         </StyledNaviBox>

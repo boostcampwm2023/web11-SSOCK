@@ -1,8 +1,8 @@
 import { useContext } from 'react';
-import { DecoContext } from './DecoProvider';
-import { MSG_COLOR } from '../../../constants/deco';
-import { Msg } from '../../../components';
 import styled from 'styled-components';
+import { Msg } from '@components';
+import { MSG_COLOR } from '@constants';
+import { DecoContext } from './DecoProvider';
 import { SnowBallContext } from '../SnowBallProvider';
 
 interface MsgBoxProps {
@@ -13,9 +13,17 @@ const MsgContainer = styled.div`
   display: flex;
   flex-direction: column-reverse;
   width: 100%;
-  height: 100%;
-  pointer-events: all;
+  pointer-events: auto;
   overflow: scroll;
+
+  @media (max-height: ${props => props.theme.size['--message-min-height']}) {
+    position: absolute;
+    top: 10%;
+    height: 50%;
+    * {
+      overflow: scroll;
+    }
+  }
 `;
 
 const MsgBox = ({ isInput }: MsgBoxProps) => {
@@ -29,7 +37,8 @@ const MsgBox = ({ isInput }: MsgBoxProps) => {
         color={MSG_COLOR[letterID].color}
         isInput={isInput}
         content={''}
-        sender={''}
+        sender={'익명'}
+        isDeco={true}
       />
     </MsgContainer>
   );

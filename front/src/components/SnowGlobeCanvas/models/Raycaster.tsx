@@ -1,36 +1,32 @@
 import React, { useEffect, useRef, useContext } from 'react';
 import { useThree, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
-import { MessageContext } from '../../../pages/Visit/MessageProvider';
+import { MessageContext } from '@pages/Visit/MessageProvider';
 import { PrevContext } from '../PrevProvider';
 
 interface RaycasterProps {
-  isClickedRef: React.MutableRefObject<boolean>; // mutable
+  isClickedRef: React.MutableRefObject<boolean>;
 }
 
 const Raycaster: React.FC<RaycasterProps> = ({ isClickedRef }) => {
   const { camera, pointer, raycaster, scene, gl } = useThree();
-  const { setMessage, setSender, setColor } = useContext(MessageContext);
+  const { setMessage, setSender, setColor, setMessageID } =
+    useContext(MessageContext);
   const { view, setView, isZoom, setIsZoom } = useContext(PrevContext);
   const isAnimating = useRef(false); // 유리 클릭한 시점 , 뒤로가기 버튼 누른 시점 === true // 카메라 업 다운 차이 기록
   const lastPosition = useRef<number>(0);
 
-  const zoomInSpeed = 0.99;
-  const zoomOutSpeed = 1.01;
-
-  useFrame(() => {
+  useFrame((_, delta) => {
     const isClicked = isClickedRef.current;
+    const zoomOutSpeed = 1 + delta * 2;
 
     if (isAnimating.current) {
       if (isClicked && !isZoom) {
         setView(true);
-        if (camera.position.distanceTo(new THREE.Vector3(0, 0, 0)) > 7) {
-          camera.position.x = (camera.position.x - 0) * zoomInSpeed;
-          camera.position.y = (camera.position.y - 0) * zoomInSpeed;
-          camera.position.z = (camera.position.z - 0) * zoomInSpeed;
-        } else {
-          isAnimating.current = false;
-        }
+        const targetPosition = new THREE.Vector3(0, 2.5, 0);
+        camera.position.distanceTo(targetPosition) > 6
+          ? camera.position.lerp(targetPosition, delta * 2)
+          : (isAnimating.current = false);
       } else {
         isAnimating.current = false;
       }
@@ -38,10 +34,10 @@ const Raycaster: React.FC<RaycasterProps> = ({ isClickedRef }) => {
       if (view) {
         setIsZoom(true);
       } else if (isZoom && !view) {
-        if (camera.position.distanceTo(new THREE.Vector3(0, 0, 0)) < 15) {
-          camera.position.x = (camera.position.x + 0) * zoomOutSpeed;
-          camera.position.y = (camera.position.y + 0) * zoomOutSpeed;
-          camera.position.z = (camera.position.z + 0) * zoomOutSpeed;
+        if (camera.position.distanceTo(new THREE.Vector3(0, 3.5, 0)) < 15) {
+          camera.position.x *= zoomOutSpeed;
+          camera.position.y *= zoomOutSpeed;
+          camera.position.z *= zoomOutSpeed;
         } else {
           setIsZoom(false);
         }
@@ -55,34 +51,32 @@ const Raycaster: React.FC<RaycasterProps> = ({ isClickedRef }) => {
       raycaster.setFromCamera(pointer, camera);
 
       //터치한 시간으로 이벤트 분기
-      if (window.performance.now() - lastPosition.current > 120) {
-        return;
-      } else {
-        // 씬의 모든 객체들과 교차점 계산
-        setMessage('');
-        const intersects = raycaster.intersectObjects(scene.children, true);
+      if (window.performance.now() - lastPosition.current > 120) return;
 
-        if (intersects.length < 1) {
-          return;
-        }
-        if (intersects[0].object.name === 'glass') {
-          isAnimating.current = true;
-          isClickedRef.current = true;
-          return;
-        }
-        const selectedDeco = intersects.find(
-          intersect => intersect.object.userData.message
-        );
-        if (selectedDeco) {
-          const { message, color, sender, letterColor } =
-            selectedDeco.object.userData;
-          console.log(color);
-          setMessage(message);
-          setSender(sender);
-          setColor(letterColor);
-        }
+      // 씬의 모든 객체들과 교차점 계산
+      setMessage('');
+      const intersects = raycaster.intersectObjects(scene.children, true);
+      if (intersects.length < 1) return;
+
+      if (intersects[0].object.name === 'glass') {
+        isAnimating.current = true;
+        isClickedRef.current = true;
+        return;
+      }
+
+      const selectedDeco = intersects.find(
+        intersect => intersect.object.userData.message
+      );
+      if (selectedDeco) {
+        const { message, sender, letterColor, messageID } =
+          selectedDeco.object.userData;
+        setMessage(message);
+        setSender(sender);
+        setColor(letterColor);
+        setMessageID(messageID);
       }
     };
+
     const saveLastTime = () => {
       lastPosition.current = window.performance.now();
     };

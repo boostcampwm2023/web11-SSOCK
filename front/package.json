@@ -12,11 +12,13 @@
   "dependencies": {
     "@react-three/drei": "^9.88.11",
     "@react-three/fiber": "^8.15.10",
+    "@sentry/react": "^7.86.0",
     "@types/react-router-dom": "^5.3.3",
     "@types/styled-components": "^5.1.29",
     "@types/three": "^0.158.1",
     "axios": "^1.6.2",
     "react": "^18.2.0",
+    "react-cookie": "^6.1.1",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.18.0",
     "styled-components": "^6.1.0",
@@ -33,6 +35,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
     "typescript": "^5.0.2",
-    "vite": "^4.4.5"
+    "vite": "^4.4.5",
+    "vite-plugin-mkcert": "^1.17.1"
   }
 }

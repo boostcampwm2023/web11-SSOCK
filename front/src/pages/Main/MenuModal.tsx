@@ -1,11 +1,13 @@
-import { useNavigate, NavigateFunction } from 'react-router-dom';
+import { useContext, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import theme from '../../utils/theme';
-import mock from '../../mockdata.json'; // temporary
+import { useLogout } from '@hooks';
+import { SnowBallContext } from '@pages/Visit/SnowBallProvider';
 
 interface ModalProps {
   set: React.Dispatch<React.SetStateAction<boolean>>;
   list: React.Dispatch<React.SetStateAction<boolean>>;
+  intro: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
 }
 
 const StyledModal = styled.div`
@@ -14,62 +16,106 @@ const StyledModal = styled.div`
   top: 4%;
   right: 0;
   width: 40%;
-  background-color: ${theme.colors['--sub-text']};
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
-  box-shadow: 0 14px 28px rgba(255, 255, 255, 0.25),
-    0 10px 10px rgba(255, 255, 255, 0.22);
-  font: ${theme.font['--normal-main-header-font']};
+  background-color: #161616;
+  border-radius: 0.625rem 0 0 0.625rem;
+  box-shadow: 0 0.625rem 1.25rem rgba(255, 255, 255, 0.25),
+    0 0.625rem 1.25rem rgba(255, 255, 255, 0.25);
+  font: ${props => props.theme.font['--normal-main-header-font']};
   color: white;
 `;
 
 const StyledSection = styled.div`
   padding: 5%;
-  word-break: break-all;
+  white-space: normal;
+  word-break: keep-all;
   cursor: pointer;
 `;
 
 const StyledUser = styled(StyledSection)`
-  font-size: 18px;
+  font-size: 1.125rem;
 `;
 
 const StyledLogout = styled(StyledSection)`
-  color: ${theme.colors['--primary-red-primary']};
+  color: ${props => props.theme.colors['--primary-red-primary']};
+
+  font-weight: bold;
 `;
 
 const StyledClosed = styled(StyledSection)`
   text-align: center;
 `;
 
-const Logout = (navigate: NavigateFunction) => {
-  // sessionStorage 등 정리, 로그아웃 절차 진행
+const ToastMsg = styled.div`
+  position: fixed;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 
-  navigate('/');
-};
+  font: ${props => props.theme.font['--normal-button-font']};
+  background-color: ${props => props.theme.colors['--sub-text']};
+  border-radius: 1rem;
+  text-align: center;
+  padding: 1rem;
+`;
 
 const MenuModal = (props: ModalProps) => {
-  const userName = mock.user_data.nickname;
+  const { userData } = useContext(SnowBallContext);
   const navigate = useNavigate();
+  const logout = useLogout();
+
+  const [toast, setToast] = useState(false);
+
+  const timer = useRef<number | null>(null);
+  const makeNewSnowBall = () => {
+    if (timer.current) {
+      clearTimeout(timer.current);
+    }
+    if (userData.snowball_count >= 5) {
+      setToast(true);
+      timer.current = window.setTimeout(() => {
+        setToast(false);
+      }, 1500);
+      return;
+    }
+    navigate('/make/snowball');
+  };
+
+  const showIntro = () => {
+    props.set(false);
+    props.intro[1](true);
+  };
 
   return (
-    <StyledModal>
-      <StyledUser>{userName}님</StyledUser>
-      <hr />
+    <>
+      {toast ? (
+        <ToastMsg>스노우볼은 최대 5개까지 만들 수 있습니다.</ToastMsg>
+      ) : null}
 
-      <StyledSection
-        onClick={() => {
-          props.set(false);
-          props.list(true);
-        }}
-      >
-        편지 리스트로 보기
-      </StyledSection>
+      <StyledModal>
+        <StyledUser>{userData.nickname}님</StyledUser>
+        <hr />
 
-      <StyledLogout onClick={() => Logout(navigate)}>로그아웃</StyledLogout>
-      <hr />
+        <StyledSection
+          onClick={() => {
+            props.set(false);
+            props.list(true);
+          }}
+        >
+          편지 리스트로 보기
+        </StyledSection>
 
-      <StyledClosed onClick={() => props.set(false)}>닫기</StyledClosed>
-    </StyledModal>
+        <StyledSection onClick={makeNewSnowBall}>
+          새로운 스노우볼 만들러 가기
+        </StyledSection>
+
+        <StyledSection onClick={showIntro}>소개글 보기</StyledSection>
+
+        <StyledLogout onClick={logout}>로그아웃</StyledLogout>
+        <hr />
+
+        <StyledClosed onClick={() => props.set(false)}>닫기</StyledClosed>
+      </StyledModal>
+    </>
   );
 };
 

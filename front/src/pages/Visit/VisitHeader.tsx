@@ -1,21 +1,13 @@
-import styled from 'styled-components';
-import theme from '../../utils/theme';
-import { HeaderText } from '../../components';
 import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import { Container } from '@utils';
+import { HeaderText } from '@components';
 import { SnowBallContext } from './SnowBallProvider';
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 10rem;
-  gap: 1rem;
-  align-items: center;
-  justify-content: center;
-`;
+import { MessageListContext } from './MessageListProvider';
 
 const StyledLetter = styled.div`
-  font: ${theme.font['--normal-main-header-font']};
+  font: ${props => props.theme.font['--normal-main-header-font']};
   font-size: 1.25rem;
   gap: 0.5rem;
   display: flex;
@@ -28,15 +20,28 @@ const StyledLetterImg = styled.img`
   height: 100%;
 `;
 
+const HomeBtn = styled.img`
+  position: fixed;
+  z-index: 99;
+  top: 1rem;
+  left: 0.2rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  filter: invert(1);
+`;
+
 const VisitHeader = () => {
   const { userData } = useContext(SnowBallContext);
+  const { messageList } = useContext(MessageListContext);
+  const navigate = useNavigate();
 
   return (
     <Container>
+      <HomeBtn onClick={() => navigate('/')} src="/icons/home.svg" />
       <HeaderText Ref={null} userName={userData.nickname} />
       <StyledLetter>
         <StyledLetterImg src={'/icons/letter.svg'} />
-        {userData.message_count}개의 편지
+        {messageList.length}/30
       </StyledLetter>
     </Container>
   );

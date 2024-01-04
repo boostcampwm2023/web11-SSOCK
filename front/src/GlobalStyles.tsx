@@ -1,6 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
-import theme from './utils/theme';
+import { theme } from '@utils';
 
 const GlobalStyles = createGlobalStyle` 
   ${reset}
@@ -33,11 +33,61 @@ const GlobalStyles = createGlobalStyle`
     font-style: normal;
   }
 
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translate(0, 100%);
+    }
+    to {
+      opacity: 1;
+      transform: translate(0, 0);
+    }
+  }
+
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+
+  @keyframes fadeOutUp {
+    from {
+      opacity: 1;
+      transform: translate(0, 0);
+    }
+    to {
+      opacity: 0;
+      transform: translate(0, -100%);
+    }
+  }
+
+  @keyframes fadeOutDown {
+    from {
+      opacity: 1;
+      transform: translate(0, 0);
+    }
+    to {
+      opacity: 0;
+      transform: translate(0, 100%);
+    }
+  }
+
   * {
     box-sizing: border-box;
     font-family: 'KingSejongInstitute';
     white-space: nowrap;
-    // scroll-bar display none
     &::-webkit-scrollbar {
       display: none;
     }
@@ -56,7 +106,7 @@ const GlobalStyles = createGlobalStyle`
     width: 100%;
     height: 100%;
   }
-  
+
   #root {
     width: 100%;
     height: 100%;

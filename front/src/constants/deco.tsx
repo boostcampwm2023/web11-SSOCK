@@ -1,3 +1,19 @@
+export const SENTIMENT_MODEL = [
+  { name: '선물상자', fileName: '/models/ribbonBox.glb', img: 'ribbonBox.png' },
+  {
+    name: '긍정',
+    fileName: '/models/heart.glb'
+  },
+  {
+    name: '보통',
+    fileName: '/models/star.glb'
+  },
+  {
+    name: '부정',
+    fileName: '/models/water.glb'
+  }
+];
+
 export const DECO = [
   { name: '선물상자', fileName: '/models/ribbonBox.glb', img: 'ribbonBox.png' },
   {
@@ -14,6 +30,26 @@ export const DECO = [
     name: '진저브레드',
     fileName: '/models/gingerBread.glb',
     img: '/models/img/Deco/gingerBread.gif'
+  },
+  {
+    name: '마크상자',
+    fileName: '/models/chest.glb',
+    img: '/models/img/Deco/chest.gif'
+  },
+  {
+    name: '똥',
+    fileName: '/models/ddong.glb',
+    img: '/models/img/Deco/ddong.gif'
+  },
+  {
+    name: '미니눈사람',
+    fileName: '/models/miniSnowMan.glb',
+    img: '/models/img/Deco/miniSnowMan.gif'
+  },
+  {
+    name: '양말',
+    fileName: '/models/socks.glb',
+    img: '/models/img/Deco/socks.gif'
   }
 ];
 
@@ -25,9 +61,24 @@ export const MAIN = [
     img: '/models/img/Main/tux.gif'
   },
   {
-    name: '트리',
-    fileName: '/models/tree.glb',
-    img: '/models/img/Main/tree.png'
+    name: '산타',
+    fileName: '/models/santa.glb',
+    img: '/models/img/Main/santa.gif'
+  },
+  {
+    name: '부캠덕',
+    fileName: '/models/bcduck.glb',
+    img: '/models/img/Main/bcduck.gif'
+  },
+  {
+    name: '안경부캠덕',
+    fileName: '/models/bcduck_glasses.glb',
+    img: '/models/img/Main/bcduck_glasses.gif'
+  },
+  {
+    name: '눈사람',
+    fileName: '/models/snowman.glb',
+    img: '/models/img/Main/snowman.gif'
   }
 ];
 
@@ -86,7 +137,7 @@ export const BOTTOM = [
   {
     name: '받침대',
     fileName: '/models/bottom.glb',
-    img: '/models/img/Bottom/bottom1.png'
+    img: '/models/img/Bottom/bottom.png'
   },
   {
     name: '받침대1',

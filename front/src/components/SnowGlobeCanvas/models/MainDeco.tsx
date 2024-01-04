@@ -1,30 +1,33 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
-import { MAIN } from '../../../constants/deco';
+import { makeColorChangedMaterial } from '@utils/meshUtils';
+import { MAIN } from '@constants';
 
 interface MyModelProps {
   id: number;
   scale: number;
   position: THREE.Vector3;
-  color: THREE.Color;
+  color: string;
 }
 
 const fallingModel = (
   modelRef: THREE.Object3D | null,
-  speedRef: React.MutableRefObject<THREE.Vector3>
+  speedRef: React.MutableRefObject<THREE.Vector3>,
+  delta: number,
+  isStoppedRef: React.MutableRefObject<boolean>
 ) => {
   const airResistance = 0.02;
-  const gravity = 0.1 / 60;
+  const acceleration = 0.3 * delta; //가속도
 
   if (modelRef) {
     modelRef.position.add(speedRef.current);
-    speedRef.current.y -= gravity;
+    speedRef.current.y -= acceleration;
     speedRef.current.y *= 1 - airResistance;
 
-    if (modelRef.position.y <= 0.1 && Math.abs(speedRef.current.y) <= 0.02) {
-      speedRef.current = new THREE.Vector3(0, 0, 0);
+    if (modelRef.position.y <= 0.1 && Math.abs(speedRef.current.y) <= 0.05) {
+      isStoppedRef.current = true;
     }
 
     if (modelRef.position.y <= 0) {
@@ -35,16 +38,29 @@ const fallingModel = (
 
 const MainDeco = ({ id, scale, position, color }: MyModelProps) => {
   const deco = useGLTF(MAIN[id].fileName).scene.clone();
-  const speedRef = useRef(new THREE.Vector3(0, -0.01, 0));
+  const speedRef = useRef<THREE.Vector3>(new THREE.Vector3(0, 0, 0));
+  const isStoppedRef = useRef<boolean>(false);
 
-  //run build error 해결용 consol
-  console.log(color);
+  useEffect(() => {
+    isStoppedRef.current = false;
+  }, [deco]);
+
   deco.name = MAIN[id].name;
   deco.scale.set(scale, scale, scale);
   deco.position.set(position.x, position.y, position.z);
-  deco.children.forEach(e => (e.castShadow = true));
-  useFrame(() => {
-    fallingModel(deco, speedRef);
+  deco.children.forEach(mesh => (mesh.castShadow = true));
+
+  const colorPart = deco.getObjectByName('colorPart') as THREE.Mesh;
+  colorPart.material = makeColorChangedMaterial(colorPart, color);
+
+  useFrame((_, delta) => {
+    //이거 1초에 1프레임도 안나오면 메인장식 멈출수도있음
+    if (delta > 1) {
+      delta = 0;
+    }
+    if (!isStoppedRef.current) {
+      fallingModel(deco, speedRef, delta, isStoppedRef);
+    }
   });
 
   return <primitive object={deco} />;

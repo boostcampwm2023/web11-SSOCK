@@ -1,17 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import styled from 'styled-components';
-import theme from '../../utils/theme';
-import { Button } from '../../components';
-
-const Container = styled.div`
-  width: 100%;
-  height: 10rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
+import { theme, Container } from '@utils';
+import { Button } from '@components';
 
 const VisitBottom = () => {
   const navigate = useNavigate();
@@ -19,7 +9,7 @@ const VisitBottom = () => {
   const [write, setWrite] = useState(false);
 
   useEffect(() => {
-    write ? navigate(`./deco`) : null;
+    write ? navigate('./deco') : null;
   }, [write, user, navigate]);
 
   return (
