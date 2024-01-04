@@ -1,10 +1,12 @@
 import styled from 'styled-components';
-import { useContext } from 'react';
+import { useContext, useRef, useEffect } from 'react';
 import { SnowBallContext } from '@pages/Visit/SnowBallProvider';
 
 interface MainFooterProps {
   set: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
   toast: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
+  animation: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
+  hamburger: React.MutableRefObject<HTMLImageElement | null>;
 }
 
 const StyledFooter = styled.footer`
@@ -14,15 +16,7 @@ const StyledFooter = styled.footer`
   padding-right: 1rem;
   display: flex;
   justify-content: space-between;
-  animation: fadeIn 2s forwards;
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
+  animation: fadeIn 1s forwards;
 `;
 
 const StyledScreen = styled.img`
@@ -37,6 +31,13 @@ const StyledShareLink = styled.img`
 
 const MainFooter = (props: MainFooterProps): JSX.Element => {
   const { userData } = useContext(SnowBallContext);
+  const FooterRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (props.animation[0]) {
+      FooterRef.current?.setAttribute('style', 'animation: fadeOut 1s forwards');
+    }
+  }, [props.animation]);
 
   const shareLink = () => {
     const userID = userData.auth_id;
@@ -75,14 +76,22 @@ const MainFooter = (props: MainFooterProps): JSX.Element => {
     const music = document.getElementById('musicController');
     const prev = document.getElementById('prevBtn');
 
-    music?.setAttribute('style', 'display: none');
-    prev?.setAttribute('style', 'display: none');
-    setBool(false);
+    //music display none fadeout
+    music?.setAttribute('style', 'animation: fadeOut 1s forwards');
+    prev?.setAttribute('style', 'animation: fadeOut 1s forwards');
+
+    const hamburger = props.hamburger.current;
+    hamburger?.setAttribute('style', 'animation: fadeOut 1s forwards');
+    props.animation[1](true);
+    setTimeout(() => {
+      setBool(false);
+      props.animation[1](false);
+    }, 1000);
   };
 
   return (
     <>
-      <StyledFooter key="MainFooter">
+      <StyledFooter key="MainFooter" ref={FooterRef} >
         <StyledScreen
           src={'/icons/screen.svg'}
           onClick={() => {
