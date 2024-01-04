@@ -1,4 +1,4 @@
-import { useEffect, useContext, useState } from 'react';
+import { useEffect, useContext, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import styled from 'styled-components';
@@ -29,15 +29,7 @@ const StyledMenu = styled.img`
   right: 0.8rem;
   width: 2rem;
   height: 2rem;
-  animation: fadeIn 2s forwards;
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
+  animation: fadeIn 1s forwards;
 `;
 
 const ToastMsg = styled.div`
@@ -116,15 +108,18 @@ const Main = () => {
 
   const [show, setShow] = useState(true);
 
+  const [animation, setAnimation] = useState(false);
+  const hamburgerRef = useRef<HTMLImageElement>(null);
+
   const showScreen = () => {
     const music = document.getElementById('musicController');
     const prev = document.getElementById('prevBtn');
+    const hamburger = hamburgerRef.current;
 
     setShow(true);
-    music?.setAttribute('style', 'display: block');
-    music?.setAttribute('style', 'animation: fadeIn 3s forwards');
-    prev?.setAttribute('style', 'display: block');
-    prev?.setAttribute('style', 'animation: fadeIn 3s forwards');
+    music?.setAttribute('style', 'animation: fadeIn 1s forwards');
+    prev?.setAttribute('style', 'animation: fadeIn 1s forwards');
+    hamburger?.setAttribute('style', 'animation: fadeIn 1s forwards');
   };
 
   useEffect(() => {
@@ -177,6 +172,7 @@ const Main = () => {
                   key="hambuger"
                   src={'/icons/menu.svg'}
                   onClick={() => setMenuModal(true)}
+                  ref={hamburgerRef}
                 />
               )}
 
@@ -218,11 +214,13 @@ const Main = () => {
 
               {linkToast ? <ToastMsg>링크가 복사되었습니다.</ToastMsg> : null}
 
-              <MainHeader set={[isModalOpened, setIsModalOpened]} />
-              <MainBody />
+              <MainHeader animation={animation} set={[isModalOpened, setIsModalOpened]} />
+              <MainBody animation={animation} />
               <MainFooter
                 set={[show, setShow]}
                 toast={[linkToast, setLinkToast]}
+                animation={[animation, setAnimation]}
+                hamburger={hamburgerRef}
               />
             </UIContainer>
           ) : (
