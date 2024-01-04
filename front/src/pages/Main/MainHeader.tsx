@@ -1,10 +1,11 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { SnowBallContext } from '@pages/Visit/SnowBallProvider';
 import { HeaderText } from '@components';
 
 interface MainHeaderProps {
   set: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
+  animation: boolean;
 }
 
 const Container = styled.div`
@@ -15,15 +16,7 @@ const Container = styled.div`
   width: 100%;
   min-height: 10rem;
   gap: 1rem;
-  animation: fadeIn 2s forwards;
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
+  animation: fadeIn 1s forwards;
 `;
 
 const MessageCount = styled.span`
@@ -39,27 +32,26 @@ const PrivateButton = styled.img`
   cursor: pointer;
   width: 2rem;
   height: 2rem;
-  animation: fadeIn 2s forwards;
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
+  animation: fadeIn 1s forwards;
 `;
 
 const MainHeader = (props: MainHeaderProps): JSX.Element => {
   const { userData, snowBallData } = useContext(SnowBallContext);
+  const HeaderRef = useRef<HTMLDivElement>(null);
 
   const privateClick = () => {
     props.set[1](true);
   };
 
+  useEffect(() => {
+    if (props.animation) {
+      HeaderRef.current?.setAttribute('style', 'animation: fadeOut 1s forwards');
+    }
+  }, [props.animation]);
+
   return (
     <>
-      <Container key="MainHeader">
+      <Container key="MainHeader" ref={HeaderRef}>
         <HeaderText Ref={null} userName={userData.nickname} />
         <MessageCount>
           <img style={{ pointerEvents: 'none' }} src="/icons/letter.svg" />총{' '}

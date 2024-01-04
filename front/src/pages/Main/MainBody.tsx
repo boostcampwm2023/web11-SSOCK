@@ -10,6 +10,10 @@ import {
   SnowBallData
 } from '@pages/Visit/SnowBallProvider';
 
+interface MainBodyProps {
+  animation: boolean;
+};
+
 const MsgContainer = styled.div`
   max-height: fit-content;
   overflow: scroll;
@@ -25,15 +29,7 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  animation: fadeIn 2s forwards;
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
+  animation: fadeIn 1s forwards;
 `;
 
 const ArrowLeft = styled.div`
@@ -48,7 +44,7 @@ const ArrowRight = styled(ArrowLeft)`
 `;
 
 
-const MainBody = (): JSX.Element => {
+const MainBody = (props : MainBodyProps): JSX.Element => {
   const { message, sender, color, messageID } = useContext(MessageContext);
   const { userData, snowBallData, setSnowBallData } =
     useContext(SnowBallContext);
@@ -56,6 +52,7 @@ const MainBody = (): JSX.Element => {
 
   const leftArrowRef = useRef<HTMLImageElement>(null);
   const rightArrowRef = useRef<HTMLImageElement>(null);
+  const BodyRef = useRef<HTMLDivElement>(null);
 
   const delayButton = () => {
     if (leftArrowRef.current && rightArrowRef.current) {
@@ -74,6 +71,12 @@ const MainBody = (): JSX.Element => {
       }, 1500);
     }
   };
+
+  useEffect(() => {
+    if (props.animation) {
+      BodyRef.current?.setAttribute('style', 'animation: fadeOut 1s forwards');
+    }
+  }, [props.animation]);
 
   const moveSnowball = (
     move: 'Prev' | 'Next',
@@ -121,7 +124,7 @@ const MainBody = (): JSX.Element => {
   }, [messageID]);
 
   return (
-    <Container key="MainBody">
+    <Container key="MainBody" ref={BodyRef}>
       {userData.snowball_list.length > 1 ? (
         <>
           <ArrowLeft>
