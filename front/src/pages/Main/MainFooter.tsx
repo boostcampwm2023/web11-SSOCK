@@ -35,7 +35,10 @@ const MainFooter = (props: MainFooterProps): JSX.Element => {
 
   useEffect(() => {
     if (props.animation[0]) {
-      FooterRef.current?.setAttribute('style', 'animation: fadeOut 1s forwards');
+      FooterRef.current?.setAttribute(
+        'style',
+        'animation: fadeOut 1s forwards'
+      );
     }
   }, [props.animation]);
 
@@ -91,7 +94,7 @@ const MainFooter = (props: MainFooterProps): JSX.Element => {
 
   return (
     <>
-      <StyledFooter key="MainFooter" ref={FooterRef} >
+      <StyledFooter key="MainFooter" ref={FooterRef}>
         <StyledScreen
           src={'/icons/screen.svg'}
           onClick={() => {

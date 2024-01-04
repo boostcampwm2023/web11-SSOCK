@@ -12,7 +12,7 @@ import {
 
 interface MainBodyProps {
   animation: boolean;
-};
+}
 
 const MsgContainer = styled.div`
   max-height: fit-content;
@@ -43,8 +43,7 @@ const ArrowRight = styled(ArrowLeft)`
   padding-right: 0.5rem;
 `;
 
-
-const MainBody = (props : MainBodyProps): JSX.Element => {
+const MainBody = (props: MainBodyProps): JSX.Element => {
   const { message, sender, color, messageID } = useContext(MessageContext);
   const { userData, snowBallData, setSnowBallData } =
     useContext(SnowBallContext);
@@ -178,11 +177,3 @@ const MainBody = (props : MainBodyProps): JSX.Element => {
 };
 
 export default MainBody;
-
-// <MainButtonBox
-//   leftArrow={leftArrowRef}
-//   rightArrow={rightArrowRef}
-// />
-
-// <MainBody />
-// <EmptyDiv />
