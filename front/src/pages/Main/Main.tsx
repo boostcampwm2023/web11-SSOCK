@@ -214,7 +214,10 @@ const Main = () => {
 
               {linkToast ? <ToastMsg>링크가 복사되었습니다.</ToastMsg> : null}
 
-              <MainHeader animation={animation} set={[isModalOpened, setIsModalOpened]} />
+              <MainHeader
+                animation={animation}
+                set={[isModalOpened, setIsModalOpened]}
+              />
               <MainBody animation={animation} />
               <MainFooter
                 set={[show, setShow]}
