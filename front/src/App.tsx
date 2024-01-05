@@ -3,13 +3,15 @@ import * as Sentry from '@sentry/react';
 import styled, { ThemeProvider } from 'styled-components';
 import GlobalStyles from './GlobalStyles';
 import { theme } from '@utils';
-import * as Pages from '@pages';
+// import * as Pages from '@pages';
 import { Song } from '@components';
 import { HasSnowballData } from './router';
 import { SnowBallProvider } from '@pages/Visit/SnowBallProvider';
 import { MessageProvider } from '@pages/Visit/MessageProvider';
 import { DecoProvider } from '@pages/Visit/Deco/DecoProvider';
 import { MessageListProvider } from '@pages/Visit/MessageListProvider';
+
+import { lazy, Suspense } from 'react';
 
 const Outer = styled.div`
   position: relative;
@@ -23,6 +25,14 @@ const Outer = styled.div`
   }
 `;
 
+const Intro = lazy(() => import('@pages/Intro/Intro'));
+const Visit = lazy(() => import('@pages/Visit/Visit'));
+const Deco = lazy(() => import('@pages/Visit/Deco/Deco'));
+const Nickname = lazy(() => import('@pages/Make/Nickname/Nickname'));
+const Snowball = lazy(() => import('@pages/Make/Snowball/Snowball'));
+const Main = lazy(() => import('@pages/Main/Main'));
+const Wrong = lazy(() => import('@pages/Wrong/Wrong'));
+
 const App = () => {
   return (
     <>
@@ -31,13 +41,14 @@ const App = () => {
         <ThemeProvider theme={theme}>
           <Outer>
             <Song />
+            <Suspense fallback={<></>}>
             <BrowserRouter>
               <Routes>
                 <Route
                   path="/"
                   element={
                     <MessageListProvider>
-                      <Pages.Intro />
+                      <Intro />
                     </MessageListProvider>
                   }
                 />
@@ -56,8 +67,8 @@ const App = () => {
                     </DecoProvider>
                   }
                 >
-                  <Route path="" element={<Pages.Visit />} />
-                  <Route path="deco" element={<Pages.Deco />} />
+                  <Route path="" element={<Visit />} />
+                  <Route path="deco" element={<Deco />} />
                 </Route>
 
                 <Route
@@ -70,8 +81,8 @@ const App = () => {
                     </SnowBallProvider>
                   }
                 >
-                  <Route path="nickname" element={<Pages.Nickname />} />
-                  <Route path="snowball" element={<Pages.Snowball />} />
+                  <Route path="nickname" element={<Nickname />} />
+                  <Route path="snowball" element={<Snowball />} />
                 </Route>
 
                 <Route
@@ -80,15 +91,16 @@ const App = () => {
                     <MessageProvider>
                       <SnowBallProvider>
                         <MessageListProvider>
-                          <Pages.Main />
+                          <Main />
                         </MessageListProvider>
                       </SnowBallProvider>
                     </MessageProvider>
                   }
                 />
-                <Route path="*" element={<Pages.Wrong />} />
+                <Route path="*" element={<Wrong />} />
               </Routes>
             </BrowserRouter>
+            </Suspense>
           </Outer>
         </ThemeProvider>
       </Sentry.ErrorBoundary>
