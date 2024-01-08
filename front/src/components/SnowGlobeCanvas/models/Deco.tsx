@@ -1,12 +1,12 @@
-import { useGLTF } from '@react-three/drei';
-import * as THREE from 'three';
+import { useGLTF } from '@react-three/drei/core/useGLTF';
+import { Vector3, Group, Object3DEventMap, Mesh } from 'three';
 import * as MeshUtils from '@utils/meshUtils';
 import { DECO, MSG_COLOR } from '@constants';
 
 interface DecoProps {
   id: number;
   scale: number;
-  position: THREE.Vector3;
+  position: Vector3;
   message: string;
   color: string;
   sender: string;
@@ -15,7 +15,7 @@ interface DecoProps {
   messageID: number;
 }
 
-const DecoSet = (deco: THREE.Group<THREE.Object3DEventMap>) => {
+const DecoSet = (deco: Group<Object3DEventMap>) => {
   const newModel = useGLTF('/models/new.glb').scene.clone().children[0];
   newModel.position.set(0, 1.2, 0);
   newModel.scale.set(0.1, 0.1, 0.1);
@@ -45,7 +45,7 @@ const Deco = ({
   }
 
   deco.children.forEach(child => {
-    if (child instanceof THREE.Mesh) {
+    if (child instanceof Mesh) {
       child.userData.message = message;
       child.userData.sender = sender;
       child.userData.color = color;

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import * as Sentry from '@sentry/react';
+import { captureException } from '@sentry/react';
 
 const instance = axios.create();
 
@@ -8,7 +8,7 @@ instance.interceptors.response.use(
   error => {
     // 오류 처리
     if (error.response && error.response.status !== 409) {
-      Sentry.captureException(error);
+      captureException(error);
     }
     return Promise.reject(error);
   }

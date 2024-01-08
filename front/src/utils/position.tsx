@@ -1,6 +1,6 @@
-import * as THREE from 'three';
+import { Vector3 } from "three";
 
-const getDecoPoisition = (n: number): THREE.Vector3 => {
+const getDecoPosition = (n: number): Vector3 => {
   const positions = [
     [0, 0],
     [1.5, -0.5],
@@ -34,7 +34,7 @@ const getDecoPoisition = (n: number): THREE.Vector3 => {
     [-2.5, -2.5],
     [-2.5, 2.5]
   ];
-  return new THREE.Vector3(positions[n][0], 0, positions[n][1]);
+  return new Vector3(positions[n][0], 0, positions[n][1]);
 };
 
-export default getDecoPoisition;
+export default getDecoPosition;

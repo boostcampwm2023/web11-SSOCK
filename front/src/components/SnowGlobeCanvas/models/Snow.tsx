@@ -1,19 +1,19 @@
-import { useRef } from 'react';
+import { useRef, FC } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { useGLTF } from '@react-three/drei';
-import * as THREE from 'three';
+import { useGLTF } from '@react-three/drei/core/useGLTF';
+import { Vector3, Mesh } from 'three';
 import { makeColorChangedMaterial } from '@utils/meshUtils';
 
 interface SnowProps {
   radius: number;
-  centerPosition: THREE.Vector3;
+  centerPosition: Vector3;
   rangeRadius: number;
   model: number;
 }
 
 const randomizePosition = (
-  target: THREE.Mesh,
-  centerPosition: THREE.Vector3,
+  target: Mesh,
+  centerPosition: Vector3,
   radius: number
 ) => {
   target.position.set(
@@ -24,9 +24,9 @@ const randomizePosition = (
 };
 
 const fallingAnimate = (
-  target: THREE.Mesh,
+  target: Mesh,
   speed: number,
-  centerPosition: THREE.Vector3,
+  centerPosition: Vector3,
   radius: number
 ) => {
   if (target.position.y <= -1) {
@@ -37,13 +37,13 @@ const fallingAnimate = (
   target.position.y -= speed;
 };
 
-const rotateAnimate = (target: THREE.Mesh, speed: number) => {
+const rotateAnimate = (target: Mesh, speed: number) => {
   target.rotation.y += speed;
 };
 
 const visibleInRange = (
-  target: THREE.Mesh,
-  centerPosition: THREE.Vector3,
+  target: Mesh,
+  centerPosition: Vector3,
   radius: number
 ) => {
   target.visible =
@@ -52,14 +52,14 @@ const visibleInRange = (
 
 const snowcolor = ['#99c9fd', '#a5bbd3', '#f1faff'];
 
-const Snow: React.FC<SnowProps> = ({
+const Snow: FC<SnowProps> = ({
   radius,
   centerPosition,
   rangeRadius,
   model
 }) => {
-  const snowRef = useRef<THREE.Mesh>(null);
-  const position = new THREE.Vector3(
+  const snowRef = useRef<Mesh>(null);
+  const position = new Vector3(
     centerPosition.x - rangeRadius + Math.random() * rangeRadius * 2,
     centerPosition.y + rangeRadius + Math.random() * rangeRadius * 2,
     centerPosition.z - rangeRadius + Math.random() * rangeRadius * 2
@@ -71,7 +71,7 @@ const Snow: React.FC<SnowProps> = ({
   snow.scale.set(radius, radius, radius);
   snow.rotation.y = Math.random();
   snow.traverse(obj => {
-    if (obj instanceof THREE.Mesh) {
+    if (obj instanceof Mesh) {
       obj.material = makeColorChangedMaterial(
         obj,
         snowcolor[Math.floor(Math.random() * 3)]
