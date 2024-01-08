@@ -1,19 +1,19 @@
 import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { useGLTF } from '@react-three/drei';
-import * as THREE from 'three';
+import { useGLTF } from '@react-three/drei/core/useGLTF';
+import { Mesh, Group, Vector3 } from 'three';
 import { SENTIMENT_MODEL } from '@constants';
 
 interface SnowProps {
-  centerPosition: THREE.Vector3;
+  centerPosition: Vector3;
   rangeRadius: number;
   sentiment: 'positive' | 'neutral' | 'negative';
   confidence: number;
 }
 
 const randomizePosition = (
-  target: THREE.Mesh | THREE.Group,
-  centerPosition: THREE.Vector3,
+  target: Mesh | Group,
+  centerPosition: Vector3,
   radius: number
 ) => {
   const x =
@@ -29,9 +29,9 @@ const randomizePosition = (
 };
 
 const fallingAnimate = (
-  target: THREE.Mesh,
+  target: Mesh,
   speed: number,
-  centerPosition: THREE.Vector3,
+  centerPosition: Vector3,
   radius: number
 ) => {
   if (target.position.y <= -1) {
@@ -40,13 +40,13 @@ const fallingAnimate = (
   target.position.y -= speed;
 };
 
-const rotateAnimate = (target: THREE.Mesh, speed: number) => {
+const rotateAnimate = (target: Mesh, speed: number) => {
   target.rotation.y += speed;
 };
 
 const visibleInRange = (
-  target: THREE.Mesh,
-  centerPosition: THREE.Vector3,
+  target: Mesh,
+  centerPosition: Vector3,
   radius: number
 ) => {
   target.visible =
@@ -59,7 +59,7 @@ const Emoji: React.FC<SnowProps> = ({
   sentiment,
   confidence
 }) => {
-  const snowRef = useRef<THREE.Mesh>(null);
+  const snowRef = useRef<Mesh>(null);
   const index = sentiment === 'positive' ? 1 : sentiment === 'neutral' ? 2 : 3;
   const snow = useGLTF(SENTIMENT_MODEL[index].fileName).scene.clone();
   const scale = 0.3 + confidence / 200; // min 0.3 max 0.8

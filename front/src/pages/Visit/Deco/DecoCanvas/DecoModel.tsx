@@ -1,6 +1,6 @@
 import { useContext } from 'react';
-import { useGLTF } from '@react-three/drei';
-import * as THREE from 'three';
+import { useGLTF } from '@react-three/drei/core/useGLTF';
+import { Mesh } from 'three';
 import { makeColorChangedMaterial } from '@utils/meshUtils';
 import { DECO } from '@constants';
 import { DecoContext } from '../DecoProvider';
@@ -12,7 +12,7 @@ const DecoModel = () => {
   deco.scale.set(1.5, 1.5, 1.5);
   deco.position.set(0, 0, 0);
   deco.children.forEach(child => {
-    if (child instanceof THREE.Mesh) {
+    if (child instanceof Mesh) {
       if (child.name === 'Sub') {
         return;
       }

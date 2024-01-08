@@ -1,14 +1,14 @@
-import React, { useEffect, useRef, useContext } from 'react';
+import { useEffect, useRef, useContext, FC, MutableRefObject } from 'react';
 import { useThree, useFrame } from '@react-three/fiber';
-import * as THREE from 'three';
+import { Vector3 } from "three";
 import { MessageContext } from '@pages/Visit/MessageProvider';
 import { PrevContext } from '../PrevProvider';
 
 interface RaycasterProps {
-  isClickedRef: React.MutableRefObject<boolean>;
+  isClickedRef: MutableRefObject<boolean>;
 }
 
-const Raycaster: React.FC<RaycasterProps> = ({ isClickedRef }) => {
+const Raycaster: FC<RaycasterProps> = ({ isClickedRef }) => {
   const { camera, pointer, raycaster, scene, gl } = useThree();
   const { setMessage, setSender, setColor, setMessageID } =
     useContext(MessageContext);
@@ -23,7 +23,7 @@ const Raycaster: React.FC<RaycasterProps> = ({ isClickedRef }) => {
     if (isAnimating.current) {
       if (isClicked && !isZoom) {
         setView(true);
-        const targetPosition = new THREE.Vector3(0, 2.5, 0);
+        const targetPosition = new Vector3(0, 2.5, 0);
         camera.position.distanceTo(targetPosition) > 6
           ? camera.position.lerp(targetPosition, delta * 2)
           : (isAnimating.current = false);
@@ -34,7 +34,7 @@ const Raycaster: React.FC<RaycasterProps> = ({ isClickedRef }) => {
       if (view) {
         setIsZoom(true);
       } else if (isZoom && !view) {
-        if (camera.position.distanceTo(new THREE.Vector3(0, 3.5, 0)) < 15) {
+        if (camera.position.distanceTo(new Vector3(0, 3.5, 0)) < 15) {
           camera.position.x *= zoomOutSpeed;
           camera.position.y *= zoomOutSpeed;
           camera.position.z *= zoomOutSpeed;

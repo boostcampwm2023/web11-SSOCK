@@ -1,4 +1,4 @@
-import * as THREE from 'three';
+import { Mesh, Material, MeshBasicMaterial, MeshStandardMaterial, CanvasTexture } from 'three';
 
 interface canvasMaterialProps {
   string: string;
@@ -10,14 +10,14 @@ interface canvasMaterialProps {
   backgGroundColor: string;
 }
 
-const makeColorChangedMaterial = (mesh: THREE.Mesh, color: string) => {
+const makeColorChangedMaterial = (mesh: Mesh, color: string) => {
   const newMaterial = (
-    mesh.material as THREE.Material
-  ).clone() as THREE.Material;
+    mesh.material as Material
+  ).clone() as Material;
 
   if (
-    newMaterial instanceof THREE.MeshBasicMaterial ||
-    newMaterial instanceof THREE.MeshStandardMaterial
+    newMaterial instanceof MeshBasicMaterial ||
+    newMaterial instanceof MeshStandardMaterial
   ) {
     newMaterial.color.set(color);
   }
@@ -50,7 +50,7 @@ const makeCanvasTexture = (props: canvasMaterialProps) => {
     canvas.width
   );
 
-  return new THREE.CanvasTexture(canvas);
+  return new CanvasTexture(canvas);
 };
 
 export { makeColorChangedMaterial, makeCanvasTexture };

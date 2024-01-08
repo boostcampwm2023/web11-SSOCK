@@ -1,22 +1,22 @@
-import React, { useRef, useEffect } from 'react';
+import { useRef, useEffect, MutableRefObject } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { useGLTF } from '@react-three/drei';
-import * as THREE from 'three';
+import { useGLTF } from '@react-three/drei/core/useGLTF';
+import { Vector3, Object3D, Mesh } from 'three';
 import { makeColorChangedMaterial } from '@utils/meshUtils';
 import { MAIN } from '@constants';
 
 interface MyModelProps {
   id: number;
   scale: number;
-  position: THREE.Vector3;
+  position: Vector3;
   color: string;
 }
 
 const fallingModel = (
-  modelRef: THREE.Object3D | null,
-  speedRef: React.MutableRefObject<THREE.Vector3>,
+  modelRef: Object3D | null,
+  speedRef: MutableRefObject<Vector3>,
   delta: number,
-  isStoppedRef: React.MutableRefObject<boolean>
+  isStoppedRef: MutableRefObject<boolean>
 ) => {
   const airResistance = 0.02;
   const acceleration = 0.3 * delta; //가속도
@@ -38,7 +38,7 @@ const fallingModel = (
 
 const MainDeco = ({ id, scale, position, color }: MyModelProps) => {
   const deco = useGLTF(MAIN[id].fileName).scene.clone();
-  const speedRef = useRef<THREE.Vector3>(new THREE.Vector3(0, 0, 0));
+  const speedRef = useRef<Vector3>(new Vector3(0, 0, 0));
   const isStoppedRef = useRef<boolean>(false);
 
   useEffect(() => {
@@ -50,11 +50,10 @@ const MainDeco = ({ id, scale, position, color }: MyModelProps) => {
   deco.position.set(position.x, position.y, position.z);
   deco.children.forEach(mesh => (mesh.castShadow = true));
 
-  const colorPart = deco.getObjectByName('colorPart') as THREE.Mesh;
+  const colorPart = deco.getObjectByName('colorPart') as Mesh;
   colorPart.material = makeColorChangedMaterial(colorPart, color);
 
   useFrame((_, delta) => {
-    //이거 1초에 1프레임도 안나오면 메인장식 멈출수도있음
     if (delta > 1) {
       delta = 0;
     }

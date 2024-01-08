@@ -1,15 +1,15 @@
 import React from 'react';
-import { useGLTF } from '@react-three/drei';
-import * as THREE from 'three';
+import { useGLTF } from '@react-three/drei/core/useGLTF';
+import { Vector3, Color, Mesh, MeshStandardMaterial } from 'three';
 import * as MeshUtils from '@utils/meshUtils';
 import { BOTTOM } from '@constants';
 
 interface BottomProps {
   scale: number;
-  position: THREE.Vector3;
+  position: Vector3;
   bottomID: number;
   title: string;
-  color: THREE.Color;
+  color: Color;
 }
 
 const Bottom: React.FC<BottomProps> = ({
@@ -20,8 +20,8 @@ const Bottom: React.FC<BottomProps> = ({
   color
 }) => {
   const bottom = useGLTF(BOTTOM[bottomID].fileName).scene.clone();
-  const nameTag = bottom.getObjectByName('nameTag') as THREE.Mesh;
-  if (nameTag && nameTag.material instanceof THREE.MeshStandardMaterial) {
+  const nameTag = bottom.getObjectByName('nameTag') as Mesh;
+  if (nameTag && nameTag.material instanceof MeshStandardMaterial) {
     const newTexture = MeshUtils.makeCanvasTexture({
       string: title,
       width: 1024,
@@ -35,9 +35,9 @@ const Bottom: React.FC<BottomProps> = ({
     nameTag.material.bumpMap = newTexture;
   }
 
-  const mainColor = bottom.getObjectByName('mainColor') as THREE.Mesh;
+  const mainColor = bottom.getObjectByName('mainColor') as Mesh;
   if (mainColor) {
-    const material = mainColor.material as THREE.MeshStandardMaterial;
+    const material = mainColor.material as MeshStandardMaterial;
     material.color = color;
   }
 

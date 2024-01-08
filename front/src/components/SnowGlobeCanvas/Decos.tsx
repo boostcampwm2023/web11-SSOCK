@@ -1,10 +1,11 @@
 import { useContext } from 'react';
-import { getDecoPoisition } from '@utils';
+import { getDecoPosition } from '@utils';
 import * as Models from './models';
 import { MessageListContext } from '@pages/Visit/MessageListProvider';
+import { Vector3 } from 'three';
 
 interface DecosProps {
-  centerPosition: THREE.Vector3;
+  centerPosition: Vector3;
   radius: number;
 }
 
@@ -16,7 +17,7 @@ const Decos = ({ centerPosition, radius }: DecosProps) => {
       key={index}
       id={message.decoration_id}
       scale={1}
-      position={getDecoPoisition(message.location)}
+      position={getDecoPosition(message.location)}
       message={message.content ?? '비공개 메시지 입니다.'}
       color={message.decoration_color}
       sender={message.sender ?? '비공개'}

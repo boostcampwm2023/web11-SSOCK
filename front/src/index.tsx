@@ -1,14 +1,14 @@
 import ReactDOM from 'react-dom/client';
-import * as Sentry from '@sentry/react';
+import { init, BrowserTracing, Replay } from '@sentry/react';
 import App from './App';
 
-Sentry.init({
+init({
   dsn: import.meta.env.VITE_APP_SENTRY_DSN,
   integrations: [
-    new Sentry.BrowserTracing({
+    new BrowserTracing({
       tracePropagationTargets: ['localhost', /^https:\/\/mysnowball\.kr\/api/]
     }),
-    new Sentry.Replay()
+    new Replay()
   ],
   tracesSampleRate: 1.0,
   replaysSessionSampleRate: 0.1,
