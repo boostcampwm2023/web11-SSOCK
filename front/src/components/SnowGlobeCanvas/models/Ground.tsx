@@ -1,10 +1,10 @@
 import React from 'react';
-import { useGLTF } from '@react-three/drei';
-import * as THREE from 'three';
+import { useGLTF } from '@react-three/drei/core/useGLTF';
+import { Vector3 } from 'three';
 
 interface GroundProps {
   scale: number;
-  position: THREE.Vector3;
+  position: Vector3;
 }
 
 const Ground: React.FC<GroundProps> = ({ scale, position }) => {

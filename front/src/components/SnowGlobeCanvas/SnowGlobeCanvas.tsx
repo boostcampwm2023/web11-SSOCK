@@ -1,7 +1,8 @@
 import React, { useRef } from 'react';
-import { OrbitControls } from '@react-three/drei';
+import { OrbitControls } from '@react-three/drei/core/OrbitControls';
 import { Canvas } from '@react-three/fiber';
-import * as THREE from 'three';
+import {Vector3, Color} from 'three';
+
 import { CanvasContainer } from '@utils';
 import * as Models from './models';
 import { Prev } from '../Prev';
@@ -17,7 +18,7 @@ const SnowGlobeCanvas = React.memo<SnowGlobeCanvasProps>(
   ({ snowBallData }) => {
     const isClicked = useRef<boolean>(false);
     const glassRadius = 7;
-    const glassPosition = new THREE.Vector3(0, glassRadius / 2, 0);
+    const glassPosition = new Vector3(0, glassRadius / 2, 0);
 
     const snows = Array.from({ length: 100 }, (_, i) => (
       <Models.Snow
@@ -40,7 +41,7 @@ const SnowGlobeCanvas = React.memo<SnowGlobeCanvasProps>(
             shadows={true}
           >
             <OrbitControls
-              target={new THREE.Vector3(0, 2, 0)}
+              target={new Vector3(0, 2, 0)}
               enablePan={false}
               enableZoom={false}
               maxPolarAngle={Math.PI / 2}
@@ -67,30 +68,30 @@ const SnowGlobeCanvas = React.memo<SnowGlobeCanvasProps>(
             />
 
             <Models.Raycaster isClickedRef={isClicked} />
-            <Models.Ground scale={1} position={new THREE.Vector3(0, 0, 0)} />
+            <Models.Ground scale={1} position={new Vector3(0, 0, 0)} />
             <Models.Glass
               position={glassPosition}
-              color={new THREE.Color('white')}
+              color={new Color('white')}
               radius={glassRadius}
               opacity={0.1}
             />
             <Models.MainDeco
               id={snowBallData.main_decoration_id}
               scale={1}
-              position={new THREE.Vector3(0, 10, 0)}
+              position={new Vector3(0, 10, 0)}
               color={snowBallData.main_decoration_color}
             />
             <Models.Bottom
               bottomID={snowBallData.bottom_decoration_id}
               scale={1}
-              position={new THREE.Vector3(0, 0, 0)}
+              position={new Vector3(0, 0, 0)}
               title={snowBallData.title}
-              color={new THREE.Color(snowBallData.bottom_decoration_color)}
+              color={new Color(snowBallData.bottom_decoration_color)}
             />
             {snows}
 
             <Decos
-              centerPosition={new THREE.Vector3(0, glassRadius / 2, 0)}
+              centerPosition={new Vector3(0, glassRadius / 2, 0)}
               radius={glassRadius}
             />
           </Canvas>

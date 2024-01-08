@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls } from '@react-three/drei';
-import * as THREE from 'three';
+import { OrbitControls } from '@react-three/drei/core/OrbitControls';
+import { Vector3, Color } from 'three';
 import { CanvasContainer } from '@utils';
 import * as Models from '@components/SnowGlobeCanvas/models';
 import { DecoContext } from './DecoProvider';
@@ -22,24 +22,24 @@ const MainSnowballCavnas = () => {
           color={'#e2bb83'}
         />
         <Models.Glass
-          position={new THREE.Vector3(0, glassRadius / 2, 0)}
+          position={new Vector3(0, glassRadius / 2, 0)}
           radius={glassRadius}
-          color={new THREE.Color('white')}
+          color={new Color('white')}
           opacity={0.1}
         />
-        <Models.Ground scale={1} position={new THREE.Vector3(0, 0, 0)} />
+        <Models.Ground scale={1} position={new Vector3(0, 0, 0)} />
         <Models.MainDeco
           id={mainDecoID}
           scale={1}
-          position={new THREE.Vector3(0, 0, 0)}
+          position={new Vector3(0, 0, 0)}
           color={mainColor}
         />
         <Models.Bottom
           scale={1}
-          position={new THREE.Vector3(0, 0, 0)}
+          position={new Vector3(0, 0, 0)}
           bottomID={bottomID}
           title={snowballName}
-          color={new THREE.Color(bottomColor)}
+          color={new Color(bottomColor)}
         />
       </Canvas>
     </CanvasContainer>

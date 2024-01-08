@@ -1,10 +1,10 @@
 import React from 'react';
-import * as THREE from 'three';
+import { Vector3, Color } from 'three';
 
 interface GlassProps {
-  position: THREE.Vector3;
+  position: Vector3;
   radius: number;
-  color: THREE.Color;
+  color: Color;
   opacity: number;
 }
 

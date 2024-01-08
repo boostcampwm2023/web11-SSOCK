@@ -1,9 +1,8 @@
 import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
-import * as Sentry from '@sentry/react';
+import { ErrorBoundary } from '@sentry/react';
 import styled, { ThemeProvider } from 'styled-components';
 import GlobalStyles from './GlobalStyles';
 import { theme } from '@utils';
-// import * as Pages from '@pages';
 import { Song } from '@components';
 import { HasSnowballData } from './router';
 import { SnowBallProvider } from '@pages/Visit/SnowBallProvider';
@@ -36,7 +35,7 @@ const Wrong = lazy(() => import('@pages/Wrong/Wrong'));
 const App = () => {
   return (
     <>
-      <Sentry.ErrorBoundary>
+      <ErrorBoundary>
         <GlobalStyles />
         <ThemeProvider theme={theme}>
           <Outer>
@@ -103,7 +102,7 @@ const App = () => {
             </Suspense>
           </Outer>
         </ThemeProvider>
-      </Sentry.ErrorBoundary>
+      </ErrorBoundary>
     </>
   );
 };
