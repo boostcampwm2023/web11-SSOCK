@@ -1,8 +1,8 @@
 import { lazy } from 'react';
 import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
+import { RecoilRoot } from 'recoil';
 import HasSnowballData from './HasSnowballData';
 import { SnowBallProvider } from '@pages/Visit/SnowBallProvider';
-import { MessageProvider } from '@pages/Visit/MessageProvider';
 import { DecoProvider } from '@pages/Visit/Deco/DecoProvider';
 import { MessageListProvider } from '@pages/Visit/MessageListProvider';
 
@@ -16,64 +16,62 @@ const Wrong = lazy(() => import('@pages/Wrong/Wrong'));
 
 const Router = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <MessageListProvider>
-              <Intro />
-            </MessageListProvider>
-          }
-        />
+    <RecoilRoot>
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <MessageListProvider>
+                <Intro />
+              </MessageListProvider>
+            }
+          />
 
-        <Route
-          path="/visit/:user"
-          element={
-            <DecoProvider>
-              <MessageProvider>
+          <Route
+            path="/visit/:user"
+            element={
+              <DecoProvider>
                 <SnowBallProvider>
                   <MessageListProvider>
                     <Outlet />
                   </MessageListProvider>
                 </SnowBallProvider>
-              </MessageProvider>
-            </DecoProvider>
-          }
-        >
-          <Route path="" element={<Visit />} />
-          <Route path="deco" element={<Deco />} />
-        </Route>
+              </DecoProvider>
+            }
+          >
+            <Route path="" element={<Visit />} />
+            <Route path="deco" element={<Deco />} />
+          </Route>
 
-        <Route
-          path="/make"
-          element={
-            <SnowBallProvider>
-              <HasSnowballData>
-                <Outlet />
-              </HasSnowballData>
-            </SnowBallProvider>
-          }
-        >
-          <Route path="nickname" element={<Nickname />} />
-          <Route path="snowball" element={<Snowball />} />
-        </Route>
+          <Route
+            path="/make"
+            element={
+              <SnowBallProvider>
+                <HasSnowballData>
+                  <Outlet />
+                </HasSnowballData>
+              </SnowBallProvider>
+            }
+          >
+            <Route path="nickname" element={<Nickname />} />
+            <Route path="snowball" element={<Snowball />} />
+          </Route>
 
-        <Route
-          path="/main"
-          element={
-            <MessageProvider>
+          <Route
+            path="/main"
+            element={
               <SnowBallProvider>
                 <MessageListProvider>
                   <Main />
                 </MessageListProvider>
               </SnowBallProvider>
-            </MessageProvider>
-          }
-        />
-        <Route path="*" element={<Wrong />} />
-      </Routes>
-    </BrowserRouter>
+            }
+          />
+          <Route path="*" element={<Wrong />} />
+        </Routes>
+      </BrowserRouter>
+    </RecoilRoot>
   );
 };
 

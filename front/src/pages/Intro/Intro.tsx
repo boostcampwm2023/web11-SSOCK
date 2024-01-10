@@ -7,7 +7,6 @@ import mockData from '@mock';
 import IntroButtonBox from './IntroButtonBox';
 import MsgBox from './MsgBox';
 import { MessageListContext, Message } from '@pages/Visit/MessageListProvider';
-import { MessageProvider } from '@pages/Visit/MessageProvider';
 
 const TitleDiv = styled.div`
   display: flex;
@@ -32,16 +31,14 @@ const Intro = () => {
 
   return (
     <>
-      <MessageProvider>
-        <SnowGlobeCanvas snowBallData={mockData.snowball_data} />
-        <UIContainer>
-          <TitleDiv>
-            <span>스노우볼 속 내 마음</span>
-          </TitleDiv>
-          <MsgBox />
-          <IntroButtonBox />
-        </UIContainer>
-      </MessageProvider>
+      <SnowGlobeCanvas snowBallData={mockData.snowball_data} />
+      <UIContainer>
+        <TitleDiv>
+          <span>스노우볼 속 내 마음</span>
+        </TitleDiv>
+        <MsgBox />
+        <IntroButtonBox />
+      </UIContainer>
     </>
   );
 };

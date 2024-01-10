@@ -23,6 +23,7 @@ export default defineConfig({
       '@hooks': '/src/hooks',
       '@pages': '/src/pages',
       '@utils': '/src/utils',
+      '@states': '/src/states',
       '@mock': '/src/mockdata.json'
     }
   },

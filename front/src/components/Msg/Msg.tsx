@@ -1,8 +1,9 @@
 import { useContext, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { useResetRecoilState } from 'recoil';
 import styled from 'styled-components';
+import { MessageRecoil } from '@states';
 import { DecoContext } from '@pages/Visit/Deco/DecoProvider';
-import { MessageContext } from '@pages/Visit/MessageProvider';
 
 interface MsgProps {
   color: string;
@@ -155,7 +156,7 @@ const Msg = (props: MsgProps): JSX.Element => {
   const [wordCount, setWordCount] = useState(0);
   const { content, sender, setContent, setSender } = useContext(DecoContext);
   const maxWordCount = 500;
-  const { setMessage } = useContext(MessageContext);
+  const closeMessage = useResetRecoilState(MessageRecoil);
 
   const wordLength = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const text = e.target;
@@ -168,19 +169,22 @@ const Msg = (props: MsgProps): JSX.Element => {
     setWordCount(text.value.length);
   };
 
-  const removeMsg = () => {
-    setMessage('');
-  };
-
   const stopEvent = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
+  };
+
+  const sub8Letter = (name: string) => {
+    if (name.length > 8) {
+      name = name.substring(0, 8);
+    }
+    setSender(name);
   };
 
   return (
     <>
       {!props.isInput && !props.isDeco ? (
         createPortal(
-          <MsgBackground onClick={removeMsg}>
+          <MsgBackground onClick={closeMessage}>
             <StyledLetterBox color={props.color} onClick={stopEvent}>
               {props.isInput ? (
                 <>
@@ -205,7 +209,7 @@ const Msg = (props: MsgProps): JSX.Element => {
                     </StyledToWrap>
 
                     {props.isDeco ? null : (
-                      <StyledDeleteButton onClick={removeMsg}>
+                      <StyledDeleteButton onClick={closeMessage}>
                         X
                       </StyledDeleteButton>
                     )}
@@ -225,12 +229,7 @@ const Msg = (props: MsgProps): JSX.Element => {
                       value={sender}
                       placeholder="이름입력"
                       onFocus={e => (e.target.value = '')}
-                      onChange={e => {
-                        if (e.target.value.length > 8) {
-                          e.target.value = e.target.value.substring(0, 8);
-                        }
-                        setSender(e.target.value);
-                      }}
+                      onChange={e => sub8Letter(e.target.value)}
                     />
                   ) : (
                     <StyledFromInput value={props.sender} disabled />
@@ -259,7 +258,9 @@ const Msg = (props: MsgProps): JSX.Element => {
                 </StyledToWrap>
 
                 {props.isDeco ? null : (
-                  <StyledDeleteButton onClick={removeMsg}>X</StyledDeleteButton>
+                  <StyledDeleteButton onClick={closeMessage}>
+                    X
+                  </StyledDeleteButton>
                 )}
               </StyledLetterPerson>
             )}
@@ -289,12 +290,7 @@ const Msg = (props: MsgProps): JSX.Element => {
                     value={sender}
                     placeholder="이름입력"
                     onFocus={e => (e.target.value = '')}
-                    onChange={e => {
-                      if (e.target.value.length > 8) {
-                        e.target.value = e.target.value.substring(0, 8);
-                      }
-                      setSender(e.target.value);
-                    }}
+                    onChange={e => sub8Letter(e.target.value)}
                   />
                 ) : (
                   <StyledFromInput value={props.sender} disabled />
