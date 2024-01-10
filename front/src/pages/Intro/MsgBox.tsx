@@ -1,10 +1,11 @@
 import { useContext } from 'react';
+import { useRecoilValue } from 'recoil';
 import { Msg } from '@components';
-import { MessageContext } from '@pages/Visit/MessageProvider';
+import { MessageRecoil } from '@states';
 import { SnowBallContext } from '@pages/Visit/SnowBallProvider';
 
 const MsgBox = () => {
-  const { message, sender, color } = useContext(MessageContext); // message가 '' 비어있지 않을때
+  const { message, sender, color } = useRecoilValue(MessageRecoil); // message가 '' 비어있지 않을때
   const { userData } = useContext(SnowBallContext);
   return (
     <>

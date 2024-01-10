@@ -17,6 +17,8 @@
       "@pages/*": ["pages/*"],
       "@utils": ["utils/index"],
       "@utils/*": ["utils/*"],
+      "@states": ["states/index"],
+      "@states/*": ["states/*"],
       "@mock": ["mockdata.json"]
     },
 

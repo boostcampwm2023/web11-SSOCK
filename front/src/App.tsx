@@ -1,6 +1,5 @@
 import { Suspense } from 'react';
 import { ErrorBoundary } from '@sentry/react';
-import { RecoilRoot } from 'recoil';
 import styled, { ThemeProvider } from 'styled-components';
 import GlobalStyles from './GlobalStyles';
 import { theme } from '@utils';
@@ -21,21 +20,17 @@ const Outer = styled.div`
 
 const App = () => {
   return (
-    <>
-      <ErrorBoundary>
-        <RecoilRoot>
-          <GlobalStyles />
-          <ThemeProvider theme={theme}>
-            <Outer>
-              <Song />
-              <Suspense fallback={<></>}>
-                <Router />
-              </Suspense>
-            </Outer>
-          </ThemeProvider>
-        </RecoilRoot>
-      </ErrorBoundary>
-    </>
+    <ErrorBoundary>
+      <GlobalStyles />
+      <ThemeProvider theme={theme}>
+        <Outer>
+          <Song />
+          <Suspense fallback={<></>}>
+            <Router />
+          </Suspense>
+        </Outer>
+      </ThemeProvider>
+    </ErrorBoundary>
   );
 };
 
