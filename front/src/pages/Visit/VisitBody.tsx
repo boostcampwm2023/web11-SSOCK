@@ -1,9 +1,10 @@
 import { useContext, useRef } from 'react';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { axios } from '@utils';
 import { Msg } from '@components';
-import { MessageContext } from './MessageProvider';
+import { MessageRecoil } from '@states';
 import { SnowBallContext, SnowBallData, UserData } from './SnowBallProvider';
 import { MessageListContext, Message } from './MessageListProvider';
 
@@ -62,7 +63,7 @@ const moveSnowball = async (
 
 const VisitBody = () => {
   const navigate = useNavigate();
-  const { message, sender, color } = useContext(MessageContext);
+  const { message, sender, color } = useRecoilValue(MessageRecoil);
   const { userData, snowBallData, setSnowBallData } =
     useContext(SnowBallContext);
   const { setMessageList } = useContext(MessageListContext);

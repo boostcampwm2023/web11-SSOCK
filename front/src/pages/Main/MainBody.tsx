@@ -1,9 +1,10 @@
 import { useContext, useEffect, useRef } from 'react';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { axios } from '@utils';
 import { Msg } from '@components';
+import { MessageRecoil } from '@states';
 import { MessageListContext, Message } from '@pages/Visit/MessageListProvider';
-import { MessageContext } from '../Visit/MessageProvider';
 import {
   SnowBallContext,
   UserData,
@@ -44,7 +45,7 @@ const ArrowRight = styled(ArrowLeft)`
 `;
 
 const MainBody = (props: MainBodyProps): JSX.Element => {
-  const { message, sender, color, messageID } = useContext(MessageContext);
+  const { message, sender, color, messageID } = useRecoilValue(MessageRecoil);
   const { userData, snowBallData, setSnowBallData } =
     useContext(SnowBallContext);
   const { messageList, setMessageList } = useContext(MessageListContext);
@@ -142,6 +143,7 @@ const MainBody = (props: MainBodyProps): JSX.Element => {
               ref={leftArrowRef}
             />
           </ArrowLeft>
+
           <ArrowRight>
             <RightBtn
               src={'/icons/next.svg'}
@@ -160,6 +162,7 @@ const MainBody = (props: MainBodyProps): JSX.Element => {
           </ArrowRight>
         </>
       ) : null}
+
       <MsgContainer>
         {message !== '' ? (
           <Msg

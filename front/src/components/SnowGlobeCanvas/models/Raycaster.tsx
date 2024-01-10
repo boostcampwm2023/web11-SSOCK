@@ -1,7 +1,8 @@
 import { useEffect, useRef, useContext, FC, MutableRefObject } from 'react';
 import { useThree, useFrame } from '@react-three/fiber';
-import { Vector3 } from "three";
-import { MessageContext } from '@pages/Visit/MessageProvider';
+import { Vector3 } from 'three';
+import { useResetRecoilState, useSetRecoilState } from 'recoil';
+import { MessageRecoil } from '@states';
 import { PrevContext } from '../PrevProvider';
 
 interface RaycasterProps {
@@ -10,9 +11,10 @@ interface RaycasterProps {
 
 const Raycaster: FC<RaycasterProps> = ({ isClickedRef }) => {
   const { camera, pointer, raycaster, scene, gl } = useThree();
-  const { setMessage, setSender, setColor, setMessageID } =
-    useContext(MessageContext);
+  const resetMessage = useResetRecoilState(MessageRecoil);
+  const setMessage = useSetRecoilState(MessageRecoil);
   const { view, setView, isZoom, setIsZoom } = useContext(PrevContext);
+
   const isAnimating = useRef(false); // 유리 클릭한 시점 , 뒤로가기 버튼 누른 시점 === true // 카메라 업 다운 차이 기록
   const lastPosition = useRef<number>(0);
 
@@ -54,7 +56,7 @@ const Raycaster: FC<RaycasterProps> = ({ isClickedRef }) => {
       if (window.performance.now() - lastPosition.current > 120) return;
 
       // 씬의 모든 객체들과 교차점 계산
-      setMessage('');
+      resetMessage();
       const intersects = raycaster.intersectObjects(scene.children, true);
       if (intersects.length < 1) return;
 
@@ -70,10 +72,13 @@ const Raycaster: FC<RaycasterProps> = ({ isClickedRef }) => {
       if (selectedDeco) {
         const { message, sender, letterColor, messageID } =
           selectedDeco.object.userData;
-        setMessage(message);
-        setSender(sender);
-        setColor(letterColor);
-        setMessageID(messageID);
+
+        setMessage({
+          message: message,
+          sender: sender,
+          color: letterColor,
+          messageID: messageID
+        });
       }
     };
 
