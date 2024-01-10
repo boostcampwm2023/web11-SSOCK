@@ -1,1 +1,1 @@
-export { default as HasSnowballData } from './HasSnowballData';
+export { default as Router } from './Router';
