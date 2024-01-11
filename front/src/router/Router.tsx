@@ -4,7 +4,6 @@ import { RecoilRoot } from 'recoil';
 import HasSnowballData from './HasSnowballData';
 import { SnowBallProvider } from '@pages/Visit/SnowBallProvider';
 import { DecoProvider } from '@pages/Visit/Deco/DecoProvider';
-import { MessageListProvider } from '@pages/Visit/MessageListProvider';
 
 const Intro = lazy(() => import('@pages/Intro/Intro'));
 const Visit = lazy(() => import('@pages/Visit/Visit'));
@@ -19,23 +18,14 @@ const Router = () => {
     <RecoilRoot>
       <BrowserRouter>
         <Routes>
-          <Route
-            path="/"
-            element={
-              <MessageListProvider>
-                <Intro />
-              </MessageListProvider>
-            }
-          />
+          <Route path="/" element={<Intro />} />
 
           <Route
             path="/visit/:user"
             element={
               <DecoProvider>
                 <SnowBallProvider>
-                  <MessageListProvider>
-                    <Outlet />
-                  </MessageListProvider>
+                  <Outlet />
                 </SnowBallProvider>
               </DecoProvider>
             }
@@ -62,9 +52,7 @@ const Router = () => {
             path="/main"
             element={
               <SnowBallProvider>
-                <MessageListProvider>
-                  <Main />
-                </MessageListProvider>
+                <Main />
               </SnowBallProvider>
             }
           />

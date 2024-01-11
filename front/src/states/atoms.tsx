@@ -1,13 +1,30 @@
 import { atom } from 'recoil';
 
-interface MessageType {
+interface MakeMessage {
   message: string;
   color: string;
   sender: string;
   messageID: number;
 }
 
-const MessageRecoil = atom<MessageType>({
+interface Message {
+  content: string | undefined;
+  created: string;
+  decoration_color: string;
+  decoration_id: number;
+  id: number;
+  is_deleted: boolean;
+  letter_id: number | undefined;
+  location: number;
+  opened: string | null;
+  sender: string | undefined;
+  snowball_id: number;
+  user_id: number;
+  sentiment: 'positive' | 'neutral' | 'negative';
+  confidence: number;
+}
+
+const MessageRecoil = atom<MakeMessage>({
   key: 'Message',
   default: {
     message: '',
@@ -17,4 +34,10 @@ const MessageRecoil = atom<MessageType>({
   }
 });
 
-export { MessageRecoil };
+const MessageListRecoil = atom<Array<Message>>({
+  key: 'MessageList',
+  default: []
+});
+
+export type { Message };
+export { MessageRecoil, MessageListRecoil };

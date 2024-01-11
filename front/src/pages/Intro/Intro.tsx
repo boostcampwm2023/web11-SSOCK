@@ -1,12 +1,13 @@
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
+import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { SnowGlobeCanvas, UIContainer } from '@components';
+import { Message, MessageListRecoil } from '@states';
 import mockData from '@mock';
 import IntroButtonBox from './IntroButtonBox';
 import MsgBox from './MsgBox';
-import { MessageListContext, Message } from '@pages/Visit/MessageListProvider';
 
 const TitleDiv = styled.div`
   display: flex;
@@ -21,8 +22,8 @@ const TitleDiv = styled.div`
 
 const Intro = () => {
   const navigate = useNavigate();
-  const { setMessageList } = useContext(MessageListContext);
   const [cookie] = useCookies(['loggedin']);
+  const setMessageList = useSetRecoilState(MessageListRecoil);
 
   useEffect(() => {
     setMessageList(mockData.snowball_data.message_list as Array<Message>);
