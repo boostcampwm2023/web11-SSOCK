@@ -1,14 +1,15 @@
 import { useState, useRef, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createPortal } from 'react-dom';
+import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { theme, axios } from '@utils';
+import { Message, MessageListRecoil } from '@states';
 import {
   SnowBallContext,
   UserData,
   SnowBallData
 } from '@pages/Visit/SnowBallProvider';
-import { MessageListContext, Message } from '@pages/Visit/MessageListProvider';
 
 interface MsgResponse {
   user_id: number;
@@ -119,8 +120,8 @@ const DeleteModal = (props: DeleteModalProps) => {
   const navigate = useNavigate();
   const [isModalOpened, setIsModalOpened] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
+  const setMessageList = useSetRecoilState(MessageListRecoil);
   const { setSnowBallData, setUserData } = useContext(SnowBallContext);
-  const { setMessageList } = useContext(MessageListContext);
 
   useEffect(() => {
     const closeModal = (e: MouseEvent) => {
@@ -134,7 +135,6 @@ const DeleteModal = (props: DeleteModalProps) => {
     };
 
     document.addEventListener('mousedown', closeModal);
-
     return () => {
       document.removeEventListener('mousedown', closeModal);
     };
@@ -148,17 +148,20 @@ const DeleteModal = (props: DeleteModalProps) => {
   const deleteMsg = async () => {
     setIsModalOpened(false);
     try {
-    await axios.delete(`/api/message/${props.message}`, { withCredentials: true })
-    const index = props.arr.findIndex(msg => msg.id === props.message);
-    deleteArrayElement(props.arr, index);
+      await axios.delete(`/api/message/${props.message}`, {
+        withCredentials: true
+      });
 
-    const res = await axios.get('/api/user', { withCredentials: true })
-    const userData = res.data.user as UserData;
-    const resSnowballData = res.data.main_snowball as SnowBallData;
-    const messageList = res.data.main_snowball.message_list as Array<Message>;
-    setSnowBallData(resSnowballData);
-    setMessageList(messageList);
-    setUserData(userData);
+      const index = props.arr.findIndex(msg => msg.id === props.message);
+      deleteArrayElement(props.arr, index);
+
+      const res = await axios.get('/api/user', { withCredentials: true });
+      const userData = res.data.user as UserData;
+      const resSnowballData = res.data.main_snowball as SnowBallData;
+      const messageList = res.data.main_snowball.message_list as Array<Message>;
+      setSnowBallData(resSnowballData);
+      setMessageList(messageList);
+      setUserData(userData);
     } catch (err) {
       console.log(err);
       navigate('*');

@@ -1,26 +1,27 @@
 import { useEffect, useContext, useState, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
+import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { Loading, axios } from '@utils';
 import { useLogout } from '@hooks';
 import { SnowGlobeCanvas, UIContainer } from '@components';
+import { Message, MessageListRecoil } from '@states';
 
+import Introduce from '@pages/Intro/Introduce';
+import ListMsgs from './ListMsgs';
 import MainBody from './MainBody';
 import MainHeader from './MainHeader';
 import MainFooter from './MainFooter';
+import LockModal from './LockModal';
+import MenuModal from './MenuModal';
+
 import {
   SnowBallContext,
   UserData,
   SnowBallData
 } from '@pages/Visit/SnowBallProvider';
-import { MessageListContext, Message } from '@pages/Visit/MessageListProvider';
-import LockModal from './LockModal';
-
-import MenuModal from './MenuModal';
-import Introduce from '@pages/Intro/Introduce';
-import ListMsgs from './ListMsgs';
-import { createPortal } from 'react-dom';
 
 // 햄버거 버튼 메뉴의 크기가 동적으로 변하는 것을 유지하기 위해 fixed 사용
 const StyledMenu = styled.img`
@@ -88,27 +89,22 @@ const Main = () => {
 
   const navigate = useNavigate();
   const logout = useLogout();
-
-  const [isLoading, setIsLoading] = useState(false);
-
   const [cookie] = useCookies(['loggedin']);
+
+  const setMessageList = useSetRecoilState(MessageListRecoil);
   const { setSnowBallData, setUserData, userData, snowBallData } =
     useContext(SnowBallContext);
-  const { setMessageList } = useContext(MessageListContext);
 
+  const [isLoading, setIsLoading] = useState(false);
   const [isModalOpened, setIsModalOpened] = useState(false);
-
   const [msgList, setMsgList] = useState(false);
-
   const [toast, setToast] = useState(false);
   const [linkToast, setLinkToast] = useState(false);
-
   const [menuModal, setMenuModal] = useState(false);
   const [intro, setIntro] = useState(false);
-
   const [show, setShow] = useState(true);
-
   const [animation, setAnimation] = useState(false);
+
   const hamburgerRef = useRef<HTMLImageElement>(null);
 
   const showScreen = () => {

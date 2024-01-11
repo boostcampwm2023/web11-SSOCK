@@ -1,10 +1,9 @@
 import { useContext, useEffect, useRef } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { axios } from '@utils';
 import { Msg } from '@components';
-import { MessageRecoil } from '@states';
-import { MessageListContext, Message } from '@pages/Visit/MessageListProvider';
+import { Message, MessageRecoil, MessageListRecoil } from '@states';
 import {
   SnowBallContext,
   UserData,
@@ -48,7 +47,7 @@ const MainBody = (props: MainBodyProps): JSX.Element => {
   const { message, sender, color, messageID } = useRecoilValue(MessageRecoil);
   const { userData, snowBallData, setSnowBallData } =
     useContext(SnowBallContext);
-  const { messageList, setMessageList } = useContext(MessageListContext);
+  const [messageList, setMessageList] = useRecoilState(MessageListRecoil);
 
   const leftArrowRef = useRef<HTMLImageElement>(null);
   const rightArrowRef = useRef<HTMLImageElement>(null);
