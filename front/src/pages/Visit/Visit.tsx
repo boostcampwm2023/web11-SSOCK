@@ -1,11 +1,12 @@
 import { useState, useContext, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
 import { Loading, axios } from '@utils';
 import { SnowGlobeCanvas, UIContainer } from '@components';
+import { Message, MessageListRecoil } from '@states';
 import VisitHeader from './VisitHeader';
 import VisitBody from './VisitBody';
 import VisitBottom from './VisitBottom';
-import { MessageListContext, Message } from '@pages/Visit/MessageListProvider';
 import { SnowBallContext, SnowBallData, UserData } from './SnowBallProvider';
 
 const Visit = () => {
@@ -13,7 +14,7 @@ const Visit = () => {
   const { user } = useParams();
   const { setSnowBallData, setUserData, snowBallData } =
     useContext(SnowBallContext);
-  const { setMessageList } = useContext(MessageListContext);
+  const setMessageList = useSetRecoilState(MessageListRecoil);
 
   const [isLoading, setIsLoading] = useState(false);
 

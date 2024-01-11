@@ -1,12 +1,11 @@
 import { useContext, useRef } from 'react';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { axios } from '@utils';
 import { Msg } from '@components';
-import { MessageRecoil } from '@states';
+import { Message, MessageRecoil, MessageListRecoil } from '@states';
 import { SnowBallContext, SnowBallData, UserData } from './SnowBallProvider';
-import { MessageListContext, Message } from './MessageListProvider';
 
 const LeftBtn = styled.img`
   position: fixed;
@@ -46,6 +45,7 @@ const moveSnowball = async (
         const privateMessage = {
           ...message
         };
+
         privateMessage.content = '비공개 메시지 입니다.';
         privateMessage.sender = '비공개';
         return privateMessage;
@@ -54,6 +54,7 @@ const moveSnowball = async (
     } else {
       setMessageListData(response.data.message_list as Array<Message>);
     }
+
     setSnowBallData(response.data as SnowBallData);
   } catch (error) {
     console.log(error);
@@ -66,7 +67,7 @@ const VisitBody = () => {
   const { message, sender, color } = useRecoilValue(MessageRecoil);
   const { userData, snowBallData, setSnowBallData } =
     useContext(SnowBallContext);
-  const { setMessageList } = useContext(MessageListContext);
+  const setMessageList = useSetRecoilState(MessageListRecoil);
 
   const leftArrowRef = useRef<HTMLImageElement>(null);
   const rightArrowRef = useRef<HTMLImageElement>(null);

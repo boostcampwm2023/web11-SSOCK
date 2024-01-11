@@ -1,8 +1,8 @@
-import { useContext } from 'react';
-import { getDecoPosition } from '@utils';
-import * as Models from './models';
-import { MessageListContext } from '@pages/Visit/MessageListProvider';
+import { useRecoilValue } from 'recoil';
 import { Vector3 } from 'three';
+import { getDecoPosition } from '@utils';
+import { MessageListRecoil } from '@states';
+import * as Models from './models';
 
 interface DecosProps {
   centerPosition: Vector3;
@@ -10,7 +10,7 @@ interface DecosProps {
 }
 
 const Decos = ({ centerPosition, radius }: DecosProps) => {
-  const { messageList } = useContext(MessageListContext);
+  const messageList = useRecoilValue(MessageListRecoil);
 
   const decos = messageList.map((message, index) => (
     <Models.Deco
