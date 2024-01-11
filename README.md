@@ -126,6 +126,7 @@
             </td>
             <td>
                   <img src="https://img.shields.io/badge/React-61DAFB?logo=React&logoColor=white">
+                  <img src="https://img.shields.io/badge/Recoil-3578E5?logo=Recoil&logoColor=white">
                   <img src="https://img.shields.io/badge/vite-646CFF?logo=vite&logoColor=white"/> 
                   <img src="https://img.shields.io/badge/styled-components-DB7093?logo=styled-components&logoColor=white"/>
                   <img src="https://img.shields.io/badge/Three.js-000000?logo=Three.js&logoColor=white">
