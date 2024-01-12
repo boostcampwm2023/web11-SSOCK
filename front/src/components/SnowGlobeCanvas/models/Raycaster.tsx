@@ -12,7 +12,7 @@ const Raycaster: FC<RaycasterProps> = ({ isClickedRef }) => {
   const { camera, pointer, raycaster, scene, gl } = useThree();
   const resetMessage = useResetRecoilState(MessageRecoil);
   const setMessage = useSetRecoilState(MessageRecoil);
-  const [prevBox, setPrevBox] = useRecoilState(PrevRecoil);
+  const [{ view, isZoom }, setPrevBox] = useRecoilState(PrevRecoil);
 
   const isAnimating = useRef(false); // 유리 클릭한 시점 , 뒤로가기 버튼 누른 시점 === true // 카메라 업 다운 차이 기록
   const lastPosition = useRef<number>(0);
@@ -22,7 +22,7 @@ const Raycaster: FC<RaycasterProps> = ({ isClickedRef }) => {
     const zoomOutSpeed = 1 + delta * 2;
 
     if (isAnimating.current) {
-      if (isClicked && !prevBox.isZoom) {
+      if (isClicked && !isZoom) {
         setPrevBox(prev => ({ ...prev, view: true }));
         const targetPosition = new Vector3(0, 2.5, 0);
         camera.position.distanceTo(targetPosition) > 6
@@ -32,9 +32,9 @@ const Raycaster: FC<RaycasterProps> = ({ isClickedRef }) => {
         isAnimating.current = false;
       }
     } else {
-      if (prevBox.view) {
+      if (view) {
         setPrevBox(prev => ({ ...prev, isZoom: true }));
-      } else if (prevBox.isZoom && !prevBox.view) {
+      } else if (isZoom && !view) {
         if (camera.position.distanceTo(new Vector3(0, 3.5, 0)) < 15) {
           camera.position.x *= zoomOutSpeed;
           camera.position.y *= zoomOutSpeed;

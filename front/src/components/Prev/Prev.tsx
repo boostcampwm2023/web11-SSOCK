@@ -16,9 +16,9 @@ const StyledPrev = styled.img`
 const Prev = (props: PrevProps) => {
   const navigate = useNavigate();
   const resetMessage = useResetRecoilState(MessageRecoil);
-  const [prevBox, setPrevBox] = useRecoilState(PrevRecoil);
+  const [{ view }, setPrevBox] = useRecoilState(PrevRecoil);
 
-  return (props.set === 'Canvas' && prevBox.view) || props.set !== 'Canvas' ? (
+  return (props.set === 'Canvas' && view) || props.set !== 'Canvas' ? (
     <StyledPrev
       id="prevBtn"
       src={'/icons/prev.svg'}
