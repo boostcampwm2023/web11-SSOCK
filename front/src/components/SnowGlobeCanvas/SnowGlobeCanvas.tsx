@@ -1,14 +1,13 @@
 import React, { useRef } from 'react';
 import { OrbitControls } from '@react-three/drei/core/OrbitControls';
 import { Canvas } from '@react-three/fiber';
-import {Vector3, Color} from 'three';
-
+import { Vector3, Color } from 'three';
 import { CanvasContainer } from '@utils';
+
 import * as Models from './models';
-import { Prev } from '../Prev';
 import Decos from './Decos';
+import { Prev } from '../Prev';
 import { SnowBallData } from '@pages/Visit/SnowBallProvider';
-import { PrevProvider } from './PrevProvider';
 
 interface SnowGlobeCanvasProps {
   snowBallData: SnowBallData;
@@ -31,7 +30,7 @@ const SnowGlobeCanvas = React.memo<SnowGlobeCanvasProps>(
     ));
 
     return (
-      <PrevProvider>
+      <>
         <CanvasContainer>
           <Canvas
             camera={{
@@ -97,7 +96,7 @@ const SnowGlobeCanvas = React.memo<SnowGlobeCanvasProps>(
           </Canvas>
         </CanvasContainer>
         <Prev set={'Canvas'} />
-      </PrevProvider>
+      </>
     );
   },
   (prevProps, nextProps) => {

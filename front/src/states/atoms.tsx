@@ -24,6 +24,11 @@ interface Message {
   confidence: number;
 }
 
+interface Prev {
+  view: boolean;
+  isZoom: boolean;
+}
+
 const MessageRecoil = atom<MakeMessage>({
   key: 'Message',
   default: {
@@ -39,5 +44,13 @@ const MessageListRecoil = atom<Array<Message>>({
   default: []
 });
 
+const PrevRecoil = atom<Prev>({
+  key: 'Prev',
+  default: {
+    view: false,
+    isZoom: false
+  }
+});
+
 export type { Message };
-export { MessageRecoil, MessageListRecoil };
+export { MessageRecoil, MessageListRecoil, PrevRecoil };

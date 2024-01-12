@@ -1,9 +1,8 @@
-import { useEffect, useRef, useContext, FC, MutableRefObject } from 'react';
+import { useEffect, useRef, FC, MutableRefObject } from 'react';
 import { useThree, useFrame } from '@react-three/fiber';
 import { Vector3 } from 'three';
-import { useResetRecoilState, useSetRecoilState } from 'recoil';
-import { MessageRecoil } from '@states';
-import { PrevContext } from '../PrevProvider';
+import { useRecoilState, useResetRecoilState, useSetRecoilState } from 'recoil';
+import { MessageRecoil, PrevRecoil } from '@states';
 
 interface RaycasterProps {
   isClickedRef: MutableRefObject<boolean>;
@@ -13,7 +12,7 @@ const Raycaster: FC<RaycasterProps> = ({ isClickedRef }) => {
   const { camera, pointer, raycaster, scene, gl } = useThree();
   const resetMessage = useResetRecoilState(MessageRecoil);
   const setMessage = useSetRecoilState(MessageRecoil);
-  const { view, setView, isZoom, setIsZoom } = useContext(PrevContext);
+  const [prevBox, setPrevBox] = useRecoilState(PrevRecoil);
 
   const isAnimating = useRef(false); // 유리 클릭한 시점 , 뒤로가기 버튼 누른 시점 === true // 카메라 업 다운 차이 기록
   const lastPosition = useRef<number>(0);
@@ -23,8 +22,8 @@ const Raycaster: FC<RaycasterProps> = ({ isClickedRef }) => {
     const zoomOutSpeed = 1 + delta * 2;
 
     if (isAnimating.current) {
-      if (isClicked && !isZoom) {
-        setView(true);
+      if (isClicked && !prevBox.isZoom) {
+        setPrevBox(prev => ({ ...prev, view: true }));
         const targetPosition = new Vector3(0, 2.5, 0);
         camera.position.distanceTo(targetPosition) > 6
           ? camera.position.lerp(targetPosition, delta * 2)
@@ -33,15 +32,15 @@ const Raycaster: FC<RaycasterProps> = ({ isClickedRef }) => {
         isAnimating.current = false;
       }
     } else {
-      if (view) {
-        setIsZoom(true);
-      } else if (isZoom && !view) {
+      if (prevBox.view) {
+        setPrevBox(prev => ({ ...prev, isZoom: true }));
+      } else if (prevBox.isZoom && !prevBox.view) {
         if (camera.position.distanceTo(new Vector3(0, 3.5, 0)) < 15) {
           camera.position.x *= zoomOutSpeed;
           camera.position.y *= zoomOutSpeed;
           camera.position.z *= zoomOutSpeed;
         } else {
-          setIsZoom(false);
+          setPrevBox(prev => ({ ...prev, isZoom: false }));
         }
       }
     }
