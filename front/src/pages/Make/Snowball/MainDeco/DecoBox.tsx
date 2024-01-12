@@ -1,7 +1,7 @@
-import { useContext } from 'react';
+import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { MAIN, BOTTOM } from '@constants';
-import { DecoContext } from './DecoProvider';
+import { MakeDecoRecoil } from '@states';
 
 interface DecoProps {
   deco: 'Main' | 'Bottom';
@@ -26,7 +26,7 @@ const StyledImg = styled.img`
 `;
 
 const DecoImgs = (folder: string) => {
-  const { setMainDecoID, setBottomID } = useContext(DecoContext);
+  const setMakeDecoBox = useSetRecoilState(MakeDecoRecoil);
 
   return folder === 'Main'
     ? MAIN.map(({ img }, index) => {
@@ -36,7 +36,9 @@ const DecoImgs = (folder: string) => {
               <StyledImg
                 src={img}
                 alt={`mainDeco${index}`}
-                onClick={() => setMainDecoID(index)}
+                onClick={() =>
+                  setMakeDecoBox(prev => ({ ...prev, mainDecoID: index }))
+                }
               />
             </StyledBox>
           );
@@ -48,7 +50,9 @@ const DecoImgs = (folder: string) => {
               <StyledImg
                 src={img}
                 alt={`bottomDeco${index}`}
-                onClick={() => setBottomID(index)}
+                onClick={() =>
+                  setMakeDecoBox(prev => ({ ...prev, bottomID: index }))
+                }
               />
             </StyledBox>
           );

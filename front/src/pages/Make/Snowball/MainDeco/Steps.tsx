@@ -1,12 +1,13 @@
 import { useState, useRef, useEffect, useContext } from 'react';
 import styled from 'styled-components';
+import { useRecoilState } from 'recoil';
 import { theme, Container } from '@utils';
+import { MakeDecoRecoil } from '@states';
 import { InputSnowball, HeaderText, StepButton } from '@components';
 import MakeButton from './MakeButton';
 import DecoBox from './DecoBox';
 import DecoEnroll from './DecoEnroll';
 import { SnowBallContext } from '@pages/Visit/SnowBallProvider';
-import { DecoContext } from './DecoProvider';
 
 const StateBar = styled.div`
   display: flex;
@@ -108,8 +109,8 @@ const Steps = () => {
   const [startClickedX, setStartClickedX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
 
-  const { mainColor, bottomColor, setMainColor, setBottomColor } =
-    useContext(DecoContext);
+  const [{ mainColor, bottomColor }, setMakeDecoBox] =
+    useRecoilState(MakeDecoRecoil);
   const { userData } = useContext(SnowBallContext);
 
   const doneStep = -1;
@@ -296,7 +297,10 @@ const Steps = () => {
                 <ColorInput
                   value={mainColor}
                   onChange={e => {
-                    setMainColor(e.target.value);
+                    setMakeDecoBox(prev => ({
+                      ...prev,
+                      mainColor: e.target.value
+                    }));
                   }}
                 />
                 <p>장식 색상을 선택해주세요</p>
@@ -308,7 +312,12 @@ const Steps = () => {
               <>
                 <ColorInput
                   value={bottomColor}
-                  onChange={e => setBottomColor(e.target.value)}
+                  onChange={e =>
+                    setMakeDecoBox(prev => ({
+                      ...prev,
+                      bottomColor: e.target.value
+                    }))
+                  }
                 />
                 <p>받침대 색상을 선택해주세요</p>
               </>

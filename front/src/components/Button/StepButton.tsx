@@ -1,7 +1,7 @@
-import { useContext } from 'react';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { LongButton } from '@utils';
-import { DecoContext } from '@pages/Make/Snowball/MainDeco/DecoProvider';
+import { MakeDecoRecoil } from '@states';
 
 interface ButtonColor {
   color: string;
@@ -23,7 +23,7 @@ const StyledButton = styled(LongButton)<ButtonColor>`
 `;
 
 const StepButton = (props: ButtonProps) => {
-  const { snowballName } = useContext(DecoContext);
+  const { snowballName } = useRecoilValue(MakeDecoRecoil);
 
   const ClickStep = () => {
     if (props.step === 'increase') {
