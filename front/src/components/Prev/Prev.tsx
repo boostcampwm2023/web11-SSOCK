@@ -1,9 +1,7 @@
-import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useResetRecoilState } from 'recoil';
+import { useRecoilState, useResetRecoilState } from 'recoil';
 import styled from 'styled-components';
-import { MessageRecoil } from '@states';
-import { PrevContext } from '@components/SnowGlobeCanvas/PrevProvider';
+import { MessageRecoil, PrevRecoil } from '@states';
 
 interface PrevProps {
   set: React.Dispatch<React.SetStateAction<boolean>> | 'Canvas' | null;
@@ -17,10 +15,10 @@ const StyledPrev = styled.img`
 
 const Prev = (props: PrevProps) => {
   const navigate = useNavigate();
-  const { view, setView } = useContext(PrevContext);
   const resetMessage = useResetRecoilState(MessageRecoil);
+  const [prevBox, setPrevBox] = useRecoilState(PrevRecoil);
 
-  return (props.set === 'Canvas' && view) || props.set !== 'Canvas' ? (
+  return (props.set === 'Canvas' && prevBox.view) || props.set !== 'Canvas' ? (
     <StyledPrev
       id="prevBtn"
       src={'/icons/prev.svg'}
@@ -28,7 +26,7 @@ const Prev = (props: PrevProps) => {
         resetMessage();
         props.set
           ? props.set === 'Canvas'
-            ? setView(false)
+            ? setPrevBox(prev => ({ ...prev, view: false }))
             : props.set(false)
           : navigate(-1);
       }}
