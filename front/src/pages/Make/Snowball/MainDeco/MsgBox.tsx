@@ -1,8 +1,8 @@
-import { useContext } from 'react';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
+import { MakeDecoRecoil } from '@states';
 import { Msg } from '@components';
 import { MSG_COLOR } from '@constants';
-import { DecoContext } from './DecoProvider';
 
 interface MsgBoxProps {
   isInput: boolean;
@@ -18,7 +18,7 @@ const MsgContainer = styled.div`
 `;
 
 const MsgBox = ({ isInput }: MsgBoxProps) => {
-  const { letterID } = useContext(DecoContext);
+  const { letterID } = useRecoilValue(MakeDecoRecoil);
   return (
     <MsgContainer>
       <Msg

@@ -24,6 +24,15 @@ interface Message {
   confidence: number;
 }
 
+interface MakeDeco {
+  snowballName: string;
+  mainDecoID: number;
+  mainColor: string;
+  bottomID: number;
+  bottomColor: string;
+  letterID: number;
+}
+
 interface Prev {
   view: boolean;
   isZoom: boolean;
@@ -44,6 +53,18 @@ const MessageListRecoil = atom<Array<Message>>({
   default: []
 });
 
+const MakeDecoRecoil = atom<MakeDeco>({
+  key: 'MakeDeco',
+  default: {
+    snowballName: 'default',
+    mainDecoID: 1,
+    mainColor: '#ff0000',
+    bottomID: 1,
+    bottomColor: '#ff0000',
+    letterID: 1
+  }
+});
+
 const PrevRecoil = atom<Prev>({
   key: 'Prev',
   default: {
@@ -53,4 +74,4 @@ const PrevRecoil = atom<Prev>({
 });
 
 export type { Message };
-export { MessageRecoil, MessageListRecoil, PrevRecoil };
+export { MessageRecoil, MessageListRecoil, MakeDecoRecoil, PrevRecoil };

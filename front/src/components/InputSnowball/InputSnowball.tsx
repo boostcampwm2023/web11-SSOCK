@@ -1,6 +1,7 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
+import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
-import { DecoContext } from '@pages/Make/Snowball/MainDeco/DecoProvider';
+import { MakeDecoRecoil } from '@states';
 
 const StyledLetterBox = styled.div`
   width: 80%;
@@ -65,7 +66,7 @@ const StyledTextArea = styled.textarea`
 
 const InputSnowball = () => {
   const [wordCount, setWordCount] = useState(0);
-  const { setSnowballName } = useContext(DecoContext);
+  const setMakeDecoBox = useSetRecoilState(MakeDecoRecoil);
   const maxNameCount = 10;
 
   const wordLength = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -73,7 +74,7 @@ const InputSnowball = () => {
     if (text.value.length > maxNameCount) {
       text.value = text.value.substring(0, maxNameCount);
     }
-    setSnowballName(text.value);
+    setMakeDecoBox(prev => ({ ...prev, snowballName: text.value }));
     setWordCount(text.value.length);
   };
 
