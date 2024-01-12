@@ -1,14 +1,14 @@
-import { useContext } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei/core/OrbitControls';
+import { useRecoilValue } from 'recoil';
 import { Vector3, Color } from 'three';
 import { CanvasContainer } from '@utils';
+import { MakeDecoRecoil } from '@states';
 import * as Models from '@components/SnowGlobeCanvas/models';
-import { DecoContext } from './DecoProvider';
 
 const MainSnowballCavnas = () => {
   const { snowballName, mainDecoID, mainColor, bottomID, bottomColor } =
-    useContext(DecoContext);
+    useRecoilValue(MakeDecoRecoil);
   const glassRadius = 7;
 
   return (
