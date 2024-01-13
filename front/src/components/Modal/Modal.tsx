@@ -4,13 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { theme, axios } from '@utils';
-import {
-  Message,
-  SnowBallData,
-  UserData,
-  MessageListRecoil,
-  SnowBallRecoil
-} from '@states';
+import { MessageListRecoil, SnowBallRecoil } from '@states';
 
 interface MsgResponse {
   user_id: number;
@@ -157,9 +151,9 @@ const DeleteModal = (props: DeleteModalProps) => {
       deleteArrayElement(props.arr, index);
 
       const res = await axios.get('/api/user', { withCredentials: true });
-      const userData = res.data.user as UserData;
-      const resSnowballData = res.data.main_snowball as SnowBallData;
-      const messageList = res.data.main_snowball.message_list as Array<Message>;
+      const userData = res.data.user;
+      const resSnowballData = res.data.main_snowball;
+      const messageList = res.data.main_snowball.message_list;
 
       setMessageList(messageList);
       setSnowBallBox({ snowBallData: resSnowballData, userData: userData });

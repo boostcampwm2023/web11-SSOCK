@@ -1,4 +1,4 @@
-export type { Message, SnowBallData, UserData, SnowBall } from './atoms';
+export type { Message, SnowBallData, SnowBall } from './atoms';
 export {
   MessageRecoil,
   MessageListRecoil,

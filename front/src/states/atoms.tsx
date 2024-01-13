@@ -127,7 +127,7 @@ const SnowBallRecoil = atom<SnowBall>({
   }
 });
 
-export type { Message, SnowBallData, UserData, SnowBall };
+export type { Message, SnowBallData, SnowBall };
 export {
   MessageRecoil,
   MessageListRecoil,
