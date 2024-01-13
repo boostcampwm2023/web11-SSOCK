@@ -4,7 +4,7 @@ import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { Loading, theme, axios } from '@utils';
 import { useLogout } from '@hooks';
-import { UserData, SnowBallRecoil } from '@states';
+import { SnowBallRecoil } from '@states';
 import { SnowGlobeCanvas, Button } from '@components';
 import { MainDeco } from './MainDeco';
 
@@ -80,7 +80,7 @@ const Snowball = () => {
       })
       .then(res => {
         if (res.status === 200) {
-          const userData = res.data.user as UserData;
+          const userData = res.data.user;
           setIsLoading(true);
           setSnowBallBox(prev => ({ ...prev, userData: userData }));
           setNickname(userData.nickname);

@@ -100,7 +100,7 @@ const MainBody = (props: MainBodyProps): JSX.Element => {
 
     axios(`/api/snowball/${nextSnowBallID}`).then(res => {
       setSnowBallBox(prev => ({ ...prev, snowBallData: res.data }));
-      setMessageListData(res.data.message_list as Array<Message>);
+      setMessageListData(res.data.message_list);
     });
   };
 
