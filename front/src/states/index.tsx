@@ -3,5 +3,6 @@ export {
   MessageRecoil,
   MessageListRecoil,
   MakeDecoRecoil,
+  VisitDecoRecoil,
   PrevRecoil
 } from './atoms';

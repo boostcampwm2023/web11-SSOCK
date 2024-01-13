@@ -1,9 +1,8 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { createPortal } from 'react-dom';
-import { useResetRecoilState } from 'recoil';
+import { useRecoilState, useResetRecoilState } from 'recoil';
 import styled from 'styled-components';
-import { MessageRecoil } from '@states';
-import { DecoContext } from '@pages/Visit/Deco/DecoProvider';
+import { MessageRecoil, VisitDecoRecoil } from '@states';
 
 interface MsgProps {
   color: string;
@@ -154,8 +153,9 @@ const DecoBackground = styled.div`
 
 const Msg = (props: MsgProps): JSX.Element => {
   const [wordCount, setWordCount] = useState(0);
-  const { content, sender, setContent, setSender } = useContext(DecoContext);
   const maxWordCount = 500;
+  const [{ content, sender }, setVisitDecoBox] =
+    useRecoilState(VisitDecoRecoil);
   const closeMessage = useResetRecoilState(MessageRecoil);
 
   const wordLength = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -165,7 +165,7 @@ const Msg = (props: MsgProps): JSX.Element => {
     if (text.value.length > maxWordCount) {
       text.value = text.value.substring(0, maxWordCount);
     }
-    setContent(text.value);
+    setVisitDecoBox(prev => ({ ...prev, content: text.value }));
     setWordCount(text.value.length);
   };
 
@@ -177,7 +177,7 @@ const Msg = (props: MsgProps): JSX.Element => {
     if (name.length > 8) {
       name = name.substring(0, 8);
     }
-    setSender(name);
+    setVisitDecoBox(prev => ({ ...prev, sender: name }));
   };
 
   return (

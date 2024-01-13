@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import HasSnowballData from './HasSnowballData';
 import { SnowBallProvider } from '@pages/Visit/SnowBallProvider';
-import { DecoProvider } from '@pages/Visit/Deco/DecoProvider';
 
 const Intro = lazy(() => import('@pages/Intro/Intro'));
 const Visit = lazy(() => import('@pages/Visit/Visit'));
@@ -23,11 +22,9 @@ const Router = () => {
           <Route
             path="/visit/:user"
             element={
-              <DecoProvider>
-                <SnowBallProvider>
-                  <Outlet />
-                </SnowBallProvider>
-              </DecoProvider>
+              <SnowBallProvider>
+                <Outlet />
+              </SnowBallProvider>
             }
           >
             <Route path="" element={<Visit />} />
