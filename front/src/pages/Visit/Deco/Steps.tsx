@@ -1,14 +1,13 @@
-import { useState, useRef, useEffect, useContext } from 'react';
-import { useRecoilState } from 'recoil';
+import { useState, useRef, useEffect } from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { theme, Container } from '@utils';
-import { VisitDecoRecoil } from '@states';
+import { VisitDecoRecoil, SnowBallRecoil } from '@states';
 import { HeaderText, StepButton } from '@components';
 import DecoBox from './DecoBox';
 import MsgBox from './MsgBox';
 import DecoEnroll from './DecoEnroll';
 import PostButton from './PostButton';
-import { SnowBallContext } from '../SnowBallProvider';
 
 const StateBar = styled.div`
   display: flex;
@@ -107,7 +106,7 @@ const Steps = () => {
   const [scrollLeft, setScrollLeft] = useState(0);
 
   const [{ color }, setVisitDecoBox] = useRecoilState(VisitDecoRecoil);
-  const { userData } = useContext(SnowBallContext);
+  const { userData } = useRecoilValue(SnowBallRecoil);
 
   const doneStep = -1;
   const selectDeco = 0;

@@ -1,11 +1,12 @@
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { axios } from '@utils';
 import { useLogout } from '@hooks';
+import { SnowBallRecoil } from '@states';
 import { ListMsg, Prev } from '@components';
 import { MSG_COLOR } from '@constants';
-import { SnowBallContext } from '@pages/Visit/SnowBallProvider';
 
 interface ListMsgProps {
   set: React.Dispatch<React.SetStateAction<boolean>>;
@@ -79,8 +80,8 @@ const ToastMsg = styled.div`
 const ListMsgs = (props: ListMsgProps) => {
   const logout = useLogout();
   const [messages, setMessages] = useState<Array<MsgResponse>>([]);
-  const { userData } = useContext(SnowBallContext);
   const [toast, setToast] = useState(false);
+  const { userData } = useRecoilValue(SnowBallRecoil);
 
   useEffect(() => {
     axios

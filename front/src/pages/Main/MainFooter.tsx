@@ -1,6 +1,7 @@
+import { useRef, useEffect } from 'react';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import { useContext, useRef, useEffect } from 'react';
-import { SnowBallContext } from '@pages/Visit/SnowBallProvider';
+import { SnowBallRecoil } from '@states';
 
 interface MainFooterProps {
   set: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
@@ -30,7 +31,7 @@ const StyledShareLink = styled.img`
 `;
 
 const MainFooter = (props: MainFooterProps): JSX.Element => {
-  const { userData } = useContext(SnowBallContext);
+  const { userData } = useRecoilValue(SnowBallRecoil);
   const FooterRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

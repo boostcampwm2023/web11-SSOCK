@@ -1,8 +1,9 @@
-export type { Message } from './atoms';
+export type { Message, SnowBallData, UserData, SnowBall } from './atoms';
 export {
   MessageRecoil,
   MessageListRecoil,
   MakeDecoRecoil,
   VisitDecoRecoil,
-  PrevRecoil
+  PrevRecoil,
+  SnowBallRecoil
 } from './atoms';

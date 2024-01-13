@@ -3,11 +3,11 @@ import { OrbitControls } from '@react-three/drei/core/OrbitControls';
 import { Canvas } from '@react-three/fiber';
 import { Vector3, Color } from 'three';
 import { CanvasContainer } from '@utils';
+import { SnowBallData } from '@states';
 
 import * as Models from './models';
 import Decos from './Decos';
 import { Prev } from '../Prev';
-import { SnowBallData } from '@pages/Visit/SnowBallProvider';
 
 interface SnowGlobeCanvasProps {
   snowBallData: SnowBallData;
