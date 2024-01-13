@@ -1,10 +1,10 @@
 import { useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
-import { theme } from '@utils';
-import { useChangePrivate } from '@hooks';
+import { axios, theme } from '@utils';
 import { SnowBallRecoil } from '@states';
+import { useNavigate } from 'react-router-dom';
 
 interface LockModalProps {
   toast: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
@@ -81,9 +81,9 @@ const MButton = styled.button`
 `;
 
 const LockModal = (props: LockModalProps) => {
-  const changePrivate = useChangePrivate();
+  const navigate = useNavigate();
   const modalRef = useRef<HTMLDivElement>(null);
-  const { snowBallData } = useRecoilValue(SnowBallRecoil);
+  const [{ snowBallData }, setSnowBallBox] = useRecoilState(SnowBallRecoil);
   const privateFlag = snowBallData.is_message_private;
 
   useEffect(() => {
@@ -104,6 +104,23 @@ const LockModal = (props: LockModalProps) => {
       document.removeEventListener('mousedown', closeModal);
     };
   }, []);
+
+  const changePrivate = async () => {
+    const newData = {
+      title: snowBallData.title,
+      is_message_private: !snowBallData.is_message_private
+    };
+
+    try {
+      const res = await axios.put(`/api/snowball/${snowBallData.id}`, newData);
+      const resData = Object.assign({}, snowBallData);
+      resData.is_message_private = res.data.is_message_private;
+      setSnowBallBox(prev => ({ ...prev, snowBallData: resData }));
+    } catch (err) {
+      console.log(err);
+      navigate('*');
+    }
+  };
 
   const setPrivate = async () => {
     props.set(false);
