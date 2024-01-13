@@ -1,20 +1,18 @@
-import { useState, useContext, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { Loading, axios } from '@utils';
+import { Message, MessageListRecoil, SnowBallRecoil } from '@states';
 import { SnowGlobeCanvas, UIContainer } from '@components';
-import { Message, MessageListRecoil } from '@states';
 import VisitHeader from './VisitHeader';
 import VisitBody from './VisitBody';
 import VisitBottom from './VisitBottom';
-import { SnowBallContext, SnowBallData, UserData } from './SnowBallProvider';
 
 const Visit = () => {
   const navigate = useNavigate();
   const { user } = useParams();
-  const { setSnowBallData, setUserData, snowBallData } =
-    useContext(SnowBallContext);
   const setMessageList = useSetRecoilState(MessageListRecoil);
+  const [{ snowBallData }, setSnowBallBox] = useRecoilState(SnowBallRecoil);
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -38,8 +36,10 @@ const Visit = () => {
         setMessageList(res.data.main_snowball.message_list);
       }
 
-      setSnowBallData(res.data.main_snowball as SnowBallData);
-      setUserData(res.data.user as UserData);
+      setSnowBallBox({
+        snowBallData: res.data.main_snowball,
+        userData: res.data.user
+      });
       setIsLoading(true);
     } catch {
       navigate('*');

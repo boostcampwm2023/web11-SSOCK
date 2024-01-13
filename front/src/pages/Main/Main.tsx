@@ -1,13 +1,19 @@
-import { useEffect, useContext, useState, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { Loading, axios } from '@utils';
 import { useLogout } from '@hooks';
 import { SnowGlobeCanvas, UIContainer } from '@components';
-import { Message, MessageListRecoil } from '@states';
+import {
+  Message,
+  UserData,
+  SnowBallData,
+  MessageListRecoil,
+  SnowBallRecoil
+} from '@states';
 
 import Introduce from '@pages/Intro/Introduce';
 import ListMsgs from './ListMsgs';
@@ -16,12 +22,6 @@ import MainHeader from './MainHeader';
 import MainFooter from './MainFooter';
 import LockModal from './LockModal';
 import MenuModal from './MenuModal';
-
-import {
-  SnowBallContext,
-  UserData,
-  SnowBallData
-} from '@pages/Visit/SnowBallProvider';
 
 // 햄버거 버튼 메뉴의 크기가 동적으로 변하는 것을 유지하기 위해 fixed 사용
 const StyledMenu = styled.img`
@@ -92,8 +92,8 @@ const Main = () => {
   const [cookie] = useCookies(['loggedin']);
 
   const setMessageList = useSetRecoilState(MessageListRecoil);
-  const { setSnowBallData, setUserData, userData, snowBallData } =
-    useContext(SnowBallContext);
+  const [{ snowBallData, userData }, setSnowBallBox] =
+    useRecoilState(SnowBallRecoil);
 
   const [isLoading, setIsLoading] = useState(false);
   const [isModalOpened, setIsModalOpened] = useState(false);
@@ -130,7 +130,7 @@ const Main = () => {
       .then(res => {
         if (res.status === 200) {
           const resUserData = res.data.user as UserData;
-          setUserData(resUserData);
+          setSnowBallBox(prev => ({ ...prev, userData: resUserData }));
 
           if (res.data.main_snowball === null) {
             navigate('/make');
@@ -140,7 +140,7 @@ const Main = () => {
           const resSnowballData = res.data.main_snowball as SnowBallData;
           const messageList = res.data.main_snowball
             .message_list as Array<Message>;
-          setSnowBallData(resSnowballData);
+          setSnowBallBox(prev => ({ ...prev, snowBallData: resSnowballData }));
           setMessageList(messageList);
           setIsLoading(true);
 

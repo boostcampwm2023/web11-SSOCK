@@ -1,8 +1,9 @@
-import { useContext, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { useLogout } from '@hooks';
-import { SnowBallContext } from '@pages/Visit/SnowBallProvider';
+import { SnowBallRecoil } from '@states';
 
 interface ModalProps {
   set: React.Dispatch<React.SetStateAction<boolean>>;
@@ -59,13 +60,13 @@ const ToastMsg = styled.div`
 `;
 
 const MenuModal = (props: ModalProps) => {
-  const { userData } = useContext(SnowBallContext);
   const navigate = useNavigate();
   const logout = useLogout();
+  const { userData } = useRecoilValue(SnowBallRecoil);
 
   const [toast, setToast] = useState(false);
-
   const timer = useRef<number | null>(null);
+
   const makeNewSnowBall = () => {
     if (timer.current) {
       clearTimeout(timer.current);

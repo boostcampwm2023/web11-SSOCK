@@ -1,11 +1,9 @@
-import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { Container } from '@utils';
+import { MessageListRecoil, SnowBallRecoil } from '@states';
 import { HeaderText } from '@components';
-import { MessageListRecoil } from '@states';
-import { SnowBallContext } from './SnowBallProvider';
 
 const StyledLetter = styled.div`
   font: ${props => props.theme.font['--normal-main-header-font']};
@@ -33,8 +31,8 @@ const HomeBtn = styled.img`
 
 const VisitHeader = () => {
   const navigate = useNavigate();
-  const { userData } = useContext(SnowBallContext);
   const messageList = useRecoilValue(MessageListRecoil);
+  const { userData } = useRecoilValue(SnowBallRecoil);
 
   return (
     <Container>

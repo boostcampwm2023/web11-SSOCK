@@ -1,11 +1,16 @@
-import { useContext, useRef } from 'react';
+import { useRef } from 'react';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { axios } from '@utils';
+import {
+  Message,
+  SnowBall,
+  MessageRecoil,
+  MessageListRecoil,
+  SnowBallRecoil
+} from '@states';
 import { Msg } from '@components';
-import { Message, MessageRecoil, MessageListRecoil } from '@states';
-import { SnowBallContext, SnowBallData, UserData } from './SnowBallProvider';
 
 const LeftBtn = styled.img`
   position: fixed;
@@ -19,9 +24,8 @@ const RightBtn = styled(LeftBtn)`
 
 const moveSnowball = async (
   move: 'Prev' | 'Next',
-  userData: UserData,
-  snowBallData: SnowBallData,
-  setSnowBallData: React.Dispatch<React.SetStateAction<SnowBallData>>,
+  { userData, snowBallData }: SnowBall,
+  setSnowBallBox: React.Dispatch<React.SetStateAction<SnowBall>>,
   setMessageListData: React.Dispatch<React.SetStateAction<Array<Message>>>,
   navigate: NavigateFunction
 ) => {
@@ -55,7 +59,7 @@ const moveSnowball = async (
       setMessageListData(response.data.message_list as Array<Message>);
     }
 
-    setSnowBallData(response.data as SnowBallData);
+    setSnowBallBox(prev => ({ ...prev, snowBallData: response.data }));
   } catch (error) {
     console.log(error);
     navigate('*');
@@ -65,9 +69,9 @@ const moveSnowball = async (
 const VisitBody = () => {
   const navigate = useNavigate();
   const { message, sender, color } = useRecoilValue(MessageRecoil);
-  const { userData, snowBallData, setSnowBallData } =
-    useContext(SnowBallContext);
   const setMessageList = useSetRecoilState(MessageListRecoil);
+  const [{ userData, snowBallData }, setSnowBallBox] =
+    useRecoilState(SnowBallRecoil);
 
   const leftArrowRef = useRef<HTMLImageElement>(null);
   const rightArrowRef = useRef<HTMLImageElement>(null);
@@ -108,9 +112,8 @@ const VisitBody = () => {
             onClick={() => {
               moveSnowball(
                 'Prev',
-                userData,
-                snowBallData,
-                setSnowBallData,
+                { userData, snowBallData },
+                setSnowBallBox,
                 setMessageList,
                 navigate
               );
@@ -124,9 +127,8 @@ const VisitBody = () => {
             onClick={() => {
               moveSnowball(
                 'Next',
-                userData,
-                snowBallData,
-                setSnowBallData,
+                { userData, snowBallData },
+                setSnowBallBox,
                 setMessageList,
                 navigate
               );

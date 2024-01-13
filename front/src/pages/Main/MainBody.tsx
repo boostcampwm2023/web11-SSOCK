@@ -1,14 +1,15 @@
-import { useContext, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { axios } from '@utils';
-import { Msg } from '@components';
-import { Message, MessageRecoil, MessageListRecoil } from '@states';
 import {
-  SnowBallContext,
-  UserData,
-  SnowBallData
-} from '@pages/Visit/SnowBallProvider';
+  Message,
+  SnowBall,
+  MessageRecoil,
+  MessageListRecoil,
+  SnowBallRecoil
+} from '@states';
+import { Msg } from '@components';
 
 interface MainBodyProps {
   animation: boolean;
@@ -45,9 +46,9 @@ const ArrowRight = styled(ArrowLeft)`
 
 const MainBody = (props: MainBodyProps): JSX.Element => {
   const { message, sender, color, messageID } = useRecoilValue(MessageRecoil);
-  const { userData, snowBallData, setSnowBallData } =
-    useContext(SnowBallContext);
   const [messageList, setMessageList] = useRecoilState(MessageListRecoil);
+  const [{ snowBallData, userData }, setSnowBallBox] =
+    useRecoilState(SnowBallRecoil);
 
   const leftArrowRef = useRef<HTMLImageElement>(null);
   const rightArrowRef = useRef<HTMLImageElement>(null);
@@ -79,9 +80,8 @@ const MainBody = (props: MainBodyProps): JSX.Element => {
 
   const moveSnowball = (
     move: 'Prev' | 'Next',
-    userData: UserData,
-    snowBallData: SnowBallData,
-    setSnowBallData: React.Dispatch<React.SetStateAction<SnowBallData>>,
+    { userData, snowBallData }: SnowBall,
+    setSnowBallBox: React.Dispatch<React.SetStateAction<SnowBall>>,
     setMessageListData: React.Dispatch<React.SetStateAction<Array<Message>>>
   ) => {
     const nowSnowBallID = userData.snowball_list.findIndex(
@@ -99,7 +99,7 @@ const MainBody = (props: MainBodyProps): JSX.Element => {
       ];
 
     axios(`/api/snowball/${nextSnowBallID}`).then(res => {
-      setSnowBallData(res.data as SnowBallData);
+      setSnowBallBox(prev => ({ ...prev, snowBallData: res.data }));
       setMessageListData(res.data.message_list as Array<Message>);
     });
   };
@@ -132,9 +132,8 @@ const MainBody = (props: MainBodyProps): JSX.Element => {
               onClick={() => {
                 moveSnowball(
                   'Prev',
-                  userData,
-                  snowBallData,
-                  setSnowBallData,
+                  { userData, snowBallData },
+                  setSnowBallBox,
                   setMessageList
                 );
                 delayButton();
@@ -149,9 +148,8 @@ const MainBody = (props: MainBodyProps): JSX.Element => {
               onClick={() => {
                 moveSnowball(
                   'Next',
-                  userData,
-                  snowBallData,
-                  setSnowBallData,
+                  { userData, snowBallData },
+                  setSnowBallBox,
                   setMessageList
                 );
                 delayButton();

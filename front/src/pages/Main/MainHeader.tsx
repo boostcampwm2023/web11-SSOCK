@@ -1,6 +1,7 @@
-import { useContext, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import { SnowBallContext } from '@pages/Visit/SnowBallProvider';
+import { SnowBallRecoil } from '@states';
 import { HeaderText } from '@components';
 
 interface MainHeaderProps {
@@ -36,7 +37,7 @@ const PrivateButton = styled.img`
 `;
 
 const MainHeader = (props: MainHeaderProps): JSX.Element => {
-  const { userData, snowBallData } = useContext(SnowBallContext);
+  const { userData, snowBallData } = useRecoilValue(SnowBallRecoil);
   const HeaderRef = useRef<HTMLDivElement>(null);
 
   const privateClick = () => {
@@ -53,29 +54,27 @@ const MainHeader = (props: MainHeaderProps): JSX.Element => {
   }, [props.animation]);
 
   return (
-    <>
-      <Container key="MainHeader" ref={HeaderRef}>
-        <HeaderText Ref={null} userName={userData.nickname} />
-        <MessageCount>
-          <img style={{ pointerEvents: 'none' }} src="/icons/letter.svg" />총{' '}
-          {userData.message_count}개의 메시지
-        </MessageCount>
+    <Container key="MainHeader" ref={HeaderRef}>
+      <HeaderText Ref={null} userName={userData.nickname} />
+      <MessageCount>
+        <img style={{ pointerEvents: 'none' }} src="/icons/letter.svg" />총{' '}
+        {userData.message_count}개의 메시지
+      </MessageCount>
 
-        {snowBallData.is_message_private ? (
-          <PrivateButton
-            key="lock"
-            onClick={privateClick}
-            src="/icons/lock.svg"
-          />
-        ) : (
-          <PrivateButton
-            key="unlock"
-            onClick={privateClick}
-            src="/icons/unlock.svg"
-          />
-        )}
-      </Container>
-    </>
+      {snowBallData.is_message_private ? (
+        <PrivateButton
+          key="lock"
+          onClick={privateClick}
+          src="/icons/lock.svg"
+        />
+      ) : (
+        <PrivateButton
+          key="unlock"
+          onClick={privateClick}
+          src="/icons/unlock.svg"
+        />
+      )}
+    </Container>
   );
 };
 
