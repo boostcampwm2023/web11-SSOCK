@@ -33,6 +33,14 @@ interface MakeDeco {
   letterID: number;
 }
 
+interface VisitDeco {
+  decoID: number;
+  color: string;
+  letterID: number;
+  content: string;
+  sender: string;
+}
+
 interface Prev {
   view: boolean;
   isZoom: boolean;
@@ -65,6 +73,17 @@ const MakeDecoRecoil = atom<MakeDeco>({
   }
 });
 
+const VisitDecoRecoil = atom<VisitDeco>({
+  key: 'VisitDeco',
+  default: {
+    decoID: 1,
+    color: '#ff0000',
+    letterID: 1,
+    content: '',
+    sender: ''
+  }
+});
+
 const PrevRecoil = atom<Prev>({
   key: 'Prev',
   default: {
@@ -74,4 +93,10 @@ const PrevRecoil = atom<Prev>({
 });
 
 export type { Message };
-export { MessageRecoil, MessageListRecoil, MakeDecoRecoil, PrevRecoil };
+export {
+  MessageRecoil,
+  MessageListRecoil,
+  MakeDecoRecoil,
+  VisitDecoRecoil,
+  PrevRecoil
+};

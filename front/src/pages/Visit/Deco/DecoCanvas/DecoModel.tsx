@@ -1,12 +1,12 @@
-import { useContext } from 'react';
 import { useGLTF } from '@react-three/drei/core/useGLTF';
+import { useRecoilValue } from 'recoil';
 import { Mesh } from 'three';
 import { makeColorChangedMaterial } from '@utils/meshUtils';
+import { VisitDecoRecoil } from '@states';
 import { DECO } from '@constants';
-import { DecoContext } from '../DecoProvider';
 
 const DecoModel = () => {
-  const { decoID, color } = useContext(DecoContext);
+  const { decoID, color } = useRecoilValue(VisitDecoRecoil);
   const deco = useGLTF(DECO[decoID].fileName).scene.clone();
 
   deco.scale.set(1.5, 1.5, 1.5);

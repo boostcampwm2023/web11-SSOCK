@@ -1,8 +1,9 @@
 import { useContext, useState, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { LongButton, axios } from '@utils';
-import { DecoContext } from './DecoProvider';
+import { VisitDecoRecoil } from '@states';
 import { SnowBallContext } from '../SnowBallProvider';
 
 interface ButtonProps {
@@ -42,14 +43,15 @@ const ToastMsg = styled.div`
 `;
 
 const PostButton = (props: ButtonProps) => {
-  const { decoID, color, letterID, content, sender } = useContext(DecoContext);
-  const { snowBallData } = useContext(SnowBallContext);
   const navigate = useNavigate();
-  const [alerts, setAlerts] = useState(false);
-
   const { user } = useParams();
+  const [alerts, setAlerts] = useState(false);
   const [toast, setToast] = useState(false);
   const ButtonRef = useRef<HTMLButtonElement>(null);
+
+  const { decoID, color, letterID, content, sender } =
+    useRecoilValue(VisitDecoRecoil);
+  const { snowBallData } = useContext(SnowBallContext);
 
   const ClickedPost = () => {
     if (content === '' || sender === '') {

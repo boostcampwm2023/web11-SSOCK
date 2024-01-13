@@ -1,8 +1,9 @@
 import { useContext } from 'react';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { Msg } from '@components';
+import { VisitDecoRecoil } from '@states';
 import { MSG_COLOR } from '@constants';
-import { DecoContext } from './DecoProvider';
 import { SnowBallContext } from '../SnowBallProvider';
 
 interface MsgBoxProps {
@@ -27,7 +28,7 @@ const MsgContainer = styled.div`
 `;
 
 const MsgBox = ({ isInput }: MsgBoxProps) => {
-  const { letterID } = useContext(DecoContext);
+  const { letterID } = useRecoilValue(VisitDecoRecoil);
   const { userData } = useContext(SnowBallContext);
   return (
     <MsgContainer>

@@ -1,8 +1,9 @@
-import React, { useState, useRef, useContext } from 'react';
+import React, { useState, useRef } from 'react';
 import { NavigateFunction, useNavigate, useParams } from 'react-router-dom';
+import { useResetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { theme, BlurBody } from '@utils';
-import { DecoContext } from './DecoProvider';
+import { VisitDecoRecoil } from '@states';
 
 interface NaviProps {
   visible: [number, React.Dispatch<React.SetStateAction<number>>];
@@ -100,7 +101,7 @@ const DecoEnroll = (props: NaviProps) => {
   const { user } = useParams();
   const [isFocus, setIsFocus] = useState(true);
   const closeRef = useRef<HTMLDivElement>(null);
-  const { resetDecoContext } = useContext(DecoContext);
+  const resetVisitDeco = useResetRecoilState(VisitDecoRecoil);
   return (
     <>
       <BlurBody
@@ -112,7 +113,7 @@ const DecoEnroll = (props: NaviProps) => {
             navigate,
             user,
             'close',
-            resetDecoContext
+            resetVisitDeco
           )
         }
       />
@@ -130,7 +131,7 @@ const DecoEnroll = (props: NaviProps) => {
                   navigate,
                   user,
                   'root',
-                  resetDecoContext
+                  resetVisitDeco
                 )
               }
             >
@@ -156,7 +157,7 @@ const DecoEnroll = (props: NaviProps) => {
                   navigate,
                   user,
                   'close',
-                  resetDecoContext
+                  resetVisitDeco
                 )
               }
             >
