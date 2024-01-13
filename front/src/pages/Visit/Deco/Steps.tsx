@@ -1,12 +1,13 @@
 import { useState, useRef, useEffect, useContext } from 'react';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { theme, Container } from '@utils';
+import { VisitDecoRecoil } from '@states';
 import { HeaderText, StepButton } from '@components';
 import DecoBox from './DecoBox';
 import MsgBox from './MsgBox';
 import DecoEnroll from './DecoEnroll';
 import PostButton from './PostButton';
-import { DecoContext } from './DecoProvider';
 import { SnowBallContext } from '../SnowBallProvider';
 
 const StateBar = styled.div`
@@ -105,7 +106,7 @@ const Steps = () => {
   const [startClickedX, setStartClickedX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
 
-  const { color, setColor } = useContext(DecoContext);
+  const [{ color }, setVisitDecoBox] = useRecoilState(VisitDecoRecoil);
   const { userData } = useContext(SnowBallContext);
 
   const doneStep = -1;
@@ -264,7 +265,12 @@ const Steps = () => {
               <>
                 <ColorInput
                   value={color}
-                  onChange={e => setColor(e.target.value)}
+                  onChange={e =>
+                    setVisitDecoBox(prev => ({
+                      ...prev,
+                      color: e.target.value
+                    }))
+                  }
                 />
                 <p>장식 색상을 선택해주세요</p>
               </>

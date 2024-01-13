@@ -1,7 +1,7 @@
-import { useContext } from 'react';
+import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
+import { VisitDecoRecoil } from '@states';
 import { DECO, MSG_COLOR } from '@constants';
-import { DecoContext } from './DecoProvider';
 
 interface DecoProps {
   deco: 'Deco' | 'MsgColor';
@@ -30,7 +30,7 @@ const StyledColorBox = styled(StyledBox)`
 `;
 
 const DecoImgs = (folder: string) => {
-  const { setDecoID, setLetterID } = useContext(DecoContext);
+  const setVisitDecoBox = useSetRecoilState(VisitDecoRecoil);
 
   return folder === 'Deco'
     ? DECO.map(({ img }, index) => {
@@ -40,7 +40,9 @@ const DecoImgs = (folder: string) => {
               <StyledImg
                 src={img}
                 alt="deco"
-                onClick={() => setDecoID(index)}
+                onClick={() =>
+                  setVisitDecoBox(prev => ({ ...prev, decoID: index }))
+                }
               />
             </StyledBox>
           );
@@ -51,7 +53,9 @@ const DecoImgs = (folder: string) => {
             <StyledColorBox
               key={color}
               color={color}
-              onClick={() => setLetterID(index)}
+              onClick={() =>
+                setVisitDecoBox(prev => ({ ...prev, letterID: index }))
+              }
             />
           );
       });
