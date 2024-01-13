@@ -1,15 +1,16 @@
-import { useState, useRef, useEffect, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
+import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { theme, axios } from '@utils';
-import { Message, MessageListRecoil } from '@states';
 import {
-  SnowBallContext,
+  Message,
+  SnowBallData,
   UserData,
-  SnowBallData
-} from '@pages/Visit/SnowBallProvider';
+  MessageListRecoil,
+  SnowBallRecoil
+} from '@states';
 
 interface MsgResponse {
   user_id: number;
@@ -121,7 +122,7 @@ const DeleteModal = (props: DeleteModalProps) => {
   const [isModalOpened, setIsModalOpened] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
   const setMessageList = useSetRecoilState(MessageListRecoil);
-  const { setSnowBallData, setUserData } = useContext(SnowBallContext);
+  const setSnowBallBox = useSetRecoilState(SnowBallRecoil);
 
   useEffect(() => {
     const closeModal = (e: MouseEvent) => {
@@ -159,9 +160,9 @@ const DeleteModal = (props: DeleteModalProps) => {
       const userData = res.data.user as UserData;
       const resSnowballData = res.data.main_snowball as SnowBallData;
       const messageList = res.data.main_snowball.message_list as Array<Message>;
-      setSnowBallData(resSnowballData);
+
       setMessageList(messageList);
-      setUserData(userData);
+      setSnowBallBox({ snowBallData: resSnowballData, userData: userData });
     } catch (err) {
       console.log(err);
       navigate('*');
@@ -184,11 +185,13 @@ const DeleteModal = (props: DeleteModalProps) => {
             <Modal onClick={stopEvent}>
               <Title>편지를 삭제할까요 ?</Title>
               <SubTitle>삭제된 편지는 복구할 수 없어요 😭 </SubTitle>
+
               <ButtonWrap>
                 <ModalButton>
                   <MButton onClick={deleteMsg}>삭제</MButton>
                 </ModalButton>
                 <Divider>|</Divider>
+
                 <ModalButton>
                   <MButton onClick={() => setIsModalOpened(false)}>
                     취소

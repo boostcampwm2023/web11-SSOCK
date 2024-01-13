@@ -1,12 +1,12 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { Loading, theme, axios } from '@utils';
 import { useLogout } from '@hooks';
+import { UserData, SnowBallRecoil } from '@states';
 import { SnowGlobeCanvas, Button } from '@components';
 import { MainDeco } from './MainDeco';
-import { SnowBallContext } from '@pages/Visit/SnowBallProvider';
-import { UserData } from '@pages/Visit/SnowBallProvider';
 
 const StyledHeader = styled.div`
   position: absolute;
@@ -63,11 +63,12 @@ const Home = styled.img`
 
 const Snowball = () => {
   const navigate = useNavigate();
+  const logout = useLogout();
   const [nickname, setNickname] = useState('김부캠');
   const [make, setMake] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const { userData, setUserData, snowBallData } = useContext(SnowBallContext);
-  const logout = useLogout();
+  const [{ userData, snowBallData }, setSnowBallBox] =
+    useRecoilState(SnowBallRecoil);
 
   window.history.pushState({}, '', '/main');
   window.history.pushState({}, '', '/make/snowball');
@@ -81,7 +82,7 @@ const Snowball = () => {
         if (res.status === 200) {
           const userData = res.data.user as UserData;
           setIsLoading(true);
-          setUserData(userData);
+          setSnowBallBox(prev => ({ ...prev, userData: userData }));
           setNickname(userData.nickname);
         } else {
           logout();

@@ -1,11 +1,13 @@
-import { useRef, useEffect, useContext } from 'react';
+import { useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { theme } from '@utils';
-import { SnowBallContext } from '@pages/Visit/SnowBallProvider';
+import { useChangePrivate } from '@hooks';
+import { SnowBallRecoil } from '@states';
 
 interface LockModalProps {
-  toast: [boolean, React.Dispatch<React.SetStateAction<boolean>>]
+  toast: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
   flag: boolean;
   set: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -78,10 +80,11 @@ const MButton = styled.button`
   font: ${theme.font['--normal-button-font']};
 `;
 
-
-
 const LockModal = (props: LockModalProps) => {
+  const changePrivate = useChangePrivate();
   const modalRef = useRef<HTMLDivElement>(null);
+  const { snowBallData } = useRecoilValue(SnowBallRecoil);
+  const privateFlag = snowBallData.is_message_private;
 
   useEffect(() => {
     const closeModal = (e: MouseEvent) => {
@@ -101,10 +104,6 @@ const LockModal = (props: LockModalProps) => {
       document.removeEventListener('mousedown', closeModal);
     };
   }, []);
-
-  const { changePrivate, snowBallData } = useContext(SnowBallContext);
-  const privateFlag = snowBallData.is_message_private;
-
 
   const setPrivate = async () => {
     props.set(false);

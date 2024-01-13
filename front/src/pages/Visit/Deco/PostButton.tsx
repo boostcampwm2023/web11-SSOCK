@@ -1,10 +1,9 @@
-import { useContext, useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { LongButton, axios } from '@utils';
-import { VisitDecoRecoil } from '@states';
-import { SnowBallContext } from '../SnowBallProvider';
+import { VisitDecoRecoil, SnowBallRecoil } from '@states';
 
 interface ButtonProps {
   text: string;
@@ -51,7 +50,7 @@ const PostButton = (props: ButtonProps) => {
 
   const { decoID, color, letterID, content, sender } =
     useRecoilValue(VisitDecoRecoil);
-  const { snowBallData } = useContext(SnowBallContext);
+  const { snowBallData } = useRecoilValue(SnowBallRecoil);
 
   const ClickedPost = () => {
     if (content === '' || sender === '') {
