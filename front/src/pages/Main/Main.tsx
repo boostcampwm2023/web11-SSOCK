@@ -6,14 +6,8 @@ import { useRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { Loading, axios } from '@utils';
 import { useLogout } from '@hooks';
+import { MessageListRecoil, SnowBallRecoil } from '@states';
 import { SnowGlobeCanvas, UIContainer } from '@components';
-import {
-  Message,
-  UserData,
-  SnowBallData,
-  MessageListRecoil,
-  SnowBallRecoil
-} from '@states';
 
 import Introduce from '@pages/Intro/Introduce';
 import ListMsgs from './ListMsgs';
@@ -129,7 +123,7 @@ const Main = () => {
       .get('/api/user', { withCredentials: true })
       .then(res => {
         if (res.status === 200) {
-          const resUserData = res.data.user as UserData;
+          const resUserData = res.data.user;
           setSnowBallBox(prev => ({ ...prev, userData: resUserData }));
 
           if (res.data.main_snowball === null) {
@@ -137,9 +131,8 @@ const Main = () => {
             return;
           }
 
-          const resSnowballData = res.data.main_snowball as SnowBallData;
-          const messageList = res.data.main_snowball
-            .message_list as Array<Message>;
+          const resSnowballData = res.data.main_snowball;
+          const messageList = res.data.main_snowball.message_list;
           setSnowBallBox(prev => ({ ...prev, snowBallData: resSnowballData }));
           setMessageList(messageList);
           setIsLoading(true);
