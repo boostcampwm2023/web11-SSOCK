@@ -5,5 +5,6 @@ export {
   MakeDecoRecoil,
   VisitDecoRecoil,
   PrevRecoil,
-  SnowBallRecoil
+  SnowBallRecoil,
+  UserDataRecoil
 } from './atoms';

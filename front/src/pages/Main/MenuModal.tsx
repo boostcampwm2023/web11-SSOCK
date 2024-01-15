@@ -111,7 +111,7 @@ const MenuModal = (props: ModalProps) => {
 
         <StyledSection onClick={showIntro}>소개글 보기</StyledSection>
 
-        <StyledLogout onClick={logout}>로그아웃</StyledLogout>
+        <StyledLogout onClick={() => logout()}>로그아웃</StyledLogout>
         <hr />
 
         <StyledClosed onClick={() => props.set(false)}>닫기</StyledClosed>
