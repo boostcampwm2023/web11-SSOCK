@@ -6,7 +6,7 @@ import { useRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { Loading, axios } from '@utils';
 import { useLogout } from '@hooks';
-import { MessageListRecoil, SnowBallRecoil } from '@states';
+import { MessageListRecoil, SnowBallRecoil, UserDataRecoil } from '@states';
 import { SnowGlobeCanvas, UIContainer } from '@components';
 
 import Introduce from '@pages/Intro/Introduce';
@@ -89,6 +89,8 @@ const Main = () => {
   const [{ snowBallData, userData }, setSnowBallBox] =
     useRecoilState(SnowBallRecoil);
 
+  const setUserData = useSetRecoilState(UserDataRecoil);
+
   const [isLoading, setIsLoading] = useState(false);
   const [isModalOpened, setIsModalOpened] = useState(false);
   const [msgList, setMsgList] = useState(false);
@@ -112,41 +114,46 @@ const Main = () => {
     hamburger?.setAttribute('style', 'animation: fadeIn 1s forwards');
   };
 
+  const getUserData = async () => {
+    const res = await axios.get('/api/user', { withCredentials: true });
+    if (res.status === 200) {
+      const resUserData = res.data.user;
+      setUserData(prev => ({ ...prev, ...resUserData }));
+      setSnowBallBox(prev => ({ ...prev, userData: resUserData }));
+
+      if (res.data.main_snowball === null) {
+        navigate('/make');
+        return;
+      }
+
+      const resSnowballData = res.data.main_snowball;
+      const messageList = res.data.main_snowball.message_list;
+      setSnowBallBox(prev => ({ ...prev, snowBallData: resSnowballData }));
+      setMessageList(messageList);
+      setIsLoading(true);
+
+      if (
+        userData.nickname === null ||
+        userData.snowball_count === 0 ||
+        userData.nickname === 'null'
+      ) {
+        navigate('/make');
+      }
+    }
+  };
+
   useEffect(() => {
     // saveCookie();
     if (!cookie.loggedin) {
       navigate('/');
       return;
     }
-
-    axios
-      .get('/api/user', { withCredentials: true })
-      .then(res => {
-        if (res.status === 200) {
-          const resUserData = res.data.user;
-          setSnowBallBox(prev => ({ ...prev, userData: resUserData }));
-
-          if (res.data.main_snowball === null) {
-            navigate('/make');
-            return;
-          }
-
-          const resSnowballData = res.data.main_snowball;
-          const messageList = res.data.main_snowball.message_list;
-          setSnowBallBox(prev => ({ ...prev, snowBallData: resSnowballData }));
-          setMessageList(messageList);
-          setIsLoading(true);
-
-          if (
-            userData.nickname === null ||
-            userData.snowball_count === 0 ||
-            userData.nickname === 'null'
-          ) {
-            navigate('/make');
-          }
-        }
-      })
-      .catch(() => logout());
+    try {
+      getUserData();
+    } catch (err) {
+      console.log(err);
+      logout();
+    }
   }, []);
 
   return (

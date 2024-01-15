@@ -73,6 +73,20 @@ interface SnowBall {
   userData: UserData;
 }
 
+const UserDataRecoil = atom<UserData>({
+  key: 'User',
+  default: {
+    id: 0,
+    username: '',
+    nickname: '',
+    auth_id: '',
+    snowball_count: 0,
+    main_snowball_id: 0,
+    snowball_list: [],
+    message_count: 0
+  }
+});
+
 const MessageRecoil = atom<MakeMessage>({
   key: 'Message',
   default: {
@@ -134,5 +148,6 @@ export {
   MakeDecoRecoil,
   VisitDecoRecoil,
   PrevRecoil,
-  SnowBallRecoil
+  SnowBallRecoil,
+  UserDataRecoil
 };
