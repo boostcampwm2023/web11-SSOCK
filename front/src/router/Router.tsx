@@ -25,6 +25,7 @@ const Router = () => {
           <Route path="/make" element={<Outlet />}>
             <Route path="nickname" element={<Nickname />} />
             <Route path="snowball" element={<Snowball />} />
+            <Route path="*" element={<Wrong />} />
           </Route>
 
           <Route path="/main" element={<Main />} />

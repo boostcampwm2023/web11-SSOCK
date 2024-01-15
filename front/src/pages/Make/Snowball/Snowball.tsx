@@ -8,7 +8,6 @@ import { SnowGlobeCanvas, Button } from '@components';
 import { MainDeco } from './MainDeco';
 import { theme } from '@utils';
 
-import { UserDataRecoil } from '@states';
 import { useCookies } from 'react-cookie';
 
 const StyledHeader = styled.div`
@@ -70,8 +69,7 @@ const Snowball = () => {
   const [make, setMake] = useState(false);
 
   const [cookie] = useCookies(['loggedin']);
-  const [{ snowBallData }] = useRecoilState(SnowBallRecoil);
-  const [userData] = useRecoilState(UserDataRecoil);
+  const [{ snowBallData, userData }] = useRecoilState(SnowBallRecoil);
 
   const maxSnowball = 5;
 
