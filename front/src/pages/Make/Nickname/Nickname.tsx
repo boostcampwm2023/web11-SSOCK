@@ -5,7 +5,7 @@ import { theme, axios } from '@utils';
 import { Button } from '@components';
 
 import { useRecoilState } from 'recoil';
-import { UserDataRecoil } from '@states';
+import { SnowBallRecoil } from '@states';
 import { useCookies } from 'react-cookie';
 import { useLogout } from '@hooks';
 
@@ -79,7 +79,7 @@ const Nickname = () => {
 
   const [cookie] = useCookies(['loggedin']);
   const logout = useLogout();
-  const [userData] = useRecoilState(UserDataRecoil);
+  const [{ userData }] = useRecoilState(SnowBallRecoil);
 
   const putNickname = async (nicknameValue: string) => {
     try {
@@ -106,7 +106,7 @@ const Nickname = () => {
       return;
     }
 
-    if (userData.nickname) navigate('/main');
+    if (userData.nickname !== '') navigate('/main');
 
     if (!nickname && nicknameRef.current?.value) setNickname(true);
     if (!nickname || !nicknameRef.current?.value) return;

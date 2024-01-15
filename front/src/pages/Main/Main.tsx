@@ -6,7 +6,7 @@ import { useRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { Loading, axios } from '@utils';
 import { useLogout } from '@hooks';
-import { MessageListRecoil, SnowBallRecoil, UserDataRecoil } from '@states';
+import { MessageListRecoil, SnowBallRecoil } from '@states';
 import { SnowGlobeCanvas, UIContainer } from '@components';
 
 import Introduce from '@pages/Intro/Introduce';
@@ -86,10 +86,7 @@ const Main = () => {
   const [cookie] = useCookies(['loggedin']);
 
   const setMessageList = useSetRecoilState(MessageListRecoil);
-  const [{ snowBallData, userData }, setSnowBallBox] =
-    useRecoilState(SnowBallRecoil);
-
-  const setUserData = useSetRecoilState(UserDataRecoil);
+  const [{ snowBallData }, setSnowBallBox] = useRecoilState(SnowBallRecoil);
 
   const [isLoading, setIsLoading] = useState(false);
   const [isModalOpened, setIsModalOpened] = useState(false);
@@ -118,11 +115,14 @@ const Main = () => {
     const res = await axios.get('/api/user', { withCredentials: true });
     if (res.status === 200) {
       const resUserData = res.data.user;
-      setUserData(prev => ({ ...prev, ...resUserData }));
       setSnowBallBox(prev => ({ ...prev, userData: resUserData }));
 
+      if (res.data.user.nickname === null) {
+        navigate('/make/nickname');
+        return;
+      }
       if (res.data.main_snowball === null) {
-        navigate('/make');
+        navigate('/make/snowball');
         return;
       }
 
@@ -131,14 +131,6 @@ const Main = () => {
       setSnowBallBox(prev => ({ ...prev, snowBallData: resSnowballData }));
       setMessageList(messageList);
       setIsLoading(true);
-
-      if (
-        userData.nickname === null ||
-        userData.snowball_count === 0 ||
-        userData.nickname === 'null'
-      ) {
-        navigate('/make');
-      }
     }
   };
 
