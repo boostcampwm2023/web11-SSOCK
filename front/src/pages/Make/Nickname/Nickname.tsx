@@ -79,7 +79,7 @@ const Nickname = () => {
 
   const [cookie] = useCookies(['loggedin']);
   const logout = useLogout();
-  const [{ userData }] = useRecoilState(SnowBallRecoil);
+  const [{ userData }, setSnowballData ] = useRecoilState(SnowBallRecoil);
 
   const putNickname = async (nicknameValue: string) => {
     try {
@@ -88,6 +88,7 @@ const Nickname = () => {
         { nickname: nicknameValue },
         { withCredentials: true }
       );
+      setSnowballData( prev => ({ ...prev, userData: { ...prev.userData, nickname: nicknameValue } }));
       navigate('/make/snowball');
     } catch (err) {
       console.log(err);
