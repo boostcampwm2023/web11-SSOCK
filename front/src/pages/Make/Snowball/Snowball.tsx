@@ -2,11 +2,14 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
-import { Loading, theme, axios } from '@utils';
 import { useLogout } from '@hooks';
 import { SnowBallRecoil } from '@states';
 import { SnowGlobeCanvas, Button } from '@components';
 import { MainDeco } from './MainDeco';
+import { theme } from '@utils';
+
+import { UserDataRecoil } from '@states';
+import { useCookies } from 'react-cookie';
 
 const StyledHeader = styled.div`
   position: absolute;
@@ -64,69 +67,64 @@ const Home = styled.img`
 const Snowball = () => {
   const navigate = useNavigate();
   const logout = useLogout();
-  const [nickname, setNickname] = useState('김부캠');
   const [make, setMake] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [{ userData, snowBallData }, setSnowBallBox] =
-    useRecoilState(SnowBallRecoil);
+
+  const [cookie] = useCookies(['loggedin']);
+  const [{ snowBallData }] = useRecoilState(SnowBallRecoil);
+  const [userData] = useRecoilState(UserDataRecoil);
+
+  const maxSnowball = 5;
 
   window.history.pushState({}, '', '/main');
   window.history.pushState({}, '', '/make/snowball');
 
   useEffect(() => {
-    axios
-      .get('/api/user', {
-        withCredentials: true
-      })
-      .then(res => {
-        if (res.status === 200) {
-          const userData = res.data.user;
-          setIsLoading(true);
-          setSnowBallBox(prev => ({ ...prev, userData: userData }));
-          setNickname(userData.nickname);
-        } else {
-          logout();
-        }
-      })
-      .catch(() => logout());
+    if (!cookie.loggedin) {
+      logout();
+      return;
+    }
+
+    if (userData.nickname === '') {
+      navigate('/make/nickname');
+      return;
+    }
+
+    if (userData.snowball_count >= maxSnowball) {
+      navigate('/main');
+      return;
+    }
   }, []);
 
   return (
     <>
-      {!isLoading ? (
-        <Loading />
+      {make ? (
+        <MainDeco set={setMake} />
       ) : (
         <>
-          {make ? (
-            <MainDeco set={setMake} />
-          ) : (
-            <>
-              {userData.snowball_count !== undefined &&
-              userData.snowball_count >= 1 ? (
-                <Home onClick={() => navigate('/main')} src="/icons/home.svg" />
-              ) : null}
+          {userData.snowball_count !== undefined &&
+          userData.snowball_count >= 1 ? (
+            <Home onClick={() => navigate('/main')} src="/icons/home.svg" />
+          ) : null}
 
-              <SnowGlobeCanvas snowBallData={snowBallData} />
-              <StyledHeader>
-                <StyledName>{nickname}</StyledName>&nbsp;님
-                <StyledWelcome>환영합니다 :&#41;</StyledWelcome>
-              </StyledHeader>
+          <SnowGlobeCanvas snowBallData={snowBallData} />
+          <StyledHeader>
+            <StyledName>{userData.nickname}</StyledName>&nbsp;님
+            <StyledWelcome>환영합니다 :&#41;</StyledWelcome>
+          </StyledHeader>
 
-              <StyledBottom>
-                <StyledBall>스노우볼</StyledBall>은 소중한 마음을 주고 받는
-                <br />
-                예쁜 선물 상자가 될 거예요.
-              </StyledBottom>
+          <StyledBottom>
+            <StyledBall>스노우볼</StyledBall>은 소중한 마음을 주고 받는
+            <br />
+            예쁜 선물 상자가 될 거예요.
+          </StyledBottom>
 
-              <StyledButtonBox>
-                <Button
-                  text={'스노우볼 만들기'}
-                  color={theme.colors['--primary-red-primary']}
-                  view={[make, setMake]}
-                />
-              </StyledButtonBox>
-            </>
-          )}
+          <StyledButtonBox>
+            <Button
+              text={'스노우볼 만들기'}
+              color={theme.colors['--primary-red-primary']}
+              view={[make, setMake]}
+            />
+          </StyledButtonBox>
         </>
       )}
     </>

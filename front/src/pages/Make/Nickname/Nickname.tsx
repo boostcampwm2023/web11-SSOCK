@@ -4,6 +4,11 @@ import styled from 'styled-components';
 import { theme, axios } from '@utils';
 import { Button } from '@components';
 
+import { useRecoilState } from 'recoil';
+import { UserDataRecoil } from '@states';
+import { useCookies } from 'react-cookie';
+import { useLogout } from '@hooks';
+
 const StyledWrap = styled.div`
   width: 100%;
   height: 80%;
@@ -72,32 +77,48 @@ const Nickname = () => {
   const [lenWarning, setLenWarning] = useState(false);
   const nicknameRef = useRef<HTMLInputElement>(null);
 
+  const [cookie] = useCookies(['loggedin']);
+  const logout = useLogout();
+  const [userData] = useRecoilState(UserDataRecoil);
+
+  const putNickname = async (nicknameValue: string) => {
+    try {
+      await axios.put(
+        '/api/user/nickname',
+        { nickname: nicknameValue },
+        { withCredentials: true }
+      );
+      navigate('/make/snowball');
+    } catch (err) {
+      console.log(err);
+      logout();
+    }
+  };
+
   // 브라우저 뒤로가기시 main으로 이동시켜주기위한 로직
   // 여기서 문제가 발생
   // window.history.pushState({}, '', '/main');
   // window.history.pushState({}, '', '/make');
 
   useEffect(() => {
+    if (!cookie.loggedin) {
+      logout();
+      return;
+    }
+
+    if (userData.nickname) navigate('/main');
+
     if (!nickname && nicknameRef.current?.value) setNickname(true);
     if (!nickname || !nicknameRef.current?.value) return;
 
     if (nicknameRef.current.value.length <= 16) {
       setLenWarning(false);
-      axios
-        .put(
-          '/api/user/nickname',
-          { nickname: nicknameRef.current.value },
-          { withCredentials: true }
-        )
-        .then(res => {
-          res.status === 200 ? navigate('/make/snowball') : setError(true);
-        })
-        .catch(() => setError(true));
+      putNickname(nicknameRef.current.value);
     } else {
       setError(false);
       setLenWarning(true);
     }
-  }, [nickname, error, lenWarning, navigate]);
+  }, []);
 
   return (
     <StyledWrap>
