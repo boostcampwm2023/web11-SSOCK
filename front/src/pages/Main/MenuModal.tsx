@@ -19,7 +19,8 @@ const StyledModal = styled.div`
   width: 40%;
   background-color: #161616;
   border-radius: 0.625rem 0 0 0.625rem;
-  box-shadow: 0 0.625rem 1.25rem rgba(255, 255, 255, 0.25),
+  box-shadow:
+    0 0.625rem 1.25rem rgba(255, 255, 255, 0.25),
     0 0.625rem 1.25rem rgba(255, 255, 255, 0.25);
   font: ${props => props.theme.font['--normal-main-header-font']};
   color: white;

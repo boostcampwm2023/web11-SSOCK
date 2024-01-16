@@ -1,13 +1,12 @@
 import React, { useRef } from 'react';
 import { OrbitControls } from '@react-three/drei/core/OrbitControls';
 import { Canvas } from '@react-three/fiber';
-import { Vector3, Color } from 'three';
+import { Color, Vector3 } from 'three';
 import { CanvasContainer } from '@utils';
 import { SnowBallData } from '@states';
-
-import * as Models from './models';
-import Decos from './Decos';
 import { Prev } from '../Prev';
+import Decos from './Decos';
+import * as Models from './models';
 
 interface SnowGlobeCanvasProps {
   snowBallData: SnowBallData;

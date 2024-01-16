@@ -1,5 +1,5 @@
 import React from 'react';
-import { Vector3, Color } from 'three';
+import { Color, Vector3 } from 'three';
 
 interface GlassProps {
   position: Vector3;

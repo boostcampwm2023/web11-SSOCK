@@ -1,9 +1,9 @@
-import { useState, useRef, useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
-import { theme, axios } from '@utils';
+import { axios, theme } from '@utils';
 import { MessageListRecoil, SnowBallRecoil } from '@states';
 
 interface MsgResponse {

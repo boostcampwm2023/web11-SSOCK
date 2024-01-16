@@ -1,5 +1,5 @@
 import { lazy } from 'react';
-import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
+import { BrowserRouter, Outlet, Route, Routes } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 
 const Intro = lazy(() => import('@pages/Intro/Intro'));

@@ -1,6 +1,6 @@
 import { Prev, UIContainer } from '@components';
-import Steps from './Steps';
 import MakeSnowballCanvas from './MakeSnowballCanvas';
+import Steps from './Steps';
 
 interface MainDecoProps {
   set: React.Dispatch<React.SetStateAction<boolean>>;

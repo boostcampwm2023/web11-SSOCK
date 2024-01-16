@@ -1,4 +1,4 @@
-import { Vector3 } from "three";
+import { Vector3 } from 'three';
 
 const getDecoPosition = (n: number): Vector3 => {
   const positions = [

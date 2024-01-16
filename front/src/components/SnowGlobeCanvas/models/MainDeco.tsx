@@ -1,7 +1,7 @@
-import { useRef, useEffect, MutableRefObject } from 'react';
-import { useFrame } from '@react-three/fiber';
+import { MutableRefObject, useEffect, useRef } from 'react';
 import { useGLTF } from '@react-three/drei/core/useGLTF';
-import { Vector3, Object3D, Mesh } from 'three';
+import { useFrame } from '@react-three/fiber';
+import { Mesh, Object3D, Vector3 } from 'three';
 import { makeColorChangedMaterial } from '@utils/meshUtils';
 import { MAIN } from '@constants';
 

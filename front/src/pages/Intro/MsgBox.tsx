@@ -1,6 +1,6 @@
 import { useRecoilValue } from 'recoil';
-import { Msg } from '@components';
 import { MessageRecoil, SnowBallRecoil } from '@states';
+import { Msg } from '@components';
 
 const MsgBox = () => {
   const { message, sender, color } = useRecoilValue(MessageRecoil); // message가 '' 비어있지 않을때

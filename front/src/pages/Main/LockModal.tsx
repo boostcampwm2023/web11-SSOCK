@@ -1,10 +1,10 @@
-import { useRef, useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
+import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { axios, theme } from '@utils';
 import { SnowBallRecoil } from '@states';
-import { useNavigate } from 'react-router-dom';
 
 interface LockModalProps {
   toast: [boolean, React.Dispatch<React.SetStateAction<boolean>>];

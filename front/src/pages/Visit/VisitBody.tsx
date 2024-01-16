@@ -5,9 +5,9 @@ import styled from 'styled-components';
 import { axios } from '@utils';
 import {
   Message,
-  SnowBall,
-  MessageRecoil,
   MessageListRecoil,
+  MessageRecoil,
+  SnowBall,
   SnowBallRecoil
 } from '@states';
 import { Msg } from '@components';
