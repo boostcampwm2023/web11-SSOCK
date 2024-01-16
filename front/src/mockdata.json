@@ -253,9 +253,9 @@
   "user_data": {
     "id": 1,
     "username": "김부캠",
-    "nickname": "김부캠",
+    "nickname": "",
     "auth_id": "00000",
-    "snowball_count": 1,
+    "snowball_count": 0,
     "main_snowball_id": 1,
     "snowball_list": [1],
     "message_count": 15

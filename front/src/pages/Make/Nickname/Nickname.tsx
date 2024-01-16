@@ -104,11 +104,15 @@ const Nickname = () => {
   useEffect(() => {
     if (!cookie.loggedin) {
       logout();
+      navigate('/');
       return;
     }
 
-    if (userData.nickname !== '') navigate('/main');
+    if (userData.nickname !== null) navigate('/main');
+    if (userData.nickname !== "") navigate('/main');
+  }, []);
 
+  useEffect(() => {
     if (!nickname && nicknameRef.current?.value) setNickname(true);
     if (!nickname || !nicknameRef.current?.value) return;
 
@@ -119,7 +123,7 @@ const Nickname = () => {
       setError(false);
       setLenWarning(true);
     }
-  }, []);
+  }, [nickname]);
 
   return (
     <StyledWrap>
