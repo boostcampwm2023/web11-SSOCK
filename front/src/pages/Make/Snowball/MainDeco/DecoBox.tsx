@@ -1,7 +1,7 @@
 import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
-import { MAIN, BOTTOM } from '@constants';
 import { MakeDecoRecoil } from '@states';
+import { BOTTOM, MAIN } from '@constants';
 
 interface DecoProps {
   deco: 'Main' | 'Bottom';

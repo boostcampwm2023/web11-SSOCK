@@ -1,14 +1,13 @@
 import { useEffect, useState } from 'react';
+import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
+import { theme } from '@utils';
 import { useLogout } from '@hooks';
 import { SnowBallRecoil } from '@states';
-import { SnowGlobeCanvas, Button } from '@components';
+import { Button, SnowGlobeCanvas } from '@components';
 import { MainDeco } from './MainDeco';
-import { theme } from '@utils';
-
-import { useCookies } from 'react-cookie';
 
 const StyledHeader = styled.div`
   position: absolute;
@@ -82,8 +81,11 @@ const Snowball = () => {
       return;
     }
 
-
-    if (userData.nickname === null || userData.nickname === undefined || userData.nickname === '') {
+    if (
+      userData.nickname === null ||
+      userData.nickname === undefined ||
+      userData.nickname === ''
+    ) {
       navigate('/make/nickname');
       return;
     }

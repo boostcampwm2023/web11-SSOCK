@@ -1,20 +1,19 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { useCookies } from 'react-cookie';
 import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router-dom';
-import { useCookies } from 'react-cookie';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { Loading, axios } from '@utils';
 import { useLogout } from '@hooks';
 import { MessageListRecoil, SnowBallRecoil } from '@states';
 import { SnowGlobeCanvas, UIContainer } from '@components';
-
 import Introduce from '@pages/Intro/Introduce';
 import ListMsgs from './ListMsgs';
-import MainBody from './MainBody';
-import MainHeader from './MainHeader';
-import MainFooter from './MainFooter';
 import LockModal from './LockModal';
+import MainBody from './MainBody';
+import MainFooter from './MainFooter';
+import MainHeader from './MainHeader';
 import MenuModal from './MenuModal';
 
 // 햄버거 버튼 메뉴의 크기가 동적으로 변하는 것을 유지하기 위해 fixed 사용

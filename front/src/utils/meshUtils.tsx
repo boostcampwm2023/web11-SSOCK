@@ -1,4 +1,10 @@
-import { Mesh, Material, MeshBasicMaterial, MeshStandardMaterial, CanvasTexture } from 'three';
+import {
+  CanvasTexture,
+  Material,
+  Mesh,
+  MeshBasicMaterial,
+  MeshStandardMaterial
+} from 'three';
 
 interface canvasMaterialProps {
   string: string;
@@ -11,9 +17,7 @@ interface canvasMaterialProps {
 }
 
 const makeColorChangedMaterial = (mesh: Mesh, color: string) => {
-  const newMaterial = (
-    mesh.material as Material
-  ).clone() as Material;
+  const newMaterial = (mesh.material as Material).clone() as Material;
 
   if (
     newMaterial instanceof MeshBasicMaterial ||

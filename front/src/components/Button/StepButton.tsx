@@ -34,8 +34,8 @@ const StepButton = (props: ButtonProps) => {
       props.step === 'doneDecrease'
         ? props.view[1](-404)
         : snowballName === 'default'
-        ? props.view[1](404)
-        : props.view[1](200);
+          ? props.view[1](404)
+          : props.view[1](200);
     }
   };
 

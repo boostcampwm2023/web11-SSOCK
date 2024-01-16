@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { theme, Container } from '@utils';
+import { Container, theme } from '@utils';
 import { Button } from '@components';
 
 const VisitBottom = () => {

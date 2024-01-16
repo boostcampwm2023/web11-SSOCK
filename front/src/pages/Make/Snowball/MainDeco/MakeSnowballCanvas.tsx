@@ -1,7 +1,7 @@
-import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei/core/OrbitControls';
+import { Canvas } from '@react-three/fiber';
 import { useRecoilValue } from 'recoil';
-import { Vector3, Color } from 'three';
+import { Color, Vector3 } from 'three';
 import { CanvasContainer } from '@utils';
 import { MakeDecoRecoil } from '@states';
 import * as Models from '@components/SnowGlobeCanvas/models';

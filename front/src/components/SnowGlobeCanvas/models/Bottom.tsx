@@ -1,6 +1,6 @@
 import React from 'react';
 import { useGLTF } from '@react-three/drei/core/useGLTF';
-import { Vector3, Color, Mesh, MeshStandardMaterial } from 'three';
+import { Color, Mesh, MeshStandardMaterial, Vector3 } from 'three';
 import * as MeshUtils from '@utils/meshUtils';
 import { BOTTOM } from '@constants';
 

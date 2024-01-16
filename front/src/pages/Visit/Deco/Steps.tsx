@@ -1,12 +1,12 @@
-import { useState, useRef, useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import { theme, Container } from '@utils';
-import { VisitDecoRecoil, SnowBallRecoil } from '@states';
+import { Container, theme } from '@utils';
+import { SnowBallRecoil, VisitDecoRecoil } from '@states';
 import { HeaderText, StepButton } from '@components';
 import DecoBox from './DecoBox';
-import MsgBox from './MsgBox';
 import DecoEnroll from './DecoEnroll';
+import MsgBox from './MsgBox';
 import PostButton from './PostButton';
 
 const StateBar = styled.div`
