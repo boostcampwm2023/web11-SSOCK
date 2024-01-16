@@ -1,6 +1,6 @@
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import { VisitDecoRecoil, SnowBallRecoil } from '@states';
+import { SnowBallRecoil, VisitDecoRecoil } from '@states';
 import { Msg } from '@components';
 import { MSG_COLOR } from '@constants';
 

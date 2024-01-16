@@ -1,9 +1,9 @@
 import { Suspense } from 'react';
 import { ErrorBoundary } from '@sentry/react';
 import styled, { ThemeProvider } from 'styled-components';
-import GlobalStyles from './GlobalStyles';
 import { theme } from '@utils';
 import { Song } from '@components';
+import GlobalStyles from './GlobalStyles';
 import { Router } from './router';
 
 const Outer = styled.div`

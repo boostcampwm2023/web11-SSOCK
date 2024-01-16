@@ -1,4 +1,4 @@
-import { useState, useEffect, MouseEventHandler } from 'react';
+import { MouseEventHandler, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 const StyledMusic = styled.img`

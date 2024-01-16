@@ -1,6 +1,6 @@
 import { Prev, UIContainer } from '@components';
-import Steps from './Steps';
 import DecoCavnas from './DecoCanvas/DecoCanvas';
+import Steps from './Steps';
 
 const Deco = () => {
   return (

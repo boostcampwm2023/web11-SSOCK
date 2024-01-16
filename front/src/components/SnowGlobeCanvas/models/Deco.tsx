@@ -1,5 +1,5 @@
 import { useGLTF } from '@react-three/drei/core/useGLTF';
-import { Vector3, Group, Object3DEventMap, Mesh } from 'three';
+import { Group, Mesh, Object3DEventMap, Vector3 } from 'three';
 import * as MeshUtils from '@utils/meshUtils';
 import { DECO, MSG_COLOR } from '@constants';
 

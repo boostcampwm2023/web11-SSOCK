@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import { BlurBody, theme } from '@utils';
 
@@ -36,8 +36,8 @@ const StyledLogin = styled.button<SocialLogin>`
     props.social === 'kakao'
       ? '#FEE500'
       : props.social === 'naver'
-      ? '#00C73C'
-      : 'white'};
+        ? '#00C73C'
+        : 'white'};
 `;
 
 const StyledLogo = styled.img`

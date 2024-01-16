@@ -1,5 +1,5 @@
-import axios from 'axios';
 import { captureException } from '@sentry/react';
+import axios from 'axios';
 
 const instance = axios.create();
 

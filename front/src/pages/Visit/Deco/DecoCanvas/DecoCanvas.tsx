@@ -1,5 +1,5 @@
-import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei/core/OrbitControls';
+import { Canvas } from '@react-three/fiber';
 import { CanvasContainer } from '@utils';
 import DecoModel from './DecoModel';
 

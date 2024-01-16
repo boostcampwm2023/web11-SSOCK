@@ -1,12 +1,12 @@
-import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { Loading, axios } from '@utils';
 import { Message, MessageListRecoil, SnowBallRecoil } from '@states';
 import { SnowGlobeCanvas, UIContainer } from '@components';
-import VisitHeader from './VisitHeader';
 import VisitBody from './VisitBody';
 import VisitBottom from './VisitBottom';
+import VisitHeader from './VisitHeader';
 
 const Visit = () => {
   const navigate = useNavigate();

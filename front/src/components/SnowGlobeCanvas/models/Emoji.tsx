@@ -1,7 +1,7 @@
 import { useRef } from 'react';
-import { useFrame } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei/core/useGLTF';
-import { Mesh, Group, Vector3 } from 'three';
+import { useFrame } from '@react-three/fiber';
+import { Group, Mesh, Vector3 } from 'three';
 import { SENTIMENT_MODEL } from '@constants';
 
 interface SnowProps {

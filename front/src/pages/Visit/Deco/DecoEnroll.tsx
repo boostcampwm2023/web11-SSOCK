@@ -1,8 +1,8 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { NavigateFunction, useNavigate, useParams } from 'react-router-dom';
 import { useResetRecoilState } from 'recoil';
 import styled from 'styled-components';
-import { theme, BlurBody } from '@utils';
+import { BlurBody, theme } from '@utils';
 import { VisitDecoRecoil } from '@states';
 
 interface NaviProps {

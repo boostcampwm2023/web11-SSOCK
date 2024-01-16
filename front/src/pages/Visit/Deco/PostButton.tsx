@@ -1,9 +1,9 @@
-import { useState, useRef } from 'react';
+import { useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { LongButton, axios } from '@utils';
-import { VisitDecoRecoil, SnowBallRecoil } from '@states';
+import { SnowBallRecoil, VisitDecoRecoil } from '@states';
 
 interface ButtonProps {
   text: string;

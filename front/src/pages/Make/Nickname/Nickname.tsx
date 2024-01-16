@@ -1,13 +1,12 @@
-import { useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import { theme, axios } from '@utils';
-import { Button } from '@components';
-
-import { useRecoilState } from 'recoil';
-import { SnowBallRecoil } from '@states';
+import { useEffect, useRef, useState } from 'react';
 import { useCookies } from 'react-cookie';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import styled from 'styled-components';
+import { axios, theme } from '@utils';
 import { useLogout } from '@hooks';
+import { SnowBallRecoil } from '@states';
+import { Button } from '@components';
 
 const StyledWrap = styled.div`
   width: 100%;
@@ -79,7 +78,7 @@ const Nickname = () => {
 
   const [cookie] = useCookies(['loggedin']);
   const logout = useLogout();
-  const [{ userData }, setSnowballData ] = useRecoilState(SnowBallRecoil);
+  const [{ userData }, setSnowballData] = useRecoilState(SnowBallRecoil);
 
   const putNickname = async (nicknameValue: string) => {
     try {
@@ -88,7 +87,10 @@ const Nickname = () => {
         { nickname: nicknameValue },
         { withCredentials: true }
       );
-      setSnowballData( prev => ({ ...prev, userData: { ...prev.userData, nickname: nicknameValue } }));
+      setSnowballData(prev => ({
+        ...prev,
+        userData: { ...prev.userData, nickname: nicknameValue }
+      }));
       navigate('/make/snowball');
     } catch (err) {
       console.log(err);
@@ -109,7 +111,6 @@ const Nickname = () => {
     }
 
     if (userData.nickname !== null) navigate('/main');
-
   }, []);
 
   useEffect(() => {
@@ -142,8 +143,8 @@ const Nickname = () => {
         {error
           ? '다시 시도해주십시오.'
           : lenWarning
-          ? '8글자 이하로 설정 가능합니다.'
-          : ' '}
+            ? '8글자 이하로 설정 가능합니다.'
+            : ' '}
       </StyledWarnText>
 
       <StyledButtonBox>

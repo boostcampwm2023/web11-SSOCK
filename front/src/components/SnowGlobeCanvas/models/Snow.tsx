@@ -1,7 +1,7 @@
-import { useRef, FC } from 'react';
-import { useFrame } from '@react-three/fiber';
+import { FC, useRef } from 'react';
 import { useGLTF } from '@react-three/drei/core/useGLTF';
-import { Vector3, Mesh } from 'three';
+import { useFrame } from '@react-three/fiber';
+import { Mesh, Vector3 } from 'three';
 import { makeColorChangedMaterial } from '@utils/meshUtils';
 
 interface SnowProps {

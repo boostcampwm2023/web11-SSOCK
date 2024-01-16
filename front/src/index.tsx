@@ -1,5 +1,5 @@
 import ReactDOM from 'react-dom/client';
-import { init, BrowserTracing, Replay } from '@sentry/react';
+import { BrowserTracing, Replay, init } from '@sentry/react';
 import App from './App';
 
 init({
