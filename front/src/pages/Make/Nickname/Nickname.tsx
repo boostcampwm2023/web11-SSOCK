@@ -109,7 +109,7 @@ const Nickname = () => {
     }
 
     if (userData.nickname !== null) navigate('/main');
-    if (userData.nickname !== "") navigate('/main');
+
   }, []);
 
   useEffect(() => {

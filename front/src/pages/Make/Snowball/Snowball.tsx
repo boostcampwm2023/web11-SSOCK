@@ -81,7 +81,7 @@ const Snowball = () => {
       logout();
       return;
     }
-    console.log(userData);
+
 
     if (userData.nickname === null || userData.nickname === undefined || userData.nickname === '') {
       navigate('/make/nickname');
