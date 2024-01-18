@@ -27,7 +27,7 @@ const Bottom: React.FC<BottomProps> = ({
       width: 1024,
       height: 1024,
       positionY: 1024 / 8,
-      font: 'Bold 6.25rem KingSejongInstitute',
+      font: 'Bold 6.25rem KingSejongInstitute, sans-serit',
       fontColor: 'black',
       backgGroundColor: 'white'
     });

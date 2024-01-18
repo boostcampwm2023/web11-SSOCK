@@ -16,18 +16,20 @@ const colors = {
 const font = {
   '--text-shadow':
     '-1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black',
-  '--normal-title-font': 'normal normal 400 2rem/normal "KingSejongInstitute"',
+  '--normal-title-font':
+    'normal normal 400 2rem/normal "KingSejongInstitute", sans-serif',
   '--normal-introduce-font':
-    'normal normal 400 1.125rem/150% "KingSejongInstitute"',
-  '--normal-login-font': 'normal normal 400 1rem/100% "Pretendard-Regular"',
+    'normal normal 400 1.125rem/150% "KingSejongInstitute", sans-serif',
+  '--normal-login-font':
+    'normal normal 400 1rem/100% "Pretendard-Regular", sans-serif',
   '--normal-button-font':
-    'normal normal 400 1.125rem/150% "KingSejongInstitute"',
+    'normal normal 400 1.125rem/150% "KingSejongInstitute", sans-serif',
   '--normal-nickname-font':
-    'normal normal 400 1.75rem/normal "KingSejongInstitute"',
+    'normal normal 400 1.75rem/normal "KingSejongInstitute", sans-serif',
   '--normal-nickname-input-font':
-    'normal normal 400 1.5rem/1.25rem "Pretendard-Regular"',
+    'normal normal 400 1.5rem/1.25rem "Pretendard-Regular", sans-serif',
   '--normal-main-header-font':
-    'normal normal 400 1rem/160% "KingSejongInstitute"'
+    'normal normal 400 1rem/160% "KingSejongInstitute", sans-serif'
 };
 
 const size = {
