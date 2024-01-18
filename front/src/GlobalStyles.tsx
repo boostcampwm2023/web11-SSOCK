@@ -7,16 +7,18 @@ const GlobalStyles = createGlobalStyle`
 
   @font-face {
     font-family: 'Pretendard-Regular';
-    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff2');
     font-weight: 400;
     font-style: normal;
+    font-display: swap;
   }
 
   @font-face {
     font-family: 'KingSejongInstitute';
-    src: url('/fonts/KingSejongInstitute-Regular.ttf') format('truetype');
+    src: url('/fonts/KingSejongInstitute-Regular.ttf') format('woff2');
     font-weight: 400;
     font-style: normal;
+    font-display: swap;
   }
 
   @keyframes fadeIn {
