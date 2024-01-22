@@ -3,7 +3,7 @@ import { NavigateFunction, useNavigate, useParams } from 'react-router-dom';
 import { useResetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { BlurBody, theme } from '@utils';
-import { VisitDecoRecoil } from '@states';
+import { PrevRecoil, VisitDecoRecoil } from '@states';
 
 interface NaviProps {
   visible: [number, React.Dispatch<React.SetStateAction<number>>];
@@ -101,7 +101,9 @@ const DecoEnroll = (props: NaviProps) => {
   const { user } = useParams();
   const [isFocus, setIsFocus] = useState(true);
   const closeRef = useRef<HTMLDivElement>(null);
+  const resetPrev = useResetRecoilState(PrevRecoil);
   const resetVisitDeco = useResetRecoilState(VisitDecoRecoil);
+
   return (
     <>
       <BlurBody
@@ -123,7 +125,7 @@ const DecoEnroll = (props: NaviProps) => {
           <ButtonWrap>
             <StyledNavButton
               color={theme.colors['--primary-red-primary']}
-              onClick={() =>
+              onClick={() => {
                 CloseNav(
                   props,
                   closeRef,
@@ -132,8 +134,9 @@ const DecoEnroll = (props: NaviProps) => {
                   user,
                   'root',
                   resetVisitDeco
-                )
-              }
+                );
+                resetPrev();
+              }}
             >
               <StyeldButtonText>
                 <StyledImgIcon
@@ -149,7 +152,7 @@ const DecoEnroll = (props: NaviProps) => {
           <ButtonWrap>
             <StyledNavButton
               color={theme.colors['--primary-green-primary']}
-              onClick={() =>
+              onClick={() => {
                 CloseNav(
                   props,
                   closeRef,
@@ -158,8 +161,9 @@ const DecoEnroll = (props: NaviProps) => {
                   user,
                   'close',
                   resetVisitDeco
-                )
-              }
+                );
+                resetPrev();
+              }}
             >
               <StyeldButtonText>전송한 선물 확인하기</StyeldButtonText>
             </StyledNavButton>
