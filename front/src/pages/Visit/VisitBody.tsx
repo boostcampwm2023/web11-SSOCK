@@ -1,8 +1,8 @@
 import { useRef } from 'react';
-import { NavigateFunction, useNavigate } from 'react-router-dom';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { axios } from '@utils';
+import { useNav } from '@hooks';
 import {
   Message,
   MessageListRecoil,
@@ -27,7 +27,7 @@ const moveSnowball = async (
   { userData, snowBallData }: SnowBall,
   setSnowBallBox: React.Dispatch<React.SetStateAction<SnowBall>>,
   setMessageListData: React.Dispatch<React.SetStateAction<Array<Message>>>,
-  navigate: NavigateFunction
+  navigate: (path: string) => void
 ) => {
   const nowSnowBallID = userData.snowball_list.findIndex(
     id => id === snowBallData.id
@@ -67,7 +67,7 @@ const moveSnowball = async (
 };
 
 const VisitBody = () => {
-  const navigate = useNavigate();
+  const navigate = useNav();
   const { message, sender, color } = useRecoilValue(MessageRecoil);
   const setMessageList = useSetRecoilState(MessageListRecoil);
   const [{ userData, snowBallData }, setSnowBallBox] =

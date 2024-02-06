@@ -1,5 +1,5 @@
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { useNav } from '@hooks';
 
 const StyledWrong = styled.div`
   font: ${props => props.theme.font['--normal-title-font']};
@@ -19,7 +19,7 @@ const StyledWrong = styled.div`
 `;
 
 const Wrong = () => {
-  const navigate = useNavigate();
+  const navigate = useNav();
 
   setTimeout(() => {
     navigate('/');

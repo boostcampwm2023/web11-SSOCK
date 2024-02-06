@@ -1,7 +1,7 @@
-import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { Container } from '@utils';
+import { useNav } from '@hooks';
 import { MessageListRecoil, SnowBallRecoil } from '@states';
 import { HeaderText } from '@components';
 
@@ -30,7 +30,7 @@ const HomeBtn = styled.img`
 `;
 
 const VisitHeader = () => {
-  const navigate = useNavigate();
+  const navigate = useNav();
   const messageList = useRecoilValue(MessageListRecoil);
   const { userData } = useRecoilValue(SnowBallRecoil);
 

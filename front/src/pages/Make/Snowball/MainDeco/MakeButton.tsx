@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { LongButton, axios } from '@utils';
+import { useNav } from '@hooks';
 import { MakeDecoRecoil } from '@states';
 
 interface MakeButtonProps {
@@ -31,7 +31,7 @@ const StyledAlert = styled.div`
 `;
 
 const MakeButton = (props: ButtonProps) => {
-  const navigate = useNavigate();
+  const navigate = useNav();
   const { snowballName, mainDecoID, mainColor, bottomID, bottomColor } =
     useRecoilValue(MakeDecoRecoil);
   const [alert, setAlert] = useState(false);

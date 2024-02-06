@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
-import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { theme } from '@utils';
-import { useLogout } from '@hooks';
+import { useLogout, useNav } from '@hooks';
 import { SnowBallRecoil } from '@states';
 import { Button, SnowGlobeCanvas } from '@components';
 import { MainDeco } from './MainDeco';
@@ -63,7 +62,7 @@ const Home = styled.img`
 `;
 
 const Snowball = () => {
-  const navigate = useNavigate();
+  const navigate = useNav();
   const logout = useLogout();
   const [make, setMake] = useState(false);
 

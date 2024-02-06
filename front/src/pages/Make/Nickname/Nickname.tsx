@@ -1,10 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { useCookies } from 'react-cookie';
-import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { axios, theme } from '@utils';
-import { useLogout } from '@hooks';
+import { useLogout, useNav } from '@hooks';
 import { SnowBallRecoil } from '@states';
 import { Button } from '@components';
 
@@ -70,7 +69,7 @@ const StyledButtonBox = styled.div`
 `;
 
 const Nickname = () => {
-  const navigate = useNavigate();
+  const navigate = useNav();
   const [nickname, setNickname] = useState(false);
   const [error, setError] = useState(false);
   const [lenWarning, setLenWarning] = useState(false);

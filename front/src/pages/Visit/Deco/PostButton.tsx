@@ -1,8 +1,9 @@
 import { useRef, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { LongButton, axios } from '@utils';
+import { useNav } from '@hooks';
 import { SnowBallRecoil, VisitDecoRecoil } from '@states';
 
 interface ButtonProps {
@@ -42,7 +43,7 @@ const ToastMsg = styled.div`
 `;
 
 const PostButton = (props: ButtonProps) => {
-  const navigate = useNavigate();
+  const navigate = useNav();
   const { user } = useParams();
   const [alerts, setAlerts] = useState(false);
   const [toast, setToast] = useState(false);

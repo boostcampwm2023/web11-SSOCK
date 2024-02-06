@@ -1,11 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { createPortal } from 'react-dom';
-import { useNavigate } from 'react-router-dom';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { Loading, axios } from '@utils';
-import { useLogout } from '@hooks';
+import { useLogout, useNav } from '@hooks';
 import { MessageListRecoil, SnowBallRecoil } from '@states';
 import { SnowGlobeCanvas, UIContainer } from '@components';
 import Introduce from '@pages/Intro/Introduce';
@@ -80,7 +79,7 @@ const Main = () => {
   //   document.cookie = `${cookieName2}=${cookieValue2}; expires=${expire2.toUTCString()}; secure=${secure2}; path=/`;
   // };
 
-  const navigate = useNavigate();
+  const navigate = useNav();
   const logout = useLogout();
   const [cookie] = useCookies(['loggedin']);
 

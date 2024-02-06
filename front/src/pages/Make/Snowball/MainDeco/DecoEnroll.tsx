@@ -1,8 +1,7 @@
 import React, { useRef, useState } from 'react';
-import { NavigateFunction, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { BlurBody, axios, theme } from '@utils';
-import { useLogout } from '@hooks';
+import { useLogout, useNav } from '@hooks';
 
 interface NaviProps {
   visible: [number, React.Dispatch<React.SetStateAction<number>>];
@@ -80,7 +79,7 @@ const CloseNav = (
   props: NaviProps,
   closeRef: React.RefObject<HTMLDivElement>,
   setIsFocus: React.Dispatch<React.SetStateAction<boolean>>,
-  navigate: NavigateFunction,
+  navigate: (path: string) => void,
   flag: 'close' | 'root'
 ) => {
   const onAnimationEnd = () => {
@@ -107,7 +106,7 @@ const CloseNav = (
 };
 
 const DecoEnroll = (props: NaviProps) => {
-  const navigate = useNavigate();
+  const navigate = useNav();
   const [isFocus, setIsFocus] = useState(true);
   const closeRef = useRef<HTMLDivElement>(null);
   const BlurBodyRef = useRef<HTMLDivElement>(null);

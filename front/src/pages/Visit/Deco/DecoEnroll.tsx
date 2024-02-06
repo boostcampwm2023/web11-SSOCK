@@ -1,9 +1,10 @@
 import React, { useRef, useState } from 'react';
-import { NavigateFunction, useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useResetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { BlurBody, theme } from '@utils';
-import { PrevRecoil, VisitDecoRecoil } from '@states';
+import { useNav } from '@hooks';
+import { VisitDecoRecoil } from '@states';
 
 interface NaviProps {
   visible: [number, React.Dispatch<React.SetStateAction<number>>];
@@ -68,7 +69,7 @@ const CloseNav = (
   props: NaviProps,
   closeRef: React.RefObject<HTMLDivElement>,
   setIsFocus: React.Dispatch<React.SetStateAction<boolean>>,
-  navigate: NavigateFunction,
+  navigate: (path: string) => void,
   user: string | undefined,
   flag: 'close' | 'root',
   callback: () => void
@@ -97,11 +98,10 @@ const CloseNav = (
 };
 
 const DecoEnroll = (props: NaviProps) => {
-  const navigate = useNavigate();
+  const navigate = useNav();
   const { user } = useParams();
   const [isFocus, setIsFocus] = useState(true);
   const closeRef = useRef<HTMLDivElement>(null);
-  const resetPrev = useResetRecoilState(PrevRecoil);
   const resetVisitDeco = useResetRecoilState(VisitDecoRecoil);
 
   return (
@@ -135,7 +135,6 @@ const DecoEnroll = (props: NaviProps) => {
                   'root',
                   resetVisitDeco
                 );
-                resetPrev();
               }}
             >
               <StyeldButtonText>
@@ -162,7 +161,6 @@ const DecoEnroll = (props: NaviProps) => {
                   'close',
                   resetVisitDeco
                 );
-                resetPrev();
               }}
             >
               <StyeldButtonText>전송한 선물 확인하기</StyeldButtonText>
