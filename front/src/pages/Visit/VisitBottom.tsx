@@ -1,16 +1,17 @@
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Container, theme } from '@utils';
+import { useNav } from '@hooks';
 import { Button } from '@components';
 
 const VisitBottom = () => {
-  const navigate = useNavigate();
+  const navigate = useNav();
   const { user } = useParams();
   const [write, setWrite] = useState(false);
 
   useEffect(() => {
     write ? navigate('./deco') : null;
-  }, [write, user, navigate]);
+  }, [write, user]);
 
   return (
     <Container>

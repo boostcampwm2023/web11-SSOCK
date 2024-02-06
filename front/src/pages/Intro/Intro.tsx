@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { useCookies } from 'react-cookie';
-import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
+import { useNav } from '@hooks';
 import { Message, MessageListRecoil } from '@states';
 import { SnowGlobeCanvas, UIContainer } from '@components';
 import mockData from '@mock';
@@ -21,14 +21,14 @@ const TitleDiv = styled.div`
 `;
 
 const Intro = () => {
-  const navigate = useNavigate();
+  const navigate = useNav();
   const [cookie] = useCookies(['loggedin']);
   const setMessageList = useSetRecoilState(MessageListRecoil);
 
   useEffect(() => {
     setMessageList(mockData.snowball_data.message_list as Array<Message>);
     cookie.loggedin ? navigate('/main') : null;
-  }, [setMessageList, navigate]);
+  }, [setMessageList]);
 
   return (
     <>

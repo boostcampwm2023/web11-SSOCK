@@ -1,9 +1,8 @@
 import { useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useRecoilValue, useResetRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import { useLogout } from '@hooks';
-import { PrevRecoil, SnowBallRecoil } from '@states';
+import { useLogout, useNav } from '@hooks';
+import { SnowBallRecoil } from '@states';
 
 interface ModalProps {
   set: React.Dispatch<React.SetStateAction<boolean>>;
@@ -61,10 +60,9 @@ const ToastMsg = styled.div`
 `;
 
 const MenuModal = (props: ModalProps) => {
-  const navigate = useNavigate();
+  const navigate = useNav();
   const logout = useLogout();
   const { userData } = useRecoilValue(SnowBallRecoil);
-  const resetPrev = useResetRecoilState(PrevRecoil);
 
   const [toast, setToast] = useState(false);
   const timer = useRef<number | null>(null);
@@ -80,7 +78,6 @@ const MenuModal = (props: ModalProps) => {
       }, 1500);
       return;
     }
-    resetPrev();
     navigate('/make/snowball');
   };
 

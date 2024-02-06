@@ -1,9 +1,9 @@
 import { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
-import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { axios, theme } from '@utils';
+import { useNav } from '@hooks';
 import { SnowBallRecoil } from '@states';
 
 interface LockModalProps {
@@ -81,7 +81,7 @@ const MButton = styled.button`
 `;
 
 const LockModal = (props: LockModalProps) => {
-  const navigate = useNavigate();
+  const navigate = useNav();
   const modalRef = useRef<HTMLDivElement>(null);
   const [{ snowBallData }, setSnowBallBox] = useRecoilState(SnowBallRecoil);
   const privateFlag = snowBallData.is_message_private;

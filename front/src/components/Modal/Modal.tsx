@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { axios, theme } from '@utils';
+import { useNav } from '@hooks';
 import { MessageListRecoil, SnowBallRecoil } from '@states';
 
 interface MsgResponse {
@@ -112,7 +112,7 @@ const MButton = styled.button`
 `;
 
 const DeleteModal = (props: DeleteModalProps) => {
-  const navigate = useNavigate();
+  const navigate = useNav();
   const [isModalOpened, setIsModalOpened] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
   const setMessageList = useSetRecoilState(MessageListRecoil);
