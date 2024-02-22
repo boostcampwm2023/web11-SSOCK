@@ -6,7 +6,7 @@
 - 반응형 3D로 입체감있는 스노우볼 제작🔮
 
 ## [서비스 링크 - mysnowball.kr 🔮](https://www.mysnowball.kr)
-  
+
 <br><br>
 
 <div align="center">
@@ -60,6 +60,9 @@
 <hr>
 
 </div>
+
+## 발표 영상
+[![커넥트재단 동영상](https://i.ytimg.com/vi/krAi2V2kql0/hqdefault.jpg)](https://youtu.be/krAi2V2kql0?si=TTsQ9ACtoTlzivJ0&t=2)
 
 ## SSOCK 팀
 <table align="center" width="100%">
