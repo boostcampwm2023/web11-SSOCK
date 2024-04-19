@@ -3,11 +3,14 @@ import { useCookies } from 'react-cookie';
 import { createPortal } from 'react-dom';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
-import { Loading, axios } from '@utils';
+import { Loading } from '@utils';
 import { useLogout, useNav } from '@hooks';
 import { MessageListRecoil, SnowBallRecoil } from '@states';
 import { SnowGlobeCanvas, UIContainer } from '@components';
 import Introduce from '@pages/Intro/Introduce';
+//temp
+import mockData from '@mock';
+// removeed axios
 import ListMsgs from './ListMsgs';
 import LockModal from './LockModal';
 import MainBody from './MainBody';
@@ -110,34 +113,35 @@ const Main = () => {
   };
 
   const getUserData = async () => {
-    const res = await axios.get('/api/user', { withCredentials: true });
-    if (res.status === 200) {
-      const resUserData = res.data.user;
-      setSnowBallBox(prev => ({ ...prev, userData: resUserData }));
+    // const res = await axios.get('/api/user', { withCredentials: true });
+    // if (res.status === 200) {
+    const resUserData = mockData.user_data;
+    setSnowBallBox(prev => ({ ...prev, userData: resUserData }));
 
-      if (res.data.user.nickname === null) {
-        navigate('/make/nickname');
-        return;
-      }
-      if (res.data.main_snowball === null) {
-        navigate('/make/snowball');
-        return;
-      }
+    // if (res.data.user.nickname === null) {
+    //   navigate('/make/nickname');
+    //   return;
+    // }
+    // if (res.data.main_snowball === null) {
+    //   navigate('/make/snowball');
+    //   return;
+    // }
 
-      const resSnowballData = res.data.main_snowball;
-      const messageList = res.data.main_snowball.message_list;
-      setSnowBallBox(prev => ({ ...prev, snowBallData: resSnowballData }));
-      setMessageList(messageList);
-      setIsLoading(true);
-    }
+    // 후에 목데이터 제거
+    const resSnowballData = mockData.snowball_data;
+    const messageList = mockData.snowball_data.message_list;
+
+    setSnowBallBox(prev => ({ ...prev, snowBallData: resSnowballData }));
+    setMessageList(messageList);
+    setIsLoading(true);
   };
 
   useEffect(() => {
     // saveCookie();
-    if (!cookie.loggedin) {
-      navigate('/');
-      return;
-    }
+    // if (!cookie.loggedin) {
+    //   navigate('/');
+    //   return;
+    // } // 후에 다시 주석 해제
     try {
       getUserData();
     } catch (err) {

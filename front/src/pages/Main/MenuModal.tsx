@@ -61,7 +61,7 @@ const ToastMsg = styled.div`
 
 const MenuModal = (props: ModalProps) => {
   const navigate = useNav();
-  const logout = useLogout();
+  // const logout = useLogout();
   const { userData } = useRecoilValue(SnowBallRecoil);
 
   const [toast, setToast] = useState(false);
@@ -111,7 +111,14 @@ const MenuModal = (props: ModalProps) => {
 
         <StyledSection onClick={showIntro}>소개글 보기</StyledSection>
 
-        <StyledLogout onClick={() => logout()}>로그아웃</StyledLogout>
+        <StyledLogout
+          onClick={
+            // () => logout()
+            () => navigate('/')
+          }
+        >
+          로그아웃
+        </StyledLogout>
         <hr />
 
         <StyledClosed onClick={() => props.set(false)}>닫기</StyledClosed>

@@ -142,25 +142,25 @@ const DeleteModal = (props: DeleteModalProps) => {
 
   const deleteMsg = async () => {
     setIsModalOpened(false);
-    try {
-      await axios.delete(`/api/message/${props.message}`, {
-        withCredentials: true
-      });
+    // try {
+    //   await axios.delete(`/api/message/${props.message}`, {
+    //     withCredentials: true
+    //   });
 
-      const index = props.arr.findIndex(msg => msg.id === props.message);
-      deleteArrayElement(props.arr, index);
+    //   const index = props.arr.findIndex(msg => msg.id === props.message);
+    //   deleteArrayElement(props.arr, index);
 
-      const res = await axios.get('/api/user', { withCredentials: true });
-      const userData = res.data.user;
-      const resSnowballData = res.data.main_snowball;
-      const messageList = res.data.main_snowball.message_list;
+    //   const res = await axios.get('/api/user', { withCredentials: true });
+    //   const userData = res.data.user;
+    //   const resSnowballData = res.data.main_snowball;
+    //   const messageList = res.data.main_snowball.message_list;
 
-      setMessageList(messageList);
-      setSnowBallBox({ snowBallData: resSnowballData, userData: userData });
-    } catch (err) {
-      console.log(err);
-      navigate('*');
-    }
+    //   setMessageList(messageList);
+    //   setSnowBallBox({ snowBallData: resSnowballData, userData: userData });
+    // } catch (err) {
+    //   console.log(err);
+    //   navigate('*');
+    // }
   };
 
   const stopEvent = (e: React.MouseEvent<HTMLDivElement>) => {

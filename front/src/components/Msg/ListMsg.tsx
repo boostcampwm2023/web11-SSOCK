@@ -15,6 +15,8 @@ interface MsgResponse {
   is_deleted: boolean;
   opened: string;
   letter_id: number;
+  sentiment: 'positive' | 'neutral' | 'negative'; // temp
+  confidence: number; // temp
 }
 
 interface MsgProps {

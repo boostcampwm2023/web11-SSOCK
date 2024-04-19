@@ -2,11 +2,15 @@ import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import { axios } from '@utils';
+// import { axios } from '@utils';
 import { useLogout } from '@hooks';
 import { SnowBallRecoil } from '@states';
 import { ListMsg, Prev } from '@components';
 import { MSG_COLOR } from '@constants';
+//temp
+import mockData from '@mock';
+
+// removeed axios
 
 interface ListMsgProps {
   set: React.Dispatch<React.SetStateAction<boolean>>;
@@ -26,6 +30,8 @@ interface MsgResponse {
   is_deleted: boolean;
   opened: string;
   letter_id: number;
+  sentiment: 'positive' | 'neutral' | 'negative'; // temp
+  confidence: number; // temp
 }
 
 const StyledList = styled.div`
@@ -84,18 +90,19 @@ const ListMsgs = (props: ListMsgProps) => {
   const { userData } = useRecoilValue(SnowBallRecoil);
 
   useEffect(() => {
-    axios
-      .get('/api/message')
-      .then(res => {
-        if (res.data.length !== 0) setMessages(res.data);
-        else if (res.data.length === 0) {
-          setToast(true);
-          setTimeout(() => {
-            props.set(false);
-          }, 1500);
-        }
-      })
-      .catch(() => logout());
+    // axios
+    //   .get('/api/message')
+    //   .then(res => {
+    //     if (res.data.length !== 0) setMessages(res.data);
+    //     else if (res.data.length === 0) {
+    //       setToast(true);
+    //       setTimeout(() => {
+    //         props.set(false);
+    //       }, 1500);
+    //     }
+    //   })
+    //   .catch(() => logout());
+    setMessages(mockData.snowball_data.message_list as Array<MsgResponse>);
   }, [userData]);
 
   return (

@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { theme } from '@utils';
+// prettier-ignore
+import { useNav } from '@hooks';
+// temp
 import { Button } from '@components';
 import Introduce from './Introduce';
 import LoginBox from './LoginBox';
@@ -19,6 +22,8 @@ const IntroButtonBox = () => {
   const [isIntroduce, setIsIntroduce] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
 
+  const navigate = useNav();
+
   return (
     <>
       {!isIntroduce && !isLogin ? (
@@ -29,9 +34,14 @@ const IntroButtonBox = () => {
             view={[isIntroduce, setIsIntroduce]}
           />
           <Button
-            text={'로그인'}
+            // text={'로그인'}
+            text={'시작하기'}
             color={theme.colors['--primary-green-primary']}
-            view={[isLogin, setIsLogin]}
+            view={[isLogin, setIsLogin]} // 로그인 기능 임시 제거
+            callback={() => {
+              // temp
+              navigate('/main');
+            }}
           />
         </StyledButtonBox>
       ) : null}

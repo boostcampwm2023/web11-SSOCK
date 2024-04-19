@@ -10,6 +10,7 @@ interface ButtonProps {
   color: string;
   view: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
   disabled?: boolean;
+  callback?: () => void; // temp
 }
 
 const StyledButton = styled(LongButton)<ButtonColor>`
@@ -20,7 +21,11 @@ const Button = (props: ButtonProps) => {
   return (
     <StyledButton
       color={props.color}
-      onClick={() => props.view[1](!props.view[0])}
+      onClick={
+        props.callback === null
+          ? () => props.view[1](!props.view[0])
+          : props.callback // temp
+      }
       disabled={props.disabled}
     >
       {props.text}
