@@ -42,9 +42,11 @@ jobs:
           aws-region: ap-northeast-2
 
       - name: Upload to S3
+        env:
+          BUCKET_NAME: ${{ secrets.AWS_S3_BUCKET_NAME}}
         run: |
           aws s3 sync \
-            ./front/dist s3://snowball-ssock --delete
+            ./front/dist s3://$BUCKET_NAME --delete
 
       - name: CloudFront Invalidation
         env:
