@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
-import { useCookies } from 'react-cookie';
+// import { useCookies } from 'react-cookie';
 import { createPortal } from 'react-dom';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { Loading } from '@utils';
-import { useLogout, useNav } from '@hooks';
+import { useLogout } from '@hooks';
 import { MessageListRecoil, SnowBallRecoil } from '@states';
+import { Message } from '@states';
 import { SnowGlobeCanvas, UIContainer } from '@components';
 import Introduce from '@pages/Intro/Introduce';
 //temp
@@ -82,9 +83,9 @@ const Main = () => {
   //   document.cookie = `${cookieName2}=${cookieValue2}; expires=${expire2.toUTCString()}; secure=${secure2}; path=/`;
   // };
 
-  const navigate = useNav();
+  // const navigate = useNav();
   const logout = useLogout();
-  const [cookie] = useCookies(['loggedin']);
+  // const [cookie] = useCookies(['loggedin']);
 
   const setMessageList = useSetRecoilState(MessageListRecoil);
   const [{ snowBallData }, setSnowBallBox] = useRecoilState(SnowBallRecoil);
@@ -132,7 +133,7 @@ const Main = () => {
     const messageList = mockData.snowball_data.message_list;
 
     setSnowBallBox(prev => ({ ...prev, snowBallData: resSnowballData }));
-    setMessageList(messageList);
+    setMessageList(messageList as Message[]);
     setIsLoading(true);
   };
 

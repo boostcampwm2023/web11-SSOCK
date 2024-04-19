@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import { useLogout, useNav } from '@hooks';
+import { useNav } from '@hooks';
 import { SnowBallRecoil } from '@states';
 
 interface ModalProps {

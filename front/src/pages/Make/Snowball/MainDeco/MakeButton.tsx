@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { useRecoilValue } from 'recoil';
+// import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import { LongButton, axios } from '@utils';
+import { LongButton } from '@utils';
 import { useNav } from '@hooks';
-import { MakeDecoRecoil } from '@states';
+
+// import { MakeDecoRecoil } from '@states';
 
 interface MakeButtonProps {
   color: string;
@@ -32,32 +33,32 @@ const StyledAlert = styled.div`
 
 const MakeButton = (props: ButtonProps) => {
   const navigate = useNav();
-  const { snowballName, mainDecoID, mainColor, bottomID, bottomColor } =
-    useRecoilValue(MakeDecoRecoil);
-  const [alert, setAlert] = useState(false);
+  // const { snowballName, mainDecoID, mainColor, bottomID, bottomColor } =
+  //   useRecoilValue(MakeDecoRecoil);
+  const [alert] = useState(false);
 
-  const ClickedMake = () => {
-    if (snowballName === '') {
-      setAlert(true);
-      return;
-    }
+  // const ClickedMake = () => {
+  //   if (snowballName === '') {
+  //     setAlert(true);
+  //     return;
+  //   }
 
-    const snowballInfo = {
-      title: snowballName,
-      main_decoration_id: mainDecoID,
-      main_decoration_color: mainColor,
-      bottom_decoration_id: bottomID,
-      bottom_decoration_color: bottomColor,
-      is_message_private: false
-    };
+  //   const snowballInfo = {
+  //     title: snowballName,
+  //     main_decoration_id: mainDecoID,
+  //     main_decoration_color: mainColor,
+  //     bottom_decoration_id: bottomID,
+  //     bottom_decoration_color: bottomColor,
+  //     is_message_private: false
+  //   };
 
-    axios
-      .post('/api/snowball', snowballInfo, { withCredentials: true })
-      .catch(() => navigate('/'));
+  //   axios
+  //     .post('/api/snowball', snowballInfo, { withCredentials: true })
+  //     .catch(() => navigate('/'));
 
-    props.view[1](!props.view[0]);
-    props.visible[1](-1);
-  };
+  //   props.view[1](!props.view[0]);
+  //   props.visible[1](-1);
+  // };
 
   return (
     <>

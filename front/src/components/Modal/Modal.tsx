@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { useSetRecoilState } from 'recoil';
+// import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
-import { axios, theme } from '@utils';
-import { useNav } from '@hooks';
-import { MessageListRecoil, SnowBallRecoil } from '@states';
+import { theme } from '@utils';
+
+// add axios
+// import { useNav } from '@hooks';
+// import { MessageListRecoil, SnowBallRecoil } from '@states';
 
 interface MsgResponse {
   user_id: number;
@@ -20,6 +22,8 @@ interface MsgResponse {
   is_deleted: boolean;
   opened: string;
   letter_id: number;
+  sentiment: 'positive' | 'neutral' | 'negative'; // temp
+  confidence: number; // temp
 }
 
 interface DeleteModalProps {
@@ -112,11 +116,12 @@ const MButton = styled.button`
 `;
 
 const DeleteModal = (props: DeleteModalProps) => {
-  const navigate = useNav();
+  // const navigate = useNav();
   const [isModalOpened, setIsModalOpened] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
-  const setMessageList = useSetRecoilState(MessageListRecoil);
-  const setSnowBallBox = useSetRecoilState(SnowBallRecoil);
+  console.log(props); // temp
+  // const setMessageList = useSetRecoilState(MessageListRecoil);
+  // const setSnowBallBox = useSetRecoilState(SnowBallRecoil);
 
   useEffect(() => {
     const closeModal = (e: MouseEvent) => {
@@ -135,10 +140,10 @@ const DeleteModal = (props: DeleteModalProps) => {
     };
   }, [isModalOpened]);
 
-  const deleteArrayElement = (arr: Array<MsgResponse>, index: number) => {
-    const newArr = arr.filter((_, idx) => idx !== index);
-    props.set(newArr);
-  };
+  // const deleteArrayElement = (arr: Array<MsgResponse>, index: number) => {
+  //   const newArr = arr.filter((_, idx) => idx !== index);
+  //   props.set(newArr);
+  // };
 
   const deleteMsg = async () => {
     setIsModalOpened(false);

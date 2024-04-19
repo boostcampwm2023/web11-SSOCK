@@ -3,8 +3,8 @@ import { BrowserRouter, Outlet, Route, Routes } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 
 const Intro = lazy(() => import('@pages/Intro/Intro'));
-const Visit = lazy(() => import('@pages/Visit/Visit'));
-const Deco = lazy(() => import('@pages/Visit/Deco/Deco'));
+// const Visit = lazy(() => import('@pages/Visit/Visit'));
+// const Deco = lazy(() => import('@pages/Visit/Deco/Deco'));
 const Nickname = lazy(() => import('@pages/Make/Nickname/Nickname'));
 const Snowball = lazy(() => import('@pages/Make/Snowball/Snowball'));
 const Main = lazy(() => import('@pages/Main/Main'));
