@@ -65,7 +65,14 @@ const MakeButton = (props: ButtonProps) => {
         {alert ? (
           <StyledAlert>스노우볼 이름을 입력해주세요 !</StyledAlert>
         ) : null}
-        <StyledButton color={props.color} onClick={ClickedMake}>
+        <StyledButton
+          color={props.color}
+          // onClick={ClickedMake}
+          onClick={() => {
+            //temp
+            navigate('/');
+          }}
+        >
           {props.text}
         </StyledButton>
       </MakeButtonWrap>

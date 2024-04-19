@@ -67,7 +67,8 @@ const Snowball = () => {
   const [make, setMake] = useState(false);
 
   const [cookie] = useCookies(['loggedin']);
-  const [{ snowBallData, userData }] = useRecoilState(SnowBallRecoil);
+  const [{ snowBallData, userData }, setSnowball] =
+    useRecoilState(SnowBallRecoil);
 
   const maxSnowball = 5;
 
@@ -75,17 +76,18 @@ const Snowball = () => {
   window.history.pushState({}, '', '/make/snowball');
 
   useEffect(() => {
-    if (!cookie.loggedin) {
-      logout();
-      return;
-    }
+    // if (!cookie.loggedin) {
+    //   logout();
+    //   return;
+    // }
 
     if (
       userData.nickname === null ||
       userData.nickname === undefined ||
       userData.nickname === ''
     ) {
-      navigate('/make/nickname');
+      // navigate('/make/nickname');
+      setSnowball(prev => ({ ...prev, nickname: '김부캠' })); // temp
       return;
     }
 

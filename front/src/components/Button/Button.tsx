@@ -22,7 +22,7 @@ const Button = (props: ButtonProps) => {
     <StyledButton
       color={props.color}
       onClick={
-        props.callback === null
+        props.callback === undefined
           ? () => props.view[1](!props.view[0])
           : props.callback // temp
       }
