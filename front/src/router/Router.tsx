@@ -17,10 +17,10 @@ const Router = () => {
         <Routes>
           <Route path="/" element={<Intro />} />
 
-          <Route path="/visit/:user" element={<Outlet />}>
+          {/* <Route path="/visit/:user" element={<Outlet />}>
             <Route path="" element={<Visit />} />
             <Route path="deco" element={<Deco />} />
-          </Route>
+          </Route> temp */}
 
           <Route path="/make" element={<Outlet />}>
             <Route path="nickname" element={<Nickname />} />
