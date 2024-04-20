@@ -46,7 +46,13 @@ jobs:
           BUCKET_NAME: ${{ secrets.AWS_S3_BUCKET_NAME}}
         run: |
           aws s3 sync \
-            ./front/dist s3://$BUCKET_NAME --delete
+            ./front/dist s3://$BUCKET_NAME --delete \
+          aws s3 sync ./front/dist s3://$BUCKET_NAME --exclude '*' --include '*.js.gz' --content-encoding 'gzip' --content-type 'application/javascript' --acl 'public-read' \
+          aws s3 sync ./front/dist s3://$BUCKET_NAME --exclude '*' --include '*.svg.gz' --content-encoding 'gzip' --content-type 'image/svg+xml' --acl 'public-read' \
+          aws s3 sync ./front/dist s3://$BUCKET_NAME --exclude '*' --include '*.ico.gz' --content-encoding 'gzip' --content-type 'image/x-icon' --acl 'public-read' \
+          aws s3 sync ./front/dist s3://$BUCKET_NAME --exclude '*' --include '*.ttf.gz' --content-encoding 'gzip' --content-type 'font/ttf' --acl 'public-read' \
+          aws s3 sync ./front/dist s3://$BUCKET_NAME --exclude '*' --include '*.mp3.gz' --content-encoding 'gzip' --content-type 'audio/mpeg' --acl 'public-read'
+
 
       - name: CloudFront Invalidation
         env:
