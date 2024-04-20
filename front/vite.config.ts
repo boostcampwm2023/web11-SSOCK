@@ -1,12 +1,14 @@
 import react from '@vitejs/plugin-react-swc';
 import { defineConfig } from 'vite';
-import mkcert from 'vite-plugin-mkcert';
+//import mkcert from 'vite-plugin-mkcert';
 
 export default defineConfig({
-  plugins: [react(), mkcert()],
+  plugins: [react(),
+  // mkcert(),
+  ],
   server: {
     host: '0.0.0.0',
-    https: true,
+    //https: true,
     proxy: {
       '/api': {
         target: `https://www.mysnowball.kr/api`,
