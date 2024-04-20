@@ -7,7 +7,7 @@ export default defineConfig({
   plugins: [react(),
   // mkcert(),
   compression({
-    include : /\.(js|css|html|svg|json|ico|eot|otf|ttf|woff|woff2|mp3)$/i,
+    include : /\.(js|svg|ico|ttf|mp3)$/i,
     threshold: 1400,
   })
   ],
