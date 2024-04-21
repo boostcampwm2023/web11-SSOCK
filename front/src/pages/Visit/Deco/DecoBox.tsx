@@ -25,6 +25,10 @@ const StyledImg = styled.img`
   width: 100%;
 `;
 
+const StyledPicture = styled.picture`
+  width: 100%;
+`;
+
 const StyledColorBox = styled(StyledBox)`
   background-color: ${props => props.color};
 `;
@@ -33,17 +37,26 @@ const DecoImgs = (folder: string) => {
   const setVisitDecoBox = useSetRecoilState(VisitDecoRecoil);
 
   return folder === 'Deco'
-    ? DECO.map(({ img }, index) => {
+    ? DECO.map(({ img, webp }, index) => {
         if (index > 0)
           return (
             <StyledBox key={img}>
-              <StyledImg
-                src={img}
-                alt="deco"
-                onClick={() =>
-                  setVisitDecoBox(prev => ({ ...prev, decoID: index }))
-                }
-              />
+              <StyledPicture>
+                <source
+                  srcSet={webp}
+                  type="image/webp"
+                  onClick={() =>
+                    setVisitDecoBox(prev => ({ ...prev, decoID: index }))
+                  }
+                />
+                <StyledImg
+                  src={img}
+                  alt="deco"
+                  onClick={() =>
+                    setVisitDecoBox(prev => ({ ...prev, decoID: index }))
+                  }
+                />
+              </StyledPicture>
             </StyledBox>
           );
       })
