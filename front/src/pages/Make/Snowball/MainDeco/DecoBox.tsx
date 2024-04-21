@@ -25,35 +25,57 @@ const StyledImg = styled.img`
   width: 100%;
 `;
 
+const StyledPicture = styled.picture`
+  width: 100%;
+`;
+
 const DecoImgs = (folder: string) => {
   const setMakeDecoBox = useSetRecoilState(MakeDecoRecoil);
 
   return folder === 'Main'
-    ? MAIN.map(({ img }, index) => {
+    ? MAIN.map(({ img, webp }, index) => {
         if (index > 0)
           return (
             <StyledBox key={img}>
-              <StyledImg
-                src={img}
-                alt={`mainDeco${index}`}
-                onClick={() =>
-                  setMakeDecoBox(prev => ({ ...prev, mainDecoID: index }))
-                }
-              />
+              <StyledPicture>
+                <source
+                  srcSet={webp}
+                  type="image/webp"
+                  onClick={() =>
+                    setMakeDecoBox(prev => ({ ...prev, mainDecoID: index }))
+                  }
+                />
+                <StyledImg
+                  src={img}
+                  alt={`mainDeco${index}`}
+                  onClick={() =>
+                    setMakeDecoBox(prev => ({ ...prev, mainDecoID: index }))
+                  }
+                />
+              </StyledPicture>
             </StyledBox>
           );
       })
-    : BOTTOM.map(({ img }, index) => {
+    : BOTTOM.map(({ img, webp }, index) => {
         if (index > 0)
           return (
             <StyledBox key={img}>
-              <StyledImg
-                src={img}
-                alt={`bottomDeco${index}`}
-                onClick={() =>
-                  setMakeDecoBox(prev => ({ ...prev, bottomID: index }))
-                }
-              />
+              <StyledPicture>
+                <source
+                  srcSet={webp}
+                  type="image/webp"
+                  onClick={() =>
+                    setMakeDecoBox(prev => ({ ...prev, bottomID: index }))
+                  }
+                />
+                <StyledImg
+                  src={img}
+                  alt={`bottomDeco${index}`}
+                  onClick={() =>
+                    setMakeDecoBox(prev => ({ ...prev, bottomID: index }))
+                  }
+                />
+              </StyledPicture>
             </StyledBox>
           );
       });
