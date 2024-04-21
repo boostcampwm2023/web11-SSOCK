@@ -16,8 +16,8 @@ const GlobalStyles = createGlobalStyle`
 
   @font-face {
     font-family: 'KingSejongInstitute';
-    src: url('/fonts/KingSejongInstitute-Regular.ttf') format('woff2'),
-    url('/fonts/KingSejongInstitute-Regular.ttf') format('woff');
+    src: url('/fonts/KingSejongInstitute-Regular.woff2') format('woff2'),
+    url('/fonts/KingSejongInstitute-Regular.woff') format('woff');
     font-weight: 400;
     font-style: normal;
     font-display: swap;
