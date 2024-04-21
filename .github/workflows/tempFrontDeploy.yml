@@ -46,7 +46,7 @@ jobs:
           BUCKET_NAME: ${{ secrets.AWS_S3_BUCKET_NAME }}
         run: |
           # Upload all files first, then apply specific settings for compressed files
-          aws s3 sync ./front/dist s3://$BUCKET_NAME --delete
+          # aws s3 sync ./front/dist s3://$BUCKET_NAME --delete
           aws s3 sync ./front/dist s3://$BUCKET_NAME --exclude '*' \
             --include '*.js.gz' --content-encoding 'gzip' --content-type 'application/javascript' \
             --include '*.svg.gz' --content-encoding 'gzip' --content-type 'image/svg+xml' \
