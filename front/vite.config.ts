@@ -4,12 +4,13 @@ import { defineConfig } from 'vite';
 import { compression } from 'vite-plugin-compression2';
 
 export default defineConfig({
-  plugins: [react(),
-  // mkcert(),
-  compression({
-    include : /\.(js|svg|ico|ttf|mp3)$/i,
-    threshold: 1400,
-  })
+  plugins: [
+    react(),
+    // mkcert(),
+    compression({
+      include: /\.(js|svg|ico|ttf|woff|mp3)$/i,
+      threshold: 1400
+    })
   ],
   server: {
     host: '0.0.0.0',
