@@ -45,13 +45,13 @@ jobs:
         env:
           BUCKET_NAME: ${{ secrets.AWS_S3_BUCKET_NAME }}
         run: |
+          aws s3 sync ./front/dist s3://$BUCKET_NAME --delete
           aws s3 sync ./front/dist s3://$BUCKET_NAME --exclude '*' --include '*.js.gz' --content-encoding 'gzip' --content-type 'application/javascript'
           aws s3 sync ./front/dist s3://$BUCKET_NAME --exclude '*' --include '*.svg.gz' --content-encoding 'gzip' --content-type 'image/svg+xml'
           aws s3 sync ./front/dist s3://$BUCKET_NAME --exclude '*' --include '*.ico.gz' --content-encoding 'gzip' --content-type 'image/x-icon'
           aws s3 sync ./front/dist s3://$BUCKET_NAME --exclude '*' --include '*.ttf.gz' --content-encoding 'gzip' --content-type 'font/ttf'
+          aws s3 sync ./front/dist s3://$BUCKET_NAME --exclude '*' --include '*.woff.gz' --content-encoding 'gzip' --content-type 'font/woff'
           aws s3 sync ./front/dist s3://$BUCKET_NAME --exclude '*' --include '*.mp3.gz' --content-encoding 'gzip' --content-type 'audio/mpeg'
-
-
 
       - name: CloudFront Invalidation
         env:

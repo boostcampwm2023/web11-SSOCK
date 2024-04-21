@@ -1,14 +1,17 @@
 import react from '@vitejs/plugin-react-swc';
 import { defineConfig } from 'vite';
-import mkcert from 'vite-plugin-mkcert';
 import { compression } from 'vite-plugin-compression2';
-
+import mkcert from 'vite-plugin-mkcert';
 
 export default defineConfig({
-  plugins: [react(), mkcert(),  compression({
-    include : /\.(js|svg|ico|ttf|mp3)$/i,
-    threshold: 1400,
-  })],
+  plugins: [
+    react(),
+    mkcert(),
+    compression({
+      include: /\.(js|svg|ico|ttf|woff|mp3)$/i,
+      threshold: 1400
+    })
+  ],
   server: {
     host: '0.0.0.0',
     https: true,
