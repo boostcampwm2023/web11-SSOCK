@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useCookies } from 'react-cookie';
 import { useSetRecoilState } from 'recoil';
-import styled from 'styled-components';
+// import styled from 'styled-components';
 import { useNav } from '@hooks';
 import { Message, MessageListRecoil } from '@states';
 import { SnowGlobeCanvas, UIContainer } from '@components';
@@ -9,16 +9,16 @@ import mockData from '@mock';
 import IntroButtonBox from './IntroButtonBox';
 import MsgBox from './MsgBox';
 
-const TitleDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 100%;
-  height: 10rem;
-  text-align: center;
-  color: ${props => props.theme.colors['--primary-yellow']};
-  font: ${props => props.theme.font['--normal-title-font']};
-`;
+// const TitleDiv = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   width: 100%;
+//   height: 10rem;
+//   text-align: center;
+//   color: ${props => props.theme.colors['--primary-yellow']};
+//   font: ${props => props.theme.font['--normal-title-font']};
+// `;
 
 const Intro = () => {
   const navigate = useNav();
@@ -34,9 +34,9 @@ const Intro = () => {
     <>
       <SnowGlobeCanvas snowBallData={mockData.snowball_data} />
       <UIContainer>
-        <TitleDiv>
+        {/* <TitleDiv>
           <span>스노우볼 속 내 마음</span>
-        </TitleDiv>
+        </TitleDiv> */}
         <MsgBox />
         <IntroButtonBox />
       </UIContainer>
